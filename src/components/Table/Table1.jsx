@@ -85,7 +85,7 @@ const Table1 = () => {
               </span>
             </h1>
 
-            <div className="flex flex-row items-center justify-start">
+            <div className="flex flex-row items-center justify-start flex items-center justify-center ml-80">
               <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full  mr-96 ">
                 <input
                   className="w-full py-2 px-12 rounded-full "
@@ -305,7 +305,7 @@ const Table1 = () => {
                             </td>
 
                             <td className="py-1 border-b flex gap-2">
-                              <Link to="/EditForm1 ">
+                              <Link to={`/Channel_Visitors/${visitor.partnerId}`}>
                                 <PiNotePencilBold
                                   onClick={() => handleEdit(visitor._id)}
                                   style={{

@@ -60,8 +60,7 @@ const Table4 = () => {
             </div>
 
             <div
-              className="flex flex-col md:flex-row justify-between mb-6
-"
+              className="flex flex-col md:flex-row  mb-6 flex items-center justify-center ml-80"
             >
               <div className="relative mb-4 md:mb-0 md:w-[619px] h-[48px] mt-4 ">
                 <input
@@ -82,7 +81,7 @@ const Table4 = () => {
                   />
                 </svg>
               </div>
-              <button className="bg-[#3D2314] text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] w-[206px] mr-[450px] mt-4">
+              <button className="bg-[#3D2314] text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] w-[206px] mr-[450px] ml-10 mt-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 mr-2"

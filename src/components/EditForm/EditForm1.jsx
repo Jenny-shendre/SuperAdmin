@@ -1,15 +1,15 @@
-
-
 import React from "react";
-import { FaRegEdit } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
+import { FaRegEdit } from "react-icons/fa";
 
 function EditForm1() {
+ 
+
   return (
     <>
       <div>
         <div className="flex flex-wrap ">
-          <div className="ml-8 mt-8">
+        <div className="ml-8 mt-8">
             <h1
               className="font-bold flex items-center gap-1"
               style={{
@@ -45,31 +45,28 @@ function EditForm1() {
               </span>
             </h1>
           </div>
-          <div className="lg:ml-[710px] mt-5">
+          <div className="lg:ml-[1000px] mt-9">
             <button
-              className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
-              //   onClick={handleEdit}
+              className="flex lg:px-8 lg:py-4 editbutton bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
+             
             >
-              <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-                <FaRegEdit />
-              </h4>
+           <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
+                  <FaRegEdit />
+                </h4>
               <p className="text-[16px]">Edit Details</p>
             </button>
           </div>
         </div>
-        <main className="flex flex-wrap lg:ml-8 lg:mt-4">
+        <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10">
           <div
-            className="lg:w-[689px] lg:h-[792px] bg-[#FFFFFF] p-[15px] rounded-2xl mb-6 lg:mb-0 lg:mr-4"
-            style={{
-              borderRadius: "24px",
-              boxShadow: "0px 0px 6.7px 0px #632E04",
-            }}
+            className="lg:w-[695px] lg:h-[792px] bg-[#FFFFFF] p-[24px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 lg:mr-4"
+            style={{ borderRadius: "24px" }}
           >
             <h2
               className="text-[20px] text-center font-[Manrope] mb-4"
               style={{ fontWeight: "700" }}
             >
-              Customer and Channel Partner Detail
+             Customer and Channel Partner Detail
             </h2>
             <form >
               <div >
@@ -248,10 +245,75 @@ function EditForm1() {
               </div>
             </form>
           </div>
+          <div className="lg:w-[555px] lg:h-[683px] bg-[#FFFFFF] p-[8px] rounded-2xl shadow-lg shadow-[#632E04]">
+            <div className="mt-4">
+              <h2
+                className="text-center mb-4 text-[#000000] text-[20px] font-[Manrope]"
+                style={{ fontWeight: "700" }}
+              >
+                Customer Activity Log
+              </h2>
+            </div>
+            <table className="w-full text-leftm ">
+              <thead className="">
+                <tr className=" text-[#FFFFFF]">
+                  <th
+                    className="border-b p-2  bg-[#3D2314] "
+                    style={{ fontSize: "14px", fontWeight: "400" }}
+                  >
+                    Serial No
+                  </th>
+                  <th
+                    className="border-b p-2 bg-[#3D2314]"
+                    style={{ fontSize: "14px", fontWeight: "400" }}
+                  >
+                    Date
+                  </th>
+                  <th
+                    className="border-b p-2 bg-[#3D2314]"
+                    style={{ fontSize: "14px", fontWeight: "400" }}
+                  >
+                    Timing
+                  </th>
+                  <th
+                    className="border-b p-2 bg-[#3D2314]"
+                    style={{ fontSize: "14px", fontWeight: "400" }}
+                  >
+                    Project
+                  </th>
+                  <th
+                    className="border-b p-2 bg-[#3D2314]"
+                    style={{ fontSize: "14px", fontWeight: "400" }}
+                  >
+                   Channel Partner
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                className=" border-b p-2  text-[#000000] text-[16px]  font-[Manrope] "
+                style={{ fontWeight: "500" }}
+              >
+                <tr>
+                  <td className="border-b p-2 ">1</td>
+                  <td className="border-b p-2 ">12/05/2024</td>
+                  <td className="border-b p-2 ">08:24 AM</td>
+                  <td className="border-b p-2 ">Project A</td>
+                  <td className="border-b p-2 ">Anand Jaiswal</td>
+                </tr>
+                <tr>
+                  <td className="border-b p-2">2</td>
+                  <td className="border-b p-2">12/05/2024</td>
+                  <td className="border-b p-2">08:24 AM</td>
+                  <td className="border-b p-2">Project A</td>
+                  <td className="border-b p-2">Anand Jaiswal</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </main>
       </div>
-    </>
+     </>
   );
 }
 
-export default EditForm1;
+ export default EditForm1;

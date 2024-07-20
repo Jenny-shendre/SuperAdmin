@@ -118,7 +118,7 @@ const Table2 = () => {
               </span>
             </h1>
 
-            <div className="flex flex-row items-center justify-start">
+            <div className="flex flex-row items-center justify-start text-center flex items-center justify-center  ml-80">
               <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full  mr-96 ">
                 <input
                   className="w-full py-2 px-12 rounded-full "
@@ -140,7 +140,7 @@ const Table2 = () => {
               </div>
             </div>
           </div>
-          <div className="outer-wrapper">
+          <div className="outer-wrapper text-center flex items-center justify-center">
             <div className="table-wrapper" style={{ width: "999px" }}>
               {data.length !== 0 ? (
                 <table
@@ -170,8 +170,8 @@ const Table2 = () => {
                           fontWeight: "500",
                           lineHeight: "16.39px",
                           textAlign: "center",
-                          padding: "5spx",
-                          width: "180px",
+                          padding: "7px",
+                          width: "95px",
                         }}>
                         {/* Response Time */}
                         Channel ID
@@ -279,8 +279,8 @@ const Table2 = () => {
 
                           <Link to=" ">
                             <td className="py-3  text-center flex items-center justify-center">
-                              <FaCircle className="mr-2 text-gray-500 " />
-                              <span>{visitor.name} </span>
+                              <FaCircle  className="mr-2 ml-16 text-gray-500 " style={{width:"30px",height:"30px"}}/>
+                              <span className="truncate flex-grow ml-2 #000000" style={{fontSize:"16px"}}>{visitor.name} </span>
                             </td>
                           </Link>
 
