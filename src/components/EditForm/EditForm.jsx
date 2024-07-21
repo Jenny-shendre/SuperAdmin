@@ -8,6 +8,7 @@ import axios from "axios";
 import Loding from "../Loding/Loding";
 const FormEdit = () => {
   const [loading, setLoading] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const [FormData, setFormData] = useState({
     name: "",
     mobile: "",
@@ -20,7 +21,9 @@ const FormEdit = () => {
     timeDuration: "",
     createdAt: "",
   });
-
+  const toggleEdit = () => {
+    setEdit((prevEdit) => !prevEdit);
+  };
   const location = useLocation();
   const pathname = location.pathname;
   const id = pathname.substring(pathname.lastIndexOf("/") + 1);
@@ -38,7 +41,7 @@ const FormEdit = () => {
       setLoading(false);
     }
   };
-  console.log(FormData);
+
   useEffect(() => {
     getData();
   }, [id]);
@@ -74,12 +77,27 @@ const FormEdit = () => {
     }));
   };
 
+  const toggleEditMode = async (id) => {
+    setEditMode(!editMode);
+
+    try {
+      const res = await axios.put(
+        `https://project-rof.vercel.app/api/customers/update/${id}`,
+        {
+          ...FormData,
+        }
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       {loading ? (
         <Loding />
       ) : (
-        <div>
+        <div key={FormData.mobile}>
           <div className="flex flex-wrap ">
             <div className="ml-8 mt-8">
               <h1
@@ -116,13 +134,15 @@ const FormEdit = () => {
             </div>
             <div className="lg:ml-[710px] mt-5">
               <button
+                key={FormData._id}
                 className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
-                //   onClick={handleEdit}
-              >
+                onClick={() => toggleEditMode(FormData._id)}>
                 <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
                   <FaRegEdit />
                 </h4>
-                <p className="text-[16px]">Edit Details</p>
+                <p className="text-[16px]">
+                  {editMode ? "Save" : "Edit Details"}
+                </p>
               </button>
             </div>
           </div>
@@ -155,6 +175,8 @@ const FormEdit = () => {
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                           placeholder="John Doe"
                           required
+                          name="name"
+                          readOnly={!editMode}
                           value={FormData.name}
                           onChange={handleChange}
                         />
@@ -172,8 +194,10 @@ const FormEdit = () => {
                           placeholder="9425846894"
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           required
+                          name="mobile"
                           value={FormData.mobile}
                           onChange={handleChange}
+                          readOnly={editMode}
                         />
                       </div>
                     </div>
@@ -189,8 +213,10 @@ const FormEdit = () => {
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="johndoe@gmail.com"
                         required
+                        name="email"
                         value={FormData.email}
                         onChange={handleChange}
+                        readOnly={!editMode}
                       />
                     </div>
                   </div>
@@ -208,9 +234,10 @@ const FormEdit = () => {
                           id="Project A"
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                           placeholder="Project A"
-                          required
+                          name="projectName"
                           value={FormData.projectName}
                           onChange={handleChange}
+                          readOnly={editMode}
                         />
                       </div>
                       <div>
@@ -220,14 +247,15 @@ const FormEdit = () => {
                           Customer ID
                         </label>
                         <input
-                          readOnly
                           type="text"
                           id="Customer ID"
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                           placeholder="ROF0001"
                           required
+                          name="customerId"
                           value={FormData.customerId}
                           onChange={handleChange}
+                          readOnly={editMode}
                         />
                       </div>
                     </div>
@@ -244,8 +272,10 @@ const FormEdit = () => {
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="Samyak Gandhi"
                         required
+                        name="attendantName"
                         value={FormData.attendantName}
                         onChange={handleChange}
+                        readOnly={editMode}
                       />
                     </div>
                   </div>
@@ -260,8 +290,10 @@ const FormEdit = () => {
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        name="createdAt"
                         value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
+                        readOnly={editMode}
                       />
                     </div>
                     <div>
@@ -273,8 +305,10 @@ const FormEdit = () => {
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        name="responseTime"
                         value={ResponseAt(FormData.createdAt)}
                         onChange={handleChange}
+                        readOnly={editMode}
                       />
                     </div>
                     <div>
@@ -286,8 +320,10 @@ const FormEdit = () => {
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        name="timeDuration"
                         value={FormData.timeDuration}
                         onChange={handleChange}
+                        readOnly={editMode}
                       />
                     </div>
                   </div>
@@ -299,7 +335,11 @@ const FormEdit = () => {
                         style={{ fontWeight: "500" }}>
                         Executive Notes
                       </label>
-                      <textarea className="lg:w-[647px] lg:h-[100px] border-[2px] border-[#3D2314] rounded-lg mt-1"></textarea>
+                      <textarea
+                        className="lg:w-[647px] lg:h-[100px] border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        readOnly={!editMode}>
+                        {FormData.notes}
+                      </textarea>
                     </div>
                   </div>
                 </div>
