@@ -15,17 +15,17 @@ const Table = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [deleteCustomerId, setDeleteCustomerId] = useState(null);
 
-  const deletedAt = async (id, customerId) => {
-    const confirmDelete = window.confirm(
-      `Do you really want to delete the record with ID ${customerId}?`
-    );
-
-    if (confirmDelete) {
+  const deletedAt = async () => {
+    if (deleteId) {
       await axios.delete(
-        `https://project-rof.vercel.app/api/customers/delete/${id}`
+        `https://project-rof.vercel.app/api/customers/delete/${deleteId}`
       );
       fetchData(); // Refresh data after deletion
+      setShowPopup(false); // Hide popup after deletion
     }
   };
 
@@ -289,7 +289,7 @@ const Table = () => {
                             {visitor.projectName}
                           </td>
 
-                          <td className="py-1 border-b text-center text-center">
+                          <td className="py-1 border-b  text-center">
                             {visitor.attendantName}
                           </td>
 
@@ -306,9 +306,11 @@ const Table = () => {
                             </Link>
 
                             <RiDeleteBin6Line
-                              onClick={() =>
-                                deletedAt(visitor._id, visitor.customerId)
-                              }
+                              onClick={() => {
+                                setShowPopup(true);
+                                setDeleteId(visitor._id);
+                                setDeleteCustomerId(visitor.customerId);
+                              }}
                               style={{
                                 cursor: "pointer",
                                 fontSize: "18px",
@@ -325,26 +327,39 @@ const Table = () => {
               )}
             </div>
           </div>
-          {/* <div className="flex justify-end items-center  gap-4">
-                  <span>
-                   Page {currentPage}-{totalPages} of {totalPages}
-                  </span> */}
-          <div>
-            {/* <button
-                onClick={prevPage}
-                disabled={currentPage === 1}
-                className="py-2 px-4 text-[#632E04] rounded">
-                &lt;
-              </button> */}
-            {/* <button
-                onClick={nextPage}
-                disabled={currentPage === totalPages}
-                className="py-2 px-4 text-[#632E04] rounded">
-                &gt;
-              </button> */}
-          </div>
+          {showPopup && (
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="fixed inset-0 bg-black opacity-50"></div>
+              <div className="Delete-popup w-[257px] h-[192px]  py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
+                <div className="text-center">
+                  <p className="font-manrope text-[20px] font-medium">
+                    Are you sure you want to delete this row?
+                  </p>
+                  <p className="font-manrope text-[12px] font-medium text-[#6A6A6A] mt-2">
+                    This action cannot be undone.
+                  </p>
+                  <div className="delete-cont flex justify-center items-center w-[197px] ml-1 h-[33px] gap-6 mt-4">
+                    <button
+                      className="w-[85px]  h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
+                      onClick={deletedAt}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="w-[85px]  h-[33px] p-2.5 rounded-md border-black border flex items-center justify-center"
+                      onClick={() => setShowPopup(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  <p className="font-manrope text-[12px] text-[#6A6A6A] font-medium text-center mt-2">
+                    Select "Delete" to confirm.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-        // </div>
       )}
     </div>
   );

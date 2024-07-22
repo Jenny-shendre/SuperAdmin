@@ -1,11 +1,11 @@
 @media only screen and (max-width: 1180px) {
 
 
-  .TNav{
-         width: 939px !important;
+  .TNav {
+    width: 939px !important;
   }
 
-  .Tab3{
+  .Tab3 {
     width: 935px !important;
   }
 }
@@ -13,29 +13,29 @@
 @media only screen and (max-width: 1024px) {
 
 
-    .TNav{
-           width: 782px !important;
-    }
-  
-    .Tab3{
-      width: 785px !important;
-    }
+  .TNav {
+    width: 782px !important;
   }
- 
-th{
-    position: sticky;
-    top: -2px;
-    background:  #E8E8E8;
+
+  .Tab3 {
+    width: 785px !important;
+  }
 }
 
-.table-wrapper{
-    max-height: 726px !important;
-    overflow-y: scroll;
+th {
+  position: sticky;
+  top: -2px;
+  background: #E8E8E8;
 }
 
-div input::placeholder{
-    color: #3D2314;
-    font-weight: 500;
-    font-size: 16px;
-    font-family: Manrope;
+.table-wrapper {
+  max-height: 726px !important;
+  overflow-y: scroll;
+}
+
+div input::placeholder {
+  color: #3D2314;
+  font-weight: 500;
+  font-size: 16px;
+  font-family: Manrope;
 }
