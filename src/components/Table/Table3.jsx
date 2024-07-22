@@ -356,6 +356,7 @@ const Table3 = () => {
                         <td className="py-1 px-3 border-b text-center">
                          
                         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                          <Link to='/EditForm2'>
                           <PiNotePencilBold
                             onClick={() => handleEdit(visitor._id)}
                             style={{
@@ -364,6 +365,7 @@ const Table3 = () => {
                               color: "#632E04",
                             }}
                           />
+                          </Link>
                           </div>
                           
                           

@@ -13,6 +13,7 @@ import eleven from "../../assets/eleven.png";
 import twelve from "../../assets/twelve.png";
 import { IoIosArrowForward } from "react-icons/io";
 import projectUploadIcon from "../../assets/project-upload.png";
+import { Link } from "react-router-dom";
 
 const projects = [
   { name: "ROF Aalayas", image: one },
@@ -121,7 +122,7 @@ const Table4 = () => {
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 absolute left-3 top-3.5 text-gray-400"
+                  className="h-5 w-5 absolute left-3 top-3.5 text-[#3D2314]"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -151,18 +152,23 @@ const Table4 = () => {
                 Add new Project
               </button>
             </div>
-
+                
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            
               {projects.map((project, index) => (
                 <div
                   key={index}
                   className="bg-white rounded-lg overflow-hidden shadow"
                 >
+                  <Link to="/Table7">
                   <img
                     src={project.image}
                     alt={project.name}
                     className="w-[408px] h-[178px] object-cover"
                   />
+                  </Link>
+                  
+                  
                   <div className="p-4 flex justify-between items-center">
                     <h3
                       className="font-[16px]"
@@ -170,6 +176,7 @@ const Table4 = () => {
                     >
                       {project.name}
                     </h3>
+                    
                     <button className="text-gray-500">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -180,8 +187,11 @@ const Table4 = () => {
                         <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                       </svg>
                     </button>
+                    
                   </div>
+                  
                 </div>
+                
               ))}
             </div>
           </div>
