@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import one from "../../assets/one.png";
 import two from "../../assets/two.png";
 import three from "../../assets/three.png";
@@ -12,6 +12,7 @@ import ten from "../../assets/ten.png";
 import eleven from "../../assets/eleven.png";
 import twelve from "../../assets/twelve.png";
 import { IoIosArrowForward } from "react-icons/io";
+import projectUploadIcon from "../../assets/project-upload.png";
 
 const projects = [
   { name: "ROF Aalayas", image: one },
@@ -29,13 +30,65 @@ const projects = [
 ];
 
 const Table4 = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [projectName, setProjectName] = useState("");
+  const [projectAddress, setProjectAddress] = useState("");
+  const [validationError, setValidationError] = useState("");
+  const popupRef = useRef();
+  const fileInputRef = useRef();
+
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setShowPopup(false);
+    }
+  };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setUploadedImage(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleAddProject = () => {
+    if (!projectName || !projectAddress || !uploadedImage) {
+      setValidationError("All fields are required.");
+      return;
+    }
+
+    const newProject = {
+      name: projectName,
+      address: projectAddress,
+      image: uploadedImage,
+    };
+
+    // Reset form and close popup
+    setUploadedImage(null);
+    setProjectName("");
+    setProjectAddress("");
+    setShowPopup(false);
+    setValidationError("");
+    console.log("Project added:", newProject);
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      <div className="flex h-screen  bg-[#F7F3E8]  ">
-        <main className="flex-1 overflow-y-auto ">
-          {/* Project content */}
+      <div className="flex h-screen bg-[#F7F3E8]">
+        <main className="flex-1 overflow-y-auto">
           <div className="p-6">
-            <div className="ml-0 ">
+            <div className="ml-0">
               <h1
                 className="font-bold flex items-center gap-1"
                 style={{
@@ -59,14 +112,12 @@ const Table4 = () => {
               </h1>
             </div>
 
-            <div
-              className="flex flex-col md:flex-row  mb-6 flex items-center justify-center ml-80"
-            >
-              <div className="relative mb-4 md:mb-0 md:w-[619px] h-[48px] mt-4 ">
+            <div className="flex flex-col md:flex-row mb-6 items-center justify-center ml-80">
+              <div className="relative mb-4 md:mb-0 md:w-[619px] h-[48px] mt-4">
                 <input
                   type="text"
                   placeholder="Search"
-                  className="w-full pl-10 pr-4 py-2 rounded-full border border-[#3D2314] focus:outline-none focus:ring-2 focus:ring-brown-500 h-[48px] "
+                  className="w-full pl-10 pr-4 py-2 rounded-full border border-[#3D2314] focus:outline-none focus:ring-2 focus:ring-brown-500 h-[48px]"
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +132,10 @@ const Table4 = () => {
                   />
                 </svg>
               </div>
-              <button className="bg-[#3D2314] text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] w-[206px] mr-[450px] ml-10 mt-4">
+              <button
+                onClick={() => setShowPopup(true)}
+                className="bg-[#3D2314] text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] w-[206px] mr-[450px] ml-10 mt-4"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 mr-2"
@@ -132,6 +186,68 @@ const Table4 = () => {
             </div>
           </div>
         </main>
+
+        {showPopup && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="fixed inset-0 bg-black opacity-50"></div>
+            <div
+              ref={popupRef}
+              className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
+            >
+              <div
+                className="upload-box w-[323px] h-[189px] border-dotted border flex flex-col items-center justify-center gap-3 cursor-pointer"
+                onClick={() => fileInputRef.current.click()}
+              >
+                {uploadedImage ? (
+                  <img
+                    src={uploadedImage}
+                    alt="Uploaded"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <>
+                    <img
+                      src={projectUploadIcon}
+                      alt="Upload"
+                      className="w-12 h-12"
+                    />
+                    <p className="font-manrope text-lg font-normal">
+                      Upload Image
+                    </p>
+                  </>
+                )}
+              </div>
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleImageUpload}
+              />
+              <input
+                type="text"
+                className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mt-6"
+                placeholder="Project Name"
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
+              />
+              <textarea
+                className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mt-6"
+                placeholder="Project Address"
+                value={projectAddress}
+                onChange={(e) => setProjectAddress(e.target.value)}
+              />
+              <button
+                className="add-project-button w-[170px] h-12 p-3 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white mt-6"
+                onClick={handleAddProject}
+              >
+                Add new Project
+              </button>
+              {validationError && (
+                <p className="text-red-500 mt-2">{validationError}</p>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

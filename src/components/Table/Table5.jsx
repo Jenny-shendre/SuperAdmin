@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { LuPencilLine, LuEyeOff, LuEye } from "react-icons/lu";
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import { IoIosArrowForward } from "react-icons/io";
@@ -9,6 +9,7 @@ import "../Home.css";
 import { Link } from "react-router-dom";
 import { FaEyeSlash, FaCircle } from "react-icons/fa";
 import { IoOpenOutline } from "react-icons/io5";
+import DropIcon from "../../assets/DropIcon.png";
 
 const Table5 = () => {
   const [valueinput, setvalueinput] = useState("");
@@ -17,6 +18,13 @@ const Table5 = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
+  const [showTeamPopup, setShowTeamPopup] = useState(false);
+  const [showAddTeamMemberPopup, setShowAddTeamMemberPopup] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const teamPopupRef = useRef();
+  const addTeamMemberPopupRef = useRef();
+  const dropdownRef = useRef();
 
   const handleView = (id) => {
     if (viewedItems.includes(id)) {
@@ -30,12 +38,12 @@ const Table5 = () => {
 
   const deletedAt = async (id, customerId) => {
     const confirmDelete = window.confirm(
-     ` Do you really want to delete the record with ID ${customerId}?`
+      ` Do you really want to delete the record with ID ${customerId}?`
     );
 
     if (confirmDelete) {
       await axios.delete(
-       " https://project-rof.vercel.app/api/customers/delete/${id}"
+        `https://project-rof.vercel.app/api/customers/delete/${id}`
       );
       fetchData();
     }
@@ -68,6 +76,101 @@ const Table5 = () => {
     const teamLetter = String.fromCharCode(65 + index);
     return `Team ${teamLetter}`;
   };
+
+  const handleOutsideClick = (event) => {
+    if (
+      teamPopupRef.current &&
+      !teamPopupRef.current.contains(event.target)
+    ) {
+      setShowTeamPopup(false);
+    }
+    if (
+      addTeamMemberPopupRef.current &&
+      !addTeamMemberPopupRef.current.contains(event.target)
+    ) {
+      setShowAddTeamMemberPopup(false);
+    }
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target)
+    ) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showTeamPopup || showAddTeamMemberPopup || isDropdownOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [showTeamPopup, showAddTeamMemberPopup, isDropdownOpen]);
+
+  // add team members popup logic
+
+  const [teamName, setTeamName] = useState('');
+  const [project, setProject] = useState('');
+  const [manager, setManager] = useState('');
+  const [members, setMembers] = useState([]);
+  const [newMember, setNewMember] = useState('');
+  const [isCreating, setIsCreating] = useState(false);
+  const [createStatus, setCreateStatus] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // New state for error message
+
+  const handleAddMember = () => {
+    if (newMember.trim() && !members.includes(newMember.trim())) {
+      setMembers([...members, newMember.trim()]);
+      setNewMember('');
+    }
+  };
+
+  const handleRemoveMember = (member) => {
+    setMembers(members.filter((m) => m !== member));
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleAddMember();
+    }
+  };
+
+  const handleProjectChange = (projectName) => {
+    setManager(projectName);
+    setIsDropdownOpen(false);
+  };
+
+  const handleSubmit = async () => {
+    if (teamName && project && manager && members.length > 0) {
+      setIsCreating(true);
+      setErrorMessage(''); // Clear any previous error messages
+
+      try {
+        await axios.post('https://project-rof.vercel.app/api/teams/create', {
+          teamName,
+          project,
+          manager,
+          members
+        });
+
+        setCreateStatus('Team Created Successfully ✓');
+      } catch (error) {
+        console.error('Error creating team:', error);
+        setCreateStatus('Error Creating Team');
+      } finally {
+        setIsCreating(false);
+      }
+    } else {
+      setErrorMessage('Please fill in all fields and add at least one team member.');
+    }
+
+  };
+
+
+
 
   return (
     <div className="arrowss">
@@ -125,7 +228,8 @@ const Table5 = () => {
                 />
               </div>
               <button
-                className="bg-[#3D2314] text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] ml-4 mt-4 lg:mt-0"
+                onClick={() => setShowTeamPopup(!showTeamPopup)}
+                className="add-team-button bg-[#3D2314] text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] ml-4 mt-4 lg:mt-0"
                 style={{
                   height: "48px",
                   width: "120px",
@@ -147,6 +251,32 @@ const Table5 = () => {
                 </svg>
                 Add
               </button>
+              {/* Add teams buttons */}
+              {showTeamPopup && (
+                <>
+                  <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+                  <div
+                    ref={teamPopupRef}
+                    className="ml-[594px] mt-[190px] team-creation-popup w-[125px] h-[117px] rounded-[4px] bg-white absolute z-50 flex flex-col justify-between"
+                  >
+                    <button
+                      className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
+                      onClick={() => {
+                        setShowTeamPopup(false);
+                        setShowAddTeamMemberPopup(true);
+                      }}
+                    >
+                      Add Team
+                    </button>
+                    <button className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]">
+                      Add Manager
+                    </button>
+                    <button className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]">
+                      Add Executive
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
@@ -355,6 +485,124 @@ const Table5 = () => {
               )}
             </div>
           </div>
+
+          {/* Add team member screen */}
+          {showAddTeamMemberPopup && (
+            <>
+              <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+              <div
+                ref={addTeamMemberPopupRef}
+                className="fixed inset-0 flex items-center justify-center z-50"
+              >
+                <div className="add-team-members w-[488px] h-fit p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+                  <button
+                    className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                    onClick={() => setShowAddTeamMemberPopup(false)}
+                  >
+                    X
+                  </button>
+                  <input
+                    type="text"
+                    value={teamName}
+                    onChange={(e) => setTeamName(e.target.value)}
+                    className="w-[440px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4"
+                    placeholder="Team Name"
+                  />
+                  <input
+                    type="text"
+                    value={project}
+                    onChange={(e) => setProject(e.target.value)}
+                    className="w-[440px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4"
+                    placeholder="Assign Project"
+                  />
+
+                  <div
+                    className="relative w-[440px] h-12 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 block shadow-sm focus:border-brown-500 focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
+                    <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
+                      {manager || "Assign Manager"}
+                      <img className="ml-2 h-2 w-3 " src={DropIcon} alt="Dropdown Icon" />
+                    </div>
+                    {isDropdownOpen && (
+                      <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
+                        <div
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                          onClick={() => handleProjectChange("Manager 1")}
+                        >
+                          Manager 1
+                        </div>
+                        <div
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                          onClick={() => handleProjectChange("Manager 2")}
+                        >
+                          Manager 2
+                        </div>
+                        <div
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                          onClick={() => handleProjectChange("Manager 3")}
+                        >
+                          Manager 3
+                        </div>
+                        <div
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                          onClick={() => handleProjectChange("Manager 4")}
+                        >
+                          Manager 4
+                        </div>
+                        <div
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                          onClick={() => handleProjectChange("Manager 5")}
+                        >
+                          Manager 5
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="w-[440px] h-[127px] p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 overflow-y-auto">
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {members.map((member, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center bg-white px-2 py-1 rounded-md border border-gray-300"
+                        >
+                          <button
+                            onClick={() => handleRemoveMember(member)}
+                            className="text-black text-[22px]"
+                          >
+                            &times;
+                          </button>
+                          <span className="ml-2 ">{member}</span>
+
+                        </div>
+                      ))}
+                    </div>
+                    <input
+                      type="text"
+                      value={newMember}
+                      onChange={(e) => setNewMember(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      className="add-member"
+                      placeholder="Add Team Member"
+                    />
+                  </div>
+
+                  <button
+                    onClick={handleSubmit}
+                    className="w-fit create-team-btn h-12 p-3 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
+                    disabled={isCreating}
+                  >
+                    {createStatus || 'Create Team'}
+                  </button>
+                  {errorMessage && (
+                    <p className="text-red-500 mt-2">{errorMessage}</p>
+                  )}
+
+                </div>
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

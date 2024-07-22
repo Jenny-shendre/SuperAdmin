@@ -404,62 +404,45 @@ function EditForm1() {
                   Channel Partner Activity Log
                 </h2>
               </div>
-              <table className="w-full text-leftm ">
-                <thead className="">
-                  <tr className=" text-[#FFFFFF]">
-                    <th
-                      className="border-b p-2  bg-[#3D2314] "
-                      style={{ fontSize: "14px", fontWeight: "400" }}
-                    >
-                      Serial No
-                    </th>
-                    <th
-                      className="border-b p-2 bg-[#3D2314]"
-                      style={{ fontSize: "14px", fontWeight: "400" }}
-                    >
-                      Date
-                    </th>
-                    <th
-                      className="border-b p-2 bg-[#3D2314]"
-                      style={{ fontSize: "14px", fontWeight: "400" }}
-                    >
-                      Timing
-                    </th>
-                    <th
-                      className="border-b p-2 bg-[#3D2314]"
-                      style={{ fontSize: "14px", fontWeight: "400" }}
-                    >
-                      Project
-                    </th>
-                    <th
-                      className="border-b p-2 bg-[#3D2314]"
-                      style={{ fontSize: "14px", fontWeight: "400" }}
-                    >
-                      Channel Partner
-                    </th>
-                  </tr>
-                </thead>
-                <tbody
-                  className=" border-b p-2  text-[#000000] text-[16px]  font-[Manrope] "
-                  style={{ fontWeight: "500" }}
-                >
-                  {data.length > 0
-                    ? data.map((item, index) => (
-                      <tr key={item.id}>
-                        <td className="border-b p-2 ">{index + 1}</td>
-                        <td className="border-b p-2 ">
-                          {DateupdatedAt(item.createdAt)}
-                        </td>
-                        <td className="border-b p-2 ">
-                          {ResponseAt(item.createdAt)}
-                        </td>
-                        <td className="border-b p-2 ">{item.projectName}</td>
-                        <td className="border-b p-2 ">{item.customerName}</td>
+              <div className="w-full h-full overflow-x-auto">
+                <div className="w-full h-[87%] overflow-y-auto">
+                  <table className="w-full text-leftm">
+                    <thead className="">
+                      <tr className="text-[#FFFFFF]">
+                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                          Serial No
+                        </th>
+                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                          Date
+                        </th>
+                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                          Timing
+                        </th>
+                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                          Project
+                        </th>
+                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                          Channel Partner
+                        </th>
                       </tr>
-                    ))
-                    : "No Data Found..."}
-                </tbody>
-              </table>
+                    </thead>
+                    <tbody className="border-b p-2 text-[#000000] text-[16px] font-[Manrope]" style={{ fontWeight: "500" }}>
+                      {data.length > 0
+                        ? data.map((item, index) => (
+                          <tr key={item.id}>
+                            <td className="border-b p-2">{index + 1}</td>
+                            <td className="border-b p-2">{DateupdatedAt(item.createdAt)}</td>
+                            <td className="border-b p-2">{ResponseAt(item.createdAt)}</td>
+                            <td className="border-b p-2">{item.projectName}</td>
+                            <td className="border-b p-2">{item.customerName}</td>
+                          </tr>
+                        ))
+                        : "No Data Found..."}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
             </div>
           </main>
         </div>
