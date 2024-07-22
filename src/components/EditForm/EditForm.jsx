@@ -117,7 +117,7 @@ const FormEdit = () => {
                       fontSize: "24px",
                     }}
                     className="font-medium">
-                    Direct Visitors
+                 Channel Visitors
                   </span>
                 </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />

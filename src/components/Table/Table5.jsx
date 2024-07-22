@@ -36,18 +36,18 @@ const Table5 = () => {
     }
   };
 
-  const deletedAt = async (id, customerId) => {
-    const confirmDelete = window.confirm(
-      ` Do you really want to delete the record with ID ${customerId}?`
-    );
+  // const deletedAt = async (id, customerId) => {
+  //   const confirmDelete = window.confirm(
+  //     ` Do you really want to delete the record with ID ${customerId}?`
+  //   );
 
-    if (confirmDelete) {
-      await axios.delete(
-        `https://project-rof.vercel.app/api/customers/delete/${id}`
-      );
-      fetchData();
-    }
-  };
+  //   if (confirmDelete) {
+  //     await axios.delete(
+  //       `https://project-rof.vercel.app/api/customers/delete/${id}`
+  //     );
+  //     fetchData();
+  //   }
+  // };
 
   const fetchData = async () => {
     setLoading(true);
@@ -466,6 +466,7 @@ const Table5 = () => {
                                   color: "#632E04",
                                 }}
                               />
+                              <Link to='/TeamA'>
                               <IoOpenOutline
                                 onClick={() => deletedAt(visitor._id, visitor.customerId)}
                                 style={{
@@ -474,6 +475,7 @@ const Table5 = () => {
                                   color: "#632E04",
                                 }}
                               />
+                              </Link>
                             </div>
                           </td>
                         </tr>

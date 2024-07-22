@@ -14,6 +14,9 @@ import Team from "./pages/Team/Team.jsx";
 import Channel_Partners_Overseas from "./pages/Channel_Partners_Overseas/Channel_Partners_Overseas.jsx";
 import FormEdit from "./components/EditForm/EditForm.jsx";
 import EditForm1 from "./components/EditForm/EditForm1.jsx";
+import EditForm2 from "./components/EditForm/EditForm2.jsx";
+import Table6 from "./components/Table/Table6.jsx";
+import Table7 from "./components/Table/Table7.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,8 +32,11 @@ const router = createBrowserRouter([
       { path: "/Project", element: <Project /> },
       { path: "/Team", element: <Team /> },
       { path: "/Direct_Visitors/:id", element: <FormEdit /> },
-      // { path: "/EditForm1", element: <EditForm1/> },
       { path: "/Channel_Visitors/:id", element: <EditForm1 /> },
+      { path: "/EditForm2", element: <EditForm2/> },
+      { path: "/TeamA", element:  <Table6/> },
+      { path: "/Table7", element:   <Table7/> },
+
     ],
   },
 ]);
