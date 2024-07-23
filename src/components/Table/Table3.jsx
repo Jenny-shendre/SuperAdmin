@@ -14,12 +14,17 @@ const Table3 = () => {
   const [data, setdata] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
+  const [showPopup, setShowPopup] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
-  const deletedAt = async (id) => {
-    await axios.delete(
-      `https://prodictivity-management-tool2.vercel.app/api/customers/delete/${id}`
-    );
-    fetchData(); // Refresh data after deletion
+  const deletedAt = async () => {
+    if (deleteId) {
+      await axios.delete(
+        `https://prodictivity-management-tool2.vercel.app/api/customers/delete/${deleteId}`
+      );
+      fetchData(); // Refresh data after deletion
+      setShowPopup(false); // Hide popup after deletion
+    }
   };
 
   const fetchData = async () => {
@@ -91,19 +96,19 @@ const Table3 = () => {
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <Link to="/Channel_Partners">
 
-              <span
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "400",
-                  fontSize: "24px",
-                }}
-                className="font-medium"
-              >
-               Channel Partners
-              </span>
+                <span
+                  style={{
+                    fontFamily: "Poppins",
+                    fontWeight: "400",
+                    fontSize: "24px",
+                  }}
+                  className="font-medium"
+                >
+                  Channel Partners
+                </span>
 
               </Link>
-            
+
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
                 style={{
@@ -155,7 +160,7 @@ const Table3 = () => {
                           textAlign: "left",
                           paddingLeft: "7px",
                           padding: "5px",
-                          width:'65px'
+                          width: '65px'
                         }}
                       >
                         Serial No
@@ -169,7 +174,7 @@ const Table3 = () => {
                           textAlign: "center",
                           paddingLeft: "7px",
                           padding: "5px",
-                          width:'149px'
+                          width: '149px'
 
                         }}
                       >
@@ -184,7 +189,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width:'181px'
+                          width: '181px'
 
                         }}
                       >
@@ -199,7 +204,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width:'145px'
+                          width: '145px'
 
                         }}
                       >
@@ -214,11 +219,11 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width:'155px'
+                          width: '155px'
 
                         }}
                       >
-                      List of Channel Partners
+                        List of Channel Partners
                       </th>
                       <th
                         className="border-b text-center"
@@ -229,7 +234,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width:'109px'
+                          width: '109px'
 
 
                         }}
@@ -245,7 +250,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width:'93px'
+                          width: '93px'
 
                         }}
                       >
@@ -260,7 +265,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width:'164px'
+                          width: '164px'
 
                         }}
                       >
@@ -275,7 +280,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width:'42px'
+                          width: '42px'
 
                         }}
                       >
@@ -290,7 +295,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width:'102px'
+                          width: '102px'
 
 
                         }}
@@ -304,13 +309,13 @@ const Table3 = () => {
                       <tr className="text-[9px] lg:text-[14px] " key={item.id}>
                         <td
                           className="py-3 ml-6 text-center flex items-center"
-                          style={{ paddingLeft: "5px", textAlign:'center' }}
+                          style={{ paddingLeft: "5px", textAlign: 'center' }}
                         >
                           {index + 1}
                         </td>
                         <td
                           className="py-1 border-b"
-                          style={{ paddingLeft: "5px", textAlign:'center' }}
+                          style={{ paddingLeft: "5px", textAlign: 'center' }}
                         >
                           {/* {DateupdatedAt(visitor.updatedAt)} */}
 
@@ -319,7 +324,7 @@ const Table3 = () => {
 
                         <td className="py-1 border-b text-center">
                           {/* {visitor.name} */}
-                                       Anand Jaiswal
+                          Anand Jaiswal
                           <Link
                             style={{
                               fontFamily: "Manrope",
@@ -351,36 +356,39 @@ const Table3 = () => {
                         <td className="py-1 border-b text-center">
                           {/* {visitor.projectName} */} Samyak Gandhi
                         </td>
-                     
+
 
                         <td className="py-1 px-3 border-b text-center">
-                         
-                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                          <Link to='/EditForm2'>
-                          <PiNotePencilBold
-                            onClick={() => handleEdit(visitor._id)}
-                            style={{
-                              cursor: "pointer",
-                              fontSize: "18px",
-                              color: "#632E04",
-                            }}
-                          />
-                          </Link>
+
+                          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <Link to='/EditForm2'>
+                              <PiNotePencilBold
+                                onClick={() => handleEdit(visitor._id)}
+                                style={{
+                                  cursor: "pointer",
+                                  fontSize: "18px",
+                                  color: "#632E04",
+                                }}
+                              />
+                            </Link>
                           </div>
-                          
-                          
+
+
                         </td>
 
                         <td className="py-1 px-3 border-b text-center">
-                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                          <RiDeleteBin6Line
-                            onClick={() => deletedAt(visitor._id)}
-                            style={{
-                              cursor: "pointer",
-                              fontSize: "18px",
-                              color: "#930000",
-                            }}
-                          />
+                          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <RiDeleteBin6Line
+                              onClick={() => {
+                                setShowPopup(true);
+                                setDeleteId(item.id);
+                              }}
+                              style={{
+                                cursor: "pointer",
+                                fontSize: "18px",
+                                color: "#930000",
+                              }}
+                            />
                           </div>
                         </td>
                       </tr>
@@ -390,7 +398,38 @@ const Table3 = () => {
               </div>
             </div>
           </div>
-          //{" "}
+          {showPopup && (
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="fixed inset-0 bg-black opacity-50"></div>
+              <div className="Delete-popup w-[257px] h-[192px]  py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
+                <div className="text-center">
+                  <p className="font-manrope text-[20px] font-medium">
+                    Are you sure you want to delete this row?
+                  </p>
+                  <p className="font-manrope text-[12px] font-medium text-[#6A6A6A] mt-2">
+                    This action cannot be undone.
+                  </p>
+                  <div className="delete-cont flex justify-center items-center w-[197px] ml-1 h-[33px] gap-6 mt-4">
+                    <button
+                      className="w-[85px]  h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
+                      onClick={deletedAt}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="w-[85px]  h-[33px] p-2.5 rounded-md border-black border flex items-center justify-center"
+                      onClick={() => setShowPopup(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  <p className="font-manrope text-[12px] text-[#6A6A6A] font-medium text-center mt-2">
+                    Select "Delete" to confirm.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </>
