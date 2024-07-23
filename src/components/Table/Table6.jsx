@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { IoIosArrowForward } from "react-icons/io";
 import EmailIcon from "../../assets/email.png";
 import PhoneIcon from "../../assets/phone.png";
+import axios from 'axios';
 
 const Table6 = () => {
   const teamMembers = [
@@ -36,6 +37,15 @@ const Table6 = () => {
       setShowAssignManagerPopup2(false);
     }
   };
+
+  const fetchData = async () => {
+    const res = await axios.get("https://project-rof.vercel.app/api/attendants/fetch-all");
+    console.log("res", res.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (showAddExecutivePopup2 || showAssignManagerPopup2) {
@@ -92,12 +102,23 @@ const Table6 = () => {
       setIsExecutiveCreating2(true);
       setExecutiveErrorMessage2('');
 
+      const executiveData1 = {
+        name: executiveName2,
+        emailID: executiveEmail2,
+        phone: executivePhone2
+      }
+
       try {
         // API call here
+        const res = await axios.post("https://project-rof.vercel.app/api/attendants/save", executiveData1)
+        console.log("res", res);
         setExecutiveCreateStatus2('Executive Created Successfully ✓');
+        console.log("Response send", res);
+
       } catch (error) {
         console.error('Error creating executive:', error);
         setExecutiveCreateStatus2('Error Creating Executive');
+        console.log(error);
       } finally {
         setIsExecutiveCreating2(false);
       }
@@ -130,12 +151,22 @@ const Table6 = () => {
       setIsManagerCreating2(true);
       setManagerErrorMessage2('');
 
+      const managerData1 = {
+        name: managerName2,
+        email: managerEmail2,
+        phone: managerPhone2
+      }
+
       try {
         // API call here
+        const res = await axios.post("https://project-rof.vercel.app/api/salesManager/save", managerData1)
+        console.log("res", res);
         setManagerCreateStatus2('Manager Created Successfully ✓');
+        console.log("Response send", res);
       } catch (error) {
         console.error('Error creating manager:', error);
         setManagerCreateStatus2('Error Creating Manager');
+        console.log(error);
       } finally {
         setIsManagerCreating2(false);
       }
