@@ -39,3 +39,14 @@ div input::placeholder {
   font-size: 16px;
   font-family: Manrope;
 }
+
+
+.wrapper.active .service{
+  transition: none;
+  translate: 1420px;
+}
+
+.wrapper.active .cheque{
+  transition: translate .18s ease;
+  translate: -1320px;
+}
