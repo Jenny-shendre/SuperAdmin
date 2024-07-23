@@ -25,12 +25,14 @@ const Table5 = () => {
   const [showAddManagerPopup, setShowAddManagerPopup] = useState(false);
   const [showAddExecutivePopup, setShowAddExecutivePopup] = useState(false); // state for executive popup
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
 
   const teamPopupRef = useRef();
   const addTeamMemberPopupRef = useRef();
   const addManagerPopupRef = useRef();
   const addExecutivePopupRef = useRef(); //  ref for executive popup
   const dropdownRef = useRef();
+  const projectDropdownRef = useRef(); // ref for project dropdown
 
   const handleView = (id) => {
     if (viewedItems.includes(id)) {
@@ -101,10 +103,16 @@ const Table5 = () => {
     ) {
       setIsDropdownOpen(false);
     }
+    if (
+      projectDropdownRef.current &&
+      !projectDropdownRef.current.contains(event.target)
+    ) {
+      setIsProjectDropdownOpen(false);
+    }
   };
 
   useEffect(() => {
-    if (showTeamPopup || showAddTeamMemberPopup || showAddManagerPopup || showAddExecutivePopup || isDropdownOpen) {
+    if (showTeamPopup || showAddTeamMemberPopup || showAddManagerPopup || showAddExecutivePopup || isDropdownOpen || isProjectDropdownOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
     } else {
       document.removeEventListener("mousedown", handleOutsideClick);
@@ -113,7 +121,7 @@ const Table5 = () => {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [showTeamPopup, showAddTeamMemberPopup, showAddManagerPopup, showAddExecutivePopup, isDropdownOpen]);
+  }, [showTeamPopup, showAddTeamMemberPopup, showAddManagerPopup, showAddExecutivePopup, isDropdownOpen, isProjectDropdownOpen]);
 
   // Add team members popup logic
 
@@ -144,7 +152,12 @@ const Table5 = () => {
   };
 
   const handleProjectChange = (projectName) => {
-    setManager(projectName);
+    setProject(projectName);
+    setIsProjectDropdownOpen(false);
+  };
+
+  const handleManagerChange = (managerName) => {
+    setManager(managerName);
     setIsDropdownOpen(false);
   };
 
@@ -177,8 +190,39 @@ const Table5 = () => {
   const [managerCreateStatus, setManagerCreateStatus] = useState('');
   const [managerErrorMessage, setManagerErrorMessage] = useState(''); // state for error message
 
+  const validateManagerName = (name) => {
+    return /^[A-Z][a-zA-Z]*$/.test(name);
+  };
+
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validatePhoneNumber = (phone) => {
+    return /^\d{10}$/.test(phone);
+  };
+
+  const handleManagerPhoneChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    if (value.length <= 10) {
+      setManagerPhone(value);
+    }
+  };
+
   const handleManagerSubmit = async () => {
     if (managerName && managerEmail && managerPhone) { // Check for phone number
+      if (!validateManagerName(managerName)) {
+        setManagerErrorMessage('The first letter of the name must be capital.');
+        return;
+      }
+      if (!validateEmail(managerEmail)) {
+        setManagerErrorMessage('Please enter a valid email address.');
+        return;
+      }
+      if (!validatePhoneNumber(managerPhone)) {
+        setManagerErrorMessage('Phone number must be exactly 10 digits.');
+        return;
+      }
       setIsManagerCreating(true);
       setManagerErrorMessage(''); // Clear any previous error messages
 
@@ -206,8 +250,27 @@ const Table5 = () => {
   const [executiveCreateStatus, setExecutiveCreateStatus] = useState('');
   const [executiveErrorMessage, setExecutiveErrorMessage] = useState(''); //  state for error message
 
+  const handleExecutivePhoneChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    if (value.length <= 10) {
+      setExecutivePhone(value);
+    }
+  };
+
   const handleExecutiveSubmit = async () => {
     if (executiveName && executiveEmail && executivePhone) { // Check for phone number
+      if (!validateManagerName(executiveName)) {
+        setExecutiveErrorMessage('The first letter of the name must be capital.');
+        return;
+      }
+      if (!validateEmail(executiveEmail)) {
+        setExecutiveErrorMessage('Please enter a valid email address.');
+        return;
+      }
+      if (!validatePhoneNumber(executivePhone)) {
+        setExecutiveErrorMessage('Phone number must be exactly 10 digits.');
+        return;
+      }
       setIsExecutiveCreating(true);
       setExecutiveErrorMessage(''); // Clear any previous error messages
 
@@ -577,14 +640,50 @@ const Table5 = () => {
                     className="w-[440px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4"
                     placeholder="Team Name"
                   />
-                  <input
-                    type="text"
-                    value={project}
-                    onChange={(e) => setProject(e.target.value)}
-                    className="w-[440px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4"
-                    placeholder="Assign Project"
-                  />
-
+                  <div
+                    className="relative w-[440px] h-12 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 block shadow-sm focus:border-brown-500 focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                    onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
+                    ref={projectDropdownRef}
+                  >
+                    <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
+                      {project || "Assign Project"}
+                      <img className="ml-2 h-2 w-3 " src={DropIcon} alt="Dropdown Icon" />
+                    </div>
+                    {isProjectDropdownOpen && (
+                      <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
+                        <div
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                          onClick={() => handleProjectChange("Project 1")}
+                        >
+                          Project 1
+                        </div>
+                        <div
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                          onClick={() => handleProjectChange("Project 2")}
+                        >
+                          Project 2
+                        </div>
+                        <div
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                          onClick={() => handleProjectChange("Project 3")}
+                        >
+                          Project 3
+                        </div>
+                        <div
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                          onClick={() => handleProjectChange("Project 4")}
+                        >
+                          Project 4
+                        </div>
+                        <div
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                          onClick={() => handleProjectChange("Project 5")}
+                        >
+                          Project 5
+                        </div>
+                      </div>
+                    )}
+                  </div>
                   <div
                     className="relative w-[440px] h-12 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 block shadow-sm focus:border-brown-500 focus:ring focus:ring-brown-500 focus:ring-opacity-50"
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -597,31 +696,31 @@ const Table5 = () => {
                       <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
                         <div
                           className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Manager 1")}
+                          onClick={() => handleManagerChange("Manager 1")}
                         >
                           Manager 1
                         </div>
                         <div
                           className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Manager 2")}
+                          onClick={() => handleManagerChange("Manager 2")}
                         >
                           Manager 2
                         </div>
                         <div
                           className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Manager 3")}
+                          onClick={() => handleManagerChange("Manager 3")}
                         >
                           Manager 3
                         </div>
                         <div
                           className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Manager 4")}
+                          onClick={() => handleManagerChange("Manager 4")}
                         >
                           Manager 4
                         </div>
                         <div
                           className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Manager 5")}
+                          onClick={() => handleManagerChange("Manager 5")}
                         >
                           Manager 5
                         </div>
@@ -697,6 +796,9 @@ const Table5 = () => {
                       className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
                       placeholder="Sales Manager Name"
                     />
+                    {!validateManagerName(managerName) && managerName.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">The first letter of the name must be capital.</p>
+                    )}
                   </div>
                   <div className="relative w-[440px] h-12 mb-4">
                     <input
@@ -707,16 +809,23 @@ const Table5 = () => {
                       placeholder="Email ID"
                     />
                     <img src={EmailIcon} alt="Email" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                    {!validateEmail(managerEmail) && managerEmail.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">Please enter a valid email address.</p>
+                    )}
                   </div>
                   <div className="relative w-[440px] h-12 mb-4">
                     <input
                       type="text"
                       value={managerPhone}
-                      onChange={(e) => setManagerPhone(e.target.value)}
+                      onChange={handleManagerPhoneChange}
                       className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
                       placeholder="Phone No"
+                      maxLength={10} // Ensures no more than 10 characters
                     />
                     <img src={PhoneIcon} alt="Phone" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                    {!validatePhoneNumber(managerPhone) && managerPhone.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">Phone number must be exactly 10 digits.</p>
+                    )}
                   </div>
                   <button
                     onClick={handleManagerSubmit}
@@ -757,6 +866,9 @@ const Table5 = () => {
                       className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
                       placeholder="Name"
                     />
+                    {!validateManagerName(executiveName) && executiveName.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">The first letter of the name must be capital.</p>
+                    )}
                   </div>
                   <div className="relative w-[440px] h-12 mb-4">
                     <input
@@ -767,16 +879,23 @@ const Table5 = () => {
                       placeholder="Executive Email ID"
                     />
                     <img src={EmailIcon} alt="Email" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                    {!validateEmail(executiveEmail) && executiveEmail.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">Please enter a valid email address.</p>
+                    )}
                   </div>
                   <div className="relative w-[440px] h-12 mb-4">
                     <input
                       type="text"
                       value={executivePhone}
-                      onChange={(e) => setExecutivePhone(e.target.value)}
+                      onChange={handleExecutivePhoneChange}
                       className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
                       placeholder="Phone No"
+                      maxLength={10} // Ensures no more than 10 characters
                     />
                     <img src={PhoneIcon} alt="Phone" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                    {!validatePhoneNumber(executivePhone) && executivePhone.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">Phone number must be exactly 10 digits.</p>
+                    )}
                   </div>
                   <button
                     onClick={handleExecutiveSubmit}

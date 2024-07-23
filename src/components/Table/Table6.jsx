@@ -56,8 +56,39 @@ const Table6 = () => {
   const [executiveCreateStatus2, setExecutiveCreateStatus2] = useState('');
   const [executiveErrorMessage2, setExecutiveErrorMessage2] = useState('');
 
+  const validateName = (name) => {
+    return /^[A-Z][a-zA-Z]*$/.test(name);
+  };
+
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validatePhoneNumber = (phone) => {
+    return /^\d{10}$/.test(phone);
+  };
+
+  const handlePhoneChange = (e, setPhone) => {
+    const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    if (value.length <= 10) {
+      setPhone(value);
+    }
+  };
+
   const handleAddExecutiveSubmit2 = async () => {
     if (executiveName2 && executiveEmail2 && executivePhone2) {
+      if (!validateName(executiveName2)) {
+        setExecutiveErrorMessage2('The first letter of the name must be capital.');
+        return;
+      }
+      if (!validateEmail(executiveEmail2)) {
+        setExecutiveErrorMessage2('Please enter a valid email address.');
+        return;
+      }
+      if (!validatePhoneNumber(executivePhone2)) {
+        setExecutiveErrorMessage2('Phone number must be exactly 10 digits.');
+        return;
+      }
       setIsExecutiveCreating2(true);
       setExecutiveErrorMessage2('');
 
@@ -84,6 +115,18 @@ const Table6 = () => {
 
   const handleAssignManagerSubmit2 = async () => {
     if (managerName2 && managerEmail2 && managerPhone2) {
+      if (!validateName(managerName2)) {
+        setManagerErrorMessage2('The first letter of the name must be capital.');
+        return;
+      }
+      if (!validateEmail(managerEmail2)) {
+        setManagerErrorMessage2('Please enter a valid email address.');
+        return;
+      }
+      if (!validatePhoneNumber(managerPhone2)) {
+        setManagerErrorMessage2('Phone number must be exactly 10 digits.');
+        return;
+      }
       setIsManagerCreating2(true);
       setManagerErrorMessage2('');
 
@@ -237,6 +280,9 @@ const Table6 = () => {
                   className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
                   placeholder="Name"
                 />
+                {!validateName(executiveName2) && executiveName2.length > 0 && (
+                  <p className="text-red-500 text-left text-xs">The first letter of the name must be capital.</p>
+                )}
               </div>
               <div className="relative w-[440px] h-12 mb-4">
                 <input
@@ -247,16 +293,23 @@ const Table6 = () => {
                   placeholder="Executive Email ID"
                 />
                 <img src={EmailIcon} alt="Email" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                {!validateEmail(executiveEmail2) && executiveEmail2.length > 0 && (
+                  <p className="text-red-500 text-left text-xs">Please enter a valid email address.</p>
+                )}
               </div>
               <div className="relative w-[440px] h-12 mb-4">
                 <input
                   type="text"
                   value={executivePhone2}
-                  onChange={(e) => setExecutivePhone2(e.target.value)}
+                  onChange={(e) => handlePhoneChange(e, setExecutivePhone2)}
                   className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
                   placeholder="Phone No"
+                  maxLength={10} // Ensures no more than 10 characters
                 />
                 <img src={PhoneIcon} alt="Phone" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                {!validatePhoneNumber(executivePhone2) && executivePhone2.length > 0 && (
+                  <p className="text-red-500 text-left text-xs">Phone number must be exactly 10 digits.</p>
+                )}
               </div>
               <button
                 onClick={handleAddExecutiveSubmit2}
@@ -296,6 +349,9 @@ const Table6 = () => {
                   className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
                   placeholder="Sales Manager Name"
                 />
+                {!validateName(managerName2) && managerName2.length > 0 && (
+                  <p className="text-red-500 text-left text-xs">The first letter of the name must be capital.</p>
+                )}
               </div>
               <div className="relative w-[440px] h-12 mb-4">
                 <input
@@ -306,16 +362,23 @@ const Table6 = () => {
                   placeholder="Email ID"
                 />
                 <img src={EmailIcon} alt="Email" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                {!validateEmail(managerEmail2) && managerEmail2.length > 0 && (
+                  <p className="text-red-500 text-left text-xs">Please enter a valid email address.</p>
+                )}
               </div>
               <div className="relative w-[440px] h-12 mb-4">
                 <input
                   type="text"
                   value={managerPhone2}
-                  onChange={(e) => setManagerPhone2(e.target.value)}
+                  onChange={(e) => handlePhoneChange(e, setManagerPhone2)}
                   className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
                   placeholder="Phone No"
+                  maxLength={10} // Ensures no more than 10 characters
                 />
                 <img src={PhoneIcon} alt="Phone" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                {!validatePhoneNumber(managerPhone2) && managerPhone2.length > 0 && (
+                  <p className="text-red-500 text-left text-xs">Phone number must be exactly 10 digits.</p>
+                )}
               </div>
               <button
                 onClick={handleAssignManagerSubmit2}
