@@ -152,23 +152,23 @@ const Table4 = () => {
                 Add new Project
               </button>
             </div>
-                
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            
+
               {projects.map((project, index) => (
                 <div
                   key={index}
                   className="bg-white rounded-lg overflow-hidden shadow"
                 >
                   <Link to="/Table7">
-                  <img
-                    src={project.image}
-                    alt={project.name}
-                    className="w-[408px] h-[178px] object-cover"
-                  />
+                    <img
+                      src={project.image}
+                      alt={project.name}
+                      className="w-[408px] h-[178px] object-cover"
+                    />
                   </Link>
-                  
-                  
+
+
                   <div className="p-4 flex justify-between items-center">
                     <h3
                       className="font-[16px]"
@@ -176,7 +176,7 @@ const Table4 = () => {
                     >
                       {project.name}
                     </h3>
-                    
+
                     <button className="text-gray-500">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -187,11 +187,11 @@ const Table4 = () => {
                         <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                       </svg>
                     </button>
-                    
+
                   </div>
-                  
+
                 </div>
-                
+
               ))}
             </div>
           </div>
@@ -242,7 +242,7 @@ const Table4 = () => {
               />
               <textarea
                 className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mt-6"
-                placeholder="Project Address"
+                placeholder="Project Description"
                 value={projectAddress}
                 onChange={(e) => setProjectAddress(e.target.value)}
               />
