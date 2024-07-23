@@ -50,3 +50,7 @@ div input::placeholder {
   transition: translate .18s ease;
   translate: -1320px;
 }
+
+.wrapper{
+          overflow: hidden;
+}
