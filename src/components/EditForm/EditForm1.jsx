@@ -123,7 +123,7 @@ function EditForm1() {
               >
                 Home
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-                {/* <Link to="/Direct_Visitors"> */}
+                {/* <Link to="/Channel_Visitors"> */}
                 <span
                   style={{
                     fontFamily: "Poppins",
@@ -132,7 +132,7 @@ function EditForm1() {
                   }}
                   className="font-medium"
                 >
-                  Direct Visitors
+                  Channel Visitors
                 </span>
                 {/* </Link> */}
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
@@ -387,9 +387,10 @@ function EditForm1() {
                       </label>
                       <textarea className="lg:w-[641px] lg:h-[173px] border-[2px] border-[#3D2314] rounded-lg mt-1"
                         name="notes"
-                        value={FormData.notes}
                         onChange={handleChange}
-                        readOnly={!editMode}></textarea>
+                        readOnly={!editMode}>
+                        {FormData.notes}
+                      </textarea>
                     </div>
                   </div>
                 </div>
