@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       { path: "/Direct_Visitors/:id", element: <FormEdit /> },
       { path: "/Channel_Visitors/:id", element: <EditForm1 /> },
       { path: "/EditForm2", element: <EditForm2/> },
-      { path: "/TeamA", element:  <Table6/> },
+      { path: "/Team/:id", element:  <Table6/> },
       { path: "/Table7", element:   <Table7/> },
 
     ],

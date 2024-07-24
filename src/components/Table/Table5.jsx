@@ -17,6 +17,8 @@ const Table5 = () => {
   const [valueinput, setvalueinput] = useState("");
   const [viewedItems, setViewedItems] = useState([]);
   const [data, setdata] = useState([]);
+  const [data1, setdata1] = useState([]);
+  const [data2, setdata2] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
@@ -44,12 +46,25 @@ const Table5 = () => {
     }
   };
 
+
+
   const fetchData = async () => {
     setLoading(true);
     const res = await axios.get(
-      "https://project-rof.vercel.app/api/customers/fetch-all"
+      "https://project-rof.vercel.app/api/salesManager/fetch-all"
     );
     setdata(res.data);
+
+    const res1 = await axios.get(
+      "https://project-rof.vercel.app/api/teams/fetch-all"
+    );
+    setdata1(res1.data);
+
+    const res2 = await axios.get(
+      "https://project-rof.vercel.app/api/projects"
+    );
+    setdata2(res2.data);
+
     setLoading(false);
   };
 
@@ -57,15 +72,19 @@ const Table5 = () => {
     fetchData();
   }, []);
 
-  const DateupdatedAt = (DateupdatedAt) => {
-    const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
-    return formattedDate;
-  };
+  // console.log("data", data);
+  // console.log("data1", data1);
+  // console.log("data2", data2)
 
-  const ResponseAt = (DateupdatedAt) => {
-    const formattedDate = format(new Date(DateupdatedAt), "hh:mm a");
-    return formattedDate;
-  };
+  // const DateupdatedAt = (DateupdatedAt) => {
+  //   const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
+  //   return formattedDate;
+  // };
+
+  // const ResponseAt = (DateupdatedAt) => {
+  //   const formattedDate = format(new Date(DateupdatedAt), "hh:mm a");
+  //   return formattedDate;
+  // };
 
   const getTeamName = (index) => {
     const teamLetter = String.fromCharCode(65 + index);
@@ -166,10 +185,18 @@ const Table5 = () => {
       setIsCreating(true);
       setErrorMessage(''); // Clear any previous error messages
 
+      const teamdata = {
+        teamName: teamName,
+        projectName: project,
+        managerName: manager,
+        teamMemberName: members
+      }
+
       try {
-
-
+        const res = await axios.post('https://project-rof.vercel.app/api/teams/save', teamdata);
+        console.log("res", res);
         setCreateStatus('Team Created Successfully ✓');
+        console.log("Response send", teamdata);
       } catch (error) {
         console.error('Error creating team:', error);
         setCreateStatus('Error Creating Team');
@@ -226,13 +253,20 @@ const Table5 = () => {
       setIsManagerCreating(true);
       setManagerErrorMessage(''); // Clear any previous error messages
 
+      const managerData = {
+        name: managerName,
+        email: managerEmail,
+        phone: managerPhone
+      }
       try {
-
-
+        const res = await axios.post("https://project-rof.vercel.app/api/salesManager/save", managerData)
+        console.log("res", res);
         setManagerCreateStatus('Manager Created Successfully ✓');
+        console.log("Response send", res);
       } catch (error) {
         console.error('Error creating manager:', error);
         setManagerCreateStatus('Error Creating Manager');
+        console.log(error);
       } finally {
         setIsManagerCreating(false);
       }
@@ -274,10 +308,17 @@ const Table5 = () => {
       setIsExecutiveCreating(true);
       setExecutiveErrorMessage(''); // Clear any previous error messages
 
+      const executiveData = {
+        name: executiveName,
+        emailID: executiveEmail,
+        phone: executivePhone
+      }
+
       try {
-
-
+        const res = await axios.post("https://project-rof.vercel.app/api/attendants/save", executiveData)
+        console.log("res", res);
         setExecutiveCreateStatus('Executive Created Successfully ✓');
+        console.log("Response send", res);
       } catch (error) {
         console.error('Error creating executive:', error);
         setExecutiveCreateStatus('Error Creating Executive');
@@ -503,112 +544,111 @@ const Table5 = () => {
                   </thead>
 
                   <tbody>
-                    {data
-                      .slice(
-                        (currentPage - 1) * recordsPerPage,
-                        currentPage * recordsPerPage
-                      )
-                      .map((visitor, index) => (
-                        <tr
-                          key={index}
-                          className="border-b text-[9px] lg:text-[14px]"
+                    {data1.filter(({ teamName, managerName }) =>
+                      teamName.toLowerCase().includes(valueinput.toLowerCase()) ||
+                      managerName.toLowerCase().includes(valueinput.toLowerCase())
+                    ).map((visitor, index) => (
+                      <tr
+                        key={index}
+                        className="border-b text-[9px] lg:text-[14px]"
+                      >
+                        <td
+                          style={{
+                            padding: "10px",
+                            border: "1px solid #ddd",
+                            width: "188px",
+                            height: "54px",
+                          }}
                         >
-                          <td
+                          <div
+                            className="py-3 text-center flex items-center "
                             style={{
-                              padding: "10px",
-                              border: "1px solid #ddd",
-                              width: "188px",
-                              height: "54px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                           >
-                            <div
-                              className="py-3 text-center flex items-center "
+                            {visitor.teamName}
+                          </div>
+                        </td>
+
+                        <td
+                          className="py-3 border-b text-center"
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "178px",
+                            height: "54px",
+                          }}
+                        >
+                          {visitor.managerName}
+                        </td>
+
+                        <td
+                          className=" py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "224px",
+                            height: "54px",
+                          }}
+                        >
+                          {visitor.managerEmail}
+                        </td>
+
+                        <td
+                          className="  py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "174px",
+                            height: "54px",
+                          }}
+                        >
+                          {visitor.projectName}
+                        </td>
+
+                        <td
+                          className="  py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "118px",
+                            height: "54px",
+                            justifyItems: "center",
+                          }}
+                        >
+                          <div
+                            className="py-3  flex gap-5 "
+                            style={{
+                              justifyContent: "center",
+                              alignItems: "center",
+                              display: "flex",
+                            }}
+                          >
+                            <LuEye
                               style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
+                                cursor: "pointer",
+                                fontSize: "18px",
+                                color: "#632E04",
                               }}
+                            />
+                            <Link to={`/Team/${visitor.teamName}`}
                             >
-                              {getTeamName(index)}
-                            </div>
-                          </td>
-
-                          <td
-                            className="py-3 border-b text-center"
-                            style={{
-                              textAlign: "center",
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "178px",
-                              height: "54px",
-                            }}
-                          >
-                            Anirudh
-                          </td>
-
-                          <td
-                            className=" py-3 border-b text-center"
-                            style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "224px",
-                              height: "54px",
-                            }}
-                          >
-                            rainbowoverseas@gmail.com
-                          </td>
-
-                          <td
-                            className="  py-3 border-b text-center"
-                            style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "174px",
-                              height: "54px",
-                            }}
-                          >
-                            ROF Aalayas
-                          </td>
-
-                          <td
-                            className="  py-3 border-b text-center"
-                            style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "118px",
-                              height: "54px",
-                              justifyItems: "center",
-                            }}
-                          >
-                            <div
-                              className="py-3  flex gap-5 "
-                              style={{
-                                justifyContent: "center",
-                                alignItems: "center",
-                                display: "flex",
-                              }}
-                            >
-                              <LuEye
+                              <IoOpenOutline
+                                onClick={() => deletedAt(visitor._id, visitor.customerId)}
                                 style={{
                                   cursor: "pointer",
                                   fontSize: "18px",
                                   color: "#632E04",
                                 }}
                               />
-                              <Link to='/TeamA'>
-                                <IoOpenOutline
-                                  onClick={() => deletedAt(visitor._id, visitor.customerId)}
-                                  style={{
-                                    cursor: "pointer",
-                                    fontSize: "18px",
-                                    color: "#632E04",
-                                  }}
-                                />
-                              </Link>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                            </Link>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               ) : (
@@ -651,36 +691,16 @@ const Table5 = () => {
                     </div>
                     {isProjectDropdownOpen && (
                       <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Project 1")}
-                        >
-                          Project 1
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Project 2")}
-                        >
-                          Project 2
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Project 3")}
-                        >
-                          Project 3
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Project 4")}
-                        >
-                          Project 4
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Project 5")}
-                        >
-                          Project 5
-                        </div>
+                        {data2.map((projects) => (
+                          <div
+                            key={projects.name}
+
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            onClick={() => handleProjectChange(projects.name)}
+                          >
+                            {projects.name}
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
@@ -694,36 +714,16 @@ const Table5 = () => {
                     </div>
                     {isDropdownOpen && (
                       <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleManagerChange("Manager 1")}
-                        >
-                          Manager 1
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleManagerChange("Manager 2")}
-                        >
-                          Manager 2
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleManagerChange("Manager 3")}
-                        >
-                          Manager 3
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleManagerChange("Manager 4")}
-                        >
-                          Manager 4
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleManagerChange("Manager 5")}
-                        >
-                          Manager 5
-                        </div>
+                        {data.map((sales) => (
+                          <div
+                            key={sales.name}
+
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            onClick={() => handleManagerChange(sales.name)}
+                          >
+                            {sales.name}
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
