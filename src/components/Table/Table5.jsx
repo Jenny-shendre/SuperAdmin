@@ -46,7 +46,7 @@ const Table5 = () => {
     }
   };
 
-  
+
 
   const fetchData = async () => {
     setLoading(true);
@@ -74,7 +74,7 @@ const Table5 = () => {
 
   // console.log("data", data);
   // console.log("data1", data1);
-  console.log("data2", data2)
+  // console.log("data2", data2)
 
   // const DateupdatedAt = (DateupdatedAt) => {
   //   const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
@@ -186,17 +186,17 @@ const Table5 = () => {
       setErrorMessage(''); // Clear any previous error messages
 
       const teamdata = {
-        teamName:teamName,
-        projectName:project,
-        managerName:manager,
-        teamMemberName:members
+        teamName: teamName,
+        projectName: project,
+        managerName: manager,
+        teamMemberName: members
       }
 
       try {
         const res = await axios.post('https://project-rof.vercel.app/api/teams/save', teamdata);
         console.log("res", res);
         setCreateStatus('Team Created Successfully ✓');
-        console.log("Response send", teamdata);        
+        console.log("Response send", teamdata);
       } catch (error) {
         console.error('Error creating team:', error);
         setCreateStatus('Error Creating Team');
@@ -252,17 +252,17 @@ const Table5 = () => {
       }
       setIsManagerCreating(true);
       setManagerErrorMessage(''); // Clear any previous error messages
-        
-      const managerData={
+
+      const managerData = {
         name: managerName,
-        email:managerEmail,
-        phone:managerPhone
+        email: managerEmail,
+        phone: managerPhone
       }
       try {
-        const res = await axios.post("https://project-rof.vercel.app/api/salesManager/save",managerData)
-        console.log("res",res);         
+        const res = await axios.post("https://project-rof.vercel.app/api/salesManager/save", managerData)
+        console.log("res", res);
         setManagerCreateStatus('Manager Created Successfully ✓');
-        console.log("Response send",res);
+        console.log("Response send", res);
       } catch (error) {
         console.error('Error creating manager:', error);
         setManagerCreateStatus('Error Creating Manager');
@@ -308,17 +308,17 @@ const Table5 = () => {
       setIsExecutiveCreating(true);
       setExecutiveErrorMessage(''); // Clear any previous error messages
 
-      const executiveData={
-        name:executiveName,
-        emailID:executiveEmail,
-        phone:executivePhone
+      const executiveData = {
+        name: executiveName,
+        emailID: executiveEmail,
+        phone: executivePhone
       }
 
       try {
-        const res = await axios.post("https://project-rof.vercel.app/api/attendants/save",executiveData)
-        console.log("res",res);
+        const res = await axios.post("https://project-rof.vercel.app/api/attendants/save", executiveData)
+        console.log("res", res);
         setExecutiveCreateStatus('Executive Created Successfully ✓');
-        console.log("Response send",res);
+        console.log("Response send", res);
       } catch (error) {
         console.error('Error creating executive:', error);
         setExecutiveCreateStatus('Error Creating Executive');
@@ -545,109 +545,110 @@ const Table5 = () => {
 
                   <tbody>
                     {data1.filter(({ teamName, managerName }) =>
-                        teamName.toLowerCase().includes(valueinput.toLowerCase()) ||
-                        managerName.toLowerCase().includes(valueinput.toLowerCase())
-                      ).map((visitor, index) => (
-                        <tr
-                          key={index}
-                          className="border-b text-[9px] lg:text-[14px]"
+                      teamName.toLowerCase().includes(valueinput.toLowerCase()) ||
+                      managerName.toLowerCase().includes(valueinput.toLowerCase())
+                    ).map((visitor, index) => (
+                      <tr
+                        key={index}
+                        className="border-b text-[9px] lg:text-[14px]"
+                      >
+                        <td
+                          style={{
+                            padding: "10px",
+                            border: "1px solid #ddd",
+                            width: "188px",
+                            height: "54px",
+                          }}
                         >
-                          <td
+                          <div
+                            className="py-3 text-center flex items-center "
                             style={{
-                              padding: "10px",
-                              border: "1px solid #ddd",
-                              width: "188px",
-                              height: "54px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                           >
-                            <div
-                              className="py-3 text-center flex items-center "
+                            {visitor.teamName}
+                          </div>
+                        </td>
+
+                        <td
+                          className="py-3 border-b text-center"
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "178px",
+                            height: "54px",
+                          }}
+                        >
+                          {visitor.managerName}
+                        </td>
+
+                        <td
+                          className=" py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "224px",
+                            height: "54px",
+                          }}
+                        >
+                          {visitor.managerEmail}
+                        </td>
+
+                        <td
+                          className="  py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "174px",
+                            height: "54px",
+                          }}
+                        >
+                          {visitor.projectName}
+                        </td>
+
+                        <td
+                          className="  py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "118px",
+                            height: "54px",
+                            justifyItems: "center",
+                          }}
+                        >
+                          <div
+                            className="py-3  flex gap-5 "
+                            style={{
+                              justifyContent: "center",
+                              alignItems: "center",
+                              display: "flex",
+                            }}
+                          >
+                            <LuEye
                               style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
+                                cursor: "pointer",
+                                fontSize: "18px",
+                                color: "#632E04",
                               }}
+                            />
+                            <Link to={`/Team/${visitor.teamName}`}
                             >
-                              {visitor.teamName}
-                            </div>
-                          </td>
-
-                          <td
-                            className="py-3 border-b text-center"
-                            style={{
-                              textAlign: "center",
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "178px",
-                              height: "54px",
-                            }}
-                          >
-                           {visitor.managerName}
-                          </td>
-
-                          <td
-                            className=" py-3 border-b text-center"
-                            style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "224px",
-                              height: "54px",
-                            }}
-                          >
-                            {visitor.managerEmail}
-                          </td>
-
-                          <td
-                            className="  py-3 border-b text-center"
-                            style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "174px",
-                              height: "54px",
-                            }}
-                          >
-                            {visitor.projectName}
-                          </td>
-
-                          <td
-                            className="  py-3 border-b text-center"
-                            style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "118px",
-                              height: "54px",
-                              justifyItems: "center",
-                            }}
-                          >
-                            <div
-                              className="py-3  flex gap-5 "
-                              style={{
-                                justifyContent: "center",
-                                alignItems: "center",
-                                display: "flex",
-                              }}
-                            >
-                              <LuEye
+                              <IoOpenOutline
+                                onClick={() => deletedAt(visitor._id, visitor.customerId)}
                                 style={{
                                   cursor: "pointer",
                                   fontSize: "18px",
                                   color: "#632E04",
                                 }}
                               />
-                              <Link to='/TeamA'>
-                                <IoOpenOutline
-                                  onClick={() => deletedAt(visitor._id, visitor.customerId)}
-                                  style={{
-                                    cursor: "pointer",
-                                    fontSize: "18px",
-                                    color: "#632E04",
-                                  }}
-                                />
-                              </Link>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                            </Link>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               ) : (

@@ -3,22 +3,32 @@ import { IoIosArrowForward } from "react-icons/io";
 import EmailIcon from "../../assets/email.png";
 import PhoneIcon from "../../assets/phone.png";
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 const Table6 = () => {
-  const teamMembers = [
-    { id: 'ROFEX0055', name: 'Samyak', email: 'samyak@rofgroup.com', client: 'Raj Kawani', project: 'ROF Aalayas' },
-    { id: 'ROFEX0055', name: 'Sidhvani', email: 'sidhvani@rofgroup.com', client: 'Ramesh Kulkarni', project: 'ROF Aalayas' },
-    { id: 'ROFEX0055', name: 'Rajshree', email: 'rajshree@rofgroup.com', client: 'Soundarya Mukhi', project: 'ROF Aalayas' },
-    { id: 'ROFEX0055', name: 'Sanjeev', email: 'sanjeev@rofgroup.com', client: 'Rasik Pandey', project: 'ROF Aalayas' },
-    { id: 'ROFEX0055', name: 'Shrutika', email: 'shrutika@rofgroup.com', client: 'Mohammad Sharukh', project: 'ROF Aalayas' },
-    { id: 'ROFEX0055', name: 'Raghav', email: 'raghav@rofgroup.com', client: 'Suraj Tiwari', project: 'ROF Aalayas' },
-    { id: 'ROFEX0055', name: 'Sohail', email: 'Sohail@rofgroup.com', client: 'Riyaana Dey', project: 'ROF Aalayas' },
-    { id: 'ROFEX0055', name: 'Gurmeet', email: 'Gurmeet@rofgroup.com', client: 'Guremeet', project: 'ROF Aalayas' },
-    { id: 'ROFEX0055', name: 'Prasad', email: 'Prasad@rofgroup.com', client: 'Prasad Fadnavis', project: 'ROF Aalayas' },
-  ];
+  // const teamMembers = [
+  //   { id: 'ROFEX0055', name: 'Samyak', email: 'samyak@rofgroup.com', client: 'Raj Kawani', project: 'ROF Aalayas' },
+  //   { id: 'ROFEX0055', name: 'Sidhvani', email: 'sidhvani@rofgroup.com', client: 'Ramesh Kulkarni', project: 'ROF Aalayas' },
+  //   { id: 'ROFEX0055', name: 'Rajshree', email: 'rajshree@rofgroup.com', client: 'Soundarya Mukhi', project: 'ROF Aalayas' },
+  //   { id: 'ROFEX0055', name: 'Sanjeev', email: 'sanjeev@rofgroup.com', client: 'Rasik Pandey', project: 'ROF Aalayas' },
+  //   { id: 'ROFEX0055', name: 'Shrutika', email: 'shrutika@rofgroup.com', client: 'Mohammad Sharukh', project: 'ROF Aalayas' },
+  //   { id: 'ROFEX0055', name: 'Raghav', email: 'raghav@rofgroup.com', client: 'Suraj Tiwari', project: 'ROF Aalayas' },
+  //   { id: 'ROFEX0055', name: 'Sohail', email: 'Sohail@rofgroup.com', client: 'Riyaana Dey', project: 'ROF Aalayas' },
+  //   { id: 'ROFEX0055', name: 'Gurmeet', email: 'Gurmeet@rofgroup.com', client: 'Guremeet', project: 'ROF Aalayas' },
+  //   { id: 'ROFEX0055', name: 'Prasad', email: 'Prasad@rofgroup.com', client: 'Prasad Fadnavis', project: 'ROF Aalayas' },
+  // ];
 
   const [showAddExecutivePopup2, setShowAddExecutivePopup2] = useState(false);
   const [showAssignManagerPopup2, setShowAssignManagerPopup2] = useState(false);
+  const [teamData, setTeamData] = useState([]);
+
+
+  const location = useLocation();
+  const pathname = location.pathname;
+  const teamName = decodeURIComponent(pathname.substring(pathname.lastIndexOf("/") + 1));
+
+
+  // console.log("teamName", teamName);
 
   const addExecutivePopupRef2 = useRef();
   const assignManagerPopupRef2 = useRef();
@@ -38,14 +48,19 @@ const Table6 = () => {
     }
   };
 
+
+
   const fetchData = async () => {
-    const res = await axios.get("https://project-rof.vercel.app/api/attendants/fetch-all");
-    console.log("res", res.data);
+    const res = await axios.post("https://project-rof.vercel.app/api/teams/teamfliter", { teamName });
+    setTeamData(res.data);
   }
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  // console.log("teamData", teamData);
+
 
   useEffect(() => {
     if (showAddExecutivePopup2 || showAssignManagerPopup2) {
@@ -105,7 +120,7 @@ const Table6 = () => {
       const executiveData1 = {
         name: executiveName2,
         emailID: executiveEmail2,
-        phone: executivePhone2
+        phone: executivePhone2       
       }
 
       try {
@@ -114,7 +129,6 @@ const Table6 = () => {
         console.log("res", res);
         setExecutiveCreateStatus2('Executive Created Successfully ✓');
         console.log("Response send", res);
-
       } catch (error) {
         console.error('Error creating executive:', error);
         setExecutiveCreateStatus2('Error Creating Executive');
@@ -193,7 +207,7 @@ const Table6 = () => {
               fontSize: "24px",
             }}
             className="font-medium">
-            Team A
+            {teamData.teamName}
           </span>
         </div>
       </div>
@@ -234,7 +248,7 @@ const Table6 = () => {
 
       <div className=" ">
         <div className='bg-[#D7D7D7] '>
-          <h2 className="text-xl font-semibold mb-2 text-center">Team A</h2>
+          <h2 className="text-xl font-semibold mb-2 text-center">{teamData.teamName}</h2>
           <p className="text-sm mb-4 text-center [#313131]"
             style={{
               fontSize: "16px",
@@ -242,7 +256,7 @@ const Table6 = () => {
               fontWeight: "700",
               lineHeight: "21.86px",
             }}>
-            Somesh Chaturvedi (Team Lead)
+            {teamData.managerName} (Team Lead)
           </p>
 
           <table className="w-full ">
@@ -263,26 +277,35 @@ const Table6 = () => {
             </thead>
 
             <tbody>
-              {teamMembers.map((member, index) => (
-                <tr key={index} className="border-t border-gray-200 text-center [#000000] w-[188px] h-[54px] p-10 bg-white"
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "16px",
-                    fontWeight: "500",
-                    lineHeight: "21.86px",
-                  }}>
-                  <a href="" className='text-[#000AFF] text-center'
+              {teamData?.teamMemberNames?.length > 0 ? (
+                teamData.teamMemberNames.map((member, index) => (
+
+                  <tr key={index} className="border-t border-gray-200 text-center [#000000] w-[188px] h-[54px] p-10 bg-white"
                     style={{
-                      textDecoration: "Underline",
+                      fontFamily: "Manrope",
+                      fontSize: "16px",
+                      fontWeight: "500",
+                      lineHeight: "21.86px",
                     }}>
-                    <td className="py-2 text-center">{member.id}</td>
-                  </a>
-                  <td className="py-2 ">{member.name}</td>
-                  <td className="py-2 ">{member.email}</td>
-                  <td className="py-2 ">{member.client}</td>
-                  <td className="py-2 ">{member.project}</td>
-                </tr>
-              ))}
+                    <a href="" className='text-[#000AFF] text-center'
+                      style={{
+                        textDecoration: "Underline",
+                      }}>
+                      <td className="py-2 text-center">{member.employeeId?.length > 0 ? member?.employeeId : "Not found"}</td>
+                    </a>
+                    <td className="py-2 ">{member.name?.length > 0 ? member?.name : "Not found"}</td>
+                    <td className="py-2 ">{member.emailID?.length > 0 ? member?.emailID : "Not found"}</td>
+                    <td className="py-2 ">{member.ClientName?.length > 0 ? member?.ClientName : "Not Assign"}</td>
+                    <td className="py-2 ">{member.projectName?.length > 0 ? member?.projectName : "Not Assign"}</td>
+                  </tr>
+
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="text-center py-2">
+                    No team members found
+                  </td>
+                </tr>)}
             </tbody>
           </table>
         </div>
