@@ -117,7 +117,7 @@ const FormEdit = () => {
                       fontSize: "24px",
                     }}
                     className="font-medium">
-                 Direct Visitors
+                 Channel Visitors
                   </span>
                 </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
@@ -197,7 +197,7 @@ const FormEdit = () => {
                           name="mobile"
                           value={FormData.mobile}
                           onChange={handleChange}
-                          readOnly={true}
+                          readOnly={editMode}
                         />
                       </div>
                     </div>
@@ -237,7 +237,7 @@ const FormEdit = () => {
                           name="projectName"
                           value={FormData.projectName}
                           onChange={handleChange}
-                          readOnly={true}
+                          readOnly={editMode}
                         />
                       </div>
                       <div>
@@ -255,7 +255,7 @@ const FormEdit = () => {
                           name="customerId"
                           value={FormData.customerId}
                           onChange={handleChange}
-                          readOnly={true}
+                          readOnly={editMode}
                         />
                       </div>
                     </div>
@@ -275,7 +275,7 @@ const FormEdit = () => {
                         name="attendantName"
                         value={FormData.attendantName}
                         onChange={handleChange}
-                        readOnly={true}
+                        readOnly={editMode}
                       />
                     </div>
                   </div>
@@ -293,7 +293,7 @@ const FormEdit = () => {
                         name="createdAt"
                         value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
-                        readOnly={true}
+                        readOnly={editMode}
                       />
                     </div>
                     <div>
@@ -308,7 +308,7 @@ const FormEdit = () => {
                         name="responseTime"
                         value={ResponseAt(FormData.createdAt)}
                         onChange={handleChange}
-                        readOnly={true}
+                        readOnly={editMode}
                       />
                     </div>
                     <div>
@@ -323,7 +323,7 @@ const FormEdit = () => {
                         name="timeDuration"
                         value={FormData.timeDuration}
                         onChange={handleChange}
-                        readOnly={true}
+                        readOnly={editMode}
                       />
                     </div>
                   </div>

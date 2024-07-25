@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { LuPencilLine } from "react-icons/lu";
 import Searchsvg from "../../assets/material-symbols_search.svg";
+import { useNavigate } from 'react-router-dom';
 
 import { IoIosArrowForward } from "react-icons/io";
 import axios from "axios";
@@ -14,6 +15,11 @@ import { LuEye } from "react-icons/lu";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaCircle } from "react-icons/fa";
 
+// const navigate=useNavigate()
+
+const API_URL = import.meta.env.VITE_API_URL
+
+
 const Table2 = () => {
   const [valueinput, setvalueinput] = useState("");
   const [viewedItems, setViewedItems] = useState([]);
@@ -21,7 +27,7 @@ const Table2 = () => {
   //const [currentPage, setCurrentPage] = useState(1);
   //const [recordsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const handleView = (id) => {
     if (viewedItems.includes(id)) {
       // Item already viewed, remove it from viewedItems
@@ -56,6 +62,21 @@ const Table2 = () => {
       console.log(error);
       setLoading(false);
     }
+  };
+
+
+
+  const fetchRecordByChannelID = async (id) => {
+    console.log('id>>>>>>',id)
+    const res = await axios.get(
+      `${API_URL}/api/channels/fetchChannelBy/`,
+      {
+        params: {
+          id: id
+        },
+      }
+    );
+    setdata(res.data);
   };
 
   console.log(data);
@@ -248,6 +269,7 @@ const Table2 = () => {
                         name.toLowerCase().includes(valueinput.toLowerCase())
                       )
                       .map((visitor, index) => (
+                        
                         <tr
                           style={{ paddingLeft: "5px" }}
                           className="py-1 border-b text-[9px] lg:text-[14px]  "
@@ -262,8 +284,9 @@ const Table2 = () => {
 
                           <td className="py-3 border-b text-center">
                             {/* {ResponseAt(visitor.updatedAt)} */}
+                            
                             <Link
-                              to="/overseas"
+                              onClick={() => navigate('/overseas', { state: { id: visitor._id } })}
                               style={{
                                 fontFamily: "Manrope",
                                 fontSize: "14px",
@@ -273,22 +296,22 @@ const Table2 = () => {
                                 color: "#000AFF",
                                 textDecoration: "underline",
                               }}>
-                              {visitor.channelID}
+                              {visitor.channelID} 
                             </Link>
                           </td>
 
-                          
-                            <td className="py-3  text-start flex justify-start">
+                          <Link to=" ">
+                            <td className="py-3  text-center flex items-center justify-center">
                               <FaCircle  className="mr-2 ml-16 text-gray-500 " style={{width:"30px",height:"30px"}}/>
-                              <span className="truncate flex-grow  #000000" style={{fontSize:"16px"}}>{visitor.name} </span>
+                              <span className="truncate flex-grow ml-2 #000000" style={{fontSize:"16px"}}>{visitor.name} </span>
                             </td>
-                          
+                          </Link>
 
-                          <td className="  py-3 border-b ">
+                          <td className="  py-3 border-b text-center">
                             {visitor.email}
                           </td>
 
-                          <td className=" py-3 border-b text-center">
+                          <td className=" py-3 border-b text-center  ">
                             {visitor.phone}
                           </td>
 

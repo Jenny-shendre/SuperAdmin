@@ -8,34 +8,63 @@ import { IoIosArrowForward } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import "../Home.css";
+const API_URL = import.meta.env.VITE_API_URL
+import {useLocation} from 'react-router-dom'
+
+
 
 const Table3 = () => {
   const [valueinput, setvalueinput] = useState("");
   const [data, setdata] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
-  const [showPopup, setShowPopup] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
-
-  const deletedAt = async () => {
-    if (deleteId) {
-      await axios.delete(
-        `https://prodictivity-management-tool2.vercel.app/api/customers/delete/${deleteId}`
+  const location = useLocation();
+  const id  = location.state || 0;
+  console.log('ID>>>>>>>>>>>>>>>',id)
+  
+  const deletedAt = async (id) => {
+    try {
+      // Make sure the URL doesn't have a double slash
+      const response = await axios.delete(
+        `https://prodictivity-management-tool2.vercel.app/api/record/deleteRecord/${id}`
       );
-      fetchData(); // Refresh data after deletion
-      setShowPopup(false); // Hide popup after deletion
+      
+      if (response.status === 200) {
+        console.log('Record deleted successfully');
+        fetchData(); // Refresh data after deletion
+      } else {
+        console.error('Failed to delete record:', response.data);
+      }
+    } catch (error) {
+      console.error('Error deleting record:', error);
     }
   };
-
+  
   const fetchData = async () => {
     const res = await axios.get(
-      `https://prodictivity-management-tool2.vercel.app/api/customers/fetch-all`
+      `https://prodictivity-management-tool2.vercel.app/api/record/getAllRecords`
     );
     setdata(res.data);
   };
 
+  const fetchRecordByChannelID = async (id) => {
+    // console.log('111111111111111',state)   
+    const res = await axios.get(
+      `${API_URL}/api/channels/fetchChannelBy/`,
+      {
+        params: {
+          id: id
+        },
+      }
+    );
+    const recordData = [res.data]
+    console.log('recordData',recordData)
+    setdata(recordData);
+  };
+
   useEffect(() => {
     fetchData();
+  
   }, []);
 
   // Data Time
@@ -47,20 +76,20 @@ const Table3 = () => {
   // Pagination Logic
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentRecords = data
-    .filter(({ name }) => name.toLowerCase().includes(valueinput.toLowerCase()))
-    .slice(indexOfFirstRecord, indexOfLastRecord);
-  const totalPages = Math.ceil(
-    data.filter(({ name }) =>
-      name.toLowerCase().includes(valueinput.toLowerCase())
-    ).length / recordsPerPage
-  );
+  // const currentRecords = data
+  //   .filter(({ name }) => name.toLowerCase().includes(valueinput.toLowerCase()))
+  //   .slice(indexOfFirstRecord, indexOfLastRecord);
+  // const totalPages = Math.ceil(
+  //   data.filter(({ name }) =>
+  //     name.toLowerCase().includes(valueinput.toLowerCase())
+  //   ).length / recordsPerPage
+  // );
 
-  const nextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+  // const nextPage = () => {
+  //   if (currentPage < totalPages) {
+  //     setCurrentPage(currentPage + 1);
+  //   }
+  // };
 
   const prevPage = () => {
     if (currentPage > 1) {
@@ -69,6 +98,7 @@ const Table3 = () => {
   };
 
   return (
+    
     <>
       {data.length === 0 ? (
         <Loding />
@@ -93,22 +123,24 @@ const Table3 = () => {
               }}
             >
               Home
-              <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+              
+              <IoIosArrowForward 
+              style={{ color: "#1C1B1F" }} />
               <Link to="/Channel_Partners">
 
-                <span
-                  style={{
-                    fontFamily: "Poppins",
-                    fontWeight: "400",
-                    fontSize: "24px",
-                  }}
-                  className="font-medium"
-                >
-                  Channel Partners
-                </span>
+              <span
+                style={{
+                  fontFamily: "Poppins",
+                  fontWeight: "400",
+                  fontSize: "24px",
+                }}
+                className="font-medium"
+              >
+               Channel Partners
+              </span>
 
               </Link>
-
+            
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
                 style={{
@@ -160,7 +192,7 @@ const Table3 = () => {
                           textAlign: "left",
                           paddingLeft: "7px",
                           padding: "5px",
-                          width: '65px'
+                          width:'65px'
                         }}
                       >
                         Serial No
@@ -174,7 +206,7 @@ const Table3 = () => {
                           textAlign: "center",
                           paddingLeft: "7px",
                           padding: "5px",
-                          width: '149px'
+                          width:'149px'
 
                         }}
                       >
@@ -189,7 +221,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: '181px'
+                          width:'181px'
 
                         }}
                       >
@@ -204,7 +236,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: '145px'
+                          width:'145px'
 
                         }}
                       >
@@ -219,11 +251,11 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: '155px'
+                          width:'155px'
 
                         }}
                       >
-                        List of Channel Partners
+                      List of Channel Partners
                       </th>
                       <th
                         className="border-b text-center"
@@ -234,7 +266,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: '109px'
+                          width:'109px'
 
 
                         }}
@@ -250,7 +282,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: '93px'
+                          width:'93px'
 
                         }}
                       >
@@ -265,7 +297,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: '164px'
+                          width:'164px'
 
                         }}
                       >
@@ -280,7 +312,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: '42px'
+                          width:'42px'
 
                         }}
                       >
@@ -295,7 +327,7 @@ const Table3 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: '102px'
+                          width:'102px'
 
 
                         }}
@@ -306,25 +338,26 @@ const Table3 = () => {
                   </thead>
                   <tbody>
                     {data.map((item, index) => (
+                      
                       <tr className="text-[9px] lg:text-[14px] " key={item.id}>
                         <td
                           className="py-3 ml-6 text-center flex items-center"
-                          style={{ paddingLeft: "5px", textAlign: 'center' }}
+                          style={{ paddingLeft: "5px", textAlign:'center' }}
                         >
                           {index + 1}
                         </td>
                         <td
                           className="py-1 border-b"
-                          style={{ paddingLeft: "5px", textAlign: 'center' }}
-                        >
-                          {/* {DateupdatedAt(visitor.updatedAt)} */}
+                          style={{ paddingLeft: "5px", textAlign:'center' }}
+                        >{console.log('>>>>>>>>>>>>>>>>>>>>>>>>>',data)}
+                          {/* {DateupdatedAt(item.updatedAt)} */}
 
                           26 June | 5:33 PM
                         </td>
 
                         <td className="py-1 border-b text-center">
-                          {/* {visitor.name} */}
-                          Anand Jaiswal
+                          {/* {item.name} */}
+                                       {item.channelPartnerName}
                           <Link
                             style={{
                               fontFamily: "Manrope",
@@ -336,59 +369,58 @@ const Table3 = () => {
                               textDecoration: "underline",
                             }}
                           >
-                            {/* {visitor.customerId}  */}
+                            {/* {item.customerId}  */}
                           </Link>
                         </td>
 
                         <td className="py-1 border-b text-center">
-                          {/* {visitor.name} */} 1234
+                          {/* {item.name} */} {item.customerMobileLastFour}
                         </td>
                         <td className="py-1 border-b text-center">
-                          Sameer Choudhary
+                          {item.customerName}
                         </td>
                         <td className="py-1 border-b text-center">
                           8484815614
                         </td>
                         <td className="py-1 border-b text-center">
-                          {/* {visitor.mobileS} */}Project A
+                          {/* {item.mobileS} */}
+                          {item.projectName}
                         </td>
 
                         <td className="py-1 border-b text-center">
-                          {/* {visitor.projectName} */} Samyak Gandhi
+                          {/* {item.projectName} */}
+                          {item.attendantName}
                         </td>
-
+                     
 
                         <td className="py-1 px-3 border-b text-center">
-
-                          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            <Link to='/EditForm2'>
-                              <PiNotePencilBold
-                                onClick={() => handleEdit(visitor._id)}
-                                style={{
-                                  cursor: "pointer",
-                                  fontSize: "18px",
-                                  color: "#632E04",
-                                }}
-                              />
-                            </Link>
+                         
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                          <Link to={`/EditForm2/${item._id}`}>
+                          <PiNotePencilBold
+                            onClick={() => handleEdit(item._id)}
+                            style={{
+                              cursor: "pointer",
+                              fontSize: "18px",
+                              color: "#632E04",
+                            }}
+                          />
+                          </Link>
                           </div>
-
-
+                          
+                          
                         </td>
 
                         <td className="py-1 px-3 border-b text-center">
-                          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            <RiDeleteBin6Line
-                              onClick={() => {
-                                setShowPopup(true);
-                                setDeleteId(item.id);
-                              }}
-                              style={{
-                                cursor: "pointer",
-                                fontSize: "18px",
-                                color: "#930000",
-                              }}
-                            />
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                          <RiDeleteBin6Line
+                            onClick={() => deletedAt(item._id)}
+                            style={{
+                              cursor: "pointer",
+                              fontSize: "18px",
+                              color: "#930000",
+                            }}
+                          />
                           </div>
                         </td>
                       </tr>
@@ -398,38 +430,6 @@ const Table3 = () => {
               </div>
             </div>
           </div>
-          {showPopup && (
-            <div className="fixed inset-0 flex items-center justify-center z-50">
-              <div className="fixed inset-0 bg-black opacity-50"></div>
-              <div className="Delete-popup w-[257px] h-[192px]  py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
-                <div className="text-center">
-                  <p className="font-manrope text-[20px] font-medium">
-                    Are you sure you want to delete this row?
-                  </p>
-                  <p className="font-manrope text-[12px] font-medium text-[#6A6A6A] mt-2">
-                    This action cannot be undone.
-                  </p>
-                  <div className="delete-cont flex justify-center items-center w-[197px] ml-1 h-[33px] gap-6 mt-4">
-                    <button
-                      className="w-[85px]  h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-                      onClick={deletedAt}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      className="w-[85px]  h-[33px] p-2.5 rounded-md border-black border flex items-center justify-center"
-                      onClick={() => setShowPopup(false)}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                  <p className="font-manrope text-[12px] text-[#6A6A6A] font-medium text-center mt-2">
-                    Select "Delete" to confirm.
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       )}
     </>
