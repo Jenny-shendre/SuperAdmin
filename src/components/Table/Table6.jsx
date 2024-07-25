@@ -3,7 +3,9 @@ import { IoIosArrowForward } from "react-icons/io";
 import EmailIcon from "../../assets/email.png";
 import PhoneIcon from "../../assets/phone.png";
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { TbReload } from "react-icons/tb";
+import { MdAdd } from "react-icons/md";
 
 const Table6 = () => {
   // const teamMembers = [
@@ -191,8 +193,8 @@ const Table6 = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 w-[927px] h-[591px] ">
-      <div style={{ position: 'relative', right: '380px' }}>
+    <div className=" p-4 ">
+      <div style={{marginLeft:'10px', display:'flex'}}>
         <div className="flex items-center [#000000] "
           style={{
             fontFamily: "Poppins",
@@ -201,6 +203,7 @@ const Table6 = () => {
           }}>
           <span >Home</span>
           <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+          <Link to="/Team">
           <span
             style={{
               fontFamily: "Poppins",
@@ -210,18 +213,22 @@ const Table6 = () => {
             className="font-medium">
             {teamData.teamName}
           </span>
+          </Link>
         </div>
       </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <input style={{ position: 'relative', top: '50px', right: '150px' }}
+      <div style={{display: 'flex',gap:'24px', justifyContent:'center'}}>
+        <div style={{ display: 'flex'}}>
+
+       
+        <input style={{ }}
           type="text"
           placeholder="Search"
-          className=" w-[619px] h-[48px] pl-10 pr-4 py-2 rounded-full border border-[#3D2314] focus:outline-none focus:ring-2 focus:ring-brown-500 h-[48px] "
+          className=" w-[619px] h-[48px] pl-16 pr-4 py-2 rounded-full border border-[#3D2314] focus:outline-none focus:ring-2 focus:ring-brown-500 h-[48px] "
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 absolute left-3 top-3.5 text-gray-400"
+          className="h-5 w-5 text-gray-400 absolute top-[116px] left-[510px]"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -232,22 +239,30 @@ const Table6 = () => {
           />
         </svg>
       </div>
-      <div className="">
-        <button style={{ position: 'relative', right: '50px', bottom: '4px' }}
-          className="bg-[#3D2314] text-white px-4 py-2  rounded-full mt-[5px] ml-[550px] w-[191px] h-[48px] "
+      <div style={{ display: 'flex', gap:'24px'}}>
+        <div>
+        <button
+          className="bg-[#3D2314] text-white px-4 py-2  rounded-full   w-[191px] h-[48px] flex item-center align-center justify-center gap-4"
           onClick={() => setShowAddExecutivePopup2(true)}
-        >
-          Add Executive
+        ><MdAdd className='self-center text-[24px]'/>
+         <span className='mt-[3px]'> Add Executive</span> 
         </button>
-        <button style={{ position: 'relative', left: '20px', bottom: '38px' }}
-          className="border-2 border-[#3D2314] px-4 py-2 rounded-full mt-[-60px] ml-[700px] w-[208px] h-[48px]"
-          onClick={() => setShowAssignManagerPopup2(true)}
-        >
-          Assign Manager
-        </button>
-      </div>
+        </div>
 
-      <div className=" ">
+        <div >
+        <button
+          className="border-2 border-[#3D2314] px-4 py-2 rounded-full w-[208px] h-[48px] flex item-center align-center justify-center gap-4"
+          onClick={() => setShowAssignManagerPopup2(true)}
+        ><TbReload className='color-[#3D2314] self-center text-[24px]' />
+           Assign Manager
+        </button>
+        </div>
+      
+        </div>
+      </div>
+<br />
+<div style={{textAlign:'-webkit-center'}}>
+<div className="w-[927px] h-[591px] ">
         <div className='bg-[#D7D7D7] '>
           <h2 className="text-xl font-semibold mb-2 text-center">{teamData.teamName}</h2>
           <p className="text-sm mb-4 text-center [#313131]"
@@ -311,6 +326,8 @@ const Table6 = () => {
           </table>
         </div>
       </div>
+</div>
+    
 
       {/* Add Executive Popup */}
       {showAddExecutivePopup2 && (

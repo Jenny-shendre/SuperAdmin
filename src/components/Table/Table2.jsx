@@ -277,18 +277,18 @@ const Table2 = () => {
                             </Link>
                           </td>
 
-                          <Link to=" ">
-                            <td className="py-3  text-center flex items-center justify-center">
+                          
+                            <td className="py-3  text-start flex justify-start">
                               <FaCircle  className="mr-2 ml-16 text-gray-500 " style={{width:"30px",height:"30px"}}/>
-                              <span className="truncate flex-grow ml-2 #000000" style={{fontSize:"16px"}}>{visitor.name} </span>
+                              <span className="truncate flex-grow  #000000" style={{fontSize:"16px"}}>{visitor.name} </span>
                             </td>
-                          </Link>
+                          
 
-                          <td className="  py-3 border-b text-center">
+                          <td className="  py-3 border-b ">
                             {visitor.email}
                           </td>
 
-                          <td className=" py-3 border-b text-center  ">
+                          <td className=" py-3 border-b text-center">
                             {visitor.phone}
                           </td>
 

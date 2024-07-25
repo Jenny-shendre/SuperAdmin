@@ -151,8 +151,8 @@ const Table7 = () => {
               </Link>
             </div>
 
-            <div className="flex justify-between mb-4 ml-[370px]">
-              <div className="relative w-2/3">
+            <div className="flex flex-col md:flex-row mb-6 items-center justify-center gap-[24px]">
+            <div className="relative mb-4 md:mb-0 md:w-[619px] h-[48px] mt-4 ">
                 <input
                   className="w-[619px] h-[48px] py-2 px-12 rounded-full"
                   style={{ border: "1px solid #3D2314", boxShadow: "0px 0px 4px 0px #00000040" }}
@@ -166,13 +166,16 @@ const Table7 = () => {
                   className="absolute left-4"
                 />
               </div>
+              <div>
               <button
-                className="bg-[#3D2314] text-white px-4 py-2 rounded-3xl mr-[450px] w-[220px]"
+                className="bg-[#3D2314] text-white px-4 py-2 rounded-3xl w-[220px] mt-[11px]"
                 onClick={() => setShowPopup(true)}
               >+ Add new Project</button>
+              </div>
+           
             </div>
 
-            <div className="bg-white rounded-lg shadow-md overflow-hidden w-[1130px] h-[290px] ml-[220px]">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden w-[1130px] h-[290px] ml-[50px]">
               <div className="flex">
                 <img src={projectData?.projectImage ?? one} alt="ROF Aalayas" className="w-1/3 object-cover h-[290px] w-[445px]" />
                 <div className="p-4">
@@ -188,7 +191,7 @@ const Table7 = () => {
               </div>
             </div>
 
-            <div className="flex mb-4 mt-4 ml-[730px]">
+            <div className="flex mb-4 mt-4 items-center justify-center">
               <button
                 className={`px-4 py-2 rounded-l-3xl ${action === 'service' ? 'bg-[#3D2314] text-white' : 'bg-white text-brown-700 border border-brown-700'}`}
                 onClick={serviceLog}
@@ -229,7 +232,7 @@ const Table7 = () => {
                               log.statusService === 'Disputed' ? 'text-[#EC2323]' : 'Empty'
                             }`}>{log.statusService}</td>
                           <td className="p-2 border-b">
-                            {log.star}<span className="text-yellow-500 items-center ">★</span>  {log.feedback}
+                            {log.star}<span className="text-yellow-500 items-center ">★  </span>  {log.feedback} <span className="text-black-500 items-center ">Satisfied</span>
                             <BiCommentError className='inline ml-1' />
                           </td>
                         </tr>

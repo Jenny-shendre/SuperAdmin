@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Loading from "../Loding/Loding";
 import axios from "axios";
 import { format } from "date-fns";
@@ -123,7 +123,7 @@ function EditForm1() {
               >
                 Home
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-                {/* <Link to="/Channel_Visitors"> */}
+                <Link to="/Channel_Visitors">
                 <span
                   style={{
                     fontFamily: "Poppins",
@@ -134,7 +134,7 @@ function EditForm1() {
                 >
                   Channel Visitors
                 </span>
-                {/* </Link> */}
+                </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
                 <span
                   style={{
