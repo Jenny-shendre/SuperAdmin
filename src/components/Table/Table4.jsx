@@ -1,16 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import one from "../../assets/one.png";
-import two from "../../assets/two.png";
-import three from "../../assets/three.png";
-import four from "../../assets/four.png";
-import five from "../../assets/five.png";
-import six from "../../assets/six.png";
-import seven from "../../assets/seven.png";
-import eight from "../../assets/eight.png";
-import nine from "../../assets/nine.png";
-import ten from "../../assets/ten.png";
-import eleven from "../../assets/eleven.png";
-import twelve from "../../assets/twelve.png";
 import { IoIosArrowForward } from "react-icons/io";
 import projectUploadIcon from "../../assets/project-upload.png";
 import { Link } from "react-router-dom";
@@ -143,8 +132,8 @@ const Table4 = () => {
                 </h1>
               </div>
 
-              <div className="flex flex-col md:flex-row mb-6 items-center justify-center ml-80">
-                <div className="relative mb-4 md:mb-0 md:w-[619px] h-[48px] mt-4">
+              <div className="flex flex-col md:flex-row mb-6 items-center justify-center gap-[24px]">
+                <div className="relative mb-4 md:mb-0 md:w-[619px] h-[48px] mt-4 ">
                   <input
                     type="text"
                     placeholder="Search"
@@ -165,9 +154,10 @@ const Table4 = () => {
                     />
                   </svg>
                 </div>
+                <div>
                 <button
                   onClick={() => setShowPopup(true)}
-                  className="bg-[#3D2314] text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] w-[206px] mr-[450px] ml-10 mt-4"
+                  className="bg-[#3D2314] text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] w-[206px] mt-[11px]"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -183,6 +173,8 @@ const Table4 = () => {
                   </svg>
                   Add new Project
                 </button>
+                </div>
+                
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -192,7 +184,7 @@ const Table4 = () => {
                 ).map((project, index) => (
                   <div
                     key={index}
-                    className="bg-white rounded-lg overflow-hidden shadow"
+                    className="bg-white rounded-lg overflow-hidden shadow w-[297px]"
                   >
                     <Link to={`/project/${project.name}`}>
                       <img
