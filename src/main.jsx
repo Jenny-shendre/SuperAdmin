@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       { path: "/Channel_Visitors/:id", element: <EditForm1 /> },
       { path: "/EditForm2", element: <EditForm2/> },
       { path: "/Team/:id", element:  <Table6/> },
-      { path: "/Table7", element:   <Table7/> },
+      { path: "/project/:id", element:   <Table7/> },
 
     ],
   },

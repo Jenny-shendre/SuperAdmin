@@ -53,13 +53,14 @@ const Table6 = () => {
   const fetchData = async () => {
     const res = await axios.post("https://project-rof.vercel.app/api/teams/teamfliter", { teamName });
     setTeamData(res.data);
+    
   }
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  // console.log("teamData", teamData);
+  console.log("teamData", teamData);
 
 
   useEffect(() => {
@@ -120,7 +121,7 @@ const Table6 = () => {
       const executiveData1 = {
         name: executiveName2,
         emailID: executiveEmail2,
-        phone: executivePhone2       
+        phone: executivePhone2
       }
 
       try {
