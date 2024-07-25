@@ -234,7 +234,7 @@ function EditForm1() {
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="Rainbow Overseas Pvt Ltd"
                         required
-                        readOnly={editMode}
+                        readOnly={true}
                         onChange={handleChange}
                       />
                     </div>
@@ -257,7 +257,7 @@ function EditForm1() {
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                           placeholder="Sameer Chowdhary"
                           required
-                          readOnly={editMode}
+                          readOnly={true}
                           onChange={handleChange}
                         />
                       </div>
@@ -269,7 +269,7 @@ function EditForm1() {
                           Channel Partner ID
                         </label>
                         <input
-                          readOnly={editMode}
+                          readOnly={true}
                           type="text"
                           name="partnerId"
                           id="Channel Partner ID"
@@ -300,7 +300,7 @@ function EditForm1() {
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="Project A"
                         required
-                        readOnly={editMode}
+                        readOnly={true}
                       />
                     </div>
 
@@ -321,7 +321,7 @@ function EditForm1() {
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="Samyak Gandhi"
                         required
-                        readOnly={editMode}
+                        readOnly={true}
                       />
                     </div>
                   </div>
@@ -337,7 +337,7 @@ function EditForm1() {
                       <input
                         type="text"
                         name="createdAt"
-                        readOnly={editMode}
+                        readOnly={true}
                         value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
@@ -352,7 +352,7 @@ function EditForm1() {
                       </label>
                       <input
                         type="text"
-                        readOnly={editMode}
+                        readOnly={true}
                         value={ResponseAt(FormData.createdAt)}
                         onChange={handleChange}
                         name="responseTime"
@@ -368,7 +368,7 @@ function EditForm1() {
                       </label>
                       <input
                         type="text"
-                        readOnly={editMode}
+                        readOnly={true}
                         name="timeDuration"
                         value={FormData.timeDuration}
                         onChange={handleChange}

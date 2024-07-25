@@ -53,8 +53,12 @@ const Table6 = () => {
 
 
   const fetchData = async () => {
+   try {
     const res = await axios.post("https://project-rof.vercel.app/api/teams/teamfliter", { teamName });
     setTeamData(res.data);
+   } catch (error) {
+    console.log(error);
+   }
     
   }
 
@@ -63,7 +67,15 @@ const Table6 = () => {
   }, []);
 
   console.log("teamData", teamData);
-
+   
+  const arrayClientName = (ClientName) => {
+    const uniqueClientNames = [
+      ...new Set(ClientName.map((item) => item.ClientName)),
+    ];
+    const lastIndex = uniqueClientNames.length - 1;
+    let clientnamelast = uniqueClientNames[lastIndex];
+    return ClientName.length == 0 ? "Not Assign" : clientnamelast;
+  };
 
   useEffect(() => {
     if (showAddExecutivePopup2 || showAssignManagerPopup2) {
@@ -311,7 +323,7 @@ const Table6 = () => {
                     </a>
                     <td className="py-2 ">{member.name?.length > 0 ? member?.name : "Not found"}</td>
                     <td className="py-2 ">{member.emailID?.length > 0 ? member?.emailID : "Not found"}</td>
-                    <td className="py-2 ">{member.ClientName?.length > 0 ? member?.ClientName : "Not Assign"}</td>
+                    <td className="py-2 ">{arrayClientName(member.ClientName)}</td>
                     <td className="py-2 ">{member.projectName?.length > 0 ? member?.projectName : "Not Assign"}</td>
                   </tr>
 
