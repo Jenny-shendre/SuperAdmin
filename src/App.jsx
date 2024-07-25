@@ -7,11 +7,12 @@ import Navber from "./components/Navber/Navber";
 import Table from "./components/Table/Table";
 import { Outlet } from "react-router-dom";
 
+
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="flex flex-row bg-[#F7F3E8]" style={{ position: 'fixed', width: '100%' }}>
+    <div className="flex flex-row bg-[#F7F3E8]" style={{position:'fixed', width:'100%'}}>
       <div className="w-auto h-screen ">
         <Navber />
       </div>

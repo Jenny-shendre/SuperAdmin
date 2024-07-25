@@ -1,8 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 function EditForm2() {
+  const [data, setData] = useState({
+    customerName: "",
+    customerMobileLastFour: "",
+    channelPartnerName: "",
+    channelPartnerCompanyName: "",
+    _id: "",
+    projectName: "",
+    attendantName: "",
+    createdAt: "",
+    updatedAt: "",
+    __v: ""
+  });
+
+  const params = useParams();
+
+  const fetchDataById = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/api/record/getRecordBy/${params.id}`
+      );
+      setData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataById();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(
+        `http://localhost:8000/api/record/updateRecord/${params.id}`,
+        data
+      );
+      alert("Data updated successfully!");
+    } catch (err) {
+      console.log(err);
+      alert("Error updating data.");
+    }
+  };
+
   return (
     <>
       <div>
@@ -18,7 +72,6 @@ function EditForm2() {
             >
               Home
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-              {/* <Link to="/Direct_Visitors"> */}
               <span
                 style={{
                   fontFamily: "Poppins",
@@ -29,7 +82,6 @@ function EditForm2() {
               >
                 Channel Partners
               </span>
-              {/* </Link> */}
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
                 style={{
@@ -72,15 +124,15 @@ function EditForm2() {
               className="text-[20px] text-center font-[Manrope] mb-4"
               style={{ fontWeight: "700" }}
             >
-           Customer and Channel Partner Detail 
+              Customer and Channel Partner Detail
             </h2>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div>
                 <div>
                   <div className="flex flex-wrap gap-[40px]">
                     <div>
                       <label
-                        htmlFor="first_name"
+                        htmlFor="customerName"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
                         style={{ fontWeight: "500" }}
                       >
@@ -88,41 +140,49 @@ function EditForm2() {
                       </label>
                       <input
                         type="text"
-                        id="first_name"
+                        id="customerName"
+                        name="customerName"
                         className="lg:w-[393px] lg:h-[47px] p-1 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="Anand Jaiswal"
+                        value={data.customerName}
+                        onChange={handleChange}
                         required
                       />
                     </div>
                     <div>
                       <label
-                        htmlFor="phone"
+                        htmlFor="customerMobileLastFour"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
                       >
                         Last 4 Digit
                       </label>
                       <input
                         type="tel"
-                        id="phone"
+                        id="customerMobileLastFour"
+                        name="customerMobileLastFour"
                         className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="1 4 6 5"
-                        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                        value={data.customerMobileLastFour}
+                        onChange={handleChange}
                         required
                       />
                     </div>
                   </div>
                   <div className="lg:mt-1">
                     <label
-                      htmlFor=" Channel Name"
+                      htmlFor="channelPartnerName"
                       className="block text-[#000000] text-[16px] font-[Manrope]"
                     >
                       Channel Name
                     </label>
                     <input
                       type="text"
-                      id=" Channel Name"
+                      id="channelPartnerName"
+                      name="channelPartnerName"
                       className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                       placeholder="Rainbow Overseas Pvt Ltd"
+                      value={data.channelPartnerName}
+                      onChange={handleChange}
                       required
                     />
                   </div>
@@ -132,22 +192,25 @@ function EditForm2() {
                   <div className="flex flex-wrap gap-[40px]">
                     <div>
                       <label
-                        htmlFor="  Channel Partner Name"
+                        htmlFor="channelPartnerCompanyName"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
                       >
                         Channel Partner Name
                       </label>
                       <input
                         type="text"
-                        id="  Channel Partner Name"
+                        id="channelPartnerCompanyName"
+                        name="channelPartnerCompanyName"
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="Sameer Chowdhary"
+                        value={data.channelPartnerCompanyName}
+                        onChange={handleChange}
                         required
                       />
                     </div>
                     <div>
                       <label
-                        htmlFor="Channel Partner ID"
+                        htmlFor="channelPartnerID"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
                       >
                         Channel Partner ID
@@ -155,9 +218,11 @@ function EditForm2() {
                       <input
                         readOnly
                         type="text"
-                        id="Channel Partner ID"
+                        id="channelPartnerID"
+                        name="channelPartnerID"
                         className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="CHROF0001"
+                        value={data._id}
                         required
                       />
                     </div>
@@ -165,7 +230,7 @@ function EditForm2() {
 
                   <div className="lg:mt-1">
                     <label
-                      htmlFor="Project "
+                      htmlFor="projectName"
                       className="block text-[#000000] text-[16px] font-[Manrope]"
                       style={{ fontWeight: "500" }}
                     >
@@ -173,16 +238,19 @@ function EditForm2() {
                     </label>
                     <input
                       type="text"
-                      id="Project "
+                      id="projectName"
+                      name="projectName"
                       className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                       placeholder="Project A"
+                      value={data.projectName}
+                      onChange={handleChange}
                       required
                     />
                   </div>
 
                   <div className="lg:mt-1">
                     <label
-                      htmlFor="attendant"
+                      htmlFor="attendantName"
                       className="block text-[#000000] text-[16px] font-[Manrope]"
                       style={{ fontWeight: "500" }}
                     >
@@ -190,9 +258,12 @@ function EditForm2() {
                     </label>
                     <input
                       type="text"
-                      id="attendant"
+                      id="attendantName"
+                      name="attendantName"
                       className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                       placeholder="Samyak Gandhi"
+                      value={data.attendantName}
+                      onChange={handleChange}
                       required
                     />
                   </div>
@@ -208,7 +279,10 @@ function EditForm2() {
                     </label>
                     <input
                       type="date"
+                      name="createdAt"
                       className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      value={data.createdAt}
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -220,7 +294,10 @@ function EditForm2() {
                     </label>
                     <input
                       type="time"
+                      name="updatedAt"
                       className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      value={data.updatedAt}
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -232,7 +309,10 @@ function EditForm2() {
                     </label>
                     <input
                       type="time"
+                      name="__v"
                       className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      value={data.__v}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -245,8 +325,22 @@ function EditForm2() {
                     >
                       Executive Notes
                     </label>
-                    <textarea className="lg:w-[641px] lg:h-[173px] border-[2px] border-[#3D2314] rounded-lg mt-1"></textarea>
+                    <textarea
+                      name="executiveNotes"
+                      className="lg:w-[641px] lg:h-[173px] border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      value={data.executiveNotes}
+                      onChange={handleChange}
+                    ></textarea>
                   </div>
+                </div>
+
+                <div className="mt-4">
+                  <button
+                    type="submit"
+                    className="bg-[#3D2314] text-white px-6 py-3 rounded-full"
+                  >
+                    Save Changes
+                  </button>
                 </div>
               </div>
             </form>
