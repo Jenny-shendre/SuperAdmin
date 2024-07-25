@@ -10,21 +10,31 @@ import { Link } from "react-router-dom";
 import { FaEyeSlash, FaCircle } from "react-icons/fa";
 import { IoOpenOutline } from "react-icons/io5";
 import DropIcon from "../../assets/DropIcon.png";
+import EmailIcon from "../../assets/email.png";
+import PhoneIcon from "../../assets/phone.png";
 
 const Table5 = () => {
   const [valueinput, setvalueinput] = useState("");
   const [viewedItems, setViewedItems] = useState([]);
   const [data, setdata] = useState([]);
+  const [data1, setdata1] = useState([]);
+  const [data2, setdata2] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
   const [showTeamPopup, setShowTeamPopup] = useState(false);
   const [showAddTeamMemberPopup, setShowAddTeamMemberPopup] = useState(false);
+  const [showAddManagerPopup, setShowAddManagerPopup] = useState(false);
+  const [showAddExecutivePopup, setShowAddExecutivePopup] = useState(false); // state for executive popup
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
 
   const teamPopupRef = useRef();
   const addTeamMemberPopupRef = useRef();
+  const addManagerPopupRef = useRef();
+  const addExecutivePopupRef = useRef(); //  ref for executive popup
   const dropdownRef = useRef();
+  const projectDropdownRef = useRef(); // ref for project dropdown
 
   const handleView = (id) => {
     if (viewedItems.includes(id)) {
@@ -36,25 +46,25 @@ const Table5 = () => {
     }
   };
 
-  // const deletedAt = async (id, customerId) => {
-  //   const confirmDelete = window.confirm(
-  //     ` Do you really want to delete the record with ID ${customerId}?`
-  //   );
 
-  //   if (confirmDelete) {
-  //     await axios.delete(
-  //       `https://project-rof.vercel.app/api/customers/delete/${id}`
-  //     );
-  //     fetchData();
-  //   }
-  // };
 
   const fetchData = async () => {
     setLoading(true);
     const res = await axios.get(
-      "https://project-rof.vercel.app/api/customers/fetch-all"
+      "https://project-rof.vercel.app/api/salesManager/fetch-all"
     );
     setdata(res.data);
+
+    const res1 = await axios.get(
+      "https://project-rof.vercel.app/api/teams/fetch-all"
+    );
+    setdata1(res1.data);
+
+    const res2 = await axios.get(
+      "https://project-rof.vercel.app/api/projects"
+    );
+    setdata2(res2.data);
+
     setLoading(false);
   };
 
@@ -62,15 +72,19 @@ const Table5 = () => {
     fetchData();
   }, []);
 
-  const DateupdatedAt = (DateupdatedAt) => {
-    const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
-    return formattedDate;
-  };
+  // console.log("data", data);
+  // console.log("data1", data1);
+  // console.log("data2", data2)
 
-  const ResponseAt = (DateupdatedAt) => {
-    const formattedDate = format(new Date(DateupdatedAt), "hh:mm a");
-    return formattedDate;
-  };
+  // const DateupdatedAt = (DateupdatedAt) => {
+  //   const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
+  //   return formattedDate;
+  // };
+
+  // const ResponseAt = (DateupdatedAt) => {
+  //   const formattedDate = format(new Date(DateupdatedAt), "hh:mm a");
+  //   return formattedDate;
+  // };
 
   const getTeamName = (index) => {
     const teamLetter = String.fromCharCode(65 + index);
@@ -91,15 +105,33 @@ const Table5 = () => {
       setShowAddTeamMemberPopup(false);
     }
     if (
+      addManagerPopupRef.current &&
+      !addManagerPopupRef.current.contains(event.target)
+    ) {
+      setShowAddManagerPopup(false);
+    }
+    if (
+      addExecutivePopupRef.current &&
+      !addExecutivePopupRef.current.contains(event.target)
+    ) {
+      setShowAddExecutivePopup(false);
+    }
+    if (
       dropdownRef.current &&
       !dropdownRef.current.contains(event.target)
     ) {
       setIsDropdownOpen(false);
     }
+    if (
+      projectDropdownRef.current &&
+      !projectDropdownRef.current.contains(event.target)
+    ) {
+      setIsProjectDropdownOpen(false);
+    }
   };
 
   useEffect(() => {
-    if (showTeamPopup || showAddTeamMemberPopup || isDropdownOpen) {
+    if (showTeamPopup || showAddTeamMemberPopup || showAddManagerPopup || showAddExecutivePopup || isDropdownOpen || isProjectDropdownOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
     } else {
       document.removeEventListener("mousedown", handleOutsideClick);
@@ -108,9 +140,9 @@ const Table5 = () => {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [showTeamPopup, showAddTeamMemberPopup, isDropdownOpen]);
+  }, [showTeamPopup, showAddTeamMemberPopup, showAddManagerPopup, showAddExecutivePopup, isDropdownOpen, isProjectDropdownOpen]);
 
-  // add team members popup logic
+  // Add team members popup logic
 
   const [teamName, setTeamName] = useState('');
   const [project, setProject] = useState('');
@@ -119,7 +151,7 @@ const Table5 = () => {
   const [newMember, setNewMember] = useState('');
   const [isCreating, setIsCreating] = useState(false);
   const [createStatus, setCreateStatus] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); // New state for error message
+  const [errorMessage, setErrorMessage] = useState(''); // state for error message
 
   const handleAddMember = () => {
     if (newMember.trim() && !members.includes(newMember.trim())) {
@@ -139,7 +171,12 @@ const Table5 = () => {
   };
 
   const handleProjectChange = (projectName) => {
-    setManager(projectName);
+    setProject(projectName);
+    setIsProjectDropdownOpen(false);
+  };
+
+  const handleManagerChange = (managerName) => {
+    setManager(managerName);
     setIsDropdownOpen(false);
   };
 
@@ -148,15 +185,18 @@ const Table5 = () => {
       setIsCreating(true);
       setErrorMessage(''); // Clear any previous error messages
 
-      try {
-        await axios.post('https://project-rof.vercel.app/api/teams/create', {
-          teamName,
-          project,
-          manager,
-          members
-        });
+      const teamdata = {
+        teamName: teamName,
+        projectName: project,
+        managerName: manager,
+        teamMemberName: members
+      }
 
+      try {
+        const res = await axios.post('https://project-rof.vercel.app/api/teams/save', teamdata);
+        console.log("res", res);
         setCreateStatus('Team Created Successfully ✓');
+        console.log("Response send", teamdata);
       } catch (error) {
         console.error('Error creating team:', error);
         setCreateStatus('Error Creating Team');
@@ -166,11 +206,129 @@ const Table5 = () => {
     } else {
       setErrorMessage('Please fill in all fields and add at least one team member.');
     }
-
   };
 
+  //  manager popup logic
 
+  const [managerName, setManagerName] = useState('');
+  const [managerEmail, setManagerEmail] = useState('');
+  const [managerPhone, setManagerPhone] = useState(''); // state for phone number
+  const [isManagerCreating, setIsManagerCreating] = useState(false);
+  const [managerCreateStatus, setManagerCreateStatus] = useState('');
+  const [managerErrorMessage, setManagerErrorMessage] = useState(''); // state for error message
 
+  const validateManagerName = (name) => {
+    return /^[A-Z][a-zA-Z]*$/.test(name);
+  };
+
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validatePhoneNumber = (phone) => {
+    return /^\d{10}$/.test(phone);
+  };
+
+  const handleManagerPhoneChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    if (value.length <= 10) {
+      setManagerPhone(value);
+    }
+  };
+
+  const handleManagerSubmit = async () => {
+    if (managerName && managerEmail && managerPhone) { // Check for phone number
+      if (!validateManagerName(managerName)) {
+        setManagerErrorMessage('The first letter of the name must be capital.');
+        return;
+      }
+      if (!validateEmail(managerEmail)) {
+        setManagerErrorMessage('Please enter a valid email address.');
+        return;
+      }
+      if (!validatePhoneNumber(managerPhone)) {
+        setManagerErrorMessage('Phone number must be exactly 10 digits.');
+        return;
+      }
+      setIsManagerCreating(true);
+      setManagerErrorMessage(''); // Clear any previous error messages
+
+      const managerData = {
+        name: managerName,
+        email: managerEmail,
+        phone: managerPhone
+      }
+      try {
+        const res = await axios.post("https://project-rof.vercel.app/api/salesManager/save", managerData)
+        console.log("res", res);
+        setManagerCreateStatus('Manager Created Successfully ✓');
+        console.log("Response send", res);
+      } catch (error) {
+        console.error('Error creating manager:', error);
+        setManagerCreateStatus('Error Creating Manager');
+        console.log(error);
+      } finally {
+        setIsManagerCreating(false);
+      }
+    } else {
+      setManagerErrorMessage('Please fill in all fields.');
+    }
+  };
+
+  //  executive popup logic
+
+  const [executiveName, setExecutiveName] = useState('');
+  const [executiveEmail, setExecutiveEmail] = useState('');
+  const [executivePhone, setExecutivePhone] = useState(''); // state for phone number
+  const [isExecutiveCreating, setIsExecutiveCreating] = useState(false);
+  const [executiveCreateStatus, setExecutiveCreateStatus] = useState('');
+  const [executiveErrorMessage, setExecutiveErrorMessage] = useState(''); //  state for error message
+
+  const handleExecutivePhoneChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    if (value.length <= 10) {
+      setExecutivePhone(value);
+    }
+  };
+
+  const handleExecutiveSubmit = async () => {
+    if (executiveName && executiveEmail && executivePhone) { // Check for phone number
+      if (!validateManagerName(executiveName)) {
+        setExecutiveErrorMessage('The first letter of the name must be capital.');
+        return;
+      }
+      if (!validateEmail(executiveEmail)) {
+        setExecutiveErrorMessage('Please enter a valid email address.');
+        return;
+      }
+      if (!validatePhoneNumber(executivePhone)) {
+        setExecutiveErrorMessage('Phone number must be exactly 10 digits.');
+        return;
+      }
+      setIsExecutiveCreating(true);
+      setExecutiveErrorMessage(''); // Clear any previous error messages
+
+      const executiveData = {
+        name: executiveName,
+        emailID: executiveEmail,
+        phone: executivePhone
+      }
+
+      try {
+        const res = await axios.post("https://project-rof.vercel.app/api/attendants/save", executiveData)
+        console.log("res", res);
+        setExecutiveCreateStatus('Executive Created Successfully ✓');
+        console.log("Response send", res);
+      } catch (error) {
+        console.error('Error creating executive:', error);
+        setExecutiveCreateStatus('Error Creating Executive');
+      } finally {
+        setIsExecutiveCreating(false);
+      }
+    } else {
+      setExecutiveErrorMessage('Please fill in all fields.');
+    }
+  };
 
   return (
     <div className="arrowss">
@@ -268,10 +426,22 @@ const Table5 = () => {
                     >
                       Add Team
                     </button>
-                    <button className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]">
+                    <button
+                      className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
+                      onClick={() => {
+                        setShowTeamPopup(false);
+                        setShowAddManagerPopup(true);
+                      }}
+                    >
                       Add Manager
                     </button>
-                    <button className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]">
+                    <button
+                      className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
+                      onClick={() => {
+                        setShowTeamPopup(false);
+                        setShowAddExecutivePopup(true);
+                      }}
+                    >
                       Add Executive
                     </button>
                   </div>
@@ -374,99 +544,98 @@ const Table5 = () => {
                   </thead>
 
                   <tbody>
-                    {data
-                      .slice(
-                        (currentPage - 1) * recordsPerPage,
-                        currentPage * recordsPerPage
-                      )
-                      .map((visitor, index) => (
-                        <tr
-                          key={index}
-                          className="border-b text-[9px] lg:text-[14px]"
+                    {data1.filter(({ teamName, managerName }) =>
+                      teamName.toLowerCase().includes(valueinput.toLowerCase()) ||
+                      managerName.toLowerCase().includes(valueinput.toLowerCase())
+                    ).map((visitor, index) => (
+                      <tr
+                        key={index}
+                        className="border-b text-[9px] lg:text-[14px]"
+                      >
+                        <td
+                          style={{
+                            padding: "10px",
+                            border: "1px solid #ddd",
+                            width: "188px",
+                            height: "54px",
+                          }}
                         >
-                          <td
+                          <div
+                            className="py-3 text-center flex items-center "
                             style={{
-                              padding: "10px",
-                              border: "1px solid #ddd",
-                              width: "188px",
-                              height: "54px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                           >
-                            <div
-                              className="py-3 text-center flex items-center "
+                            {visitor.teamName}
+                          </div>
+                        </td>
+
+                        <td
+                          className="py-3 border-b text-center"
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "178px",
+                            height: "54px",
+                          }}
+                        >
+                          {visitor.managerName}
+                        </td>
+
+                        <td
+                          className=" py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "224px",
+                            height: "54px",
+                          }}
+                        >
+                          {visitor.managerEmail}
+                        </td>
+
+                        <td
+                          className="  py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "174px",
+                            height: "54px",
+                          }}
+                        >
+                          {visitor.projectName}
+                        </td>
+
+                        <td
+                          className="  py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "118px",
+                            height: "54px",
+                            justifyItems: "center",
+                          }}
+                        >
+                          <div
+                            className="py-3  flex gap-5 "
+                            style={{
+                              justifyContent: "center",
+                              alignItems: "center",
+                              display: "flex",
+                            }}
+                          >
+                            <LuEye
                               style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
+                                cursor: "pointer",
+                                fontSize: "18px",
+                                color: "#632E04",
                               }}
+                            />
+                            <Link to={`/Team/${visitor.teamName}`}
                             >
-                              {getTeamName(index)}
-                            </div>
-                          </td>
-
-                          <td
-                            className="py-3 border-b text-center"
-                            style={{
-                              textAlign: "center",
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "178px",
-                              height: "54px",
-                            }}
-                          >
-                            Anirudh
-                          </td>
-
-                          <td
-                            className=" py-3 border-b text-center"
-                            style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "224px",
-                              height: "54px",
-                            }}
-                          >
-                            rainbowoverseas@gmail.com
-                          </td>
-
-                          <td
-                            className="  py-3 border-b text-center"
-                            style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "174px",
-                              height: "54px",
-                            }}
-                          >
-                            ROF Aalayas
-                          </td>
-
-                          <td
-                            className="  py-3 border-b text-center"
-                            style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "118px",
-                              height: "54px",
-                              justifyItems: "center",
-                            }}
-                          >
-                            <div
-                              className="py-3  flex gap-5 "
-                              style={{
-                                justifyContent: "center",
-                                alignItems: "center",
-                                display: "flex",
-                              }}
-                            >
-                              <LuEye
-                                style={{
-                                  cursor: "pointer",
-                                  fontSize: "18px",
-                                  color: "#632E04",
-                                }}
-                              />
-                              <Link to='/TeamA'>
                               <IoOpenOutline
                                 onClick={() => deletedAt(visitor._id, visitor.customerId)}
                                 style={{
@@ -475,11 +644,11 @@ const Table5 = () => {
                                   color: "#632E04",
                                 }}
                               />
-                              </Link>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                            </Link>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               ) : (
@@ -495,6 +664,7 @@ const Table5 = () => {
               <div
                 ref={addTeamMemberPopupRef}
                 className="fixed inset-0 flex items-center justify-center z-50"
+
               >
                 <div className="add-team-members w-[488px] h-fit p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
                   <button
@@ -510,14 +680,30 @@ const Table5 = () => {
                     className="w-[440px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4"
                     placeholder="Team Name"
                   />
-                  <input
-                    type="text"
-                    value={project}
-                    onChange={(e) => setProject(e.target.value)}
-                    className="w-[440px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4"
-                    placeholder="Assign Project"
-                  />
+                  <div
+                    className="relative w-[440px] h-12 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 block shadow-sm focus:border-brown-500 focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                    onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
+                    ref={projectDropdownRef}
+                  >
+                    <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
+                      {project || "Assign Project"}
+                      <img className="ml-2 h-2 w-3 " src={DropIcon} alt="Dropdown Icon" />
+                    </div>
+                    {isProjectDropdownOpen && (
+                      <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
+                        {data2.map((projects) => (
+                          <div
+                            key={projects.name}
 
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            onClick={() => handleProjectChange(projects.name)}
+                          >
+                            {projects.name}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <div
                     className="relative w-[440px] h-12 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 block shadow-sm focus:border-brown-500 focus:ring focus:ring-brown-500 focus:ring-opacity-50"
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -528,36 +714,16 @@ const Table5 = () => {
                     </div>
                     {isDropdownOpen && (
                       <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Manager 1")}
-                        >
-                          Manager 1
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Manager 2")}
-                        >
-                          Manager 2
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Manager 3")}
-                        >
-                          Manager 3
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Manager 4")}
-                        >
-                          Manager 4
-                        </div>
-                        <div
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                          onClick={() => handleProjectChange("Manager 5")}
-                        >
-                          Manager 5
-                        </div>
+                        {data.map((sales) => (
+                          <div
+                            key={sales.name}
+
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            onClick={() => handleManagerChange(sales.name)}
+                          >
+                            {sales.name}
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
@@ -601,6 +767,146 @@ const Table5 = () => {
                     <p className="text-red-500 mt-2">{errorMessage}</p>
                   )}
 
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Add manager screen */}
+          {showAddManagerPopup && (
+            <>
+              <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+              <div
+                ref={addManagerPopupRef}
+                className="fixed inset-0 flex items-center justify-center z-50"
+
+              >
+                <div className="add-manager w-[488px] h-fit p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+                  <button
+                    className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                    onClick={() => setShowAddManagerPopup(false)}
+                  >
+                    X
+                  </button>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="text"
+                      value={managerName}
+                      onChange={(e) => setManagerName(e.target.value)}
+                      className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Sales Manager Name"
+                    />
+                    {!validateManagerName(managerName) && managerName.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">The first letter of the name must be capital.</p>
+                    )}
+                  </div>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="email"
+                      value={managerEmail}
+                      onChange={(e) => setManagerEmail(e.target.value)}
+                      className="w-full h-full p-4  rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Email ID"
+                    />
+                    <img src={EmailIcon} alt="Email" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                    {!validateEmail(managerEmail) && managerEmail.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">Please enter a valid email address.</p>
+                    )}
+                  </div>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="text"
+                      value={managerPhone}
+                      onChange={handleManagerPhoneChange}
+                      className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Phone No"
+                      maxLength={10} // Ensures no more than 10 characters
+                    />
+                    <img src={PhoneIcon} alt="Phone" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                    {!validatePhoneNumber(managerPhone) && managerPhone.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">Phone number must be exactly 10 digits.</p>
+                    )}
+                  </div>
+                  <button
+                    onClick={handleManagerSubmit}
+                    className="w-fit create-manager-btn h-12 py-3 px-6 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
+                    disabled={isManagerCreating}
+                  >
+                    {managerCreateStatus || 'Add'}
+                  </button>
+                  {managerErrorMessage && (
+                    <p className="text-red-500 mt-2">{managerErrorMessage}</p>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Add executive screen */}
+          {showAddExecutivePopup && (
+            <>
+              <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+              <div
+                ref={addExecutivePopupRef}
+                className="fixed inset-0 flex items-center justify-center z-50"
+
+              >
+                <div className="add-executive w-[488px] h-fit p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+                  <button
+                    className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                    onClick={() => setShowAddExecutivePopup(false)}
+                  >
+                    X
+                  </button>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="text"
+                      value={executiveName}
+                      onChange={(e) => setExecutiveName(e.target.value)}
+                      className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Name"
+                    />
+                    {!validateManagerName(executiveName) && executiveName.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">The first letter of the name must be capital.</p>
+                    )}
+                  </div>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="email"
+                      value={executiveEmail}
+                      onChange={(e) => setExecutiveEmail(e.target.value)}
+                      className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Executive Email ID"
+                    />
+                    <img src={EmailIcon} alt="Email" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                    {!validateEmail(executiveEmail) && executiveEmail.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">Please enter a valid email address.</p>
+                    )}
+                  </div>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="text"
+                      value={executivePhone}
+                      onChange={handleExecutivePhoneChange}
+                      className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Phone No"
+                      maxLength={10} // Ensures no more than 10 characters
+                    />
+                    <img src={PhoneIcon} alt="Phone" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
+                    {!validatePhoneNumber(executivePhone) && executivePhone.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">Phone number must be exactly 10 digits.</p>
+                    )}
+                  </div>
+                  <button
+                    onClick={handleExecutiveSubmit}
+                    className="w-fit create-executive-btn h-12 py-3 px-6 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
+                    disabled={isExecutiveCreating}
+                  >
+                    {executiveCreateStatus || 'Add'}
+                  </button>
+                  {executiveErrorMessage && (
+                    <p className="text-red-500 mt-2">{executiveErrorMessage}</p>
+                  )}
                 </div>
               </div>
             </>

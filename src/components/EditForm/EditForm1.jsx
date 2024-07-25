@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Loading from "../Loding/Loding";
 import axios from "axios";
 import { format } from "date-fns";
@@ -123,7 +123,7 @@ function EditForm1() {
               >
                 Home
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-                {/* <Link to="/Direct_Visitors"> */}
+                <Link to="/Channel_Visitors">
                 <span
                   style={{
                     fontFamily: "Poppins",
@@ -132,9 +132,9 @@ function EditForm1() {
                   }}
                   className="font-medium"
                 >
-                  Direct Visitors
+                  Channel Visitors
                 </span>
-                {/* </Link> */}
+                </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
                 <span
                   style={{
@@ -234,7 +234,7 @@ function EditForm1() {
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="Rainbow Overseas Pvt Ltd"
                         required
-                        readOnly={editMode}
+                        readOnly={true}
                         onChange={handleChange}
                       />
                     </div>
@@ -257,7 +257,7 @@ function EditForm1() {
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                           placeholder="Sameer Chowdhary"
                           required
-                          readOnly={editMode}
+                          readOnly={true}
                           onChange={handleChange}
                         />
                       </div>
@@ -269,7 +269,7 @@ function EditForm1() {
                           Channel Partner ID
                         </label>
                         <input
-                          readOnly={editMode}
+                          readOnly={true}
                           type="text"
                           name="partnerId"
                           id="Channel Partner ID"
@@ -300,7 +300,7 @@ function EditForm1() {
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="Project A"
                         required
-                        readOnly={editMode}
+                        readOnly={true}
                       />
                     </div>
 
@@ -321,7 +321,7 @@ function EditForm1() {
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="Samyak Gandhi"
                         required
-                        readOnly={editMode}
+                        readOnly={true}
                       />
                     </div>
                   </div>
@@ -337,7 +337,7 @@ function EditForm1() {
                       <input
                         type="text"
                         name="createdAt"
-                        readOnly={editMode}
+                        readOnly={true}
                         value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
@@ -352,7 +352,7 @@ function EditForm1() {
                       </label>
                       <input
                         type="text"
-                        readOnly={editMode}
+                        readOnly={true}
                         value={ResponseAt(FormData.createdAt)}
                         onChange={handleChange}
                         name="responseTime"
@@ -368,7 +368,7 @@ function EditForm1() {
                       </label>
                       <input
                         type="text"
-                        readOnly={editMode}
+                        readOnly={true}
                         name="timeDuration"
                         value={FormData.timeDuration}
                         onChange={handleChange}
@@ -387,9 +387,10 @@ function EditForm1() {
                       </label>
                       <textarea className="lg:w-[641px] lg:h-[173px] border-[2px] border-[#3D2314] rounded-lg mt-1"
                         name="notes"
-                        value={FormData.notes}
                         onChange={handleChange}
-                        readOnly={!editMode}></textarea>
+                        readOnly={!editMode}>
+                        {FormData.notes}
+                      </textarea>
                     </div>
                   </div>
                 </div>
