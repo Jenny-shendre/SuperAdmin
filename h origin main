@@ -1,0 +1,79 @@
+[33mdba40ec[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m Describe your changes here
+[33m6238519[m Describe your changes here
+[33md17740f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Delete dist directory
+[33meffe330[m Merge pull request #13 from Jenny-shendre/rainbow
+[33m8d6cd44[m added changes
+[33m50936a7[m Merge pull request #12 from Jenny-shendre/bugResolve
+[33md86272c[m[33m ([m[1;31morigin/bugResolve[m[33m)[m find bugs and fixed it also update the team screen
+[33m61722bd[m Merge pull request #11 from Jenny-shendre/New-Changes
+[33m9003e80[m[33m ([m[1;31morigin/New-Changes[m[33m)[m tab 6
+[33mcc0977a[m Merge pull request #10 from Jenny-shendre/New-Changes
+[33m6be1f3b[m Changes Done
+[33m9eec65a[m Merge pull request #9 from Jenny-shendre/projectScreen
+[33m2dbf934[m[33m ([m[1;31morigin/projectScreen[m[33m)[m integrate the project screen
+[33mf0dcac4[m Merge pull request #8 from Jenny-shendre/teamIntegrate
+[33m672477f[m[33m ([m[1;31morigin/teamIntegrate[m[33m)[m Integrating remaining portion with using some logic
+[33m0f0e24e[m integrate teams screens
+[33md18ca4b[m Merge pull request #7 from Jenny-shendre/Dashboard-Update-V5
+[33m55abebd[m[33m ([m[1;31morigin/Dashboard-Update-V5[m[33m)[m Dashboard Files Updated
+[33mcbfa960[m Merge pull request #6 from Jenny-shendre/Dashboard-New-File-4
+[33m429a181[m[33m ([m[1;31morigin/Dashboard-New-File-4[m[33m)[m FG
+[33mac29d45[m[33m ([m[1;31morigin/Dashboard-New-File-3[m[33m)[m DK
+[33m0f08b18[m Merge pull request #5 from Jenny-shendre/Dashboard-New-File-3
+[33m65886ce[m done
+[33m4c67c72[m Merge pull request #4 from Jenny-shendre/Dashboard-New-File-2
+[33m3f61a85[m[33m ([m[1;31morigin/Dashboard-New-File-2[m[33m)[m All Popups screens implemented
+[33maefe6ba[m Merge pull request #3 from Jenny-shendre/AddScreens
+[33mcb97dee[m[33m ([m[1;31morigin/AddScreens[m[33m)[m update
+[33m1e6d2f7[m Merge pull request #2 from Jenny-shendre/Dashboard-New-File
+[33m8a2e938[m[33m ([m[1;31morigin/Dashboard-New-File[m[33m)[m Popup screens added in app
+[33m143842d[m Merge pull request #1 from Jenny-shendre/IntegrateLog
+[33m9b893a1[m[33m ([m[1;31morigin/IntegrateLog[m[33m)[m integrated activity log screens
+[33mf1107f1[m[33m ([m[1;31morigin/DashboardUpdated[m[33m)[m updated dashboard
+[33m707b3f7[m Updated Dashboard
+[33m1c2dcbe[m Delete vite.config.js
+[33m9eee79a[m Delete tailwind.config.js
+[33m005116d[m Delete postcss.config.js
+[33m04609a7[m Delete package.json
+[33m6328171[m Delete package-lock.json
+[33mbb8cdd4[m Delete index.html
+[33mea8d1f8[m Delete README.md
+[33mfd6e1ed[m Delete .gitignore
+[33m92c5932[m Delete .eslintrc.cjs
+[33ma7bb787[m Delete src directory
+[33m80623e6[m Delete public directory
+[33mc58b189[m Update Table.jsx
+[33m85d6564[m adding icon
+[33m77807af[m Update index.html
+[33m5062a39[m Update index.html
+[33mfd6cc11[m Merge pull request #8 from Shaileshkale17/newcode
+[33m4206473[m adding Pagination Logic
+[33m4341e08[m Merge pull request #7 from Shaileshkale17/newcode
+[33m14a617d[m all task is done
+[33m6319a8c[m Merge pull request #6 from Shaileshkale17/newcode
+[33m37dc9e3[m adding new functionlities and api integration
+[33m47d072e[m Merge pull request #5 from Shaileshkale17/newcode
+[33m9c32da9[m adding functionality in search
+[33m14de173[m Merge pull request #3 from Shaileshkale17/Table
+[33m446c929[m Merge pull request #4 from Shaileshkale17/newcode
+[33m2486624[m adding air mini
+[33m89146e8[m Updated Table
+[33m6ebe7c9[m Merge branch 'main' of https://github.com/Shaileshkale17/Dashbord_pm_LIve
+[33md0abc2d[m w-full
+[33m32d77d3[m Merge pull request #2 from Shaileshkale17/newCode
+[33m6d9d29c[m adding and removing css
+[33mdbbf69c[m Merge pull request #1 from Shaileshkale17/newCode
+[33m6922260[m adding new fun
+[33m7196437[m adding new fun
+[33me213192[m adding router fun in react project
+[33mcd4c728[m adding cursor-pointer
+[33m17a9e72[m adding cursor-pointer
+[33m2fc033a[m adding new table comp and more
+[33m0b1de27[m all added
+[33me2a110e[m adding all fun in navber
+[33mad4d6b3[m adding new icon and navber
+[33mc383b05[m adding icon and main navber
+[33md73711d[m adding navber
+[33mfdd1fae[m adding components
+[33mb9eb4b6[m first commit
+[33m7d27e6a[m first commit
