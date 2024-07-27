@@ -1,26 +1,24 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import TopNavber from "./components/TopNavber/TopNavber";
-import Navber from "./components/Navber/Navber";
-import Table from "./components/Table/Table";
-import { Outlet } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginOne from './component/LoginOne';
+import LoginTwo from './component/LoginTwo';
+import LoginThree from './component/LoginThree';
+import LoginFour from './component/LoginFour';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="flex flex-row bg-[#F7F3E8]" style={{ position: 'fixed', width: '100%' }}>
-      <div className="w-auto h-screen ">
-        <Navber />
-      </div>
-      <div className="w-full">
-        <TopNavber />
-        <Outlet />
-      </div>
-    </div>
+    <Router>
+      <Routes>
+
+        <Route exact path="/" element={<LoginOne />} />
+        <Route path="/login-two" element={<LoginTwo />} />
+        <Route path="/login-three" element={<LoginThree />} />
+        <Route path="/login-four" element={<LoginFour />} />
+
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+
