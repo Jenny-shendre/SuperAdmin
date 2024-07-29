@@ -1,109 +1,76 @@
-import { useEffect, useState } from "react";
-import { LuPencilLine } from "react-icons/lu";
-import Searchsvg from "../../assets/material-symbols_search.svg";
-
+import React, { useEffect, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
+import { FaRegEdit } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { format } from "date-fns";
-import Loding from "../Loding/Loding";
 
-import "../Home.css";
-import { Link } from "react-router-dom";
-import { LuEyeOff } from "react-icons/lu";
-import { LuEye } from "react-icons/lu";
-import { FaEyeSlash } from "react-icons/fa";
-import { FaCircle } from "react-icons/fa";
+function EditForm2() {
+  const [data, setData] = useState({
+    customerName: "",
+    customerMobileLastFour: "",
+    channelPartnerName: "",
+    channelPartnerCompanyName: "",
+    _id: "",
+    projectName: "",
+    attendantName: "",
+    createdAt: "",
+    updatedAt: "",
+    __v: "",
+    executiveNotes: ""
+  });
 
-const Table2 = () => {
-  const [valueinput, setvalueinput] = useState("");
-  const [viewedItems, setViewedItems] = useState([]);
-  const [data, setdata] = useState([]);
-  //const [currentPage, setCurrentPage] = useState(1);
-  //const [recordsPerPage] = useState(10);
-  const [loading, setLoading] = useState(false);
+  const params = useParams();
 
-  const handleView = (id) => {
-    if (viewedItems.includes(id)) {
-      // Item already viewed, remove it from viewedItems
-      setViewedItems((prevViewedItems) =>
-        prevViewedItems.filter((item) => item !== id)
-      );
-    } else {
-      // Item not viewed, add it to viewedItems
-      setViewedItems((prevViewedItems) => [...prevViewedItems, id]);
-    }
-  };
-
-  /*const deletedAt = async (id, customerId) => {
-    const confirmDelete = window.confirm(`Do you really want to delete the record with ID ${customerId}?`);
-
-    if (confirmDelete) {
-      await axios.delete(
-        `https://project-rof.vercel.app/api/customers/delete/${id}`
-      );
-      fetchData(); // Refresh data after deletion
-    }
-  };*/
-  const getData1 = async () => {
+  const fetchDataById = async () => {
     try {
-      setLoading(true);
       const res = await axios.get(
-        `https://project-rof.vercel.app/api/channels`
+        `http://localhost:8000/api/record/getRecordBy/${params.id}`
       );
-      setdata(res.data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
+      setData(res.data);
+    } catch (err) {
+      console.error("Error fetching data:", err);
     }
   };
 
-  console.log(data);
   useEffect(() => {
-    getData1();
-  }, []);
+    fetchDataById();
+  }, [params.id]);
 
-  /*const fetchData = async () => {
-    setLoading(true)
-    const res = await axios.get(
-      ` https://project-rof.vercel.app/api/customers/fetch-all`
-    );
-    setdata(res.data);
-    setLoading(false)
-  };*/
-
-  // Data Time
-  const DateupdatedAt = (DateupdatedAt) => {
-    const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
-    return formattedDate;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const ResponseAt = (DateupdatedAt) => {
-    const formattedDate = format(new Date(DateupdatedAt), "hh:mm a");
-    return formattedDate;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(
+        `http://localhost:8000/api/record/updateRecord/${params.id}`,
+        data
+      );
+      alert("Data updated successfully!");
+    } catch (err) {
+      console.error("Error updating data:", err);
+      alert("Error updating data.");
+    }
   };
 
   return (
-    <div className="arrowss">
-      {loading ? (
-        <Loding />
-      ) : (
-        <div
-          style={{ gap: "10px" }}
-          className="Tab3 p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg h-screen;
- ">
-          {/* bg: #F7F3E8 */}
-          <div
-            style={{ gap: "20px", paddingLeft: "0px" }}
-            className="p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
- ">
+    <>
+      <div>
+        <div className="flex flex-wrap">
+          <div className="ml-8 mt-8">
             <h1
               className="font-bold flex items-center gap-1"
               style={{
                 fontFamily: "Poppins",
                 fontSize: "24px",
                 fontWeight: "500",
-              }}>
+              }}
+            >
               Home
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
@@ -112,218 +79,276 @@ const Table2 = () => {
                   fontWeight: "400",
                   fontSize: "24px",
                 }}
-                className="font-medium">
-                {/* Direct Visitors */}
+                className="font-medium"
+              >
                 Channel Partners
               </span>
+              <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+              <span
+                style={{
+                  fontFamily: "Poppins",
+                  fontWeight: "400",
+                  fontSize: "24px",
+                }}
+                className="font-medium"
+              >
+                Rainbow Overseas
+              </span>
+              <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+              <span
+                style={{
+                  fontFamily: "Poppins",
+                  fontWeight: "400",
+                  fontSize: "24px",
+                }}
+                className="font-medium"
+              >
+                Edit
+              </span>
             </h1>
-
-            <div className="flex flex-row items-center justify-start text-center flex items-center justify-center  ml-80">
-              <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full  mr-96 ">
-                <input
-                  className="w-full py-2 px-12 rounded-full "
-                  style={{
-                    border: "1px solid #3D2314",
-                    boxShadow: " 0px 0px 4px 0px #00000040",
-                  }}
-                  type="text"
-                  value={valueinput}
-                  onChange={(e) => setvalueinput(e.target.value)}
-                  placeholder="Search"
-                />
-                <img
-                  style={{ top: "0.6rem" }}
-                  src={Searchsvg}
-                  alt="Search"
-                  className="absolute  left-4"
-                />
-              </div>
-            </div>
           </div>
-          <div className="outer-wrapper text-center flex items-center justify-center">
-            <div className="table-wrapper" style={{ width: "999px" }}>
-              {data.length !== 0 ? (
-                <table
-                  className="min-w-full bg-white"
-                  style={{ boxShadow: " 0px 0px 4px 0px #00000040" }}>
-                  <thead>
-                    <tr className="text-[9px] lg:text-[15px] text-left  bg-[#E8E8E8]">
-                      <th
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "left",
-                          paddingLeft: "7px",
-                          width: "65px",
-                          padding: "5px",
-                        }}>
-                        {/* Date */}
-                        Serial No
-                      </th>
-                      <th
-                        className="text-center"
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          padding: "7px",
-                          width: "95px",
-                        }}>
-                        {/* Response Time */}
-                        Channel ID
-                      </th>
-                      <th
-                        className="border-b text-center"
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          padding: "5px",
-                          width: "253px",
-                        }}>
-                        {/* Meeting Duration */}
-                        List of Channel Name
-                      </th>
-                      <th
-                        className="border-b text-center"
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          width: "253px",
-                        }}>
-                        {/* Customer Name */}Email
-                      </th>
-                      <th
-                        className="border-b text-center"
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          padding: "5px",
-                          width: "109px",
-                        }}>
-                        Phone No
-                      </th>
-                      <th
-                        className="border-b"
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          padding: "5px",
-                          width: "170px",
-                        }}>
-                        Address
-                      </th>
-                      <th
-                        className="border-b text-center "
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          padding: "5px",
-                          width: "65px",
-                        }}></th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {data
-                      .filter(({ name }) =>
-                        name.toLowerCase().includes(valueinput.toLowerCase())
-                      )
-                      .map((visitor, index) => (
-                        <tr
-                          style={{ paddingLeft: "5px" }}
-                          className="py-1 border-b text-[9px] lg:text-[14px]  "
-                          key={index}>
-                          {/* <td className="p-2">{index + 1}</td> */}
-                          <td style={{ paddingLeft: "5px" }}>
-                            {/* {DateupdatedAt(visitor.updatedAt)} */}
-                            <td className="py-3  ml-6 text-center flex items-center ">
-                              {index + 1}
-                            </td>
-                          </td>
-
-                          <td className="py-3 border-b text-center">
-                            {/* {ResponseAt(visitor.updatedAt)} */}
-                            <Link
-                              to="/overseas"
-                              style={{
-                                fontFamily: "Manrope",
-                                fontSize: "14px",
-                                fontWeight: "700",
-                                lineHeight: "19.12px",
-                                textAlign: "left",
-                                color: "#000AFF",
-                                textDecoration: "underline",
-                              }}>
-                              {visitor.channelID}
-                            </Link>
-                          </td>
-
-                          
-                            <td className="py-3  text-start flex justify-start">
-                              <FaCircle  className="mr-2 ml-16 text-gray-500 " style={{width:"30px",height:"30px"}}/>
-                              <span className="truncate flex-grow  #000000" style={{fontSize:"16px"}}>{visitor.name} </span>
-                            </td>
-                          
-
-                          <td className="  py-3 border-b ">
-                            {visitor.email}
-                          </td>
-
-                          <td className=" py-3 border-b text-center">
-                            {visitor.phone}
-                          </td>
-
-                          <td className="  py-3 border-b text-center">
-                            {visitor.address}
-                          </td>
-
-                          {/* <td className="  py-3 border-b text-center">
-                            {visitor.address}
-                          </td> */}
-
-                          <td className="py-3 text-center px-3 ">
-                            <LuEye
-                              onClick={() => handleView(visitor._id)}
-                              style={{
-                                cursor: "pointer",
-                                fontSize: "18px",
-                                color: "#00000",
-                              }}
-                            />
-                            {/* {viewedItems.includes(visitor._id) && <span className=""><LuEyeOff /></span>} */}
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              ) : (
-                <p> No records founds...!</p>
-              )}
-            </div>
+          <div className="flex lg:ml-[1000px] mt-9 gap-4">
+            <button className="flex lg:px-8 lg:py-4 editbutton bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full">
+              <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
+                <FaRegEdit />
+              </h4>
+              <p className="text-[16px]">Edit Details</p>
+            </button>
+            {/* Submit button inside the form */}
+            <button
+              type="submit"
+              className="bg-[#3D2314] text-white px-6 py-3 rounded-full"
+              form="editForm" // Ensure the button is associated with the form
+            >
+              Submit
+            </button>
           </div>
         </div>
-      )}
-    </div>
-  );
-};
+        <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10">
+          <div
+            className="lg:w-[695px] lg:h-[792px] bg-[#FFFFFF] p-[24px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 lg:mr-4"
+            style={{ borderRadius: "24px" }}
+          >
+            <h2
+              className="text-[20px] text-center font-[Manrope] mb-4"
+              style={{ fontWeight: "700" }}
+            >
+              Customer and Channel Partner Detail
+            </h2>
+            <form id="editForm" onSubmit={handleSubmit}>
+              <div>
+                <div>
+                  <div className="flex flex-wrap gap-[40px]">
+                    <div>
+                      <label
+                        htmlFor="customerName"
+                        className="block text-[#000000] text-[16px] font-[Manrope]"
+                        style={{ fontWeight: "500" }}
+                      >
+                        Customer Name
+                      </label>
+                      <input
+                        type="text"
+                        id="customerName"
+                        name="customerName"
+                        className="lg:w-[393px] lg:h-[47px] p-1 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        placeholder="Anand Jaiswal"
+                        value={data.customerName}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="customerMobileLastFour"
+                        className="block text-[#000000] text-[16px] font-[Manrope]"
+                      >
+                        Last 4 Digit
+                      </label>
+                      <input
+                        type="tel"
+                        id="customerMobileLastFour"
+                        name="customerMobileLastFour"
+                        className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        placeholder="1 4 6 5"
+                        value={data.customerMobileLastFour}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="lg:mt-1">
+                    <label
+                      htmlFor="channelPartnerName"
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                    >
+                      Channel Name
+                    </label>
+                    <input
+                      type="text"
+                      id="channelPartnerName"
+                      name="channelPartnerName"
+                      className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      placeholder="Rainbow Overseas Pvt Ltd"
+                      value={data.channelPartnerName}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </div>
 
-export default Table2;
+                <div className="mt-1">
+                  <div className="flex flex-wrap gap-[40px]">
+                    <div>
+                      <label
+                        htmlFor="channelPartnerCompanyName"
+                        className="block text-[#000000] text-[16px] font-[Manrope]"
+                      >
+                        Channel Partner Name
+                      </label>
+                      <input
+                        type="text"
+                        id="channelPartnerCompanyName"
+                        name="channelPartnerCompanyName"
+                        className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        placeholder="Sameer Chowdhary"
+                        value={data.channelPartnerCompanyName}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="channelPartnerID"
+                        className="block text-[#000000] text-[16px] font-[Manrope]"
+                      >
+                        Channel Partner ID
+                      </label>
+                      <input
+                        readOnly
+                        type="text"
+                        id="channelPartnerID"
+                        name="channelPartnerID"
+                        className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        placeholder="CHROF0001"
+                        value={data.partnerId}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="lg:mt-1">
+                    <label
+                      htmlFor="projectName"
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500" }}
+                    >
+                      Project
+                    </label>
+                    <input
+                      type="text"
+                      id="projectName"
+                      name="projectName"
+                      className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      placeholder="Project A"
+                      value={data.projectName}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="lg:mt-1">
+                    <label
+                      htmlFor="attendantName"
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500" }}
+                    >
+                      Attendant
+                    </label>
+                    <input
+                      type="text"
+                      id="attendantName"
+                      name="attendantName"
+                      className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      placeholder="Samyak Gandhi"
+                      value={data.attendantName}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="lg:flex lg:flex-wrap gap-[24px] lg:mt-1">
+                  <div>
+                    <label
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500" }}
+                    >
+                      Date
+                    </label>
+                    <input
+                      type="date"
+                      name="createdAt"
+                      className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      value={data.createdAt}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500" }}
+                    >
+                      Response Time
+                    </label>
+                    <input
+                      type="time"
+                      name="updatedAt"
+                      className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      value={data.updatedAt}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500" }}
+                    >
+                      Meeting Duration
+                    </label>
+                    <input
+                      type="time"
+                      name="__v"
+                      className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      value={data.__v}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="textarear-comp">
+                  <div className="mt-1">
+                    <label
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500" }}
+                    >
+                      Executive Notes
+                    </label>
+                    <textarea
+                      name="executiveNotes"
+                      className="lg:w-[641px] lg:h-[173px] border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      value={data.executiveNotes}
+                      onChange={handleChange}
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </main>
+      </div>
+    </>
+  );
+}
+
+export default EditForm2;
