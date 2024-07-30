@@ -90,7 +90,7 @@ const Table = () => {
             <div className="flex flex-row items-center justify-start flex items-center justify-center ml-80">
               <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full  mr-96 ">
                 <input
-                  className="w-full py-2 px-12 rounded-full "
+                  className="w-[619px] h-[48px] py-2 px-12 rounded-full "
                   style={{
                     border: "1px solid #3D2314",
                     boxShadow: " 0px 0px 4px 0px #00000040",
@@ -116,7 +116,7 @@ const Table = () => {
                   className="min-w-full bg-white"
                   style={{ boxShadow: " 0px 0px 4px 0px #00000040" }}>
                   <thead>
-                    <tr className="text-[9px] lg:text-[15px] text-left  bg-[#E8E8E8]">
+                    <tr className="text-[9px] border-b lg:text-[15px] text-left  bg-[#E8E8E8]">
                       <th
                         style={{
                           fontFamily: "Manrope",
@@ -125,13 +125,13 @@ const Table = () => {
                           lineHeight: "16.39px",
                           textAlign: "left",
                           paddingLeft: "7px",
-                          width: "115px",
+                          height:"26px",
                           padding: "5px",
                         }}>
                         Date
                       </th>
                       <th
-                        className="text-center"
+                        className="border-b text-center"
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
@@ -139,6 +139,8 @@ const Table = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
+                       
+                          height:"26px",
                         }}>
                         Response Time
                       </th>
@@ -151,6 +153,7 @@ const Table = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
+                          height:"26px",
                         }}>
                         Meeting Duration
                       </th>
@@ -162,6 +165,9 @@ const Table = () => {
                           fontWeight: "500",
                           lineHeight: "16.39px",
                           textAlign: "center",
+                          padding: "5px",
+                          
+                          height:"26px",
                         }}>
                         Customer Name
                       </th>
@@ -174,6 +180,7 @@ const Table = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
+                          height:"26px",
                         }}>
                         Customer ID
                       </th>
@@ -186,6 +193,7 @@ const Table = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
+                          height:"26px",
                         }}>
                         Mobile No
                       </th>
@@ -198,11 +206,12 @@ const Table = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
+                          height:"26px",
                         }}>
                         Email ID
                       </th>
                       <th
-                        className="border-b"
+                        className="border-b h-[26px]"
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
@@ -210,6 +219,7 @@ const Table = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
+                         
                         }}>
                         Project
                       </th>
@@ -250,7 +260,7 @@ const Table = () => {
                       .map((visitor, index) => (
                         <tr
                           style={{ paddingLeft: "5px" }}
-                          className="py-1 border-b text-[9px] lg:text-[14px]"
+                          className="py-1 border-b text-[9px] lg:text-[14px] h-[35px] "
                           key={index}>
                           <td style={{ paddingLeft: "5px" }}>
                             {DateupdatedAt(visitor.updatedAt)}
@@ -293,7 +303,7 @@ const Table = () => {
                             {visitor.attendantName}
                           </td>
 
-                          <td className="py-1 border-b flex gap-2">
+                          <td className="py-1 flex gap-4">
                             <Link to={`/Direct_Visitors/${visitor.customerId}`}>
                               <PiNotePencilBold
                                 // onClick={() => handleEdit(visitor._id)}

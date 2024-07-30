@@ -191,8 +191,8 @@ function EditForm1() {
                           id="first_name"
                           name="customerName"
                           value={FormData.customerName}
-                          className="lg:w-[393px] lg:h-[47px] p-1 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          placeholder="Anand Jaiswal"
+                          className="w-[393px] h-[47px] p-1 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                          placeholder="Anand Jaiswal"style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",padding:"10px 18px 10px 18px"}}
                           required
                           readOnly={!editMode}
                           onChange={handleChange}
@@ -211,7 +211,7 @@ function EditForm1() {
                           name="customerMobileLastFour"
                           value={FormData.customerMobileLastFour}
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          placeholder="1 4 6 5"
+                          placeholder="1 4 6 5"style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",textAlign:"center",padding:"10px 18px 10px 18px"}}
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           required
                           readOnly={!editMode}
@@ -232,7 +232,7 @@ function EditForm1() {
                         name="channelPartnerCompanyName"
                         value={FormData.channelPartnerCompanyName}
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        placeholder="Rainbow Overseas Pvt Ltd"
+                        placeholder="Rainbow Overseas Pvt Ltd"style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",padding:"10px 18px 10px 18px"}}
                         required
                         readOnly={true}
                         onChange={handleChange}
@@ -255,7 +255,7 @@ function EditForm1() {
                           name="channelPartnerName"
                           value={FormData.channelPartnerName}
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          placeholder="Sameer Chowdhary"
+                          placeholder="Sameer Chowdhary"style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",padding:"10px 18px 10px 18px"}}
                           required
                           readOnly={true}
                           onChange={handleChange}
@@ -276,7 +276,7 @@ function EditForm1() {
                           value={FormData.partnerId}
                           onChange={handleChange}
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          placeholder="CHROF0001"
+                          placeholder="CHROF0001"style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",padding:"10px 18px 10px 18px"}}
                           required
 
                         />
@@ -298,7 +298,7 @@ function EditForm1() {
                         value={FormData.projectName}
                         onChange={handleChange}
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        placeholder="Project A"
+                        placeholder="Project A"style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",padding:"10px 18px 10px 18px"}}
                         required
                         readOnly={true}
                       />
@@ -319,7 +319,7 @@ function EditForm1() {
                         value={FormData.attendantName}
                         onChange={handleChange}
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        placeholder="Samyak Gandhi"
+                        placeholder="Samyak Gandhi"style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",padding:"10px 18px 10px 18px"}}
                         required
                         readOnly={true}
                       />
@@ -341,6 +341,7 @@ function EditForm1() {
                         value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",textAlign:"center"}}
                       />
                     </div>
                     <div>
@@ -357,6 +358,7 @@ function EditForm1() {
                         onChange={handleChange}
                         name="responseTime"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",textAlign:"center"}}
                       />
                     </div>
                     <div>
@@ -373,6 +375,7 @@ function EditForm1() {
                         value={FormData.timeDuration}
                         onChange={handleChange}
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",textAlign:"center"}}
                       />
                     </div>
                   </div>
@@ -410,19 +413,19 @@ function EditForm1() {
                   <table className="w-full text-leftm">
                     <thead className="">
                       <tr className="text-[#FFFFFF]">
-                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400",width:"75px",height:"27px",textAlign:"center"}}>
                           Serial No
                         </th>
-                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400",width:"109px",height:"27px" }}>
                           Date
                         </th>
-                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400",width:"96px",height:"27px" }}>
                           Timing
                         </th>
-                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400",width:"92px",height:"27px" }}>
                           Project
                         </th>
-                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400",height:"27px" }}>
                           Channel Partner
                         </th>
                       </tr>
@@ -431,7 +434,7 @@ function EditForm1() {
                       {data.length > 0
                         ? data.map((item, index) => (
                           <tr key={item.id}>
-                            <td className="border-b p-2">{index + 1}</td>
+                            <td className="border-b p-2 h-[42px]">{index + 1}</td>
                             <td className="border-b p-2">{DateupdatedAt(item.createdAt)}</td>
                             <td className="border-b p-2">{ResponseAt(item.createdAt)}</td>
                             <td className="border-b p-2">{item.projectName}</td>
