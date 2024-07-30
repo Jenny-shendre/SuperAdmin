@@ -8,26 +8,36 @@ import material1 from "../../../assets/add_notes (white).png";
 import material2 from "../../../assets/add_notes.png";
 import Settings2 from "../../../assets/Settings.svg";
 import Logout2 from "../../../assets/logout.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { logout } from "../../../utils/TokenUtils";
 
 const SideNav = () => {
   const location = useLocation();
   const locationPath = location.pathname;
   const [activeItem, setActiveItem] = useState("");
+  const navigate = useNavigate();
+
 
   const handleItemClick = (item) => {
     setActiveItem(item);
   };
+
+  const handleLogOut = () => {
+    logout();
+    window.location.reload();
+    navigate("/");
+    window.location.reload();
+  }
 
   useEffect(() => {
     switch (locationPath) {
       case "/SalesExecutive/":
         setActiveItem("OverviewPage");
         break;
-    
-        case "/SalesExecutive/Client":
-          setActiveItem("Client");
-          break;
+
+      case "/SalesExecutive/Client":
+        setActiveItem("Client");
+        break;
       case "/SalesExecutive/Notes":
         setActiveItem("Notes");
         break;
@@ -69,9 +79,8 @@ const SideNav = () => {
                 lineHeight: "27.32px",
                 textAlign: "left",
               }}
-              className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${
-                activeItem === "Overview" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
-              }`}
+              className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${activeItem === "Overview" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
+                }`}
               onClick={() => handleItemClick("Overview")}
             >
               {activeItem === "Overview" ? (
@@ -91,11 +100,10 @@ const SideNav = () => {
                 lineHeight: "27.32px",
                 textAlign: "left",
               }}
-              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${
-                activeItem === "Client"
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Client"
                   ? "bg-[#3D2314] text-[#FFFFFF]"
                   : ""
-              }`}
+                }`}
               onClick={() => handleItemClick("Client")}
             >
               {activeItem === "Client" ? (
@@ -115,11 +123,10 @@ const SideNav = () => {
                 lineHeight: "27.32px",
                 textAlign: "left",
               }}
-              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${
-                activeItem === "Notes"
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Notes"
                   ? "bg-[#3D2314] text-[#FFFFFF]"
                   : ""
-              }`}
+                }`}
               onClick={() => handleItemClick("Notes")}
             >
               {activeItem === "Notes" ? (
@@ -130,7 +137,7 @@ const SideNav = () => {
               Notes
             </li>
           </Link>
-        
+
         </ul>
       </div>
       <div>
@@ -148,7 +155,7 @@ const SideNav = () => {
             <img src={Settings2} alt="Settings" />
             Settings
           </li>
-          <li
+          <li onClick={handleLogOut}
             style={{
               fontFamily: "Manrope",
               fontSize: "20px",

@@ -28,6 +28,7 @@ import OverviewMang from "./components/Overview/OverViewMan.jsx";
 import LoginTwo from "./ForgotPass/LoginTwo.jsx";
 import LoginThree from "./ForgotPass/LoginThree.jsx";
 import LoginFour from "./ForgotPass/LoginFour.jsx";
+import { PrivateRoute } from "./ForgotPass/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   //Login_Cred
@@ -57,18 +58,51 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorComp />,
     children: [
-      { path: "/SuperAdmin", element: <Overview /> },
-      { path: "/SuperAdmin/Direct_Visitors", element: <Direct_Visitors /> },
-      { path: "/SuperAdmin/Channel_Visitors", element: <Channel_Visitors /> },
-      { path: "/SuperAdmin/Channel_Partners", element: <Channel_Partners /> },
-      { path: "/SuperAdmin/overseas", element: <Channel_Partners_Overseas /> },
-      { path: "/SuperAdmin/Project", element: <Project /> },
-      { path: "/SuperAdmin/Team", element: <Team /> },
-      { path: "/SuperAdmin/Direct_Visitors/:id", element: <FormEdit /> },
-      { path: "/SuperAdmin/Channel_Visitors/:id", element: <EditForm1 /> },
-      { path: "/SuperAdmin/EditForm2/:id", element: <EditForm2 /> },
-      { path: "/SuperAdmin/Team/:id", element: <Table6 /> },
-      { path: "/SuperAdmin/project/:id", element: <Table7 /> },
+      { path: "", element: <PrivateRoute element={Overview} /> },
+      {
+        path: "Direct_Visitors",
+        element: <PrivateRoute element={Direct_Visitors} />
+      },
+      {
+        path: "Channel_Visitors",
+        element: <PrivateRoute element={Channel_Visitors} />
+      },
+      {
+        path: "Channel_Partners",
+        element: <PrivateRoute element={Channel_Partners} />
+      },
+      {
+        path: "overseas",
+        element: <PrivateRoute element={Channel_Partners_Overseas} />
+      },
+      {
+        path: "Project",
+        element: <PrivateRoute element={Project} />
+      },
+      {
+        path: "Team",
+        element: <PrivateRoute element={Team} />
+      },
+      {
+        path: "Direct_Visitors/:id",
+        element: <PrivateRoute element={FormEdit} />
+      },
+      {
+        path: "Channel_Visitors/:id",
+        element: <PrivateRoute element={EditForm1} />
+      },
+      {
+        path: "EditForm2/:id",
+        element: <PrivateRoute element={EditForm2} />
+      },
+      {
+        path: "Team/:id",
+        element: <PrivateRoute element={Table6} />
+      },
+      {
+        path: "project/:id",
+        element: <PrivateRoute element={Table7} />
+      },
     ],
   },
 
@@ -78,9 +112,18 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorComp />,
     children: [
-      { path: "/SalesExecutive/", element: <OverviewPage /> },
-      { path: "/SalesExecutive/Client", element: <Client /> },
-      { path: "/SalesExecutive/Notes", element: <Note /> },
+      {
+        path: "/SalesExecutive/",
+        element: <PrivateRoute element={OverviewPage} />
+      },
+      {
+        path: "/SalesExecutive/Client",
+        element: <PrivateRoute element={Client} />
+      },
+      {
+        path: "/SalesExecutive/Notes",
+        element: <PrivateRoute element={Note} />
+      },
     ],
   },
 
@@ -90,9 +133,18 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorComp />,
     children: [
-      { path: "/SalesManager/", element: <OverviewMang /> },
-      { path: "/SalesManager/Client", element: <ClientM /> },
-      { path: "/SalesManager/My_Team", element: <NotesM /> },
+      {
+        path: "/SalesManager/",
+        element: <PrivateRoute element={OverviewMang} />
+      },
+      {
+        path: "/SalesManager/Client",
+        element: <PrivateRoute element={ClientM} />
+      },
+      {
+        path: "/SalesManager/My_Team",
+        element: <PrivateRoute element={NotesM} />
+      },
     ],
   },
 ]);
