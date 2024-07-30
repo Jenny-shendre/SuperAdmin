@@ -17,8 +17,18 @@ import EditForm1 from "./components/EditForm/EditForm1.jsx";
 import EditForm2 from "./components/EditForm/EditForm2.jsx";
 import Table6 from "./components/Table/Table6.jsx";
 import Table7 from "./components/Table/Table7.jsx";
+import OverviewPage from "./components/SalesExecutive/OverviewPage/OverviewPage.jsx";
+import Client from "./PagesSalesExecutive/Client.jsx";
+import Note from "./PagesSalesExecutive/Note.jsx";
+import OverviewEX from "./components/Overview/OverViewEX.jsx";
+import ClientM from "./PagesSalesManager/ClientM.jsx";
+import NotesM from "./PagesSalesManager/NoteM.jsx";
+import OverviewMang from "./components/Overview/OverViewMan.jsx";
+
 
 const router = createBrowserRouter([
+
+  // SuperAdmin
   {
     path: "/",
     element: <App />,
@@ -34,11 +44,41 @@ const router = createBrowserRouter([
       { path: "/Direct_Visitors/:id", element: <FormEdit /> },
       { path: "/Channel_Visitors/:id", element: <EditForm1 /> },
       { path: "/EditForm2/:id", element: <EditForm2/> },
-      { path: "/TeamA", element:  <Table6/> },
-      { path: "/Table7", element:   <Table7/> },
+      { path: "/Team/:id", element:  <Table6/> },
+      { path: "/project/:id", element:   <Table7/> },
 
     ],
   },
+
+
+  // SalesExecutive
+ { path: "/SalesExecutive",
+  element: <App />,
+  errorElement: <ErrorComp />,
+  children: [
+    { path: "/SalesExecutive/", element: <OverviewPage /> },
+    { path: "/SalesExecutive/Client", element: <Client/> },
+    { path: "/SalesExecutive/Notes", element: <Note /> },
+   
+  ],
+},
+
+
+
+
+// SalesManager
+{
+  path: "/SalesManager",
+  element: <App />,
+  errorElement: <ErrorComp />,
+  children: [
+    { path: "/SalesManager/", element: <OverviewMang /> },
+    { path: "/SalesManager/Client", element: <ClientM /> },
+    { path: "/SalesManager/My_Team", element: <NotesM /> },
+  
+  ],
+},
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
