@@ -294,6 +294,11 @@ const Table = () => {
                           </td>
 
                           <td className="py-1 border-b flex gap-2">
+                          <Link to={`/SuperAdmin/Direct_Visitors/${visitor.customerId}`}>
+</Link>
+</td>
+
+                          <td className="py-1 border-b flex gap-4">
                             <Link to={`/SuperAdmin/Direct_Visitors/${visitor.customerId}`}>
                               <PiNotePencilBold
                                 // onClick={() => handleEdit(visitor._id)}
@@ -318,6 +323,8 @@ const Table = () => {
                               }}
                             />
                           </td>
+
+                          
                         </tr>
                       ))}
                   </tbody>
