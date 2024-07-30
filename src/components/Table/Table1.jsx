@@ -270,7 +270,7 @@ const Table1 = () => {
                             <td className="py-1 border-b text-center">00:00</td>
                             <td className="py-1 border-b text-center">
                               <Link
-                                to={`/Channel_Visitors/${visitor.partnerId}`}
+                                to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}
                                 style={{
                                   fontFamily: "Manrope",
                                   fontSize: "14px",
@@ -306,7 +306,7 @@ const Table1 = () => {
                             </td>
 
                             <td className="py-1 border-b flex gap-2">
-                              <Link to={`/Channel_Visitors/${visitor.partnerId}`}>
+                              <Link to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}>
                                 <PiNotePencilBold
                                   onClick={() => handleEdit(visitor._id)}
                                   style={{

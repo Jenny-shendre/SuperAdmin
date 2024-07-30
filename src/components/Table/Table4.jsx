@@ -186,7 +186,7 @@ const Table4 = () => {
                     key={index}
                     className="bg-white rounded-lg overflow-hidden shadow w-[297px]"
                   >
-                    <Link to={`/project/${project.name}`}>
+                    <Link to={`/SuperAdmin/project/${project.name}`}>
                       <img
                         src={project?.projectImage ?? one}
                         alt={project.name}

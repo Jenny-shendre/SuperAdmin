@@ -123,7 +123,7 @@ function EditForm1() {
               >
                 Home
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-                <Link to="/Channel_Visitors">
+                <Link to="/SuperAdmin/Channel_Visitors">
                 <span
                   style={{
                     fontFamily: "Poppins",

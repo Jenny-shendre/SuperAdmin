@@ -634,7 +634,7 @@ const Table5 = () => {
                                 color: "#632E04",
                               }}
                             />
-                            <Link to={`/Team/${visitor.teamName}`}
+                            <Link to={`/SuperAdmin/Team/${visitor.teamName}`}
                             >
                               <IoOpenOutline
                                 onClick={() => deletedAt(visitor._id, visitor.customerId)}

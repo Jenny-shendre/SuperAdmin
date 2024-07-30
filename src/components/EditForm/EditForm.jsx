@@ -109,7 +109,7 @@ const FormEdit = () => {
                 }}>
                 Home
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-                <Link to="/Direct_Visitors">
+                <Link to="/SuperAdmin/Direct_Visitors">
                   <span
                     style={{
                       fontFamily: "Poppins",

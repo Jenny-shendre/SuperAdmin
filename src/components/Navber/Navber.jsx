@@ -29,27 +29,27 @@ const Navber = () => {
 
   useEffect(() => {
     switch (locationPath) {
-      case "/":
+      case "/SuperAdmin":
         setActiveItem("Overview");
         break;
-      case "/Direct_Visitors":
+      case "/SuperAdmin/Direct_Visitors":
         setActiveItem("Overview");
         break;
-      case "/Channel_Visitors":
+      case "/SuperAdmin/Channel_Visitors":
         setActiveItem("ChannelVisitors");
         break;
-      case "/Channel_Partners":
+      case "/SuperAdmin/Channel_Partners":
         setActiveItem("ChannelPartners");
         break;
-      case "/Project":
+      case "/SuperAdmin/Project":
         setActiveItem("Project");
         break;
-      case "/Team":
+      case "/SuperAdmin/Team":
         setActiveItem("Team");
         break;
 
       default:
-        setActiveItem("DirectVisitors");
+        setActiveItem("Overview");
         break;
     }
   }, []);
@@ -57,7 +57,7 @@ const Navber = () => {
   return (
     <div style={{zIndex:'+1', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)'}} className="right-shadow border-0 bg-[#FFFFFF] h-screen text-white flex flex-col justify-between p-4 shadow-md  pt-0">
       <div className="flex flex-col  W-[70%] md::w-auto" style={{gap:'10px'}}>
-        <Link to="/" style={{
+        <Link to="/SuperAdmin" style={{
           textAlign:'-webkit-center'
         }}>
           <img
@@ -67,7 +67,7 @@ const Navber = () => {
           />
         </Link>
         <ul className="flex flex-col " style={{gap:'10px'}}>
-          <Link to="/">
+          <Link to="/SuperAdmin">
             <li style={{fontFamily: 'Manrope',
 fontSize: '20px',
 fontWeight: '500',
@@ -86,7 +86,7 @@ textAlign: 'left',
               Overview
             </li>
           </Link>
-          <Link to="/Direct_Visitors">
+          <Link to="/SuperAdmin/Direct_Visitors">
             <li
             style={{fontFamily: 'Manrope',
               fontSize: '20px',
@@ -108,7 +108,7 @@ textAlign: 'left',
               Direct Visitors
             </li>
           </Link>
-          <Link to="/Channel_Visitors">
+          <Link to="/SuperAdmin/Channel_Visitors">
             <li
             style={{fontFamily: 'Manrope',
               fontSize: '20px',
@@ -130,7 +130,7 @@ textAlign: 'left',
               Channel Visitors
             </li>
           </Link>
-          <Link to="/Channel_Partners">
+          <Link to="/SuperAdmin/Channel_Partners">
             <li
             style={{fontFamily: 'Manrope',
               fontSize: '19px',
@@ -152,7 +152,7 @@ textAlign: 'left',
               Channel Partners
             </li>
           </Link>
-          <Link to="/Project">
+          <Link to="/SuperAdmin/Project">
             <li
             style={{fontFamily: 'Manrope',
               fontSize: '20px',
@@ -172,7 +172,7 @@ textAlign: 'left',
               Projects
             </li>
           </Link>
-          <Link to="/Team">
+          <Link to="/SuperAdmin/Team">
             <li
             style={{fontFamily: 'Manrope',
               fontSize: '20px',

@@ -2,3 +2,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.blink {
+    animation: scaler 2s linear infinite;
+}
+
+@keyframes scaler {
+
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+
+.custom-radio:checked::before {
+    background-color: #632E04;
+}
+
+.custom-radio {
+    appearance: none;
+    border: 2px solid #632E04;
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    top: 3px;
+}
+
+.custom-radio::before {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 60%;
+    background-color: transparent;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.2s ease;
+}

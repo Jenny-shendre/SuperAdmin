@@ -146,7 +146,7 @@ const Table7 = () => {
             <div className="flex items-center text-black" style={{ fontFamily: "Poppins", fontSize: "24px", fontWeight: "500" }}>
               <span>Home</span>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-              <Link to='/Project'>
+              <Link to='/SuperAdmin/Project'>
                 <span className="font-semibold" style={{ fontFamily: "Poppins", fontSize: "24px", fontWeight: "400" }}>{projectUrl}</span>
               </Link>
             </div>
