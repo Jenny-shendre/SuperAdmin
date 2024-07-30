@@ -24,13 +24,13 @@ const Table3 = () => {
   };
 
   const confirmDelete = async () => {
-    await axios.delete(`http://localhost:8000/api/record/deleteRecord/${deleteId}`);
+    await axios.delete(`https://prodictivity-management-tool2.vercel.app/api/record/deleteRecord/${deleteId}`);
     setShowPopup(false);
     fetchData(); // Refresh data after deletion
   };
 
   const fetchData = async () => {
-    const res = await axios.get(`http://localhost:8000/api/record/getAllRecords`);
+    const res = await axios.get(`https://prodictivity-management-tool2.vercel.app/api/record/getAllRecords`);
     setdata(res.data);
     setFilteredData(res.data); // Initialize filtered data
   };
