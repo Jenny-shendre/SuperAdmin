@@ -1,24 +1,86 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, { useState } from "react";
 import "./App.css";
-import TopNavber from "./components/TopNavber/TopNavber";
-import Navber from "./components/Navber/Navber";
-import Table from "./components/Table/Table";
-import { Outlet } from "react-router-dom";
+import SuperAdminScreen from '../src/components/Role/SuperAdminScreen';
+import SalesExecutiveScreen from '../src/components/Role/SalesExecutiveScreen';
+import SalesManagerScreen from '../src/components/Role/SalesManagerScreen';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [role, setRole] = useState('');
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+
+
+    if ((role === 'SuperAdmin' && id === 'superadmin' && password === 'password') ||
+      (role === 'SalesExecutive' && id === 'salesexecutive' && password === 'password') ||
+      (role === 'SalesManager' && id === 'salesmanager' && password === 'password')) {
+      setLoggedIn(true);
+    } else {
+      alert('Invalid credentials');
+    }
+  };
+
+  if (loggedIn) {
+    return (
+      <div>
+        {role === "SuperAdmin" && <SuperAdminScreen />}
+        {role === "SalesExecutive" && <SalesExecutiveScreen />}
+        {role === "SalesManager" && <SalesManagerScreen />}
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-row bg-[#F7F3E8]" style={{ position: 'fixed', width: '100%' }}>
-      <div className="w-auto h-screen ">
-        <Navber />
-      </div>
-      <div className="w-full">
-        <TopNavber />
-        <Outlet />
-      </div>
+    <div className="text-center">
+      <h2 style={{background:'grey'}}>Login</h2>
+      <div>
+        <label>
+          <input
+            type="radio"
+            value="SuperAdmin"
+            checked={role === 'SuperAdmin'}
+            onChange={(e) => setRole(e.target.value)}
+          />
+          Super Admin
+        </label><br />
+        <label>
+          <input
+            type="radio"
+            value="SalesExecutive"
+            checked={role === 'SalesExecutive'}
+            onChange={(e) => setRole(e.target.value)}
+          />
+          Sales Executive
+        </label> <br />
+        <label>
+          <input
+            type="radio"
+            value="SalesManager"
+            checked={role === 'SalesManager'}
+            onChange={(e) => setRole(e.target.value)}
+          />
+          Sales Manager
+        </label>
+      </div> <br />
+      <div>
+        <input style={{border:'1px solid grey'}}
+          type="text"
+          placeholder="ID"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+        />
+      </div> <br />
+      <div>
+        <input style={{border:'1px solid grey'}}
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div> <br />
+      <button style={{background:'red', padding:'6px 12px'}} onClick={handleLogin}>Login</button>
     </div>
   );
 }
