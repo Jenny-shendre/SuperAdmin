@@ -68,7 +68,7 @@ const Table3 = () => {
             <h1 className="font-bold flex items-center gap-1" style={{ fontFamily: "Poppins", fontSize: "24px", fontWeight: "500" }}>
               Home
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-              <Link to="/Channel_Partners">
+              <Link to="/SuperAdmin/Channel_Partners">
                 <span className="font-medium" style={{ fontFamily: "Poppins", fontWeight: "400", fontSize: "24px" }}>
                   Channel Partners
                 </span>
@@ -121,7 +121,7 @@ const Table3 = () => {
                         <td className="py-1 border-b text-center">{item.attendantName}</td>
                         <td className="py-1 px-3 border-b text-center">
                           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            <Link to={`/EditForm2/${item._id}`}>
+                            <Link to={`/SuperAdmin/EditForm2/${item._id}`}>
                               <PiNotePencilBold style={{ cursor: "pointer", fontSize: "18px", color: "#632E04" }} />
                             </Link>
                           </div>

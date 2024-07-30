@@ -25,60 +25,76 @@ import ClientM from "./PagesSalesManager/ClientM.jsx";
 import NotesM from "./PagesSalesManager/NoteM.jsx";
 import OverviewMang from "./components/Overview/OverViewMan.jsx";
 
+import LoginTwo from "./ForgotPass/LoginTwo.jsx";
+import LoginThree from "./ForgotPass/LoginThree.jsx";
+import LoginFour from "./ForgotPass/LoginFour.jsx";
 
 const router = createBrowserRouter([
-
-  // SuperAdmin
+  //Login_Cred
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorComp />,
-    children: [
-      { path: "/", element: <Overview /> },
-      { path: "/Direct_Visitors", element: <Direct_Visitors /> },
-      { path: "/Channel_Visitors", element: <Channel_Visitors /> },
-      { path: "/Channel_Partners", element: <Channel_Partners /> },
-      { path: "/overseas", element: <Channel_Partners_Overseas /> },
-      { path: "/Project", element: <Project /> },
-      { path: "/Team", element: <Team /> },
-      { path: "/Direct_Visitors/:id", element: <FormEdit /> },
-      { path: "/Channel_Visitors/:id", element: <EditForm1 /> },
-      { path: "/EditForm2/:id", element: <EditForm2/> },
-      { path: "/Team/:id", element:  <Table6/> },
-      { path: "/project/:id", element:   <Table7/> },
+  },
+  {
+    path: "/login-two",
+    element: <LoginTwo />,
+  },
 
+  {
+    path: "/login-three",
+    element: <LoginThree />,
+  },
+
+  {
+    path: "/login-four",
+    element: <LoginFour />,
+  },
+
+  // SuperAdmin
+  {
+    path: "/SuperAdmin",
+    element: <App />,
+    errorElement: <ErrorComp />,
+    children: [
+      { path: "/SuperAdmin", element: <Overview /> },
+      { path: "/SuperAdmin/Direct_Visitors", element: <Direct_Visitors /> },
+      { path: "/SuperAdmin/Channel_Visitors", element: <Channel_Visitors /> },
+      { path: "/SuperAdmin/Channel_Partners", element: <Channel_Partners /> },
+      { path: "/SuperAdmin/overseas", element: <Channel_Partners_Overseas /> },
+      { path: "/SuperAdmin/Project", element: <Project /> },
+      { path: "/SuperAdmin/Team", element: <Team /> },
+      { path: "/SuperAdmin/Direct_Visitors/:id", element: <FormEdit /> },
+      { path: "/SuperAdmin/Channel_Visitors/:id", element: <EditForm1 /> },
+      { path: "/SuperAdmin/EditForm2/:id", element: <EditForm2 /> },
+      { path: "/SuperAdmin/Team/:id", element: <Table6 /> },
+      { path: "/SuperAdmin/project/:id", element: <Table7 /> },
     ],
   },
 
-
   // SalesExecutive
- { path: "/SalesExecutive",
-  element: <App />,
-  errorElement: <ErrorComp />,
-  children: [
-    { path: "/SalesExecutive/", element: <OverviewPage /> },
-    { path: "/SalesExecutive/Client", element: <Client/> },
-    { path: "/SalesExecutive/Notes", element: <Note /> },
-   
-  ],
-},
+  {
+    path: "/SalesExecutive",
+    element: <App />,
+    errorElement: <ErrorComp />,
+    children: [
+      { path: "/SalesExecutive/", element: <OverviewPage /> },
+      { path: "/SalesExecutive/Client", element: <Client /> },
+      { path: "/SalesExecutive/Notes", element: <Note /> },
+    ],
+  },
 
-
-
-
-// SalesManager
-{
-  path: "/SalesManager",
-  element: <App />,
-  errorElement: <ErrorComp />,
-  children: [
-    { path: "/SalesManager/", element: <OverviewMang /> },
-    { path: "/SalesManager/Client", element: <ClientM /> },
-    { path: "/SalesManager/My_Team", element: <NotesM /> },
-  
-  ],
-},
-
+  // SalesManager
+  {
+    path: "/SalesManager",
+    element: <App />,
+    errorElement: <ErrorComp />,
+    children: [
+      { path: "/SalesManager/", element: <OverviewMang /> },
+      { path: "/SalesManager/Client", element: <ClientM /> },
+      { path: "/SalesManager/My_Team", element: <NotesM /> },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

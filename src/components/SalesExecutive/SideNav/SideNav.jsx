@@ -21,7 +21,7 @@ const SideNav = () => {
 
   useEffect(() => {
     switch (locationPath) {
-      case "/SalesExecutive":
+      case "/SalesExecutive/":
         setActiveItem("OverviewPage");
         break;
     

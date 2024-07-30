@@ -114,7 +114,7 @@ const Table1 = () => {
                     className="min-w-full bg-white"
                     style={{ boxShadow: " 0px 0px 4px 0px #00000040" }}>
                     <thead>
-                      <tr className="text-[9px] border-b lg:text-[15px] text-left  bg-[#E8E8E8]">
+                      <tr className="text-[9px] lg:text-[15px] text-left  bg-[#E8E8E8]">
                         <th
                           style={{
                             fontFamily: "Manrope",
@@ -129,7 +129,7 @@ const Table1 = () => {
                           Date
                         </th>
                         <th
-                          className="border-b text-center"
+                          className="text-center"
                           style={{
                             fontFamily: "Manrope",
                             fontSize: "12px",
@@ -270,7 +270,7 @@ const Table1 = () => {
                             <td className="py-1 border-b text-center">00:00</td>
                             <td className="py-1 border-b text-center">
                               <Link
-                                to={`/Channel_Visitors/${visitor.partnerId}`}
+                                to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}
                                 style={{
                                   fontFamily: "Manrope",
                                   fontSize: "14px",
@@ -305,8 +305,8 @@ const Table1 = () => {
                               {visitor.attendantName}
                             </td>
 
-                            <td className="py-3 border-b flex gap-4">
-                              <Link to={`/Channel_Visitors/${visitor.partnerId}`}>
+                            <td className="py-1 border-b flex gap-2">
+                              <Link to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}>
                                 <PiNotePencilBold
                                   onClick={() => handleEdit(visitor._id)}
                                   style={{
@@ -314,6 +314,8 @@ const Table1 = () => {
                                     fontSize: "18px",
                                     color: "#632E04",
                                   }}
+
+                                  
                                 />
                               </Link>
 

@@ -109,7 +109,7 @@ const FormEdit = () => {
                 }}>
                 Home
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-                <Link to="/Direct_Visitors">
+                <Link to="/SuperAdmin/Direct_Visitors">
                   <span
                     style={{
                       fontFamily: "Poppins",
@@ -173,7 +173,6 @@ const FormEdit = () => {
                           type="text"
                           id="first_name"
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{ fontSize: "20px", fontWeight: "600"}}
                           placeholder="John Doe"
                           required
                           name="name"
@@ -186,13 +185,12 @@ const FormEdit = () => {
                         <label
                           htmlFor="phone"
                           className="block text-[#000000] text-[16px] font-[Manrope]">
-                         Mobile No
+                          Phone number
                         </label>
                         <input
                           type="tel"
                           id="phone"
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px"}}
                           placeholder="9425846894"
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           required
@@ -213,7 +211,6 @@ const FormEdit = () => {
                         type="email"
                         id="email"
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px"}}
                         placeholder="johndoe@gmail.com"
                         required
                         name="email"
@@ -236,7 +233,6 @@ const FormEdit = () => {
                           type="text"
                           id="Project A"
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px"}}
                           placeholder="Project A"
                           name="projectName"
                           value={FormData.projectName}
@@ -254,7 +250,6 @@ const FormEdit = () => {
                           type="text"
                           id="Customer ID"
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px"}}
                           placeholder="ROF0001"
                           required
                           name="customerId"
@@ -275,7 +270,6 @@ const FormEdit = () => {
                         type="text"
                         id="attendant"
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px"}}
                         placeholder="Samyak Gandhi"
                         required
                         name="attendantName"
@@ -296,7 +290,6 @@ const FormEdit = () => {
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",textAlign:"center"}}
                         name="createdAt"
                         value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
@@ -312,7 +305,6 @@ const FormEdit = () => {
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",textAlign:"center"}}
                         name="responseTime"
                         value={ResponseAt(FormData.createdAt)}
                         onChange={handleChange}
@@ -328,7 +320,6 @@ const FormEdit = () => {
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{fontFamily:"Manrope",fontWeight:"600",fontSize:"20px",lineHeight:"27.32px",textAlign:"center"}}
                         name="timeDuration"
                         value={FormData.timeDuration}
                         onChange={handleChange}
