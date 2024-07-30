@@ -9,22 +9,22 @@ const Overview = () => {
 
   useEffect(() => {
     switch (locationPath) {
-      case "/":
+      case "/SuperAdmin":
         setActiveItem("Overview");
         break;
-      case "/Direct_Visitors":
+      case "/SuperAdmin/Direct_Visitors":
         setActiveItem("Overview");
         break;
-      case "/Channel_Visitors":
+      case "/SuperAdmin/Channel_Visitors":
         setActiveItem("ChannelVisitors");
         break;
-      case "/Channel_Partners":
+      case "/SuperAdmin/Channel_Partners":
         setActiveItem("ChannelPartners");
         break;
-      case "/Project":
+      case "/SuperAdmin/Project":
         setActiveItem("Project");
         break;
-      case "/Team":
+      case "/SuperAdmin/Team":
         setActiveItem("Team");
         break;
 

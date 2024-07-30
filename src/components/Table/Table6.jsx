@@ -215,7 +215,7 @@ const Table6 = () => {
           }}>
           <span >Home</span>
           <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-          <Link to="/Team">
+          <Link to="/SuperAdmin/Team">
           <span
             style={{
               fontFamily: "Poppins",
