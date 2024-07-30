@@ -314,6 +314,8 @@ const Table1 = () => {
                                     fontSize: "18px",
                                     color: "#632E04",
                                   }}
+
+                                  
                                 />
                               </Link>
 
