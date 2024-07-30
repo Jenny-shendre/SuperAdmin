@@ -24,7 +24,7 @@ function EditForm2() {
   const fetchDataById = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/record/getRecordBy/${params.id}`
+        `https://prodictivity-management-tool2.vercel.app/api/record/getRecordBy/${params.id}`
       );
       setData(res.data);
     } catch (err) {
@@ -48,7 +48,7 @@ function EditForm2() {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:8000/api/record/updateRecord/${params.id}`,
+        `https://prodictivity-management-tool2.vercel.app/api/record/updateRecord/${params.id}`,
         data
       );
       alert("Data updated successfully!");
