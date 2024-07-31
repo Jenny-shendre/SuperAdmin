@@ -62,51 +62,51 @@ const router = createBrowserRouter([
       { path: "", element: <PrivateRoute element={Overview} /> },
       {
         path: "Direct_Visitors",
-        element: <PrivateRoute element={Direct_Visitors} />
+        element: <PrivateRoute element={Direct_Visitors} />,
       },
       {
         path: "Channel_Visitors",
-        element: <PrivateRoute element={Channel_Visitors} />
+        element: <PrivateRoute element={Channel_Visitors} />,
       },
       {
         path: "Channel_Partners",
-        element: <PrivateRoute element={Channel_Partners} />
+        element: <PrivateRoute element={Channel_Partners} />,
       },
       {
         path: "overseas",
-        element: <PrivateRoute element={Channel_Partners_Overseas} />
+        element: <PrivateRoute element={Channel_Partners_Overseas} />,
       },
       {
         path: "Project",
-        element: <PrivateRoute element={Project} />
+        element: <PrivateRoute element={Project} />,
       },
       {
         path: "Team",
-        element: <PrivateRoute element={Team} />
+        element: <PrivateRoute element={Team} />,
       },
       {
         path: "Direct_Visitors/:id",
-        element: <PrivateRoute element={FormEdit} />
+        element: <PrivateRoute element={FormEdit} />,
       },
       {
         path: "Channel_Visitors/:id",
-        element: <PrivateRoute element={EditForm1} />
+        element: <PrivateRoute element={EditForm1} />,
       },
       {
         path: "EditForm2/:id",
-        element: <PrivateRoute element={EditForm2} />
+        element: <PrivateRoute element={EditForm2} />,
       },
       {
         path: "Team/:id",
-        element: <PrivateRoute element={Table6} />
+        element: <PrivateRoute element={Table6} />,
       },
       {
         path: "project/:id",
-        element: <PrivateRoute element={Table7} />
+        element: <PrivateRoute element={Table7} />,
       },
       {
-        path: "TeamB",
-        element: <PrivateRoute element={Table12}/>
+        path: "TeamB/:id",
+        element: <PrivateRoute element={Table12} />,
       },
     ],
   },
@@ -119,15 +119,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/SalesExecutive/",
-        element: <PrivateRoute element={OverviewPage} />
+        element: <PrivateRoute element={OverviewPage} />,
       },
       {
         path: "/SalesExecutive/Client",
-        element: <PrivateRoute element={Client} />
+        element: <PrivateRoute element={Client} />,
       },
       {
         path: "/SalesExecutive/Notes",
-        element: <PrivateRoute element={Note} />
+        element: <PrivateRoute element={Note} />,
       },
     ],
   },
@@ -140,15 +140,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/SalesManager/",
-        element: <PrivateRoute element={OverviewMang} />
+        element: <PrivateRoute element={OverviewMang} />,
       },
       {
         path: "/SalesManager/Client",
-        element: <PrivateRoute element={ClientM} />
+        element: <PrivateRoute element={ClientM} />,
       },
       {
         path: "/SalesManager/My_Team",
-        element: <PrivateRoute element={NotesM} />
+        element: <PrivateRoute element={NotesM} />,
       },
     ],
   },
