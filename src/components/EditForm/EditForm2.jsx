@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function EditForm2() {
+  const [editMode, setEditMode] = useState(false);
   const [data, setData] = useState({
     customerName: "",
     customerMobileLastFour: "",
@@ -58,6 +59,32 @@ function EditForm2() {
     }
   };
 
+
+
+
+
+  const toggleEditMode = async (id) => {
+    setEditMode(!editMode);
+
+    try {
+      const res = await axios.put(
+        `https://project-rof.vercel.app/api/partners/update/${id}`,
+        {
+          ...FormData,
+        }
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+
+
+  
+
   return (
     <>
       <div>
@@ -108,20 +135,19 @@ function EditForm2() {
             </h1>
           </div>
           <div className="flex lg:ml-[1000px] mt-9 gap-4">
-            <button className="flex lg:px-8 lg:py-4 editbutton bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full">
-              <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-                <FaRegEdit />
-              </h4>
-              <p className="text-[16px]">Edit Details</p>
-            </button>
-            {/* Submit button inside the form */}
             <button
-              type="submit"
-              className="bg-[#3D2314] text-white px-6 py-3 rounded-full"
-              form="editForm" // Ensure the button is associated with the form
-            >
-              Submit
-            </button>
+                key={FormData._id}
+                className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
+                onClick={() => toggleEditMode(FormData._id)}>
+                <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
+                  <FaRegEdit />
+                </h4>
+                <p className="text-[16px]">
+                  {editMode ? "Save" : "Edit Details"}
+                </p>
+              </button>
+            {/* Submit button inside the form */}
+         
           </div>
         </div>
         <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10">
