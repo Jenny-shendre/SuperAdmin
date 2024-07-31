@@ -151,7 +151,7 @@ function ClientDetails() {
   };
   const TimeCal = async () => {
     try {
-      const res = await axios.put(
+      const res = await axios.post(
         `https://project-rof.vercel.app/api/timeSheet/timeline`,
         {
           StartTime: StartDateTime,
