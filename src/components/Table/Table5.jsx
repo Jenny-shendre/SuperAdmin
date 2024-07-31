@@ -728,7 +728,7 @@ const Table5 = () => {
                     )}
                   </div>
 
-                  <div className="w-[440px] h-[127px] p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 overflow-y-auto">
+                  <div className="add-members w-[440px] h-[127px] p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 overflow-y-auto">
                     <div className="flex flex-wrap gap-2 mb-2">
                       {members.map((member, index) => (
                         <div
