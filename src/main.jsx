@@ -29,6 +29,7 @@ import LoginTwo from "./ForgotPass/LoginTwo.jsx";
 import LoginThree from "./ForgotPass/LoginThree.jsx";
 import LoginFour from "./ForgotPass/LoginFour.jsx";
 import { PrivateRoute } from "./ForgotPass/PrivateRoute.jsx";
+import Table12 from "./components/Table/Team1.2.jsx";
 
 const router = createBrowserRouter([
   //Login_Cred
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
       {
         path: "project/:id",
         element: <PrivateRoute element={Table7} />
+      },
+      {
+        path: "TeamB",
+        element: <PrivateRoute element={Table12}/>
       },
     ],
   },
