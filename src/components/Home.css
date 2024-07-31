@@ -50,6 +50,11 @@ th{
   position: sticky;
 }
 
+.relative textarea::placeholder{
+  color: black;
+}
+
+
 .cardT{
   max-height: 700px !important;
   overflow-y: scroll;
@@ -69,4 +74,6 @@ th{
   max-height: 726px !important;
   overflow-y: scroll;
 }
+
+
 

@@ -1,25 +1,30 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { IoIosArrowForward } from "react-icons/io";
-import EmailIcon from "../../assets/email.png";
-import PhoneIcon from "../../assets/phone.png";
+import {MdGroupAdd} from "react-icons/md";
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
 import { TbReload } from "react-icons/tb";
 import { MdAdd } from "react-icons/md";
+import '../Home.css';
+
+
+const BtnTab = ({doneTab, setDoneTab}) =>(
+  <div className="flex mb-4 justify-end mt-5" style={{alignSelf:'self-end'}}>
+  {['Done'].map((tab) => (
+    <button
+      key={tab}
+      style={{fontFamily:'Manrope', padding:'10px 10px', width:'121px'}}
+      className={` w-fit assign-manager-btn mt-3 h-12 py-3 px-6 bg-[grey] rounded-md  font-manrope text-lg font-medium text-white ${doneTab === tab ? 'bg-[grey] text-[#3D2314]' : 'bg-[#3D2314] text-white'} ${setDoneTab === tab ?  'bg-[#3D2314] text-white' : 'bg-[grey] text-[#3D2314]'}`}
+      onClick={() => setDoneTab(tab) }>
+      {tab}
+    </button>
+  ))}
+  </div>
+);
 
 const Table6 = () => {
-  // const teamMembers = [
-  //   { id: 'ROFEX0055', name: 'Samyak', email: 'samyak@rofgroup.com', client: 'Raj Kawani', project: 'ROF Aalayas' },
-  //   { id: 'ROFEX0055', name: 'Sidhvani', email: 'sidhvani@rofgroup.com', client: 'Ramesh Kulkarni', project: 'ROF Aalayas' },
-  //   { id: 'ROFEX0055', name: 'Rajshree', email: 'rajshree@rofgroup.com', client: 'Soundarya Mukhi', project: 'ROF Aalayas' },
-  //   { id: 'ROFEX0055', name: 'Sanjeev', email: 'sanjeev@rofgroup.com', client: 'Rasik Pandey', project: 'ROF Aalayas' },
-  //   { id: 'ROFEX0055', name: 'Shrutika', email: 'shrutika@rofgroup.com', client: 'Mohammad Sharukh', project: 'ROF Aalayas' },
-  //   { id: 'ROFEX0055', name: 'Raghav', email: 'raghav@rofgroup.com', client: 'Suraj Tiwari', project: 'ROF Aalayas' },
-  //   { id: 'ROFEX0055', name: 'Sohail', email: 'Sohail@rofgroup.com', client: 'Riyaana Dey', project: 'ROF Aalayas' },
-  //   { id: 'ROFEX0055', name: 'Gurmeet', email: 'Gurmeet@rofgroup.com', client: 'Guremeet', project: 'ROF Aalayas' },
-  //   { id: 'ROFEX0055', name: 'Prasad', email: 'Prasad@rofgroup.com', client: 'Prasad Fadnavis', project: 'ROF Aalayas' },
-  // ];
 
+  const [doneTab, setDoneTab] = useState('Done');
   const [showAddExecutivePopup2, setShowAddExecutivePopup2] = useState(false);
   const [showAssignManagerPopup2, setShowAssignManagerPopup2] = useState(false);
   const [teamData, setTeamData] = useState([]);
@@ -49,6 +54,8 @@ const Table6 = () => {
       setShowAssignManagerPopup2(false);
     }
   };
+
+
 
 
 
@@ -89,76 +96,76 @@ const Table6 = () => {
     };
   }, [showAddExecutivePopup2, showAssignManagerPopup2]);
 
-  const [executiveName2, setExecutiveName2] = useState('');
-  const [executiveEmail2, setExecutiveEmail2] = useState('');
-  const [executivePhone2, setExecutivePhone2] = useState('');
-  const [isExecutiveCreating2, setIsExecutiveCreating2] = useState(false);
-  const [executiveCreateStatus2, setExecutiveCreateStatus2] = useState('');
-  const [executiveErrorMessage2, setExecutiveErrorMessage2] = useState('');
+  // const [executiveName2, setExecutiveName2] = useState('');
+  // const [executiveEmail2, setExecutiveEmail2] = useState('');
+  // const [executivePhone2, setExecutivePhone2] = useState('');
+  // const [isExecutiveCreating2, setIsExecutiveCreating2] = useState(false);
+  // const [executiveCreateStatus2, setExecutiveCreateStatus2] = useState('');
+  // const [executiveErrorMessage2, setExecutiveErrorMessage2] = useState('');
 
-  const validateName = (name) => {
-    return /^[A-Z][a-zA-Z]*$/.test(name);
-  };
+  // const validateName = (name) => {
+  //   return /^[A-Z][a-zA-Z]*$/.test(name);
+  // };
 
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
+  // const validateEmail = (email) => {
+  //   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  // };
 
-  const validatePhoneNumber = (phone) => {
-    return /^\d{10}$/.test(phone);
-  };
+  // const validatePhoneNumber = (phone) => {
+  //   return /^\d{10}$/.test(phone);
+  // };
 
-  const handlePhoneChange = (e, setPhone) => {
-    const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
-    if (value.length <= 10) {
-      setPhone(value);
-    }
-  };
+  // const handlePhoneChange = (e, setPhone) => {
+  //   const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+  //   if (value.length <= 10) {
+  //     setPhone(value);
+  //   }
+  // };
 
-  const handleAddExecutiveSubmit2 = async () => {
-    if (executiveName2 && executiveEmail2 && executivePhone2) {
-      if (!validateName(executiveName2)) {
-        setExecutiveErrorMessage2('The first letter of the name must be capital.');
-        return;
-      }
-      if (!validateEmail(executiveEmail2)) {
-        setExecutiveErrorMessage2('Please enter a valid email address.');
-        return;
-      }
-      if (!validatePhoneNumber(executivePhone2)) {
-        setExecutiveErrorMessage2('Phone number must be exactly 10 digits.');
-        return;
-      }
-      setIsExecutiveCreating2(true);
-      setExecutiveErrorMessage2('');
+  // const handleAddExecutiveSubmit2 = async () => {
+  //   if (executiveName2 && executiveEmail2 && executivePhone2) {
+  //     if (!validateName(executiveName2)) {
+  //       setExecutiveErrorMessage2('The first letter of the name must be capital.');
+  //       return;
+  //     }
+  //     if (!validateEmail(executiveEmail2)) {
+  //       setExecutiveErrorMessage2('Please enter a valid email address.');
+  //       return;
+  //     }
+  //     if (!validatePhoneNumber(executivePhone2)) {
+  //       setExecutiveErrorMessage2('Phone number must be exactly 10 digits.');
+  //       return;
+  //     }
+  //     setIsExecutiveCreating2(true);
+  //     setExecutiveErrorMessage2('');
 
-      const executiveData1 = {
-        name: executiveName2,
-        emailID: executiveEmail2,
-        phone: executivePhone2
-      }
+  //     const executiveData1 = {
+  //       name: executiveName2,
+  //       emailID: executiveEmail2,
+  //       phone: executivePhone2
+  //     }
 
-      try {
-        // API call here
-        const res = await axios.post("https://project-rof.vercel.app/api/attendants/save", executiveData1)
-        console.log("res", res);
-        setExecutiveCreateStatus2('Executive Created Successfully ✓');
-        console.log("Response send", res);
-      } catch (error) {
-        console.error('Error creating executive:', error);
-        setExecutiveCreateStatus2('Error Creating Executive');
-        console.log(error);
-      } finally {
-        setIsExecutiveCreating2(false);
-      }
-    } else {
-      setExecutiveErrorMessage2('Please fill in all fields.');
-    }
-  };
+  //     try {
+  //       // API call here
+  //       const res = await axios.post("https://project-rof.vercel.app/api/attendants/save", executiveData1)
+  //       console.log("res", res);
+  //       setExecutiveCreateStatus2('Executive Created Successfully ✓');
+  //       console.log("Response send", res);
+  //     } catch (error) {
+  //       console.error('Error creating executive:', error);
+  //       setExecutiveCreateStatus2('Error Creating Executive');
+  //       console.log(error);
+  //     } finally {
+  //       setIsExecutiveCreating2(false);
+  //     }
+  //   } else {
+  //     setExecutiveErrorMessage2('Please fill in all fields.');
+  //   }
+  // };
 
-  const [managerName2, setManagerName2] = useState('');
-  const [managerEmail2, setManagerEmail2] = useState('');
-  const [managerPhone2, setManagerPhone2] = useState('');
+  // const [managerName2, setManagerName2] = useState('');
+  // const [managerEmail2, setManagerEmail2] = useState('');
+  // const [managerPhone2, setManagerPhone2] = useState('');
   const [isManagerCreating2, setIsManagerCreating2] = useState(false);
   const [managerCreateStatus2, setManagerCreateStatus2] = useState('');
   const [managerErrorMessage2, setManagerErrorMessage2] = useState('');
@@ -256,7 +263,10 @@ const Table6 = () => {
         <button
           className="bg-[#3D2314] text-white px-4 py-2  rounded-full   w-[191px] h-[48px] flex item-center align-center justify-center gap-4"
           onClick={() => setShowAddExecutivePopup2(true)}
-        ><MdAdd className='self-center text-[24px]'/>
+        >
+        
+        <MdAdd className='self-center text-[24px]'/>
+
          <span className='mt-[3px]'> Add Executive</span> 
         </button>
         </div>
@@ -319,7 +329,12 @@ const Table6 = () => {
                       style={{
                         textDecoration: "Underline",
                       }}>
-                      <td className="py-2 text-center">{member.employeeId?.length > 0 ? member?.employeeId : "Not found"}</td>
+                      <td className="py-2 text-center">
+                        <Link to="/SuperAdmin/TeamB">
+                        {member.employeeId?.length > 0 ? member?.employeeId : "Not found"}
+
+                        </Link>
+                        </td>
                     </a>
                     <td className="py-2 ">{member.name?.length > 0 ? member?.name : "Not found"}</td>
                     <td className="py-2 ">{member.emailID?.length > 0 ? member?.emailID : "Not found"}</td>
@@ -344,70 +359,60 @@ const Table6 = () => {
       {/* Add Executive Popup */}
       {showAddExecutivePopup2 && (
         <>
-          <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
-          <div
-            ref={addExecutivePopupRef2}
-            className="fixed inset-0 flex items-center justify-center z-50"
-          >
-            <div className="add-executive w-[488px] h-fit p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
-              <button
-                className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                onClick={() => setShowAddExecutivePopup2(false)}
-              >
-                X
-              </button>
-              <div className="relative w-[440px] h-12 mb-4">
-                <input
-                  type="text"
-                  value={executiveName2}
-                  onChange={(e) => setExecutiveName2(e.target.value)}
-                  className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
-                  placeholder="Name"
-                />
-                {!validateName(executiveName2) && executiveName2.length > 0 && (
-                  <p className="text-red-500 text-left text-xs">The first letter of the name must be capital.</p>
-                )}
-              </div>
-              <div className="relative w-[440px] h-12 mb-4">
-                <input
-                  type="email"
-                  value={executiveEmail2}
-                  onChange={(e) => setExecutiveEmail2(e.target.value)}
-                  className="w-full h-full p-4  rounded-md border border-gray-300 font-manrope text-lg font-normal"
-                  placeholder="Executive Email ID"
-                />
-                <img src={EmailIcon} alt="Email" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
-                {!validateEmail(executiveEmail2) && executiveEmail2.length > 0 && (
-                  <p className="text-red-500 text-left text-xs">Please enter a valid email address.</p>
-                )}
-              </div>
-              <div className="relative w-[440px] h-12 mb-4">
-                <input
-                  type="text"
-                  value={executivePhone2}
-                  onChange={(e) => handlePhoneChange(e, setExecutivePhone2)}
-                  className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
-                  placeholder="Phone No"
-                  maxLength={10} // Ensures no more than 10 characters
-                />
-                <img src={PhoneIcon} alt="Phone" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
-                {!validatePhoneNumber(executivePhone2) && executivePhone2.length > 0 && (
-                  <p className="text-red-500 text-left text-xs">Phone number must be exactly 10 digits.</p>
-                )}
-              </div>
-              <button
-                onClick={handleAddExecutiveSubmit2}
-                className="w-fit create-executive-btn h-12 py-3 px-6 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
-                disabled={isExecutiveCreating2}
-              >
-                {executiveCreateStatus2 || 'Add'}
-              </button>
-              {executiveErrorMessage2 && (
-                <p className="text-red-500 mt-2">{executiveErrorMessage2}</p>
-              )}
+        <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+        <div
+          ref={addExecutivePopupRef2}
+          className="fixed inset-0 flex items-center justify-center z-50"
+        >
+          <div className="assign-manager w-[471px] h-[303px]  p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+            <button
+              className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+              onClick={() => setShowAddExecutivePopup2(false)}
+            >
+              X
+            </button>
+           
+           
+            <div className="relative text-center">
+              
+            <div className=' flex flex-wrap ml-6   gap-5'>
+           <div>
+           <MdGroupAdd  className='h-[27px] w-[27px] text-[#3D2314]  '/>
+           </div>
+           <div className=''>
+           <h2 className="text-xl font-semibold mb-4 w-[195px] h-[27px]">Add Sales Executive</h2>
+           </div>
+           </div>
+              
+              <textarea
+                
+                
+                
+                className="w-[423px] h-[127px] rounded-md border p-4 border-gray-300 font-manrope text-lg font-normal"
+                placeholder="Add reserve sales executive"
+                 
+              />
+            
             </div>
+{/*             
+            <button
+
+            style={{alignSelf:'self-end'}}
+              onClick={handleAssignManagerSubmit2}
+              className="btnClass w-fit assign-manager-btn mt-3 h-12 py-3 px-6 bg-[grey] rounded-md text-end font-manrope text-lg font-medium text-white"
+              disabled={isManagerCreating2}
+            >
+              {managerCreateStatus2 || 'Done'}
+            </button> */}
+
+            <BtnTab doneTab={doneTab} setDoneTab={setDoneTab}/>
+            
+            {managerErrorMessage2 && (
+              <p className="text-red-500 mt-2">{managerErrorMessage2}</p>
+            )}
           </div>
-        </>
+        </div>
+      </>
       )}
 
       {/* Assign Manager Popup */}
@@ -418,59 +423,50 @@ const Table6 = () => {
             ref={assignManagerPopupRef2}
             className="fixed inset-0 flex items-center justify-center z-50"
           >
-            <div className="assign-manager w-[488px] h-fit p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+            <div className="assign-manager w-[471px] h-[303px]  p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
               <button
                 className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
                 onClick={() => setShowAssignManagerPopup2(false)}
               >
                 X
               </button>
-              <div className="relative w-[440px] h-12 mb-4">
-                <input
-                  type="text"
-                  value={managerName2}
-                  onChange={(e) => setManagerName2(e.target.value)}
-                  className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
-                  placeholder="Sales Manager Name"
+             
+             
+              <div className="relative text-center">
+                
+              <div className=' flex flex-wrap ml-6   gap-5'>
+             <div>
+             <MdGroupAdd  className='h-[27px] w-[27px] text-[#3D2314]  '/>
+             </div>
+             <div className=''>
+             <h2 className="text-xl font-semibold mb-4 w-[153px] h-[27px]">Assign Manager</h2>
+             </div>
+             </div>
+                
+                <textarea
+                  
+                  
+                  
+                  className="w-[423px] h-[127px] rounded-md border p-4 border-gray-300 font-manrope text-lg font-normal"
+                  placeholder="Add name of Manager"
+                   // Ensures no more than 10 characters
                 />
-                {!validateName(managerName2) && managerName2.length > 0 && (
-                  <p className="text-red-500 text-left text-xs">The first letter of the name must be capital.</p>
-                )}
+              
               </div>
-              <div className="relative w-[440px] h-12 mb-4">
-                <input
-                  type="email"
-                  value={managerEmail2}
-                  onChange={(e) => setManagerEmail2(e.target.value)}
-                  className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
-                  placeholder="Email ID"
-                />
-                <img src={EmailIcon} alt="Email" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
-                {!validateEmail(managerEmail2) && managerEmail2.length > 0 && (
-                  <p className="text-red-500 text-left text-xs">Please enter a valid email address.</p>
-                )}
-              </div>
-              <div className="relative w-[440px] h-12 mb-4">
-                <input
-                  type="text"
-                  value={managerPhone2}
-                  onChange={(e) => handlePhoneChange(e, setManagerPhone2)}
-                  className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
-                  placeholder="Phone No"
-                  maxLength={10} // Ensures no more than 10 characters
-                />
-                <img src={PhoneIcon} alt="Phone" className="absolute right-3 top-1/2 transform -translate-y-1/2" />
-                {!validatePhoneNumber(managerPhone2) && managerPhone2.length > 0 && (
-                  <p className="text-red-500 text-left text-xs">Phone number must be exactly 10 digits.</p>
-                )}
-              </div>
-              <button
+              
+              {/* <button
+
+              style={{alignSelf:'self-end'}}
                 onClick={handleAssignManagerSubmit2}
-                className="w-fit assign-manager-btn h-12 py-3 px-6 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
+                className="w-fit assign-manager-btn mt-3 h-12 py-3 px-6 bg-[grey] rounded-md text-end font-manrope text-lg font-medium text-white"
                 disabled={isManagerCreating2}
               >
-                {managerCreateStatus2 || 'Add'}
-              </button>
+                {managerCreateStatus2 || 'Done'}
+              </button> */}
+
+<BtnTab doneTab={doneTab} setDoneTab={setDoneTab}/>
+
+              
               {managerErrorMessage2 && (
                 <p className="text-red-500 mt-2">{managerErrorMessage2}</p>
               )}
