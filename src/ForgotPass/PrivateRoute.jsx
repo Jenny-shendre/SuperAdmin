@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { isAuthenticated } from "../utils/TokenUtils";
-import React from 'react';
+import React from "react";
 
 // export function PrivateRoute(props){
 //     console.log(isAuthenticated());
@@ -11,19 +11,14 @@ import React from 'react';
 //     }
 // }
 
-
-
 // export const PrivateRoute = ({ element: Element }) => {
 //     return isAuthenticated() ? <Element/> : <Navigate to="/" />;
 // };
 
 export const PrivateRoute = ({ element: Element }) => {
-    if (isAuthenticated()) {
-        return <Element />
-    }
-    else {
-        return <Navigate to="/" />
-    }
-
-
+  if (isAuthenticated()) {
+    return <Element />;
+  } else {
+    return <Navigate to="/" />;
+  }
 };
