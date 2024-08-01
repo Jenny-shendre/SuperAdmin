@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import axios from "axios";
 import { format } from "date-fns";
@@ -26,7 +26,7 @@ const Table3 = () => {
   const confirmDelete = async () => {
     await axios.delete(`https://prodictivity-management-tool2.vercel.app/api/record/deleteRecord/${deleteId}`);
     setShowPopup(false);
-    fetchData(); // Refresh data after deletion
+    fetchData(); 
   };
 
   const fetchData = async () => {
@@ -44,18 +44,30 @@ const Table3 = () => {
     return formattedDate;
   };
 
-  const handleSearch = (e) => {
-    const query = e.target.value.toLowerCase();
-    setvalueinput(query);
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
 
-    // Filter data based on the search query
+  const handleSearch = useCallback(debounce((query) => {
     const filtered = data.filter((item) =>
-      item.customerName.toLowerCase().includes(query) ||
-      item.channelPartnerName.toLowerCase().includes(query) ||
-      item.projectName.toLowerCase().includes(query)
+      item.customerName.toLowerCase().startsWith(query) ||
+      item.channelPartnerName.toLowerCase().startsWith(query) ||
+      item.projectName.toLowerCase().startsWith(query)
     );
 
     setFilteredData(filtered);
+  }, 300), [data]);
+
+  const onSearchChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    setvalueinput(query);
+    handleSearch(query);
   };
 
   return (
@@ -85,7 +97,7 @@ const Table3 = () => {
                   style={{ border: "1px solid #3D2314", boxShadow: "0px 0px 4px 0px #00000040" }}
                   type="text"
                   value={valueinput}
-                  onChange={handleSearch} // Handle search input
+                  onChange={onSearchChange} // Handle search input
                   placeholder="Search"
                 />
                 <img style={{ top: "0.6rem" }} src={Searchsvg} alt="Search" className="absolute left-4" />
@@ -142,25 +154,34 @@ const Table3 = () => {
       )}
 
       {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg text-center" style={{ width: '300px' }}>
-            <p className="mb-4" style={{ fontFamily: 'Manrope', fontSize: '14px', fontWeight: '500' }}>Are you sure you want to delete this row?</p>
-            <p className="mb-4" style={{ fontFamily: 'Manrope', fontSize: '12px', color: '#555' }}>This action cannot be undone.</p>
-            <div className="flex justify-around">
-              <button
-                onClick={() => setShowPopup(false)}
-                className="bg-gray-300 text-black px-4 py-2 rounded" style={{ width: '80px', fontFamily: 'Manrope', fontSize: '12px', fontWeight: '500' }}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={confirmDelete}
-                className="bg-red-600 text-white px-4 py-2 rounded" style={{ width: '80px', fontFamily: 'Manrope', fontSize: '12px', fontWeight: '500' }}
-              >
-                Delete
-              </button>
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div className="Delete-popup w-[257px] h-[192px] py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
+            <div className="text-center">
+              <p className="font-manrope text-[20px] font-medium">
+                Are you sure you want to delete this row?
+              </p>
+              <p className="font-manrope text-[12px] font-medium text-[#6A6A6A] mt-2">
+                This action cannot be undone.
+              </p>
+              <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
+                <button
+                  className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
+                  onClick={confirmDelete}
+                >
+                  Delete
+                </button>
+                <button
+                  className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
+                  onClick={() => setShowPopup(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+              <p className="font-manrope text-[12px] text-[#6A6A6A] font-medium text-center mt-2">
+                Select "Delete" to confirm.
+              </p>
             </div>
-            <p className="mt-4" style={{ fontFamily: 'Manrope', fontSize: '10px', color: '#555' }}>Select "Delete" to confirm.</p>
           </div>
         </div>
       )}
