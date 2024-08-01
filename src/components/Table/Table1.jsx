@@ -305,7 +305,7 @@ const Table1 = () => {
                               {visitor.attendantName}
                             </td>
 
-                            <td className="py-1 border-b flex gap-2">
+                            <td className="py-[7px] px-3 border-b flex gap-2">
                               <Link to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}>
                                 <PiNotePencilBold
                                   onClick={() => handleEdit(visitor._id)}

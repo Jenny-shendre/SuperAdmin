@@ -166,13 +166,15 @@ const FormEdit = () => {
                         <label
                           htmlFor="first_name"
                           className="block text-[#000000] text-[16px] font-[Manrope]"
-                          style={{ fontWeight: "500" }}>
+                          style={{ fontWeight: "500", fontFamily:'Manrope' }}>
                           Customer Name
                         </label>
                         <input
+                        
                           type="text"
                           id="first_name"
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                          style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                           placeholder="John Doe"
                           required
                           name="name"
@@ -184,13 +186,16 @@ const FormEdit = () => {
                       <div>
                         <label
                           htmlFor="phone"
-                          className="block text-[#000000] text-[16px] font-[Manrope]">
-                          Phone number
+                          className="block text-[#000000] text-[16px] font-[Manrope]"
+                          style={{ fontWeight: "500", fontFamily:'Manrope' }}>
+                            
+                          Mobile No
                         </label>
                         <input
                           type="tel"
                           id="phone"
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                          style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                           placeholder="9425846894"
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           required
@@ -204,13 +209,15 @@ const FormEdit = () => {
                     <div className="lg:mt-1">
                       <label
                         htmlFor="email"
-                        className="block text-[#000000] text-[16px] font-[Manrope]">
+                        className="block text-[#000000] text-[16px] font-[Manrope]"
+                        style={{ fontWeight: "500", fontFamily:'Manrope' }}>
                         Email ID
                       </label>
                       <input
                         type="email"
                         id="email"
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                         placeholder="johndoe@gmail.com"
                         required
                         name="email"
@@ -226,13 +233,15 @@ const FormEdit = () => {
                       <div>
                         <label
                           htmlFor="Project A"
-                          className="block text-[#000000] text-[16px] font-[Manrope]">
+                          className="block text-[#000000] text-[16px] font-[Manrope]"
+                          style={{ fontWeight: "500", fontFamily:'Manrope' }}>
                           Project
                         </label>
                         <input
                           type="text"
                           id="Project A"
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                          style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                           placeholder="Project A"
                           name="projectName"
                           value={FormData.projectName}
@@ -243,13 +252,15 @@ const FormEdit = () => {
                       <div>
                         <label
                           htmlFor="Customer ID"
-                          className="block text-[#000000] text-[16px] font-[Manrope]">
+                          className="block text-[#000000] text-[16px] font-[Manrope]"
+                          style={{ fontWeight: "500", fontFamily:'Manrope' }}>
                           Customer ID
                         </label>
                         <input
                           type="text"
                           id="Customer ID"
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                          style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                           placeholder="ROF0001"
                           required
                           name="customerId"
@@ -263,13 +274,14 @@ const FormEdit = () => {
                       <label
                         htmlFor="attendant"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500" }}>
+                        style={{ fontWeight: "500", fontFamily:'Manrope' }}>
                         Attendant
                       </label>
                       <input
                         type="text"
                         id="attendant"
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                         placeholder="Samyak Gandhi"
                         required
                         name="attendantName"
@@ -284,12 +296,13 @@ const FormEdit = () => {
                     <div>
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500" }}>
+                        style={{ fontWeight: "500", fontFamily:'Manrope' }}>
                         Date
                       </label>
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{textAlign:'center' ,fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                         name="createdAt"
                         value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
@@ -299,12 +312,13 @@ const FormEdit = () => {
                     <div>
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500" }}>
+                        style={{ fontWeight: "500", fontFamily:'Manrope' }}>
                         Response Time
                       </label>
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{textAlign:'center' ,fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                         name="responseTime"
                         value={ResponseAt(FormData.createdAt)}
                         onChange={handleChange}
@@ -314,12 +328,13 @@ const FormEdit = () => {
                     <div>
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500" }}>
+                        style={{ fontWeight: "500", fontFamily:'Manrope' }}>
                         Meeting Duration
                       </label>
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{textAlign:'center',fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                         name="timeDuration"
                         value={FormData.timeDuration}
                         onChange={handleChange}
@@ -332,11 +347,13 @@ const FormEdit = () => {
                     <div className="mt-1">
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500" }}>
+                        style={{ fontWeight: "500", fontFamily:'Manrope' }}>
                         Executive Notes
-                      </label>
+                      </label 
+    >
                       <textarea
                         className="lg:w-[647px] lg:h-[100px] border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                         readOnly={!editMode}>
                         {FormData.notes}
                       </textarea>
