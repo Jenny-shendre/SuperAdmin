@@ -123,13 +123,13 @@ const Table1 = () => {
                             lineHeight: "16.39px",
                             textAlign: "left",
                             paddingLeft: "7px",
-                            width: "115px",
+                            width: "125px",
                             padding: "5px",
                           }}>
                           Date
                         </th>
                         <th
-                          className="text-center"
+                          className="text-center border-b"
                           style={{
                             fontFamily: "Manrope",
                             fontSize: "12px",
@@ -305,7 +305,7 @@ const Table1 = () => {
                               {visitor.attendantName}
                             </td>
 
-                            <td className="py-[7px] px-3 border-b flex gap-2">
+                            <td className="py-[8px] px-3 border-b flex gap-2">
                               <Link to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}>
                                 <PiNotePencilBold
                                   onClick={() => handleEdit(visitor._id)}
