@@ -7,7 +7,7 @@ import { TbReload } from "react-icons/tb";
 import { MdAdd } from "react-icons/md";
 import "../Home.css";
 
-const BtnTab = ({ doneTab, setDoneTab, isDisabled }) => (
+const BtnTab = ({ doneTab, setDoneTab, isDisabled, handleSubmit }) => (
   <div className="flex mb-4 justify-end mt-5" style={{ alignSelf: "self-end" }}>
     {["Done"].map((tab) => (
       <button
@@ -15,7 +15,7 @@ const BtnTab = ({ doneTab, setDoneTab, isDisabled }) => (
         style={{ fontFamily: "Manrope", padding: "10px 10px", width: "121px" }}
         className={`w-fit assign-manager-btn mt-3 h-12 py-3 px-6 rounded-md font-manrope text-lg font-medium ${isDisabled ? "bg-[grey] text-[#3D2314]" : "bg-[#3D2314] text-white"
           }`}
-        onClick={() => !isDisabled && setDoneTab(tab)}
+        onClick={() => !isDisabled && handleSubmit()}
         disabled={isDisabled}
       >
         {tab}
@@ -104,6 +104,32 @@ const Table6 = () => {
     const lastIndex = uniqueClientNames.length - 1;
     let clientnamelast = uniqueClientNames[lastIndex];
     return ClientName.length == 0 ? "Not Assign" : clientnamelast;
+  };
+
+  const handleSubmitExecutives = async () => {
+    try {
+      await axios.post("https://project-rof.vercel.app/api/executives/add", {
+        executives,
+        teamName,
+      });
+      setShowAddExecutivePopup2(false);
+      fetchData(); // Refresh data after submission
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmitManagers = async () => {
+    try {
+      await axios.post("https://project-rof.vercel.app/api/managers/add", {
+        managers,
+        teamName,
+      });
+      setShowAssignManagerPopup2(false);
+      fetchData(); // Refresh data after submission
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -322,7 +348,7 @@ const Table6 = () => {
                     ))}
                   </div>
                   <textarea
-                    className="w-full h-full p-2 border-none focus:outline-none"
+                    className="add-executive1 w-full h-full p-2 border-none focus:outline-none"
                     placeholder="Add reserve sales executive"
                     value={executiveInput}
                     onChange={(e) => setExecutiveInput(e.target.value)}
@@ -336,6 +362,7 @@ const Table6 = () => {
                 doneTab={doneTab}
                 setDoneTab={setDoneTab}
                 isDisabled={executives.length === 0}
+                handleSubmit={handleSubmitExecutives}
               />
             </div>
           </div>
@@ -390,7 +417,7 @@ const Table6 = () => {
                     ))}
                   </div>
                   <textarea
-                    className="w-full h-full p-2 border-none focus:outline-none"
+                    className="add-manager1 w-full h-full p-2 border-none focus:outline-none"
                     placeholder="Add name of Manager"
                     value={managerInput}
                     onChange={(e) => setManagerInput(e.target.value)}
@@ -404,6 +431,7 @@ const Table6 = () => {
                 doneTab={doneTab}
                 setDoneTab={setDoneTab}
                 isDisabled={managers.length === 0}
+                handleSubmit={handleSubmitManagers}
               />
             </div>
           </div>
