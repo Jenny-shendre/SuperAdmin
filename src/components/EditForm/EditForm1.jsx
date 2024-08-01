@@ -83,11 +83,25 @@ function EditForm1() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
+
+   // If the input field is 'customerMobileLastFour', restrict to 4 digits
+   if (name === "customerMobileLastFour") {
+    // Only allow digits and restrict length to 4
+    const newValue = value.replace(/\D/g, '').slice(0, 4);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: newValue,
+    }));
+  } else {
+
+
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
   };
+}
 
   const toggleEditMode = async (id) => {
     setEditMode(!editMode);
@@ -211,18 +225,19 @@ function EditForm1() {
                           Last 4 Digit
                         </label>
                         <input
-                          type="number"
+                          type="text"
                           id="phone"
-                          maxLength="4"
                           name="customerMobileLastFour"
                           value={FormData.customerMobileLastFour}
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{textAlign:'center' ,fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+                          maxLength="4"
                           placeholder="1 4 6 5"
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           required
                           readOnly={!editMode}
                           onChange={handleChange}
+                          style={{textAlign:'center' ,fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+
                         />
                       </div>
                     </div>

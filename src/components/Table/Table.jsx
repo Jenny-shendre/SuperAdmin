@@ -125,13 +125,13 @@ const Table = () => {
                           lineHeight: "16.39px",
                           textAlign: "left",
                           paddingLeft: "7px",
-                          width: "115px",
+                          width: "125px",
                           padding: "5px",
                         }}>
                         Date
                       </th>
                       <th
-                        className="text-center"
+                        className="text-center border-b"
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
