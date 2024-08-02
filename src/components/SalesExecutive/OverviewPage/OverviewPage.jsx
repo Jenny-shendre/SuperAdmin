@@ -8,6 +8,7 @@ import Searchsvg from "../../../assets/material-symbols_search.svg";
 import material from '../../../assets/material-symbols_meeting-room-outline.png'
 import carbon from '../../../assets/carbon_customer.png'
 import alarm from '../../../assets/material-symbols_alarm-outline.png'
+import { TbMarquee } from 'react-icons/tb';
 
 
 const OverviewPage = () => {
@@ -54,7 +55,9 @@ opacity: '0px',
 
       <div className="grid grid-cols-3 gap-6 mt-6 w-[1300px] h-[409px]">
         <div className="col-span-2">
-          <div className="bg-white rounded-lg shadow p-6 mb-6">
+          <div style={{boxShadow: "0px 7px 15px 0px #0000001A",boxShadow: "0px 27px 27px 0px #00000017"
+}}
+className="bg-white rounded-lg shadow p-6 mb-6">
             <h2 style={{
               fontFamily: 'Manrope',
               fontSize: '18px',
@@ -66,7 +69,8 @@ opacity: '0px',
             <div className="flex justify-between rounded-[12px]">
 
 
-<div className='p-2 w-[241px] h-[140px] text-[18px] font-medium text-[#5C5C5C] shadow-lg rounded-xl flex flex-wrap gap-[90px]'>
+<div style={{boxShadow: "0px 0px 4px 0px #3D231440 inset"}}
+className='p-2 w-[241px] h-[140px] text-[18px] font-medium text-[#5C5C5C]  rounded-xl flex flex-wrap gap-[90px]'>
   
   <div style={{
               fontFamily: 'Manrope',
@@ -81,7 +85,8 @@ opacity: '0px',
 <div className='text-[#3D2314] font-bold text-[34px] font-[Manrope]'>25</div>
 </div>
 
-<div  className=' p-2 w-[241px] h-[140px] text-[18px] font-medium text-[#5C5C5C] shadow-lg rounded-xl flex flex-wrap gap-[60px]'>
+<div style={{boxShadow: "0px 0px 4px 0px #3D231440 inset"}}
+ className=' p-2 w-[241px] h-[140px] text-[18px] font-medium text-[#5C5C5C]  rounded-xl flex flex-wrap gap-[60px]'>
   
   <div  style={{
               fontFamily: 'Manrope',
@@ -97,7 +102,8 @@ opacity: '0px',
  <div className='text-[#3D2314] font-bold text-[34px] font-[Manrope]'>25</div>
  </div>
 
-<div  className=' p-2 w-[241px] h-[140px] text-[18px] font-medium text-[#5C5C5C] shadow-lg rounded-xl flex flex-wrap gap-[70px]'>
+<div style={{boxShadow: "0px 0px 4px 0px #3D231440 inset"}}
+ className=' p-2 w-[241px] h-[140px] text-[18px] font-medium text-[#5C5C5C]  rounded-xl flex flex-wrap gap-[70px]'>
   
   <div  style={{
               fontFamily: 'Manrope',
@@ -191,12 +197,13 @@ opacity: '0px',
           <h2 style={{fontWeight:'500' }} className="text-[18px] font-[Manrope] text-[#5C5C5C] ml-[40px] mt-2 ">Meeting Notes</h2>
           </div>
 
-
           <h3 style={{fontWeight:'500'}} className='  text-[16px] font-[Manrope] text-[#383838] text-left mt-2'> 24 June | 12:50 pm</h3>
-          <p4 style={{fontWeight:'500'}} className='text-[10px] font-[Manrope] text-[black] text-left'>Discussed property options in Lakeside neighborh..</p4>
+          
+
+          <marquee style={{fontWeight:'500'}} className='text-[10px] font-[Manrope] text-[black] text-left border-b'>Discussed property options in Lakeside neighborhood. Client interested in 3-bedroom layouts.</marquee>
           
           <h3 style={{fontWeight:'500'}} className='  text-[16px] font-[Manrope] text-[#383838] text-left mt-2'> 24 June | 04:50 pm</h3>
-          <p4 style={{fontWeight:'500'}} className='text-[10px] font-[Manrope] text-[black] text-left'>Confirmation on available closing for shortli...</p4>
+          <marquee style={{fontWeight:'500'}} className='text-[10px] font-[Manrope] text-[black] text-left border-b'>Confirmation on available closing for shortli...</marquee>
           
         </div>
       
@@ -206,7 +213,7 @@ opacity: '0px',
 {/* 
 card 2 */}
 
-<div className=" bg-white rounded-lg shadow-md p-4  w-[309px] h-[194px] ">
+<div className=" bg-white rounded-lg shadow-md p-4  w-[309px] h-[200px] ">
      
      <div className='flex flex-wrap '>
         <div className='flex flex-wrap '>
@@ -217,14 +224,22 @@ card 2 */}
        </div>
         </div>
      
+    
 
+       <div className='flex flex-wrap  justify-between w-[250px] mt-4 '>
+        <div className='items-center justify-center' style={{width: "36px", height:"36px", borderRadius:"50%", background: "#D7D7D7", padding: "8px",color: "#7B7B7B", fontSize: "14px", fontFamily:"Manrope", fontWeight:"600px"}}>SB</div>
+        <div>       <h3 style={{fontWeight:'500'}} className='  text-[16px] font-[Manrope] text-[#383838] text-left'> 22 June | 05:50 pm</h3>
+        <marquee   style={{fontWeight:'500',width:'192px'}} className='text-[10px] font-[Manrope] text-[black] text-left border-b'>Client expressed interest in a specific property listing (MLS# 12345).</marquee>
 
-       <h3 style={{fontWeight:'500'}} className='  text-[16px] font-[Manrope] text-[#383838] text-left mt-2'> 22 June | 05:50 pm</h3>
-       <p4 style={{fontWeight:'500'}} className='text-[10px] font-[Manrope] text-[black] text-left'>Client expressed interest in a specific pr..</p4>
-       
-       <h3 style={{fontWeight:'500'}} className='  text-[16px] font-[Manrope] text-[#383838] text-left mt-2'> 22 June | 05:50 pm</h3>
-       <p4 style={{fontWeight:'500'}} className='text-[10px] font-[Manrope] text-[black] text-left'>Client confirmed availability for next meeting...</p4>
-       
+        </div>
+       </div>
+       <div className='flex flex-wrap  w-[250px] justify-between '>
+       <div style={{width: "36px", height:"36px", borderRadius:"50%", background: "#D7D7D7", padding: "8px", color: "#7B7B7B", fontSize: "14px", fontFamily:"Manrope", fontWeight:"600px"}}>TK</div>
+       <div>
+       <h3 style={{fontWeight:'500'}} className='  text-[16px] font-[Manrope] text-[#383838] text-left '> 22 June | 05:50 pm</h3>
+       <marquee  style={{fontWeight:'500',width:'192px'}} className='text-[10px] font-[Manrope] text-[black] text-left border-b'>Client confirmed availability for next meeting on July 26th</marquee>
+       </div>
+     </div>
      </div>
      </div>
 
@@ -240,10 +255,10 @@ card 2 */}
 
 
        <h3 style={{fontWeight:'500'}} className='  text-[16px] font-[Manrope] text-[#383838] text-left mt-2'> 22 June | 05:50 pm</h3>
-       <p4 style={{fontWeight:'500'}} className='text-[10px] font-[Manrope] text-[black] text-left'>Schedule follow-up meeting with John Smith(due July..</p4>
+       <marquee p4 style={{fontWeight:'500'}} className='text-[10px] font-[Manrope] text-[black] text-left border-b'>Schedule follow-up meeting with John Smith(due July 26th)</marquee>
        
        <h3 style={{fontWeight:'500'}} className='  text-[16px] font-[Manrope] text-[#383838] text-left mt-2'> 22 June | 05:50 pm</h3>
-       <p4 style={{fontWeight:'500'}} className='text-[10px] font-[Manrope] text-[black] text-left'>end John Smith a comparative analysis of shortlisted pr...</p4>
+       <marquee p4 style={{fontWeight:'500'}} className='text-[10px] font-[Manrope] text-[black] text-left border-b'>end John Smith a comparative analysis of shortlisted properties (due July 25th)</marquee>
        
      </div>
      </div>
