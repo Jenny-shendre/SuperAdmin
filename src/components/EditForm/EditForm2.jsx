@@ -20,12 +20,12 @@ function EditForm2() {
     executiveNotes: ""
   });
 
-  const params = useParams();
+  const { id } = useParams();
 
   const fetchDataById = async () => {
     try {
       const res = await axios.get(
-        `https://prodictivity-management-tool2.vercel.app/api/record/getRecordBy/${params.id}`
+        `https://prodictivity-management-tool2.vercel.app/api/record/getRecordBy/${id}`
       );
       setData(res.data);
     } catch (err) {
@@ -35,7 +35,7 @@ function EditForm2() {
 
   useEffect(() => {
     fetchDataById();
-  }, [params.id]);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,41 +49,16 @@ function EditForm2() {
     e.preventDefault();
     try {
       await axios.put(
-        `https://prodictivity-management-tool2.vercel.app/api/record/updateRecord/${params.id}`,
+        `https://prodictivity-management-tool2.vercel.app/api/record/updateRecord/${id}`,
         data
       );
       alert("Data updated successfully!");
+      setEditMode(false);
     } catch (err) {
       console.error("Error updating data:", err);
       alert("Error updating data.");
     }
   };
-
-
-
-
-
-  const toggleEditMode = async (id) => {
-    setEditMode(!editMode);
-
-    try {
-      const res = await axios.put(
-        `https://project-rof.vercel.app/api/partners/update/${id}`,
-        {
-          ...FormData,
-        }
-      );
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
-
-
-
-  
 
   return (
     <>
@@ -136,18 +111,16 @@ function EditForm2() {
           </div>
           <div className="flex lg:ml-[1000px] mt-9 gap-4">
             <button
-                key={FormData._id}
-                className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
-                onClick={() => toggleEditMode(FormData._id)}>
-                <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-                  <FaRegEdit />
-                </h4>
-                <p className="text-[16px]">
-                  {editMode ? "Save" : "Edit Details"}
-                </p>
-              </button>
-            {/* Submit button inside the form */}
-         
+              className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
+              onClick={() => setEditMode(!editMode)}
+            >
+              <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
+                <FaRegEdit />
+              </h4>
+              <p className="text-[16px]">
+                {editMode ? "Save" : "Edit Details"}
+              </p>
+            </button>
           </div>
         </div>
         <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10">
@@ -163,66 +136,66 @@ function EditForm2() {
             </h2>
             <form id="editForm" onSubmit={handleSubmit}>
               <div>
-                <div>
-                  <div className="flex flex-wrap gap-[40px]">
-                    <div>
-                      <label
-                        htmlFor="customerName"
-                        className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500" }}
-                      >
-                        Customer Name
-                      </label>
-                      <input
-                        type="text"
-                        id="customerName"
-                        name="customerName"
-                        className="lg:w-[393px] lg:h-[47px] p-1 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        placeholder="Anand Jaiswal"
-                        value={data.customerName}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="customerMobileLastFour"
-                        className="block text-[#000000] text-[16px] font-[Manrope]"
-                      >
-                        Last 4 Digit
-                      </label>
-                      <input
-                        type="tel"
-                        id="customerMobileLastFour"
-                        name="customerMobileLastFour"
-                        className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        placeholder="1 4 6 5"
-                        value={data.customerMobileLastFour}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="lg:mt-1">
+                <div className="flex flex-wrap gap-[40px]">
+                  <div>
                     <label
-                      htmlFor="channelPartnerName"
+                      htmlFor="customerName"
                       className="block text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500" }}
                     >
-                      Channel Name
+                      Customer Name
                     </label>
                     <input
                       type="text"
-                      id="channelPartnerName"
-                      name="channelPartnerName"
-                      className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      placeholder="Rainbow Overseas Pvt Ltd"
-                      value={data.channelPartnerName}
+                      id="customerName"
+                      name="customerName"
+                      className="lg:w-[393px] lg:h-[47px] p-1 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      placeholder="Anand Jaiswal"
+                      value={data.customerName}
                       onChange={handleChange}
                       required
+                      disabled={!editMode} // Disable input if not in edit mode
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="customerMobileLastFour"
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                    >
+                      Last 4 Digit
+                    </label>
+                    <input
+                      type="tel"
+                      id="customerMobileLastFour"
+                      name="customerMobileLastFour"
+                      className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      placeholder="1 4 6 5"
+                      value={data.customerMobileLastFour}
+                      onChange={handleChange}
+                      required
+                      disabled={!editMode} // Disable input if not in edit mode
                     />
                   </div>
                 </div>
-
+                <div className="lg:mt-1">
+                  <label
+                    htmlFor="channelPartnerName"
+                    className="block text-[#000000] text-[16px] font-[Manrope]"
+                  >
+                    Channel Name
+                  </label>
+                  <input
+                    type="text"
+                    id="channelPartnerName"
+                    name="channelPartnerName"
+                    className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                    placeholder="Rainbow Overseas Pvt Ltd"
+                    value={data.channelPartnerName}
+                    onChange={handleChange}
+                    required
+                    disabled={!editMode} // Disable input if not in edit mode
+                  />
+                </div>
                 <div className="mt-1">
                   <div className="flex flex-wrap gap-[40px]">
                     <div>
@@ -241,6 +214,7 @@ function EditForm2() {
                         value={data.channelPartnerCompanyName}
                         onChange={handleChange}
                         required
+                        disabled={!editMode} // Disable input if not in edit mode
                       />
                     </div>
                     <div>
@@ -257,53 +231,52 @@ function EditForm2() {
                         name="channelPartnerID"
                         className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="CHROF0001"
-                        value={data.partnerId}
+                        value={data._id} // Use _id here for Channel Partner ID
                         required
                       />
                     </div>
                   </div>
-
-                  <div className="lg:mt-1">
-                    <label
-                      htmlFor="projectName"
-                      className="block text-[#000000] text-[16px] font-[Manrope]"
-                      style={{ fontWeight: "500" }}
-                    >
-                      Project
-                    </label>
-                    <input
-                      type="text"
-                      id="projectName"
-                      name="projectName"
-                      className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      placeholder="Project A"
-                      value={data.projectName}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="lg:mt-1">
-                    <label
-                      htmlFor="attendantName"
-                      className="block text-[#000000] text-[16px] font-[Manrope]"
-                      style={{ fontWeight: "500" }}
-                    >
-                      Attendant
-                    </label>
-                    <input
-                      type="text"
-                      id="attendantName"
-                      name="attendantName"
-                      className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      placeholder="Samyak Gandhi"
-                      value={data.attendantName}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
                 </div>
-
+                <div className="lg:mt-1">
+                  <label
+                    htmlFor="projectName"
+                    className="block text-[#000000] text-[16px] font-[Manrope]"
+                    style={{ fontWeight: "500" }}
+                  >
+                    Project
+                  </label>
+                  <input
+                    type="text"
+                    id="projectName"
+                    name="projectName"
+                    className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                    placeholder="Project A"
+                    value={data.projectName}
+                    onChange={handleChange}
+                    required
+                    disabled={!editMode} // Disable input if not in edit mode
+                  />
+                </div>
+                <div className="lg:mt-1">
+                  <label
+                    htmlFor="attendantName"
+                    className="block text-[#000000] text-[16px] font-[Manrope]"
+                    style={{ fontWeight: "500" }}
+                  >
+                    Attendant
+                  </label>
+                  <input
+                    type="text"
+                    id="attendantName"
+                    name="attendantName"
+                    className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                    placeholder="Samyak Gandhi"
+                    value={data.attendantName}
+                    onChange={handleChange}
+                    required
+                    disabled={!editMode} // Disable input if not in edit mode
+                  />
+                </div>
                 <div className="lg:flex lg:flex-wrap gap-[24px] lg:mt-1">
                   <div>
                     <label
@@ -318,6 +291,7 @@ function EditForm2() {
                       className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                       value={data.createdAt}
                       onChange={handleChange}
+                      disabled={!editMode} // Disable input if not in edit mode
                     />
                   </div>
                   <div>
@@ -333,6 +307,7 @@ function EditForm2() {
                       className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                       value={data.updatedAt}
                       onChange={handleChange}
+                      disabled={!editMode} // Disable input if not in edit mode
                     />
                   </div>
                   <div>
@@ -348,10 +323,10 @@ function EditForm2() {
                       className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                       value={data.__v}
                       onChange={handleChange}
+                      disabled={!editMode} // Disable input if not in edit mode
                     />
                   </div>
                 </div>
-
                 <div className="textarear-comp">
                   <div className="mt-1">
                     <label
@@ -365,9 +340,20 @@ function EditForm2() {
                       className="lg:w-[641px] lg:h-[173px] border-[2px] border-[#3D2314] rounded-lg mt-1"
                       value={data.executiveNotes}
                       onChange={handleChange}
+                      disabled={!editMode} // Disable input if not in edit mode
                     ></textarea>
                   </div>
                 </div>
+                {editMode && (
+                  <div className="text-center mt-4">
+                    <button
+                      type="submit"
+                      className="w-[100px] h-[36px] bg-[#3D2314] text-white rounded-md"
+                    >
+                      Save
+                    </button>
+                  </div>
+                )}
               </div>
             </form>
           </div>
