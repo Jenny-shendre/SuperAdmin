@@ -107,6 +107,7 @@ const Table6 = () => {
   };
 
   const handleSubmitExecutives = async () => {
+    console.log("Executives Array: ", executives);
     try {
       await axios.post("https://project-rof.vercel.app/api/executives/add", {
         executives,
@@ -120,6 +121,7 @@ const Table6 = () => {
   };
 
   const handleSubmitManagers = async () => {
+    console.log("Managers Array: ", managers);
     try {
       await axios.post("https://project-rof.vercel.app/api/managers/add", {
         managers,
