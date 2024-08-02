@@ -252,9 +252,10 @@ function ClientDetails() {
                           fontWeight: "400",
                           lineHeight: "16.39px",
                           color: "#4B4B4B",
+                          width: "180px"
                         }}
                         className="py-2 px-4 text-left">
-                        Client
+                        Name
                       </th>
                       <th
                         style={{
@@ -277,7 +278,7 @@ function ClientDetails() {
                           width: "85px",
                         }}
                         className="py-2 px-4 text-left">
-                        Time Left
+                        Timer/Min
                       </th>
                       <th
                         style={{
@@ -310,8 +311,9 @@ function ClientDetails() {
                           fontWeight: "400",
                           lineHeight: "16.39px",
                           color: "#4B4B4B",
+                          textAlign: "center",
                         }}
-                        className="py-2 px-4 text-left">
+                        className="py-2 px-4 ">
                         Notes
                       </th>
                       <th
@@ -381,9 +383,9 @@ function ClientDetails() {
                           style={{
                             fontFamily: "Manrope",
                             fontSize: "16px",
-                            fontWeight: "500",
+                            fontWeight: "600",
                             lineHeight: "21.86px",
-                            color: "#5C5C5C",
+                            color: "black",
                             borderBottom: "1px solid #E4E7EC",
                             textAlign: "center",
                           }}
@@ -394,9 +396,9 @@ function ClientDetails() {
                           style={{
                             fontFamily: "Manrope",
                             fontSize: "16px",
-                            fontWeight: "500",
+                            fontWeight: "600",
                             lineHeight: "21.86px",
-                            color: "#5C5C5C",
+                            color: "black",
                             borderBottom: "1px solid #E4E7EC",
                             textAlign: "center",
                           }}
@@ -407,9 +409,9 @@ function ClientDetails() {
                           style={{
                             fontFamily: "Manrope",
                             fontSize: "16px",
-                            fontWeight: "500",
+                            fontWeight: "600",
                             lineHeight: "21.86px",
-                            color: "#5C5C5C",
+                            color: "black",
                             borderBottom: "1px solid #E4E7EC",
                             textAlign: "center",
                           }}

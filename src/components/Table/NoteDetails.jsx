@@ -17,7 +17,7 @@ import share from '../../assets/Vector (3).png';
 
 const TabBar = ({ activeTab, setActiveTab }) => (
   <div className="flex justify-center mb-4  fab ">
-    {["All", "Client", "Manger", "Super Admin"].map((tab) => (
+    {["All", "Client", "Manager", "Super Admin"].map((tab) => (
       <button
         key={tab}
         style={{ fontFamily: "Manrope", padding: "10px 10px", width: "121px" }}
@@ -106,7 +106,7 @@ function NotesDetails() {
             }}
           >
             <img src={close} />
-            <span style={{ fontFamily: "Manrope" }}>add Notes </span>
+            <span style={{ fontFamily: "Manrope" }}>Add Notes </span>
           </button>
         </div>
       </div>
