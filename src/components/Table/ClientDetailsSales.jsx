@@ -80,10 +80,7 @@ function ClientDetails() {
     console.log("Start", formattedDate);
   };
 
-  const handleClick = () => {
-    stopTimer();
-    startTimer();
-  };
+
 
   const togglePopup = (note) => {
     setShowPopup(!showPopup);
@@ -149,6 +146,30 @@ function ClientDetails() {
       console.log(error);
     }
   };
+
+  const rejectMeeting = async (employeeId) => {
+    try {
+      const res = await axios.get(
+        `https://project-rof.vercel.app/api/clientManagement/reject/${employeeId}`
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const acceptMeeting = async (employeeId) => {
+    try {
+      const res = await axios.get(
+        `https://project-rof.vercel.app/api/clientManagement/accept/${employeeId}`
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
   const TimeCal = async () => {
     try {
       const res = await axios.post(
@@ -185,6 +206,12 @@ function ClientDetails() {
     setEndDateTime(formattedDate);
     console.log("END", formattedDate);
     TimeCal();
+  };
+
+  const handleClick = () => {
+    stopTimer();
+    startTimer();
+    acceptMeeting(IdEmp);
   };
 
   return (
@@ -467,10 +494,13 @@ function ClientDetails() {
                           </button>
                           <button
                             className="text-red-500 cross1"
-                            onClick={() =>
-                              iconState.correct1 === false &&
-                              handleCrossClick("correct1", "cross1")
-                            }>
+                            onClick={() => {
+                              if (iconState.correct1 === false) {
+                                handleCrossClick("correct1", "cross1");
+                              }
+                              rejectMeeting(IdEmp);
+                            }}
+                          >
                             {iconState.cross1 ? (
                               "✕"
                             ) : (

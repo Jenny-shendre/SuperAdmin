@@ -25,6 +25,7 @@ const BtnTab = ({ doneTab, setDoneTab, isDisabled, handleSubmit }) => (
 );
 
 const Table6 = () => {
+  const [valueinput, setvalueinput] = useState("");
   const [doneTab, setDoneTab] = useState("Done");
   const [showAddExecutivePopup2, setShowAddExecutivePopup2] = useState(false);
   const [showAssignManagerPopup2, setShowAssignManagerPopup2] = useState(false);
@@ -33,6 +34,8 @@ const Table6 = () => {
   const [executives, setExecutives] = useState([]);
   const [managerInput, setManagerInput] = useState("");
   const [managers, setManagers] = useState([]);
+  const [objectId, setObjectId] = useState("");
+
 
   const location = useLocation();
   const pathname = location.pathname;
@@ -65,6 +68,7 @@ const Table6 = () => {
         { teamName }
       );
       setTeamData(res.data);
+      setObjectId(res.data._id);
     } catch (error) {
       console.log(error);
     }
@@ -73,6 +77,7 @@ const Table6 = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
 
   useEffect(() => {
     if (showAddExecutivePopup2 || showAssignManagerPopup2) {
@@ -106,29 +111,37 @@ const Table6 = () => {
     return ClientName.length == 0 ? "Not Assign" : clientnamelast;
   };
 
+  const sendExecutiveData = {
+    teamId: objectId,
+    teamMemberName: executives
+  }
+
+  console.log("object", sendExecutiveData);
+  console.log("objectId", objectId);
+
+
   const handleSubmitExecutives = async () => {
     console.log("Executives Array: ", executives);
+
     try {
-      await axios.post("https://project-rof.vercel.app/api/executives/add", {
-        executives,
-        teamName,
-      });
+      const res = await axios.post("https://project-rof.vercel.app/api/teams/addOne", sendExecutiveData);
+      console.log("res send", res);
       setShowAddExecutivePopup2(false);
-      fetchData(); // Refresh data after submission
     } catch (error) {
       console.log(error);
     }
   };
 
+  const sendManagersData = {
+    managerName: managers
+  }
+
   const handleSubmitManagers = async () => {
     console.log("Managers Array: ", managers);
     try {
-      await axios.post("https://project-rof.vercel.app/api/managers/add", {
-        managers,
-        teamName,
-      });
+      const res = await axios.put(`https://project-rof.vercel.app/api/teams/updateSalesManagerTeam/${objectId}`, sendManagersData);
+      console.log("res send", res);
       setShowAssignManagerPopup2(false);
-      fetchData(); // Refresh data after submission
     } catch (error) {
       console.log(error);
     }
@@ -167,6 +180,8 @@ const Table6 = () => {
           <input
             style={{}}
             type="text"
+            value={valueinput}
+            onChange={(e) => setvalueinput(e.target.value)}
             placeholder="Search"
             className="w-[619px] h-[48px] pl-16 pr-4 py-2 rounded-full border border-[#3D2314] focus:outline-none focus:ring-2 focus:ring-brown-500"
           />
@@ -245,7 +260,10 @@ const Table6 = () => {
 
               <tbody>
                 {teamData?.teamMemberNames?.length > 0 ? (
-                  teamData.teamMemberNames.map((member, index) => (
+                  teamData.teamMemberNames.filter(({ name, emailID }) =>
+                    name?.toLowerCase().includes(valueinput.toLowerCase()) ||
+                    emailID?.toLowerCase().includes(valueinput.toLowerCase())
+                  ).map((member, index) => (
                     <tr
                       key={index}
                       className="border-t border-gray-200 text-center [#000000] w-[188px] h-[54px] p-10 bg-white"
