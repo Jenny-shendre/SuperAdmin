@@ -45,8 +45,7 @@ function EditForm2() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       await axios.put(
         `https://prodictivity-management-tool2.vercel.app/api/record/updateRecord/${id}`,
@@ -57,6 +56,14 @@ function EditForm2() {
     } catch (err) {
       console.error("Error updating data:", err);
       alert("Error updating data.");
+    }
+  };
+
+  const handleEditButtonClick = () => {
+    if (editMode) {
+      handleSubmit();
+    } else {
+      setEditMode(true);
     }
   };
 
@@ -112,7 +119,7 @@ function EditForm2() {
           <div className="flex lg:ml-[1000px] mt-9 gap-4">
             <button
               className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
-              onClick={() => setEditMode(!editMode)}
+              onClick={handleEditButtonClick}
             >
               <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
                 <FaRegEdit />
@@ -134,7 +141,7 @@ function EditForm2() {
             >
               Customer and Channel Partner Detail
             </h2>
-            <form id="editForm" onSubmit={handleSubmit}>
+            <form id="editForm">
               <div>
                 <div className="flex flex-wrap gap-[40px]">
                   <div>
@@ -261,7 +268,6 @@ function EditForm2() {
                   <label
                     htmlFor="attendantName"
                     className="block text-[#000000] text-[16px] font-[Manrope]"
-                    style={{ fontWeight: "500" }}
                   >
                     Attendant
                   </label>
@@ -270,90 +276,71 @@ function EditForm2() {
                     id="attendantName"
                     name="attendantName"
                     className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                    placeholder="Samyak Gandhi"
+                    placeholder="Shubham Kumar"
                     value={data.attendantName}
                     onChange={handleChange}
                     required
                     disabled={!editMode} // Disable input if not in edit mode
                   />
                 </div>
-                <div className="lg:flex lg:flex-wrap gap-[24px] lg:mt-1">
+                <div className="flex flex-wrap gap-[40px]">
                   <div>
                     <label
+                      htmlFor="responseTime"
                       className="block text-[#000000] text-[16px] font-[Manrope]"
-                      style={{ fontWeight: "500" }}
                     >
                       Date
                     </label>
                     <input
                       type="date"
-                      name="createdAt"
-                      className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      value={data.createdAt}
+                      id="responseTime"
+                      name="responseTime"
+                      className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      placeholder="dd-mm-yyyy"
+                      value={data.responseTime}
                       onChange={handleChange}
+                      required
                       disabled={!editMode} // Disable input if not in edit mode
                     />
                   </div>
                   <div>
                     <label
+                      htmlFor="meetingDuration"
                       className="block text-[#000000] text-[16px] font-[Manrope]"
-                      style={{ fontWeight: "500" }}
-                    >
-                      Response Time
-                    </label>
-                    <input
-                      type="time"
-                      name="updatedAt"
-                      className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      value={data.updatedAt}
-                      onChange={handleChange}
-                      disabled={!editMode} // Disable input if not in edit mode
-                    />
-                  </div>
-                  <div>
-                    <label
-                      className="block text-[#000000] text-[16px] font-[Manrope]"
-                      style={{ fontWeight: "500" }}
                     >
                       Meeting Duration
                     </label>
                     <input
                       type="time"
-                      name="__v"
-                      className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      value={data.__v}
+                      id="meetingDuration"
+                      name="meetingDuration"
+                      className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      placeholder="2 hours"
+                      value={data.meetingDuration}
                       onChange={handleChange}
+                      required
                       disabled={!editMode} // Disable input if not in edit mode
                     />
                   </div>
                 </div>
-                <div className="textarear-comp">
-                  <div className="mt-1">
-                    <label
-                      className="block text-[#000000] text-[16px] font-[Manrope]"
-                      style={{ fontWeight: "500" }}
-                    >
-                      Executive Notes
-                    </label>
-                    <textarea
-                      name="executiveNotes"
-                      className="lg:w-[641px] lg:h-[173px] border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      value={data.executiveNotes}
-                      onChange={handleChange}
-                      disabled={!editMode} // Disable input if not in edit mode
-                    ></textarea>
-                  </div>
+                <div className="lg:mt-1">
+                  <label
+                    htmlFor="executiveNotes"
+                    className="block text-[#000000] text-[16px] font-[Manrope]"
+                  >
+                    Executive Notes
+                  </label>
+                  <textarea
+                    id="executiveNotes"
+                    name="executiveNotes"
+                    className="lg:w-[608px] lg:h-[149px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                    placeholder="Meeting notes go here..."
+                    value={data.executiveNotes}
+                    onChange={handleChange}
+                    required
+                    disabled={!editMode} // Disable input if not in edit mode
+                  ></textarea>
                 </div>
-                {editMode && (
-                  <div className="text-center mt-4">
-                    <button
-                      type="submit"
-                      className="w-[100px] h-[36px] bg-[#3D2314] text-white rounded-md"
-                    >
-                      Save
-                    </button>
-                  </div>
-                )}
               </div>
             </form>
           </div>
