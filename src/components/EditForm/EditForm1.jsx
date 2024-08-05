@@ -207,13 +207,13 @@ function EditForm1() {
                           id="first_name"
                           name="customerName"
                           value={FormData.customerName }
-                          className="lg:w-[393px] lg:h-[47px] p-1 border-[2px] border-[#3D2314] rounded-lg mt-1 text-[Manrope] p-2"
+                          className="lg:w-[393px] lg:h-[47px] border-[2px] border-[#3D2314] rounded-lg mt-1 text-[Manrope] p-2"
                           placeholder="Anand Jaiswal"
                           required
                           readOnly={!editMode}
                           onChange={handleChange}
                           
-                          style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+                          style={{fontFamily:'Manrope' , padding: "10px 18px" , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                         />
                       </div>
                       <div>
@@ -229,14 +229,14 @@ function EditForm1() {
                           id="phone"
                           name="customerMobileLastFour"
                           value={FormData.customerMobileLastFour}
-                          className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                          className="lg:w-[214px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                           maxLength="4"
                           placeholder="1 4 6 5"
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           required
                           readOnly={!editMode}
                           onChange={handleChange}
-                          style={{textAlign:'center' ,fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+                          style={{textAlign:'center' , padding: "10px 18px" , fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
 
                         />
                       </div>
@@ -254,8 +254,8 @@ function EditForm1() {
                         id=" Channel Name"
                         name="channelPartnerCompanyName"
                         value={FormData.channelPartnerCompanyName}
-                        className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+                        className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{fontFamily:'Manrope' ,padding: "10px 18px",  fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                         placeholder="Rainbow Overseas Pvt Ltd"
                         required
                         readOnly={true}
@@ -279,8 +279,8 @@ function EditForm1() {
                           id="  Channel Partner Name"
                           name="channelPartnerName"
                           value={FormData.channelPartnerName}
-                          className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+                          className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                          style={{fontFamily:'Manrope' ,padding: "10px 18px",  fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                           placeholder="Sameer Chowdhary"
                           required
                           readOnly={true}
@@ -302,8 +302,8 @@ function EditForm1() {
                           id="Channel Partner ID"
                           value={FormData.partnerId}
                           onChange={handleChange}
-                          className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+                          className="lg:w-[214px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                          style={{fontFamily:'Manrope' , padding: "10px 18px", fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                           placeholder="CHROF0001"
                           required
 
@@ -325,8 +325,8 @@ function EditForm1() {
                         name="projectName"
                         value={FormData.projectName}
                         onChange={handleChange}
-                        className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+                        className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{fontFamily:'Manrope' ,padding: "10px 18px", fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                         placeholder="Project A"
                         required
                         readOnly={true}
@@ -347,8 +347,8 @@ function EditForm1() {
                         name="attendantName"
                         value={FormData.attendantName}
                         onChange={handleChange}
-                        className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+                        className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{fontFamily:'Manrope' , padding: "10px 18px", fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                         placeholder="Samyak Gandhi"
                         required
                         readOnly={true}
@@ -370,8 +370,8 @@ function EditForm1() {
                         readOnly={true}
                         value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
-                        className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{textAlign:'center',fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+                        className="lg:w-[149px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{textAlign:'center', padding: "10px 18px",  fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                       />
                     </div>
                     <div>
@@ -387,8 +387,8 @@ function EditForm1() {
                         value={ResponseAt(FormData.createdAt)}
                         onChange={handleChange}
                         name="responseTime"
-                        className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{textAlign:'center',fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+                        className="lg:w-[149px] lg:h-[47px] border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{textAlign:'center', padding: "10px 18px",  fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                       />
                     </div>
                     <div>
@@ -405,8 +405,8 @@ function EditForm1() {
                         name="timeDuration"
                         value={FormData.timeDuration}
                         onChange={handleChange}
-                        className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{textAlign:'center' ,fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
+                        className="lg:w-[149px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{textAlign:'center' , padding: "10px 18px",  fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                       />
                     </div>
                   </div>
@@ -419,7 +419,7 @@ function EditForm1() {
                       >
                         Executive Notes
                       </label>
-                      <textarea className="lg:w-[641px] lg:h-[153px] border-[2px] border-[#3D2314] rounded-lg mt-1 p-6"
+                      <textarea className="lg:w-[641px] lg:h-[153px] border-[2px] border-[#3D2314] rounded-lg mt-1 "
                        style={{fontFamily:'Manrope' , fontWeight:'600', fontSize:'20px', lineHeight:'27.32px',padding:'10px 18px 10px 18px' }}
                         name="notes"
                         onChange={handleChange}

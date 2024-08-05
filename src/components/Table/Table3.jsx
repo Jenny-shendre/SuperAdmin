@@ -127,8 +127,8 @@ const Table3 = () => {
                   </thead>
                   <tbody>
                     {filteredData.map((item, index) => (
-                      <tr className="text-[9px] lg:text-[14px]" key={item.id}>
-                        <td className="py-3 ml-6 text-center flex items-center" style={{ paddingLeft: "5px", textAlign: 'center' }}>{index + 1}</td>
+                      <tr className="text-[9px]  lg:text-[14px]" key={item.id} >
+                        <td className="py-3  text-center flex items-center justify-center"  style={{  borderBottom:"1px solid #E4E7EC" }}>{index + 1}</td>
                         <td className="py-1 border-b" style={{ paddingLeft: "5px", textAlign: 'center' }}>{DateupdatedAt(item.updatedAt)}</td>
                         <td className="py-1 border-b text-center">{item.customerName}</td>
                         <td className="py-1 border-b text-center">{item.customerMobileLastFour}</td>
@@ -145,7 +145,8 @@ const Table3 = () => {
                         </td>
                         <td className="py-1 px-3 border-b text-center">
                           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            <RiDeleteBin6Line onClick={() => handleDeleteClick(item._id)} style={{ cursor: "pointer", fontSize: "18px", color: "#930000" }} />
+                            <RiDeleteBin6Line onClick={() => handleDeleteClick(item._id)}
+                             style={{ cursor: "pointer", fontSize: "18px", color: "#930000" }} />
                           </div>
                         </td>
                       </tr>

@@ -156,7 +156,9 @@ function EditForm2() {
                       type="text"
                       id="customerName"
                       name="customerName"
-                      className="lg:w-[393px] lg:h-[47px] p-1 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"  
+                      style={{ padding: "10px 18px" }} //tc-1
+
                       placeholder="Anand Jaiswal"
                       value={data.customerName}
                       onChange={handleChange}
@@ -175,12 +177,13 @@ function EditForm2() {
                       type="tel"
                       id="customerMobileLastFour"
                       name="customerMobileLastFour"
-                      className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-[214px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                       placeholder="1 4 6 5"
                       value={data.customerMobileLastFour}
                       onChange={handleChange}
                       required
                       disabled={!editMode} // Disable input if not in edit mode
+                      style={{ padding: "10px 18px" }}
                     />
                   </div>
                 </div>
@@ -195,12 +198,13 @@ function EditForm2() {
                     type="text"
                     id="channelPartnerName"
                     name="channelPartnerName"
-                    className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                    className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                     placeholder="Rainbow Overseas Pvt Ltd"
                     value={data.channelPartnerName}
                     onChange={handleChange}
                     required
                     disabled={!editMode} // Disable input if not in edit mode
+                    style={{ padding: "10px 18px" }}
                   />
                 </div>
                 <div className="mt-1">
@@ -216,12 +220,13 @@ function EditForm2() {
                         type="text"
                         id="channelPartnerCompanyName"
                         name="channelPartnerCompanyName"
-                        className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="Sameer Chowdhary"
                         value={data.channelPartnerCompanyName}
                         onChange={handleChange}
                         required
                         disabled={!editMode} // Disable input if not in edit mode
+                        style={{ padding: "10px 18px" }}
                       />
                     </div>
                     <div>
@@ -236,10 +241,11 @@ function EditForm2() {
                         type="text"
                         id="channelPartnerID"
                         name="channelPartnerID"
-                        className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-[214px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                         placeholder="CHROF0001"
                         value={data._id} // Use _id here for Channel Partner ID
                         required
+                        style={{ padding: "10px 18px" }}
                       />
                     </div>
                   </div>
@@ -256,12 +262,13 @@ function EditForm2() {
                     type="text"
                     id="projectName"
                     name="projectName"
-                    className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                    className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                     placeholder="Project A"
                     value={data.projectName}
                     onChange={handleChange}
                     required
                     disabled={!editMode} // Disable input if not in edit mode
+                    style={{ padding: "10px 18px" }}
                   />
                 </div>
                 <div className="lg:mt-1">
@@ -275,12 +282,13 @@ function EditForm2() {
                     type="text"
                     id="attendantName"
                     name="attendantName"
-                    className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                    className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                     placeholder="Shubham Kumar"
                     value={data.attendantName}
                     onChange={handleChange}
                     required
                     disabled={!editMode} // Disable input if not in edit mode
+                    style={{ padding: "10px 18px" }}
                   />
                 </div>
                 <div className="flex flex-wrap gap-[40px]">
@@ -295,12 +303,13 @@ function EditForm2() {
                       type="date"
                       id="responseTime"
                       name="responseTime"
-                      className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-[214px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                       placeholder="dd-mm-yyyy"
                       value={data.responseTime}
                       onChange={handleChange}
                       required
                       disabled={!editMode} // Disable input if not in edit mode
+                      style={{ padding: "10px 18px" }}
                     />
                   </div>
                   <div>
@@ -314,12 +323,13 @@ function EditForm2() {
                       type="time"
                       id="meetingDuration"
                       name="meetingDuration"
-                      className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-[214px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                       placeholder="2 hours"
                       value={data.meetingDuration}
                       onChange={handleChange}
                       required
                       disabled={!editMode} // Disable input if not in edit mode
+                      style={{ padding: "10px 18px" }}
                     />
                   </div>
                 </div>
@@ -333,12 +343,13 @@ function EditForm2() {
                   <textarea
                     id="executiveNotes"
                     name="executiveNotes"
-                    className="lg:w-[608px] lg:h-[149px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                    className="lg:w-[608px] lg:h-[149px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                     placeholder="Meeting notes go here..."
                     value={data.executiveNotes}
                     onChange={handleChange}
                     required
                     disabled={!editMode} // Disable input if not in edit mode
+                    style={{ padding: "10px 18px" }}
                   ></textarea>
                 </div>
               </div>

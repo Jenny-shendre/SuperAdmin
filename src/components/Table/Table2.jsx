@@ -142,7 +142,7 @@ const Table2 = () => {
             <div className="flex flex-row items-center justify-start text-center flex items-center justify-center  ml-80">
               <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full  mr-96 ">
                 <input
-                  className="w-full py-2 px-12 rounded-full "
+                  className="w-[619px] h-[48px] py-2 px-12 rounded-full "
                   style={{
                     border: "1px solid #3D2314",
                     boxShadow: " 0px 0px 4px 0px #00000040",
@@ -178,7 +178,8 @@ const Table2 = () => {
                           textAlign: "left",
                           paddingLeft: "7px",
                           width: "65px",
-                          padding: "5px",
+                          padding: "6px, 10px, 6px, 10px",
+                          height: "28px",
                         }}>
                         {/* Date */}
                         Serial No
@@ -192,7 +193,9 @@ const Table2 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "7px",
-                          width: "95px",
+                          width: "100px", //tc-3
+                          height: "28px",
+                          
                         }}>
                         {/* Response Time */}
                         Channel ID
@@ -205,8 +208,9 @@ const Table2 = () => {
                           fontWeight: "500",
                           lineHeight: "16.39px",
                           textAlign: "center",
-                          padding: "5px",
+                          padding: "6px,10px,6px,10px",
                           width: "253px",
+                          height: "28px",
                         }}>
                         {/* Meeting Duration */}
                         List of Channel Name
@@ -220,6 +224,8 @@ const Table2 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           width: "253px",
+                          height: "28px",
+                          padding:  "6px,10px,6px,10px",
                         }}>
                         {/* Customer Name */}Email
                       </th>
@@ -233,6 +239,8 @@ const Table2 = () => {
                           textAlign: "center",
                           padding: "5px",
                           width: "109px",
+                          height: "28px",
+                          padding:  "6px,10px,6px,10px",
                         }}>
                         Phone No
                       </th>
@@ -245,7 +253,9 @@ const Table2 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: "170px",
+                          width: "139px",
+                          height: "28px",
+                          padding:  "6px,10px,6px,10px",
                         }}>
                         Address
                       </th>
@@ -295,6 +305,8 @@ const Table2 = () => {
                                 textAlign: "left",
                                 color: "#000AFF",
                                 textDecoration: "underline",
+                                
+                                
                               }}>
                               {visitor.channelID} 
                             </Link>
