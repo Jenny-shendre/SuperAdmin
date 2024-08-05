@@ -30,22 +30,17 @@ const Table3 = () => {
   };
 
   const fetchData = async () => {
-    const res = await axios.get('https://prodictivity-management-tool2.vercel.app/api/record/getAllRecords');
-    const sortedData = res.data.sort((a, b) => {
-      const dateA = new Date(a.updatedAt);
-      const dateB = new Date(b.updatedAt);
-      return dateB - dateA; // Sort descending
-    });
-    setdata(sortedData);
-    setFilteredData(sortedData); // Initialize filtered data
+    const res = await axios.get(`https://prodictivity-management-tool2.vercel.app/api/record/getAllRecords`);
+    setdata(res.data);
+    setFilteredData(res.data); // Initialize filtered data
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const DateupdatedAt = (date) => {
-    const formattedDate = format(new Date(date), "dd MMM | hh:mm a");
+  const DateupdatedAt = (DateupdatedAt) => {
+    const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
     return formattedDate;
   };
 
@@ -74,6 +69,7 @@ const Table3 = () => {
     setvalueinput(query);
     handleSearch(query);
   };
+  const sortedData = filteredData.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 
   return (
     <>
@@ -126,13 +122,13 @@ const Table3 = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredData.map((item, index) => (
-                      <tr className="text-[9px]  lg:text-[14px]" key={item.id} >
-                        <td className="py-3  text-center flex items-center justify-center"  style={{  borderBottom:"1px solid #E4E7EC" }}>{index + 1}</td>
+                    {sortedData.map((item, index) => ( // Use filtered data
+                      <tr className="text-[9px] lg:text-[14px]" key={item.id}>
+                        <td className="py-3 ml-6 text-center flex items-center" style={{ paddingLeft: "5px", textAlign: 'center' }}>{index + 1}</td>
                         <td className="py-1 border-b" style={{ paddingLeft: "5px", textAlign: 'center' }}>{DateupdatedAt(item.updatedAt)}</td>
                         <td className="py-1 border-b text-center">{item.customerName}</td>
                         <td className="py-1 border-b text-center">{item.customerMobileLastFour}</td>
-                        <td className="py-1 border-b text-center">{item.channelPartnerName}</td>
+                        <td className="py-1 border-b text-center">{item.channelPartnerCompanyName}</td>
                         <td className="py-1 border-b text-center">8484815614</td>
                         <td className="py-1 border-b text-center">{item.projectName}</td>
                         <td className="py-1 border-b text-center">{item.attendantName}</td>
@@ -145,8 +141,7 @@ const Table3 = () => {
                         </td>
                         <td className="py-1 px-3 border-b text-center">
                           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            <RiDeleteBin6Line onClick={() => handleDeleteClick(item._id)}
-                             style={{ cursor: "pointer", fontSize: "18px", color: "#930000" }} />
+                            <RiDeleteBin6Line onClick={() => handleDeleteClick(item._id)} style={{ cursor: "pointer", fontSize: "18px", color: "#930000" }} />
                           </div>
                         </td>
                       </tr>
