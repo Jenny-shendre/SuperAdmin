@@ -22,9 +22,10 @@ function ClientDetails() {
   const [EndCounter, setEndCounter] = useState(0);
   const [StartDateTime, setStartDateTime] = useState(0);
   const [EndDateTime, setEndDateTime] = useState(0);
+  const [CalRes, setCalRes] = useState([]);
   const [ClientID, setClientID] = useState();
 
-  const [IdEmp, setIdEmp] = useState("ROFEX1");
+  const [IdEmp, setIdEmp] = useState("ROFEX10");
   useEffect(() => {
     const EmpId = localStorage.getItem("EmpId");
     setClientID(EmpId);
@@ -79,8 +80,6 @@ function ClientDetails() {
     setStartDateTime(formattedDate);
     console.log("Start", formattedDate);
   };
-
-
 
   const togglePopup = (note) => {
     setShowPopup(!showPopup);
@@ -142,6 +141,7 @@ function ClientDetails() {
         `https://project-rof.vercel.app/api/clientManagement/upcoming/${employeeId}`
       );
       setupcoming(res.data);
+      console.log("setupcoming", res.data);
     } catch (error) {
       console.log(error);
     }
@@ -149,17 +149,17 @@ function ClientDetails() {
 
   const rejectMeeting = async (employeeId) => {
     try {
-      const res = await axios.get(
+      const res = await axios.put(
         `https://project-rof.vercel.app/api/clientManagement/reject/${employeeId}`
       );
-      console.log(res.data);
+      console.log("reject", res);
     } catch (error) {
       console.log(error);
     }
   };
   const acceptMeeting = async (employeeId) => {
     try {
-      const res = await axios.get(
+      const res = await axios.put(
         `https://project-rof.vercel.app/api/clientManagement/accept/${employeeId}`
       );
       console.log(res.data);
@@ -168,30 +168,34 @@ function ClientDetails() {
     }
   };
 
-
-
-  const TimeCal = async () => {
+  const meetingOvers = async (employeeId) => {
     try {
-      const res = await axios.post(
-        `https://project-rof.vercel.app/api/timeSheet/timeline`,
+      const res = await axios.put(
+        `https://project-rof.vercel.app/api/clientManagement/meetingOver/${employeeId}`
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const TimeCal = async (StartDateTime, EndDateTime) => {
+    console.log("StartDateTime.......", StartDateTime);
+    console.log("EndDateTime.......", EndDateTime);
+    try {
+      const res = await axios.put(
+        `https://project-rof.vercel.app/api/timeSheet/timeline/${ClientID}`,
         {
           StartTime: StartDateTime,
           EndTime: EndDateTime,
-          customerId: ClientID,
         }
       );
-      setupcoming(res.data);
+      setCalRes("response", res);
       console.log("response", ClientID);
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    historyData(IdEmp);
-    upcoming(IdEmp);
-    // setClientID(upcomings[0]?.ClientId);
-    setClientID(upcomings[0]?.ClientId);
-  }, []);
 
   const DateupdatedAt = (DateupdatedAt) => {
     const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
@@ -204,16 +208,32 @@ function ClientDetails() {
     const currentDate = new Date();
     const formattedDate = format(currentDate, "dd MMM | hh:mm a");
     setEndDateTime(formattedDate);
-    console.log("END", formattedDate);
-    TimeCal();
-  };
+    console.log(formattedDate);
+    meetingOvers(IdEmp);
+    console.log("StartTime", StartDateTime);
+    console.log("EndTime", formattedDate);
 
+    TimeCal(StartDateTime, formattedDate);
+  };
+  const rejectMeetingfun = () => {
+    rejectMeeting(IdEmp);
+    console.log("rejectMeeting");
+  };
   const handleClick = () => {
     stopTimer();
     startTimer();
     acceptMeeting(IdEmp);
   };
+  useEffect(() => {
+    historyData(IdEmp);
+    upcoming(IdEmp);
+  }, [IdEmp]);
 
+  useEffect(() => {
+    if (upcomings.length > 0) {
+      setClientID(upcomings[0]?.ClientId);
+    }
+  }, [upcomings]);
   return (
     <div>
       <div
@@ -279,7 +299,7 @@ function ClientDetails() {
                           fontWeight: "400",
                           lineHeight: "16.39px",
                           color: "#4B4B4B",
-                          width: "180px"
+                          width: "180px",
                         }}
                         className="py-2 px-4 text-left">
                         Name
@@ -456,16 +476,30 @@ function ClientDetails() {
                             textAlign: "-webkit-center",
                           }}
                           className="py-2 px-2">
+                          {/* <img
+                            src={notify}
+                            onClick={
+                              (() =>
+                                togglePopup({
+                                  name: "Kapil Verma",
+                                  date: "26 June | 5:33 PM",
+                                  content:
+                                    "Discussed budget and preferred location. Client is interested in a 2-bedroom condo in a central area with easy access to public transportation. Suggested scheduling a property tour for next week.",
+                                }),
+                              endTimer())
+                            }
+                            style={{ cursor: "pointer" }}
+                          /> */}
                           <img
                             src={notify}
-                            onClick={() =>
+                            onClick={() => {
                               togglePopup({
                                 name: "Kapil Verma",
                                 date: "26 June | 5:33 PM",
                                 content:
                                   "Discussed budget and preferred location. Client is interested in a 2-bedroom condo in a central area with easy access to public transportation. Suggested scheduling a property tour for next week.",
-                              })
-                            }
+                              });
+                            }}
                             style={{ cursor: "pointer" }}
                           />
                         </td>
@@ -498,16 +532,16 @@ function ClientDetails() {
                               if (iconState.correct1 === false) {
                                 handleCrossClick("correct1", "cross1");
                               }
-                              rejectMeeting(IdEmp);
-                            }}
-                          >
+                            }}>
                             {iconState.cross1 ? (
-                              "✕"
+                              <span onClick={() => rejectMeetingfun(IdEmp)}>
+                                ✕
+                              </span>
                             ) : (
                               <img
                                 src={stopButton}
-                                onClick={() => endTimer()}
                                 alt="Stop"
+                                onClick={() => endTimer()}
                               />
                             )}
                           </button>
