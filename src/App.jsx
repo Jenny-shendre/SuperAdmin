@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import "./App.css";
 import SuperAdminScreen from '../src/components/Role/SuperAdminScreen';
@@ -14,7 +15,6 @@ function App() {
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
   const [loggedIn, setLoggedIn] = useState(false);
 
 
@@ -25,8 +25,24 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Email & Password validation
+
     if (!email || !password) {
       setErrorMessage("Please fill in both email and password.");
+      return;
+    }
+
+    // Email validation
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+    // Password validation
+
+    if (password.length < 6 || !/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
+      setErrorMessage("Please enter a correct password.");
       return;
     }
     setErrorMessage(""); // Clear any previous error messages
@@ -48,9 +64,8 @@ function App() {
 
     } catch (error) {
       console.log(error);
+      setErrorMessage("Login failed. Please check your credentials and try again.");
     }
-
-
   };
 
 
