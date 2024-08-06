@@ -75,5 +75,16 @@ th{
   overflow-y: scroll;
 }
 
+.div2 textarea::placeholder{
+  color:rgba(0,0,0,0.68) ;
+  font-weight: 400;
+  font-family: Manrope;
+  font-size: 16px;
+  line-height: 19.2px;
 
+}
+
+.add-team-members input::placeholder{
+  color: rgba(0, 0, 0, 0.68);
+}
 

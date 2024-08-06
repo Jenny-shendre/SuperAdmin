@@ -10,6 +10,9 @@ import close from "../../assets/add_notes (white).png";
 import info from "../../assets/carbon_customer.png";
 import info2 from "../../assets/hugeicons_manager.png";
 import info3 from "../../assets/eos-icons_admin-outlined.png";
+import add from '../../assets/akar-icons_edit (1).png';
+import { FaRegEdit } from "react-icons/fa";
+
 import "../Home.css";
 import axios from "axios";
 
@@ -18,7 +21,7 @@ import DropIcon from "../../assets/DropIcon.png";
 import EmailIcon from "../../assets/email.png";
 import PhoneIcon from "../../assets/phone.png";
 
-import edit from "../../assets/akar-icons_edit.png";
+import edit from "../../assets/hugeicons_view.png";
 import share from "../../assets/Vector (3).png";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
@@ -167,7 +170,7 @@ function NotesDetails() {
 
       try {
        
-        setCreateStatus("Note Successfully Added ✓");
+        setCreateStatus("Done");
        
         
         console.log("Response send", teamdata);
@@ -248,10 +251,7 @@ function NotesDetails() {
               padding: "12px 24px",
               fontFamily: "Manrope",
             }}
-            onClick={() => {
-              setShowNotePopup(false);
-              setShowAddNotePopup(true);
-            }}
+           
           >
             <img src={close} />
             <span style={{ fontFamily: "Manrope" }}>Add Notes </span>
@@ -277,58 +277,101 @@ function NotesDetails() {
                 type="text"
                 value={clientName}
                 onChange={(e) => setclientName(e.target.value)}
-                className="w-[640px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4"
+                className="w-[640px] h-12 mb-4"
                 placeholder="Team Name"
+                style={{
+                  color: "rgba(0, 0, 0, 0.68)",
+                  fontWeight: 400,
+                  fontSize: "16px",
+                  padding: "16px 24px",
+                  lineHeight: "19.2px",
+                  fontFamily: "Manrope",
+                  gap: "10px",
+                  border: "0.8px solid rgba(0,0,0,0.44) ",
+                  borderRadius: "6px",
+                }}
               />
-               <div
-                    className="relative w-[640px] h-12 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 block shadow-sm focus:border-brown-500 focus:ring focus:ring-brown-500 focus:ring-opacity-50"
-                    onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
-                    ref={projectDropdownRef}
-                  >
-                    <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
-                      {project || "Choose Project"}
-                      <img className="ml-2 h-2 w-3 " src={DropIcon} alt="Dropdown Icon" />
-                    </div>
-                    {isProjectDropdownOpen && (
-                      <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
-                        {data2.map((projects) => (
-                          <div
-                            key={projects.name}
-
-                            className="p-2 cursor-pointer hover:bg-gray-200"
-                            onClick={() => handleProjectChange(projects.name)}
-                          >
-                            {projects.name}
-                          </div>
-                        ))}
+              <div
+                className="relative w-[640px] h-[48px]   mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                style={{
+                  color: "rgba(0, 0, 0, 0.68)",
+                  fontWeight: 400,
+                  fontSize: "16px",
+                  lineHeight: "19.2px",
+                  fontFamily: "Manrope",
+                  gap: "10px",
+                  border: "0.8px solid rgba(0,0,0,0.44) ",
+                  borderRadius: "6px",
+                }}
+                onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
+                ref={projectDropdownRef}
+              >
+                <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
+                  {project || "Choose Project"}
+                  <img
+                    className="ml-2 h-2 w-3 "
+                    src={DropIcon}
+                    alt="Dropdown Icon"
+                  />
+                </div>
+                {isProjectDropdownOpen && (
+                  <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
+                    {data2.map((projects) => (
+                      <div
+                        key={projects.name}
+                        className="p-2 cursor-pointer hover:bg-gray-200"
+                        onClick={() => handleProjectChange(projects.name)}
+                      >
+                        {projects.name}
                       </div>
-                    )}
-                  </div> 
-
-
+                    ))}
+                  </div>
+                )}
+              </div>
 
               <div
                 style={{
                   padding: "16px 24px",
                   width: "640px",
                   height: "127px",
+                  color: "rgba(0, 0, 0, 0.68)",
+                  fontWeight: 400,
+                  fontSize: "16px",
+                  lineHeight: "19.2px",
+                  fontFamily: "Manrope",
+                  gap: "10px",
+                  border: "0.8px solid rgba(0,0,0,0.44) ",
+                  borderRadius: "6px",
                 }}
-                className="rounded-md border border-gray-300 font-manrope "
+                className="rounded-md border border-gray-300 font-manrope  div2 mb-4"
               >
                 <textarea
                   type="text"
                   placeholder="Add your Briefing"
-                  style={{ border: "none",overflowY:'scroll', outline: "none", width: "600px", height:'100px' }}
+                  style={{
+                    border: "none",
+                    overflowY: "scroll",
+                    outline: "none",
+                    width: "600px",
+                    height: "100px",
+                    fontWeight:400
+                  }}
                   onChange={(e) => setBriefing(e.target.value)}
                 />
               </div>
-              <br />
+
+              
+            
+             
+
               <button
                 onClick={handleSubmit}
-                className="w-fit create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
+                className=" flex flex-wrap gap-[10px] justify-between create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
                 disabled={isCreating}
+                style={{alignSelf:'center'}}
               >
-                {createStatus || "Add Note" }
+                <img src={add} style={{alignSelf:'center'}}/>
+                {createStatus || "Edit Note"}
               </button>
               {errorMessage && (
                 <p className="text-red-500 mt-2">{errorMessage}</p>
@@ -387,33 +430,29 @@ function NotesDetails() {
                 email with additional details and brochure. Awaiting response.
               </p>
             </div>
-            <div className="flex justify-between">
+            <div className="">
               <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
+                }}
+
+                
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
 
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
-              </button>
+             
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -460,31 +499,23 @@ function NotesDetails() {
             </div>
             <br />
             <div className="flex justify-between mt-[11px]">
-              <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
                 }}
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
-              </button>
-
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
             </div>
           </div>
@@ -534,31 +565,23 @@ function NotesDetails() {
             <br />
             <br />
             <div className="flex justify-between">
-              <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
                 }}
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
-              </button>
-
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
             </div>
           </div>
@@ -608,31 +631,22 @@ function NotesDetails() {
             </div>
             <br />
             <div className="flex justify-between">
-              <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
                 }}
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
-              </button>
-
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
             </div>
           </div>
@@ -683,31 +697,23 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
                 }}
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
-              </button>
-
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
             </div>
           </div>
@@ -756,31 +762,23 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
                 }}
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
-              </button>
-
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
             </div>
           </div>
@@ -829,31 +827,23 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
                 }}
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
-              </button>
-
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
             </div>
           </div>
@@ -902,31 +892,23 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
                 }}
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
-              </button>
-
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
             </div>
           </div>
@@ -978,31 +960,23 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
                 }}
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
-              </button>
-
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
             </div>
           </div>
@@ -1051,31 +1025,23 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
                 }}
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
-              </button>
-
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
             </div>
           </div>
@@ -1124,31 +1090,23 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
                 }}
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
-              </button>
-
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
             </div>
           </div>
@@ -1197,31 +1155,22 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
-                className="flex bg-[#3D2314] text-white w-[123px] h-[44px] gap-[12px]"
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
-                  padding: "12px 24px",
+                  padding: "8px 24px",
                   fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowAddNotePopup(true);
                 }}
               >
                 <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>Edit</span>
-              </button>
-
-              <button
-                className="flex text-[#3D2314] bg-white w-[123px] h-[44px] justify-between"
-                style={{
-                  borderRadius: "4px",
-                  padding: "12px 24px",
-                  fontFamily: "Manrope",
-                  border: "1px solid #3D2314",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <span style={{ fontFamily: "Manrope" }}>Share </span>
-                <img src={share} style={{ marginTop: "-2px" }} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
             </div>
           </div>
