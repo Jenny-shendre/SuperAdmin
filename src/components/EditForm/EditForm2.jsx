@@ -178,7 +178,8 @@ function EditForm2() {
                         type="text"
                         id="customerName"
                         name="customerName"
-                        className="lg:w-[393px] lg:h-[47px] p-1 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{ padding: "10px 18px" }} //tc-1
                         placeholder="Anand Jaiswal"
                         value={data.customerName}
                         onChange={handleChange}
@@ -197,7 +198,8 @@ function EditForm2() {
                         type="text"
                         id="customerMobileLastFour"
                         name="customerMobileLastFour"
-                        className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-[214px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{ padding: "10px 18px" }}
                         placeholder="1 4 6 5"
                         value={data.customerMobileLastFour}
                         onChange={handleChange}
@@ -218,7 +220,8 @@ function EditForm2() {
                       type="text"
                       id="channelPartnerName"
                       name="channelPartnerName"
-                      className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      style={{ padding: "10px 18px" }}
                       placeholder="Rainbow Overseas Pvt Ltd"
                       value={data.channelPartnerName}
                       onChange={handleChange}
@@ -241,7 +244,8 @@ function EditForm2() {
                         type="text"
                         id="channelPartnerCompanyName"
                         name="channelPartnerCompanyName"
-                        className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{ padding: "10px 18px" }}
                         placeholder="Sameer Chowdhary"
                         value={data.channelPartnerCompanyName}
                         onChange={handleChange}
@@ -260,7 +264,8 @@ function EditForm2() {
                         type="text"
                         id="channelPartnerID"
                         name="channelPartnerID"
-                        className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-[214px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        style={{ padding: "10px 18px" }}
                         placeholder="CHROF0001"
                         value={data.partnerId}
                         required
@@ -281,7 +286,8 @@ function EditForm2() {
                       type="text"
                       id="projectName"
                       name="projectName"
-                      className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      style={{ padding: "10px 18px" }}
                       placeholder="Project A"
                       value={data.projectName}
                       onChange={handleChange}
@@ -302,7 +308,8 @@ function EditForm2() {
                       type="text"
                       id="attendantName"
                       name="attendantName"
-                      className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      style={{ padding: "10px 18px" }}
                       placeholder="Samyak Gandhi"
                       value={data.attendantName}
                       onChange={handleChange}

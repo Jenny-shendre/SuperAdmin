@@ -137,7 +137,8 @@ const Table4 = () => {
                   <input
                     type="text"
                     placeholder="Search"
-                    className="w-full pl-10 pr-4 py-2 rounded-full border border-[#3D2314] focus:outline-none focus:ring-2 focus:ring-brown-500 h-[48px]"
+                    className="w-full pl-10 pr-4 py-2 rounded-full border-2 border-[#3D2314]  h-[48px]"
+                    style={{ padding:"12px, 24px, 12px, 24px"}}
                     value={valueinput}
                     onChange={(e) => setvalueinput(e.target.value)}
                   />
@@ -157,7 +158,8 @@ const Table4 = () => {
                 <div>
                 <button
                   onClick={() => setShowPopup(true)}
-                  className="bg-[#3D2314] text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] w-[206px] mt-[11px]"
+                  className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[206px] mt-[11px]"
+                  style={{ padding:"12px, 24px, 12px, 24px" , gap:"12px"}}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +179,7 @@ const Table4 = () => {
                 
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"   style={{ padding:"0px,0px,12px,0px",borderRadius:"8px, 8px, 0px, 0px"}}>
 
                 {projectData.filter(({ name }) =>
                   name.toLowerCase().includes(valueinput.toLowerCase())
@@ -198,7 +200,7 @@ const Table4 = () => {
                     <div className="p-4 flex justify-between items-center">
                       <h3
                         className="font-[16px]"
-                        style={{ fontWeight: 500, fontFamily: "Manrope" }}
+                        style={{ fontWeight: 500, fontFamily: "Manrope",Padding: "0px, 0px, 0px, 12px" }}
                       >
                         {project.name}
                       </h3>
