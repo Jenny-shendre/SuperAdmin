@@ -248,10 +248,10 @@ function NotesDetails() {
               padding: "12px 24px",
               fontFamily: "Manrope",
             }}
-            onClick={() => {
-              setShowNotePopup(false);
-              setShowAddNotePopup(true);
-            }}
+            // onClick={() => {
+            //   setShowNotePopup(false);
+            //   setShowAddNotePopup(true);
+            // }}
           >
             <img src={close} />
             <span style={{ fontFamily: "Manrope" }}>Add Notes </span>

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../Home.css";
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import { IoIosArrowForward } from "react-icons/io";
 import notify from "../../assets/add_notes (black).png";
 import backButtton from "../../assets/back-button.png";
 import stopButton from "../../assets/stop-button.png";
+import DropIcon from "../../assets/DropIcon.png";
 import axios from "axios";
 import { format } from "date-fns";
 
@@ -26,6 +27,185 @@ function ClientDetails() {
   const [ClientID, setClientID] = useState();
 
   const [IdEmp, setIdEmp] = useState("ROFEX10");
+
+
+
+
+
+  const [showNotePopup, setShowNotePopup] = useState(false);
+  const [showAddNotePopup, setShowAddNotePopup] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
+  const [loading, setLoading] = useState(false);
+
+  const notePopupRef = useRef();
+  const addNotePopupRef = useRef();
+  const addManagerPopupRef = useRef();
+  const addExecutivePopupRef = useRef(); //  ref for executive popup
+  const dropdownRef = useRef();
+  const projectDropdownRef = useRef(); // ref for project dropdown
+
+
+  const [data2, setdata2] = useState([]);
+
+
+  const fetchData = async () => {
+    setLoading(true);
+ 
+
+    const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
+    setdata2(res2.data);
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  //New
+
+  
+   
+
+
+  const handleOutsideClick = (event) => {
+    if (notePopupRef.current && !notePopupRef.current.contains(event.target)) {
+      setShowNotePopup(false);
+    }
+    if (
+      addNotePopupRef.current &&
+      !addNotePopupRef.current.contains(event.target)
+    ) {
+      setShowAddNotePopup(false);
+    }
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+    if (
+      projectDropdownRef.current &&
+      !projectDropdownRef.current.contains(event.target)
+    ) {
+      setIsProjectDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (
+      showNotePopup ||
+      showAddNotePopup ||
+      isDropdownOpen ||
+      isProjectDropdownOpen
+    ) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [
+    showNotePopup,
+    showAddNotePopup,
+    isDropdownOpen,
+    isProjectDropdownOpen,
+  ]);
+
+  // Add team members popup logic
+
+  const [clientName, setclientName] = useState("");
+  const [project, setProject] = useState("");
+  const [briefing, setBriefing] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+  const [createStatus, setCreateStatus] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // state for error message
+ 
+
+  
+
+ 
+
+
+
+
+
+  const handleProjectChange = (projectName) => {
+    setProject(projectName);
+    setIsProjectDropdownOpen(false);
+  };
+
+
+
+  const handleSubmit = async () => {
+    if (clientName && project && briefing && clientConversation ) {
+      setIsCreating(true);
+      setErrorMessage(""); // Clear any previous error messages
+      console.log("Come")
+
+      const notedata = {
+        clientName: clientName,
+        project : project,
+        briefing :briefing,
+        clientConversation: clientConversation
+  
+    
+        
+        
+        
+      };
+
+      try {
+       
+        setCreateStatus("Note Successfully Added ✓");
+       
+        
+        console.log("Response send", notedata);
+      } catch (error) {
+        console.error("Error creating Note:", error);
+        setCreateStatus("Error Creating Note");
+      } finally {
+        setIsCreating(false);
+      }
+    } else {
+      setErrorMessage("Please fill in all fields.");
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   useEffect(() => {
     const EmpId = localStorage.getItem("EmpId");
     setClientID(EmpId);
@@ -234,6 +414,14 @@ function ClientDetails() {
       setClientID(upcomings[0]?.ClientId);
     }
   }, [upcomings]);
+
+  const [clientConversation, setclientConversation] = useState('');
+
+  const handleOptionChange = (event) => {
+    setclientConversation(event.target.value);
+  };
+
+
   return (
     <div>
       <div
@@ -492,14 +680,10 @@ function ClientDetails() {
                           /> */}
                           <img
                             src={notify}
-                            onClick={() => {
-                              togglePopup({
-                                name: "Kapil Verma",
-                                date: "26 June | 5:33 PM",
-                                content:
-                                  "Discussed budget and preferred location. Client is interested in a 2-bedroom condo in a central area with easy access to public transportation. Suggested scheduling a property tour for next week.",
-                              });
-                            }}
+                           onClick={() => {
+              setShowNotePopup(false);
+              setShowAddNotePopup(true);
+            }}
                             style={{ cursor: "pointer" }}
                           />
                         </td>
@@ -892,8 +1076,134 @@ function ClientDetails() {
         </div>
       </main>
 
-      {showPopup && (
-        <NotePopup note={currentNote} onClose={() => setShowPopup(false)} />
+      {showAddNotePopup && (
+        <>
+          <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+          <div
+            ref={addNotePopupRef}
+            className="fixed inset-0 flex items-center justify-center z-50"
+          >
+            <div className="add-team-members w-[688px] h-auto p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+              <button
+                className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[664px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                onClick={() => setShowAddNotePopup(false)}
+              >
+                X
+              </button>
+              <input
+                type="text"
+                value={clientName}
+                onChange={(e) => setclientName(e.target.value)}
+                className="w-[640px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4"
+                placeholder="Team Name"
+              />
+               <div
+                    className="relative w-[640px] h-[48px]   mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                    style={{color:"rgba(0, 0, 0, 0.68)", fontWeight:400, fontSize:"16px", lineHeight:"19.2px", fontFamily:"Manrope",  padding:"16px 24px",  gap:"10px" , border:"0.8px solid rgba(0,0,0,0.44) ", borderRadius:"6px"}}
+                    onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
+                    ref={projectDropdownRef}
+                  >
+                    <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
+                      {project || "Choose Project"}
+                      <img className="ml-2 h-2 w-3 " src={DropIcon} alt="Dropdown Icon" />
+                    </div>
+                    {isProjectDropdownOpen && (
+                      <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
+                        {data2.map((projects) => (
+                          <div
+                            key={projects.name}
+
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            onClick={() => handleProjectChange(projects.name)}
+                          >
+                            {projects.name}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div> 
+
+
+
+              <div
+                style={{
+                  padding: "16px 24px",
+                  width: "640px",
+                  height: "127px",
+                }}
+                className="rounded-md border border-gray-300 font-manrope  div2 "
+              >
+                <textarea
+                  type="text"
+                  placeholder="Add your Briefing"
+                  style={{ border: "none",overflowY:'scroll', outline: "none", width: "600px", height:'100px' }}
+                  onChange={(e) => setBriefing(e.target.value)}
+                />
+              </div>
+
+
+              <br />
+              <div style={{padding:'16px 24px' }} className="rounded-md border border-gray-300 font-manrope flex flex-wrap w-[640px] h-[51px] justify-between">
+                <div style={{color:"rgba(0, 0, 0, 0.68)", fontWeight:400, fontSize:"16px", lineHeight:"19.2px", fontFamily:"Manrope"  }}>
+                Client Conversation
+                </div>
+                <div className="flex flex-wrap">
+
+                <label className="mr-2" style={{color:"rgba(0, 0, 0, 0.68)", fontWeight:400, fontSize:"16px", lineHeight:"19.2px", fontFamily:"Manrope"  }}>
+        <input
+          className="mr-2 custom-radio"
+          type="radio"
+          name="Yes"
+          value="Yes"
+          checked={clientConversation === 'Yes'}
+          onChange={handleOptionChange}
+        />
+        Yes
+      </label>
+      <label className="mr-2" style={{color:"rgba(0, 0, 0, 0.68)", fontWeight:400, fontSize:"16px", lineHeight:"19.2px", fontFamily:"Manrope"  }}>
+        <input
+          className="mr-2 custom-radio"
+          type="radio"
+          name="No"
+          value="No"
+          checked={clientConversation === 'No'}
+          onChange={handleOptionChange}
+        />
+        No
+      </label>
+      <label className="mr-2" style={{color:"rgba(0, 0, 0, 0.68)", fontWeight:400, fontSize:"16px", lineHeight:"19.2px", fontFamily:"Manrope"  }}>
+        <input
+        className="mr-2 custom-radio"
+          type="radio"
+          name="Tentative"
+          value="Tentative"
+          checked={clientConversation === 'Tentative'}
+          onChange={handleOptionChange}
+        />
+        Tentative
+      </label>
+
+      
+
+                </div>
+
+              </div>
+              <br />
+
+
+              <button
+                onClick={handleSubmit}
+                className="w-fit create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
+                disabled={isCreating}
+              >
+                {createStatus || "Add Note" }
+              </button>
+              {errorMessage && (
+                <p className="text-red-500 mt-2">{errorMessage}</p>
+              )}
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
