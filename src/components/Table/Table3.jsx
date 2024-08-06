@@ -94,7 +94,7 @@ const Table3 = () => {
             <div className="flex flex-row items-center justify-start text-center flex items-center justify-center ml-80">
               <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full mr-96">
                 <input
-                  className="w-full py-2 px-12 rounded-full"
+                  className=" w-[619px] h-[48px] py-2 px-12 rounded-full"
                   style={{ border: "1px solid #3D2314", boxShadow: "0px 0px 4px 0px #00000040" }}
                   type="text"
                   value={valueinput}
@@ -124,7 +124,8 @@ const Table3 = () => {
                   <tbody>
                     {sortedData.map((item, index) => ( // Use filtered data
                       <tr className="text-[9px] lg:text-[14px]" key={item.id}>
-                        <td className="py-3 ml-6 text-center flex items-center" style={{ paddingLeft: "5px", textAlign: 'center' }}>{index + 1}</td>
+                        {/* <td className="py-3 ml-6 text-center flex items-center" style={{ paddingLeft: "5px", textAlign: 'center' }}>{index + 1}</td> */}
+                        <td className="py-3  text-center flex items-center justify-center"  style={{  borderBottom:"1px solid #E4E7EC" }}>{index + 1}</td>
                         <td className="py-1 border-b" style={{ paddingLeft: "5px", textAlign: 'center' }}>{DateupdatedAt(item.updatedAt)}</td>
                         <td className="py-1 border-b text-center">{item.customerName}</td>
                         <td className="py-1 border-b text-center">{item.customerMobileLastFour}</td>
