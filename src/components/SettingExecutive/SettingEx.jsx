@@ -37,10 +37,14 @@ const  SettingEx = () => {
         <div className="w-[1238px] h-[819px] p-[24px]  bg-white m-[24px]"style={{borderRadius:'8px'}}>
             
            <SettingPagesEx />
+
+          
             
             
             
              </div>
+
+             <hr className="mt-1 mb-4" />
              </div>
     );
 }

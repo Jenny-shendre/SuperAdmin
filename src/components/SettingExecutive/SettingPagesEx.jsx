@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { BrowserRouter as Router, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import  { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
@@ -17,6 +17,22 @@ const SettingPagesEx = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const locationPath = location.pathname;
+  const inputRef = useRef(null);
+
+    ///Add Image Logic
+
+
+  const [image, setImage] = useState(null);
+
+  const handleImageUpload = (event) => {
+   inputRef.current.click();
+  };
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    console.log('File', file);
+    setImage(event.target.files[0]);
+     };
+
 const handleItemClick = () => {
     setActiveItem("MyProfilePageEx");
     
@@ -96,8 +112,18 @@ const handleItemClick = () => {
        <div className='w-[1032px] h-[724px] gap-[16px] p-[24px] pt-0 ' >
 
       <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-gray-300 rounded-full mr-4"></div>
+          <div className="flex items-center gap-4" >
+            <div  onChange={handleImageChange}  onClick={handleImageUpload}>
+  { image ? <img src={URL.createObjectURL(image)} alt='' style={{
+        position: 'absolute',
+        top: '196px',
+        width: '77px',
+        height: '77px',
+        borderRadius: '50%',
+  }}/> : <img src='' alt='' />}
+  <img src={''} className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4"/>
+             <input type='file' ref={inputRef} style={{display:'none'}}/>
+            </div>
             <div>
               <div
                 style={{ fontWeight: "700", lineHeight: "27.32px", fontFamily: "Manrope" }}
@@ -129,6 +155,8 @@ const handleItemClick = () => {
             <p>Edit</p>
           </button>
         </div>
+
+        
         <div>
         {activeItem === 'MyProfilePageEx' && <MyProfilePageEx />}
         {activeItem === 'PasswordPageEx' && <PasswordPageEx />}

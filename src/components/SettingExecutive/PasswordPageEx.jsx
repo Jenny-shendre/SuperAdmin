@@ -22,8 +22,9 @@ const PasswordPageEx = () => {
     handleButtonClick(data);
   };
   return (
-    <div className="px-[24px] py-[8px]">
-              <div>
+    <div className="px-[24px] py-[8px]" >
+    <hr className="mb-6 text-[#D0D0D0]" />
+    <div >
           <div className="flex justify-between items-center mb-4">
             <h2 style={{ fontWeight: '700', fontFamily: 'Manrope' }} className="text-[#3C3C3C] text-[Manrope] text-[20px]">Change Password</h2>
             <button
@@ -77,7 +78,7 @@ const PasswordPageEx = () => {
           </div>
         </div>
 
-        <hr className="mt-1 mb-4" />
+        
 
 
     </div>
