@@ -137,14 +137,14 @@ const Table4 = () => {
                   <input
                     type="text"
                     placeholder="Search"
-                    className="w-full pl-10 pr-4 py-2 rounded-full border-2 border-[#3D2314]  h-[48px]"
-                    style={{ padding:"12px, 24px, 12px, 24px"}}
+                    className="w-full rounded-full h-[48px]"
+                    style={{ padding:"12px 24px 12px 60px",border:"1px solid #3D2314"}}
                     value={valueinput}
                     onChange={(e) => setvalueinput(e.target.value)}
                   />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 absolute left-3 top-3.5 text-[#3D2314]"
+                    className="h-5 w-5 absolute left-6 top-3.5 text-[#3D2314]"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -159,7 +159,7 @@ const Table4 = () => {
                 <button
                   onClick={() => setShowPopup(true)}
                   className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[206px] mt-[11px]"
-                  style={{ padding:"12px, 24px, 12px, 24px" , gap:"12px"}}
+                  style={{ padding:"12px 24px 12px 24px" , gap:"12px"}}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -179,14 +179,15 @@ const Table4 = () => {
                 
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"   style={{ padding:"0px,0px,12px,0px",borderRadius:"8px, 8px, 0px, 0px"}}>
+              <div className="cardT  pr-[12px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"   
+               >
 
                 {projectData.filter(({ name }) =>
                   name.toLowerCase().includes(valueinput.toLowerCase())
                 ).map((project, index) => (
                   <div
                     key={index}
-                    className="bg-white rounded-lg overflow-hidden shadow w-[297px]"
+                    className="bg-white pb-[12px] rounded-lg overflow-hidden shadow w-[297px]"
                   >
                     <Link to={`/SuperAdmin/project/${project.name}`}>
                       <img
@@ -197,10 +198,10 @@ const Table4 = () => {
                     </Link>
 
 
-                    <div className="p-4 flex justify-between items-center">
+                    <div className=" w-[288px] h-[24px] flex justify-between items-center">
                       <h3
                         className="font-[16px]"
-                        style={{ fontWeight: 500, fontFamily: "Manrope",Padding: "0px, 0px, 0px, 12px" }}
+                        style={{ fontWeight: 500, fontFamily: "Manrope", paddingLeft:"12px", paddingTop:"12px",gap:"16px"}}
                       >
                         {project.name}
                       </h3>
