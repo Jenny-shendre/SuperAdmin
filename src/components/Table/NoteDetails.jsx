@@ -694,12 +694,15 @@ function NotesDetails() {
 
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -760,12 +763,15 @@ function NotesDetails() {
 
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -823,14 +829,18 @@ function NotesDetails() {
                   width: '-webkit-fill-available',
                   justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
         </div>
@@ -892,12 +902,15 @@ function NotesDetails() {
 
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -957,12 +970,15 @@ function NotesDetails() {
 
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -1022,12 +1038,15 @@ function NotesDetails() {
 
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -1087,12 +1106,15 @@ function NotesDetails() {
 
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
         </div>
@@ -1155,12 +1177,15 @@ function NotesDetails() {
 
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -1220,12 +1245,15 @@ function NotesDetails() {
 
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -1285,12 +1313,15 @@ function NotesDetails() {
 
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -1347,14 +1378,18 @@ function NotesDetails() {
                   width: '-webkit-fill-available',
                   justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
         </div>

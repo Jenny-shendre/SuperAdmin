@@ -211,7 +211,8 @@ function App() {
                 fontSize: '18px',
                 fontWeight: '500',
                 borderRadius: '8px',
-                padding:'12px 24px'
+                padding:'12px 24px',
+                backgroundColor: !isRadioChecked ? '#e0e0e0' : 'white'
               }}
             />
           </div>
@@ -255,7 +256,8 @@ function App() {
                   fontFamily: "Manrope",
                   fontSize: '18px',
                   fontWeight: '500',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  backgroundColor: !isRadioChecked ? '#e0e0e0' : 'white'
                 }}
               />
               <img
