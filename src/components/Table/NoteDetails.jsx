@@ -4,6 +4,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { CgMail } from "react-icons/cg";
 import { TbBrandTelegram } from "react-icons/tb";
 import { IoIosArrowForward } from "react-icons/io";
+import { FaEdit } from "react-icons/fa";
 
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import close from "../../assets/add_notes (white).png";
@@ -23,6 +24,7 @@ import PhoneIcon from "../../assets/phone.png";
 
 import edit from "../../assets/hugeicons_view.png";
 import share from "../../assets/Vector (3).png";
+import { FcEditImage } from "react-icons/fc";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
   <div className="flex justify-center mb-4  fab ">
@@ -48,14 +50,14 @@ function NotesDetails() {
   const [activeTab, setActiveTab] = useState("All");
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [showAddNotePopup, setShowAddNotePopup] = useState(false);
+  const [showViewNotePopup, setShowViewNotePopup] = useState(false);
+  
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
   const [loading, setLoading] = useState(false);
 
   const notePopupRef = useRef();
   const addNotePopupRef = useRef();
-  const addManagerPopupRef = useRef();
-  const addExecutivePopupRef = useRef(); //  ref for executive popup
   const dropdownRef = useRef();
   const projectDropdownRef = useRef(); // ref for project dropdown
 
@@ -96,6 +98,12 @@ function NotesDetails() {
       addNotePopupRef.current &&
       !addNotePopupRef.current.contains(event.target)
     ) {
+      setShowViewNotePopup(false);
+    }
+    if (
+      addNotePopupRef.current &&
+      !addNotePopupRef.current.contains(event.target)
+    ) {
       setShowAddNotePopup(false);
     }
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -107,6 +115,11 @@ function NotesDetails() {
     ) {
       setIsProjectDropdownOpen(false);
     }
+  };
+
+  const [showIcon, setShowIcon] = useState(true);
+  const handleClick = () => {
+    setShowIcon(false);
   };
 
   useEffect(() => {
@@ -131,7 +144,7 @@ function NotesDetails() {
     isProjectDropdownOpen,
   ]);
 
-  // Add team members popup logic
+  // Add note popup logic
 
   const [clientName, setclientName] = useState("");
   const [project, setProject] = useState("");
@@ -140,15 +153,6 @@ function NotesDetails() {
   const [createStatus, setCreateStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
  
-
-  
-
- 
-
-
-
-
-
   const handleProjectChange = (projectName) => {
     setProject(projectName);
     setIsProjectDropdownOpen(false);
@@ -156,8 +160,9 @@ function NotesDetails() {
 
 
 
+
   const handleSubmit = async () => {
-    if (clientName && project && briefing && clientConversation) {
+    if (clientName && project && briefing) {
       setIsCreating(true);
       setErrorMessage(""); // Clear any previous error messages
       console.log("Come")
@@ -166,12 +171,11 @@ function NotesDetails() {
         clientName: clientName,
         project : project,
         briefing :briefing,
-        clientConversation : clientConversation  
       };
 
       try {
        
-        setCreateStatus("Done");
+        setCreateStatus("Note Successfully Added ✓");
        
         
         console.log("Response send", teamdata);
@@ -184,6 +188,48 @@ function NotesDetails() {
     } else {
       setErrorMessage("Please fill in all fields.");
     }
+  };
+
+
+  const [clientName2, setclientName2] = useState("");
+  const [project2, setProject2] = useState("");
+  const [briefing2, setBriefing2] = useState("");
+  // const [isCreating, setisCreating] = useState(false);
+  const [createStatus2, setCreateStatus2] = useState("");
+  const [errorMessage2, setErrorMessage2] = useState(""); // state for error message
+ 
+  const handleProjectChange2 = (projectName2) => {
+    setProject2(projectName2);
+    setIsProjectDropdownOpen(false);
+  };
+
+
+
+  const handleSubmit2 = async () => {
+    if (clientName2 && project2 && briefing2) {
+      // isCreating(true);
+      setErrorMessage2(""); // Clear any previous error messages
+      console.log("View Note")
+
+      const ViewData = {
+        clientName2: clientName2,
+        project2 : project2,
+        briefing2 :briefing2,
+      };
+
+      try {
+       
+        
+        setCreateStatus2("Done");
+        
+        console.log("Response send", ViewData);
+      } catch (error) {
+        console.error("Error Editing Note:", error);
+        setCreateStatus2("Error Editing Note");
+      } finally {
+        // setisCreating(false);
+      }
+    } 
   };
 
   return (
@@ -265,7 +311,134 @@ function NotesDetails() {
         </div>
       </div>
 
-      {showAddNotePopup && (
+      {showViewNotePopup && (
+        <>
+          <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+          <div
+            ref={addNotePopupRef}
+            className="fixed inset-0 flex items-center justify-center z-50"
+          >
+            <div className="add-team-members w-[688px] h-auto p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+              <button
+                className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[664px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                onClick={() => setShowViewNotePopup(false)}
+              >
+                X
+              </button>
+              <input
+                type="text"
+                value={clientName2}
+                onChange={(e) => setclientName2(e.target.value)}
+                className="w-[640px] h-12 mb-4"
+                placeholder="Client Name"
+                style={{
+                  color: "rgba(0, 0, 0, 0.68)",
+                  fontWeight: 400,
+                  fontSize: "16px",
+                  padding: "16px 24px",
+                  lineHeight: "19.2px",
+                  fontFamily: "Manrope",
+                  gap: "10px",
+                  border: "0.8px solid rgba(0,0,0,0.44) ",
+                  borderRadius: "6px",
+                }}
+              />
+              <div
+                className="relative w-[640px] h-[48px]   mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                style={{
+                  color: "rgba(0, 0, 0, 0.68)",
+                  fontWeight: 400,
+                  fontSize: "16px",
+                  lineHeight: "19.2px",
+                  fontFamily: "Manrope",
+                  gap: "10px",
+                  border: "0.8px solid rgba(0,0,0,0.44) ",
+                  borderRadius: "6px",
+                }}
+                onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
+                ref={projectDropdownRef}
+              >
+                <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
+                  {project2 || "Choose Project"}
+                  <img
+                    className="ml-2 h-2 w-3 "
+                    src={DropIcon}
+                    alt="Dropdown Icon"
+                  />
+                </div>
+                {isProjectDropdownOpen && (
+                  <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
+                    {data2.map((projects) => (
+                      <div
+                        key={projects.name}
+                        className="p-2 cursor-pointer hover:bg-gray-200"
+                        onClick={() => handleProjectChange2(projects.name)}
+                      >
+                        {projects.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div
+                style={{
+                  padding: "16px 24px",
+                  width: "640px",
+                  height: "127px",
+                  color: "rgba(0, 0, 0, 0.68)",
+                  fontWeight: 400,
+                  fontSize: "16px",
+                  lineHeight: "19.2px",
+                  fontFamily: "Manrope",
+                  gap: "10px",
+                  border: "0.8px solid rgba(0,0,0,0.44) ",
+                  borderRadius: "6px",
+                }}
+                className="rounded-md border border-gray-300 font-manrope  div2 mb-4"
+              >
+                <textarea
+                  type="text"
+                  placeholder="Add your Briefing"
+                  style={{
+                    border: "none",
+                    overflowY: "scroll",
+                    outline: "none",
+                    width: "600px",
+                    height: "100px",
+                    fontWeight:400
+                  }}
+                  onChange={(e) => setBriefing2(e.target.value)}
+                />
+              </div>
+
+              
+            
+             
+
+              <button
+                onClick={handleSubmit2}
+                className="`create-team-btn flex flex-wrap w-[192px] h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
+                disabled={isCreating}
+              >
+                {createStatus2||(
+        <div className="flex flex-wrap ">
+    <span>
+        <FaEdit className="mr-2 mt-1 font-bold font-[24px]" />
+        </span> <span> Edit Note </span> 
+        </div>
+      )}
+              </button>
+              {errorMessage2 && (
+                <p className="text-red-500 mt-2">{errorMessage2}</p>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+
+
+{showAddNotePopup && (
         <>
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
           <div
@@ -284,7 +457,7 @@ function NotesDetails() {
                 value={clientName}
                 onChange={(e) => setclientName(e.target.value)}
                 className="w-[640px] h-12 mb-4"
-                placeholder="Team Name"
+                placeholder="Client Name"
                 style={{
                   color: "rgba(0, 0, 0, 0.68)",
                   fontWeight: 400,
@@ -367,92 +540,21 @@ function NotesDetails() {
               </div>
 
               
-              <div
-                style={{ padding: "16px 24px" }}
-                className="rounded-md border mb-4 border-gray-300 font-manrope flex flex-wrap w-[640px] h-[51px] justify-between"
-              >
-                <div
-                  style={{
-                    color: "rgba(0, 0, 0, 0.68)",
-                    fontWeight: 400,
-                    fontSize: "16px",
-                    lineHeight: "19.2px",
-                    fontFamily: "Manrope",
-                  }}
-                >
-                  Client Conversation
-                </div>
-                <div className="flex flex-wrap">
-                  <label
-                    className="mr-2"
-                    style={{
-                      color: "rgba(0, 0, 0, 0.68)",
-                      fontWeight: 400,
-                      fontSize: "16px",
-                      lineHeight: "19.2px",
-                      fontFamily: "Manrope",
-                    }}
-                  >
-                    <input
-                      className="mr-2 custom-radio"
-                      type="radio"
-                      name="Yes"
-                      value="Yes"
-                      checked={clientConversation === "Yes"}
-                      onChange={handleOptionChange}
-                    />
-                    Yes
-                  </label>
-                  <label
-                    className="mr-2"
-                    style={{
-                      color: "rgba(0, 0, 0, 0.68)",
-                      fontWeight: 400,
-                      fontSize: "16px",
-                      lineHeight: "19.2px",
-                      fontFamily: "Manrope",
-                    }}
-                  >
-                    <input
-                      className="mr-2 custom-radio"
-                      type="radio"
-                      name="No"
-                      value="No"
-                      checked={clientConversation === "No"}
-                      onChange={handleOptionChange}
-                    />
-                    No
-                  </label>
-                  <label
-                    className="mr-2"
-                    style={{
-                      color: "rgba(0, 0, 0, 0.68)",
-                      fontWeight: 400,
-                      fontSize: "16px",
-                      lineHeight: "19.2px",
-                      fontFamily: "Manrope",
-                    }}
-                  >
-                    <input
-                      className="mr-2 custom-radio"
-                      type="radio"
-                      name="Tentative"
-                      value="Tentative"
-                      checked={clientConversation === "Tentative"}
-                      onChange={handleOptionChange}
-                    />
-                    Tentative
-                  </label>
-                </div>
-              </div>
+            
              
 
               <button
-                onClick={handleSubmit}
-                className="create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
+                onClick={handleSubmit }
+                className="`create-team-btn flex flex-wrap  h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
                 disabled={isCreating}
               >
-                {createStatus || "Add Note"}
+                {createStatus||(
+        <div className="flex flex-wrap ">
+  
+        
+        <span> Add Note </span> 
+        </div>
+      )}
               </button>
               {errorMessage && (
                 <p className="text-red-500 mt-2">{errorMessage}</p>
@@ -524,7 +626,7 @@ function NotesDetails() {
 
                 onClick={() => {
                   setShowNotePopup(false);
-                  setShowAddNotePopup(true);
+                  setShowViewNotePopup(true);
                 }}
 
                 

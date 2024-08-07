@@ -196,7 +196,7 @@ function App() {
               Email ID
             </label>
             <input
-              className="shadow appearance-none border rounded w-full h-[49px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full h-[49px] text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
               disabled={!isRadioChecked}
@@ -210,7 +210,8 @@ function App() {
                 fontFamily: "Manrope",
                 fontSize: '18px',
                 fontWeight: '500',
-                borderRadius: '8px'
+                borderRadius: '8px',
+                padding:'12px 24px'
               }}
             />
           </div>
