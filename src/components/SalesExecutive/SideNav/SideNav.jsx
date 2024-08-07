@@ -42,6 +42,10 @@ const SideNav = () => {
         setActiveItem("Notes");
         break;
 
+        case "/SalesExecutive/SettingEx":
+          setActiveItem("SettingEx");
+          break;
+
       default:
         setActiveItem("OverviewPage");
         break;
@@ -142,6 +146,7 @@ const SideNav = () => {
       </div>
       <div>
         <ul className="flex flex-col" style={{ gap: "8px" }}>
+        <Link to="/SalesExecutive/SettingEx">
           <li
             style={{
               fontFamily: "Manrope",
@@ -155,6 +160,7 @@ const SideNav = () => {
             <img src={Settings2} alt="Settings" />
             Settings
           </li>
+          </Link>
           <li onClick={handleLogOut}
             style={{
               fontFamily: "Manrope",
