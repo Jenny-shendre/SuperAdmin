@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { BrowserRouter as Router, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import  { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
@@ -64,6 +64,22 @@ const handleItemClick = () => {
   const handleEditClick = () => {
     console.log(profile);
   };
+
+
+  ///Add Image Logic
+  const inputRef = useRef(null);
+
+  const [image, setImage] = useState(null);
+
+  const handleImageUpload = (event) => {
+   inputRef.current.click();
+  };
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    console.log('File', file);
+    setImage(event.target.files[0]);
+     };
+
   return (
     
       <div className="flex  min-h-screen ">
@@ -95,7 +111,19 @@ const handleItemClick = () => {
 
       <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-gray-300 rounded-full mr-4"></div>
+            
+            <div  onChange={handleImageChange}  onClick={handleImageUpload}>
+  { image ? <img src={URL.createObjectURL(image)} alt='' style={{
+        position: 'absolute',
+        top: '196px',
+        width: '77px',
+        height: '77px',
+        borderRadius: '50%',
+  }}/> : <img src='' alt='' />}
+  <img src={''} className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4"/>
+             <input type='file' ref={inputRef} style={{display:'none'}}/>
+            </div>
+          
             <div>
               <div
                 style={{ fontWeight: "700", lineHeight: "27.32px", fontFamily: "Manrope" }}
