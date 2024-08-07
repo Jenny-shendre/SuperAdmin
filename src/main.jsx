@@ -31,9 +31,10 @@ import LoginFour from "./ForgotPass/LoginFour.jsx";
 import { PrivateRoute } from "./ForgotPass/PrivateRoute.jsx";
 import Table12 from "./components/Table/Team1.2.jsx";
 
-import Setting from "./components/Setting/Setting.jsx";
+import Setting from "./components/SettingMang/Setting.jsx";
 import MyTeam from "./PagesSalesManager/MyTeam.jsx";
 import NotesDetailsMang from "./components/Table/NotesDetailsMang.jsx";
+import SettingEx from "./components/SettingExecutive/SettingEx.jsx";
 
 const router = createBrowserRouter([
   //Login_Cred
@@ -132,6 +133,10 @@ const router = createBrowserRouter([
       {
         path: "/SalesExecutive/Notes",
         element: <PrivateRoute element={Note} />,
+      },
+      {
+        path: "/SalesExecutive/SettingEx",
+        element: <PrivateRoute element={SettingEx} />,
       },
     ],
   },
