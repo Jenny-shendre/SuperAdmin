@@ -251,6 +251,11 @@ function NotesDetails() {
               padding: "12px 24px",
               fontFamily: "Manrope",
             }}
+
+            onClick={() => {
+              setShowNotePopup(false);
+              setShowAddNotePopup(true);
+            }}
            
           >
             <img src={close} />
@@ -366,12 +371,10 @@ function NotesDetails() {
 
               <button
                 onClick={handleSubmit}
-                className=" flex flex-wrap gap-[10px] justify-between create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
+                className="create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
                 disabled={isCreating}
-                style={{alignSelf:'center'}}
               >
-                <img src={add} style={{alignSelf:'center'}}/>
-                {createStatus || "Edit Note"}
+                {createStatus || "Add Note"}
               </button>
               {errorMessage && (
                 <p className="text-red-500 mt-2">{errorMessage}</p>
