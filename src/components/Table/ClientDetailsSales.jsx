@@ -1067,7 +1067,7 @@ function ClientDetails() {
                 value={clientName}
                 onChange={(e) => setclientName(e.target.value)}
                 className="w-[640px] h-12 mb-4"
-                placeholder="Team Name"
+                placeholder="Client Name"
                 style={{
                   color: "rgba(0, 0, 0, 0.68)",
                   fontWeight: 400,
