@@ -166,12 +166,7 @@ function NotesDetails() {
         clientName: clientName,
         project : project,
         briefing :briefing,
-        clientConversation : clientConversation
-  
-    
-        
-        
-        
+        clientConversation : clientConversation  
       };
 
       try {
