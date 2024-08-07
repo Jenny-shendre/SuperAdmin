@@ -81,6 +81,11 @@ function NotesDetails() {
 
   
    
+  const [clientConversation, setclientConversation] = useState("");
+
+  const handleOptionChange = (event) => {
+    setclientConversation(event.target.value);
+  };
 
 
   const handleOutsideClick = (event) => {
@@ -152,7 +157,7 @@ function NotesDetails() {
 
 
   const handleSubmit = async () => {
-    if (clientName && project && briefing) {
+    if (clientName && project && briefing && clientConversation) {
       setIsCreating(true);
       setErrorMessage(""); // Clear any previous error messages
       console.log("Come")
@@ -160,12 +165,8 @@ function NotesDetails() {
       const teamdata = {
         clientName: clientName,
         project : project,
-        briefing :briefing
-  
-    
-        
-        
-        
+        briefing :briefing,
+        clientConversation : clientConversation  
       };
 
       try {
@@ -366,7 +367,84 @@ function NotesDetails() {
               </div>
 
               
-            
+              <div
+                style={{ padding: "16px 24px" }}
+                className="rounded-md border mb-4 border-gray-300 font-manrope flex flex-wrap w-[640px] h-[51px] justify-between"
+              >
+                <div
+                  style={{
+                    color: "rgba(0, 0, 0, 0.68)",
+                    fontWeight: 400,
+                    fontSize: "16px",
+                    lineHeight: "19.2px",
+                    fontFamily: "Manrope",
+                  }}
+                >
+                  Client Conversation
+                </div>
+                <div className="flex flex-wrap">
+                  <label
+                    className="mr-2"
+                    style={{
+                      color: "rgba(0, 0, 0, 0.68)",
+                      fontWeight: 400,
+                      fontSize: "16px",
+                      lineHeight: "19.2px",
+                      fontFamily: "Manrope",
+                    }}
+                  >
+                    <input
+                      className="mr-2 custom-radio"
+                      type="radio"
+                      name="Yes"
+                      value="Yes"
+                      checked={clientConversation === "Yes"}
+                      onChange={handleOptionChange}
+                    />
+                    Yes
+                  </label>
+                  <label
+                    className="mr-2"
+                    style={{
+                      color: "rgba(0, 0, 0, 0.68)",
+                      fontWeight: 400,
+                      fontSize: "16px",
+                      lineHeight: "19.2px",
+                      fontFamily: "Manrope",
+                    }}
+                  >
+                    <input
+                      className="mr-2 custom-radio"
+                      type="radio"
+                      name="No"
+                      value="No"
+                      checked={clientConversation === "No"}
+                      onChange={handleOptionChange}
+                    />
+                    No
+                  </label>
+                  <label
+                    className="mr-2"
+                    style={{
+                      color: "rgba(0, 0, 0, 0.68)",
+                      fontWeight: 400,
+                      fontSize: "16px",
+                      lineHeight: "19.2px",
+                      fontFamily: "Manrope",
+                    }}
+                  >
+                    <input
+                      className="mr-2 custom-radio"
+                      type="radio"
+                      name="Tentative"
+                      value="Tentative"
+                      checked={clientConversation === "Tentative"}
+                      onChange={handleOptionChange}
+                    />
+                    Tentative
+                  </label>
+                </div>
+              </div>
              
 
               <button
