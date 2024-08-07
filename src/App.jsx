@@ -8,7 +8,7 @@ import Logo from "./assets/Logo.png";
 import Eye from "./assets/Eye.png";
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import SettingSideNav from "./components/Setting/SettingSideNav";
+
 
 function App() {
   const [role, setRole] = useState("super admin");

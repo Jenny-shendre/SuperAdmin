@@ -12,9 +12,9 @@ import Projects1 from "../../assets/ph_buildings-bold - Copy.svg";
 import Projects2 from "../../assets/ph_buildings-bold.svg";
 import Team1 from "../../assets/ri_team-line - Copy.svg";
 import Team2 from "../../assets/ri_team-line.svg";
-import Settings1 from "../../assets/Settings - Copy.svg";
+
 import Settings2 from "../../assets/Settings.svg";
-import Logout1 from "../../assets/Logout Copy.svg";
+
 import Logout2 from "../../assets/logout.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../utils/TokenUtils";
@@ -206,6 +206,7 @@ const Navber = () => {
       </div>
       <div>
         <ul className="flex flex-col" style={{ gap: '8px' }}>
+          <Link to="/SalesManager/Setting">
           <li style={{
             fontFamily: 'Manrope',
             fontSize: '20px',
@@ -214,9 +215,10 @@ const Navber = () => {
             textAlign: 'left',
           }}
             className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] `}>
-            <img src={Settings2} alt="Settings" />
+            <img src={Settings2}/>
             Settings
           </li>
+          </Link>
           <li onClick={handleLogOut}
             style={{
               fontFamily: 'Manrope',
