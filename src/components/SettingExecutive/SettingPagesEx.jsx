@@ -109,7 +109,7 @@ const handleItemClick = () => {
                 style={{ fontWeight: "600", lineHeight: "19.12px", fontFamily: "Manrope" }}
                 className="mt-2 text-[Manrope] text-[14px] text-[#5B5B5B]"
               >
-                Manager
+                Sales Executive
               </div>
               <div
                 style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }}
