@@ -127,6 +127,7 @@ const SideNavM = () => {
       </div>
       <div>
         <ul className="flex flex-col" style={{ gap: '8px' }}>
+        <Link to="/SalesManager/Setting">
           <li style={{
             fontFamily: 'Manrope',
             fontSize: '20px',
@@ -138,6 +139,7 @@ const SideNavM = () => {
             <img src={Settings2} alt="Settings" />
             Settings
           </li>
+          </Link>
           <li onClick={handleLogOut}
             style={{
               fontFamily: 'Manrope',
