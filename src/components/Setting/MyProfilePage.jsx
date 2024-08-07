@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
+import edit from "../../assets/Group.png";
 import { Link } from 'react-router-dom';
+import "../Home.css";
 
 
 const MyProfilePage = () => {
@@ -30,7 +32,7 @@ const MyProfilePage = () => {
     console.log(profile);
   };
   return (
-    <div className="p-4">
+    <div className="px-[24px] py-[8px]">
               <hr className="mb-6" />
 
 {/* Second Box */}
@@ -47,15 +49,15 @@ const MyProfilePage = () => {
       onClick={handleEditClick}
     >
       <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-        <FaRegEdit />
+        <img src={edit} />
       </h4>
-      <p>Edit</p>
+      <p style={{fontFamily:'Manrope'}}>Edit</p>
     </button>
   </div>
 
-  <div className="flex flex-wrap mb-2">
-    <div className="mr-24 mb-4">
-      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope]">
+  <div className="flex flex-wrap dumbo mb-2 ">
+    <div className="mr-24 mb-4  ">
+      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
         First Name
       </label>
       <input
@@ -63,12 +65,12 @@ const MyProfilePage = () => {
         name="firstName"
         value={profile.firstName}
         onChange={handleInputChange}
-        className="w-[280px] h-[39px] p-4 border rounded-lg "
+        className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
         placeholder="Enter first name"
       />
     </div>
     <div className="mb-4">
-      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope]">
+      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
         Last Name
       </label>
       <input
@@ -76,14 +78,14 @@ const MyProfilePage = () => {
         name="lastName"
         value={profile.lastName}
         onChange={handleInputChange}
-        className="w-[280px] h-[39px] p-2 border rounded-lg"
+        className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg"
         placeholder="Enter last name"
       />
     </div>
   </div>
-  <div className="flex flex-wrap mb-2">
+  <div className="flex flex-wrap dumbo mb-2">
     <div className="mr-24 mb-4">
-      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope]">
+      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
         Email Address
       </label>
       <input
@@ -91,12 +93,12 @@ const MyProfilePage = () => {
         name="email"
         value={profile.email}
         onChange={handleInputChange}
-        className="w-[280px] h-[39px] p-2 border rounded-lg "
+        className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
         placeholder="Enter email address"
       />
     </div>
     <div className="mb-4">
-      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope]">
+      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
         Phone Number
       </label>
       <input
@@ -104,14 +106,14 @@ const MyProfilePage = () => {
         name="phoneNumber"
         value={profile.phoneNumber}
         onChange={handleInputChange}
-        className="w-[280px] h-[39px] p-2 border rounded-lg "
+        className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
         placeholder="Enter phone number"
       />
     </div>
   </div>
-  <div className="flex flex-wrap">
+  <div className="flex flex-wrap dumbo">
     <div className="mr-24 mb-4">
-      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope]">
+      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
         Designation
       </label>
       <input
@@ -119,12 +121,12 @@ const MyProfilePage = () => {
         name="designation"
         value={profile.designation}
         onChange={handleInputChange}
-        className="w-[280px] h-[39px] p-2 border rounded-lg "
+        className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
         placeholder="Enter designation"
       />
     </div>
     <div>
-      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope]">
+      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
         Employee ID
       </label>
       <input
@@ -132,7 +134,7 @@ const MyProfilePage = () => {
         name="employeeId"
         value={profile.employeeId}
         onChange={handleInputChange}
-        className="w-[280px] h-[39px] p-2 border rounded-lg "
+        className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
         placeholder="Enter employee ID"
       />
     </div>
@@ -155,15 +157,15 @@ const MyProfilePage = () => {
       onClick={handleEditClick}
     >
       <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-        <FaRegEdit />
+        <img src={edit} />
       </h4>
-      <p>Edit</p>
+      <p style={{fontFamily:'Manrope'}}>Edit</p>
     </button>
   </div>
 
-  <div className="flex flex-wrap mt-6">
+  <div className="flex flex-wrap dumbo mt-6">
     <div className="mr-24 mb-4">
-      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope]">
+      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
         Country
       </label>
       <input
@@ -171,12 +173,12 @@ const MyProfilePage = () => {
         name="country"
         value={profile.country}
         onChange={handleInputChange}
-        className="w-[280px] h-[39px] p-2 border rounded-lg "
+        className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
         placeholder="Enter country"
       />
     </div>
     <div className="mb-4">
-      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope]">
+      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
         City/State
       </label>
       <input
@@ -184,14 +186,14 @@ const MyProfilePage = () => {
         name="cityState"
         value={profile.cityState}
         onChange={handleInputChange}
-        className="w-[280px] h-[39px] p-2 border rounded-lg "
+        className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
         placeholder="Enter city/state"
       />
     </div>
   </div>
-  <div className="flex flex-wrap">
+  <div className="flex flex-wrap dumbo">
     <div className="mr-24 mb-4">
-      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope]">
+      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
         Postal Code
       </label>
       <input
@@ -199,12 +201,12 @@ const MyProfilePage = () => {
         name="postalCode"
         value={profile.postalCode}
         onChange={handleInputChange}
-        className="w-[280px] h-[39px] p-2 border rounded-lg "
+        className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
         placeholder="Enter postal code"
       />
     </div>
     <div className="mb-4">
-      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope]">
+      <label style={{ fontWeight: "400", lineHeight: "19.12px",fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
         Adhaar Card
       </label>
       <input
@@ -212,7 +214,7 @@ const MyProfilePage = () => {
         name="adhaarCard"
         value={profile.adhaarCard}
         onChange={handleInputChange}
-        className="w-[280px] h-[39px] p-2 border rounded-lg "
+        className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
         placeholder="Enter Adhaar card number"
       />
     </div>

@@ -33,7 +33,7 @@ const Setting = () => {
             </span>
           </h1>
         </div>
-        <div className="w-[1238px] h-[819px] p-[24px] bg-white m-[24px]"style={{borderRadius:'8px'}}>
+        <div className="w-[1238px] h-[819px] p-[24px]  bg-white m-[24px]"style={{borderRadius:'8px'}}>
             
            <SettingPages/>
             

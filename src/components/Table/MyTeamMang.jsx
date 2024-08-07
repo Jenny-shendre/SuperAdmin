@@ -29,7 +29,7 @@ const TabBar = ({ activeTab, setActiveTab }) => (
   </div>
 );
 
-function NotesDetailsMang() {
+function MyTeamMang() {
   const [activeTab, setActiveTab] = useState("All");
 
   const [showNotePopup, setShowNotePopup] = useState(false);
@@ -1426,4 +1426,4 @@ function NotesDetailsMang() {
   );
 }
 
-export default NotesDetailsMang;
+export default MyTeamMang;

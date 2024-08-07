@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import  { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
+import edit from "../../assets/Group.png";
+
 import MyProfilePage from './MyProfilePage';
 import PasswordPage from './PasswordPage';
 
@@ -89,7 +91,7 @@ const handleItemClick = () => {
         </div>
       </div>
 
-       <div className='w-[1032px] h-[724px] gap-[16px] p-[24px]' >
+       <div className='w-[1032px] h-[724px] gap-[16px] p-[24px] pt-0 ' >
 
       <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
           <div className="flex items-center gap-4">
@@ -120,7 +122,7 @@ const handleItemClick = () => {
             onClick={handleEditClick}
           >
             <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-              <FaRegEdit />
+              <img src={edit} />
             </h4>
             <p>Edit</p>
           </button>
