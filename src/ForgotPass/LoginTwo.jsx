@@ -83,7 +83,7 @@ function LoginTwo() {
           }}
           className="text-[#353535] mb-8"
         >
-          Enter details below to get access to your account
+          Enter details below to get access of your account
         </p>
         <form onSubmit={handleSubmit}>
           <div className="text-left mb-4 mx-auto" style={{ maxWidth: '426px' }}>
@@ -153,7 +153,7 @@ function LoginTwo() {
                   }}
                 />
               </div>
-              <button type="submit" className="bg-[#632E04] shadow-xl text-white font-bold py-2 px-4 rounded w-full h-[45px] mx-auto" style={{ maxWidth: '426px', fontFamily: 'Manrope', fontSize: '18px', fontWeight: '500', borderRadius: '8px' }}>
+              <button type="submit" className="bg-[#632E04] shadow-xl text-white font-bold rounded w-full h-[45px] mx-auto" style={{ maxWidth: '426px', fontFamily: 'Manrope', fontSize: '18px', fontWeight: '500', borderRadius: '8px', }}>
                 Submit
               </button>
             </>
