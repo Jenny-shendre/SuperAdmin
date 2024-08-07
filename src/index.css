@@ -24,8 +24,8 @@
     appearance: none;
     border: 2px solid #632E04;
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    width: 1em;
+    height: 1em;
     position: relative;
     outline: none;
     cursor: pointer;
