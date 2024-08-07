@@ -184,7 +184,7 @@ function App() {
               </label>
             </div>
 
-            <div style={{filter: isRadioChecked ? 'none' : 'opacity(35%)'}}>
+            <div className="jumbo" style={{filter: isRadioChecked ? 'none' : 'opacity(35%)'}}>
             <label
               style={{
                 fontFamily: "Manrope",
@@ -198,7 +198,7 @@ function App() {
               Email ID
             </label>
             <input
-              className="shadow appearance-none border rounded w-full h-[49px] text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none  rounded w-full h-[49px] text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
               disabled={!isRadioChecked}
@@ -209,6 +209,7 @@ function App() {
                 width: '426px',
                 borderWidth: '1.5px',
                 borderColor: '#353535',
+                border:'1.5px solid rgba(53, 53, 53, 0.5)',
                 fontFamily: "Manrope",
                 fontSize: '18px',
                 fontWeight: '500',
@@ -227,6 +228,7 @@ function App() {
                   fontFamily: "Manrope",
                   fontSize: "18px",
                   fontWeight: "500",
+                  
                 }}
                 className="text-[#353535] text-sm font-bold"
                 htmlFor="password"
@@ -244,7 +246,7 @@ function App() {
             </div>
             <div className="relative">
               <input
-                className="shadow appearance-none border rounded w-full h-[49px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10"
+                className="shadow appearance-none rounded w-full h-[49px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10"
                 id="password"
                 disabled={!isRadioChecked}
                 type={passwordVisible ? "text" : "password"}
@@ -257,9 +259,11 @@ function App() {
                   borderWidth: '1.5px',
                   borderColor: '#353535',
                   fontFamily: "Manrope",
+                  border:'1.5px solid rgba(53, 53, 53, 0.5)',
                   fontSize: '18px',
                   fontWeight: '500',
                   borderRadius: '8px',
+                  padding:'12px 24px',
                   // backgroundColor: !isRadioChecked ? '#e0e0e0' : 'white'
                 }}
               />
