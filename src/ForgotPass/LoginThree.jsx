@@ -104,19 +104,22 @@ function LoginThree() {
             fontWeight: "400",
             lineHeight: "36px",
             textAlign: "center",
+            width:"475px",
+            height:"72px",
           }}
           className="text-[#353535] mb-8"
         >
           Enter details below to get access to your account
         </p>
         <form onSubmit={handleSubmit}>
-          <div className="text-left mb-4 mx-auto relative" style={{ maxWidth: '426px' }}>
+          <div className="text-left mb-4 mx-auto relative" style={{ maxWidth: '426px', }}>
             <div className="flex justify-between items-center mb-2">
               <label
                 style={{
                   fontFamily: "Manrope",
                   fontSize: "18px",
                   fontWeight: "500",
+                  lineHeight:"24.59px",
                 }}
                 className="text-[#353535] text-sm font-bold"
                 htmlFor="new-password"
@@ -125,7 +128,7 @@ function LoginThree() {
               </label>
               <span
                 className="text-sm font-medium text-[#632E04] cursor-pointer"
-                style={{ fontFamily: "Manrope", fontSize: "14px", fontWeight: "500" }}
+                style={{ fontFamily: "Manrope", fontSize: "14px", fontWeight: "500", }}
                 onClick={() => setShowGuidelines(true)}
               >
                 Password Guidelines ?
@@ -147,7 +150,9 @@ function LoginThree() {
                   fontFamily: "Manrope",
                   fontSize: '18px',
                   fontWeight: '500',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  padding:"12px 24px 12px 24px",
+                  
                 }}
               />
             </div>
@@ -198,6 +203,9 @@ function LoginThree() {
                 fontFamily: "Manrope",
                 fontSize: "18px",
                 fontWeight: "500",
+                width:"194px",
+                height:"25px",
+                lineHeight:"24.59px"
               }}
               className="block text-[#353535] text-sm font-bold mb-2"
               htmlFor="confirm-password"
@@ -220,7 +228,9 @@ function LoginThree() {
                   fontFamily: "Manrope",
                   fontSize: '18px',
                   fontWeight: '500',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  padding:"12px 24px 12px 24px",
+                  lineHeight:"24.59px",
                 }}
               />
               <img
@@ -236,7 +246,7 @@ function LoginThree() {
               {errorMessage}
             </p>
           )}
-          <button type="submit" className="bg-[#632E04] shadow-xl text-white font-bold py-2 px-4 rounded w-full h-[45px] mx-auto" style={{ maxWidth: '426px', fontFamily: 'Manrope', fontSize: '18px', fontWeight: '500', borderRadius: '8px' }}>
+          <button type="submit" className="bg-[#632E04] shadow-xl text-white font-bold rounded w-full h-[45px] mx-auto" style={{ maxWidth: '426px', fontFamily: 'Manrope', fontSize: '18px', fontWeight: '500', borderRadius: '8px', padding:"10px",lineHeight:"27px" }}>
             Submit
           </button>
         </form>

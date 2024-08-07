@@ -155,7 +155,7 @@ function LoginOne() {
       </p>
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-4 mx-auto" style={{ maxWidth: '426px' }}>
+        <div className="mb-4 mx-auto" style={{ maxWidth: '472px' }}>
           <div className="flex justify-between mb-6">
             <label
               style={{
@@ -185,11 +185,10 @@ function LoginOne() {
             >
               <input
                 type="radio"
-                
                 value="SalesManager"
              checked={role === 'SalesManager'}
              onChange={(e) => setRole(e.target.value)}
-                className="mr-2 custom-radio"
+                className="mr-2 custom-radio "
               />
               Manager
             </label>
@@ -207,7 +206,7 @@ function LoginOne() {
                 value="SalesExecutive"
                          checked={role === 'SalesExecutive'}
                          onChange={(e) => setRole(e.target.value)}
-                className="mr-2 custom-radio"
+                className="mr-2 custom-radio "
               />
               Sales Executive
             </label>
@@ -216,17 +215,20 @@ function LoginOne() {
           <label
             style={{
               fontFamily: "Manrope",
-              fontSize: "18px",
+              fontSize: "38px",
               fontWeight: "500",
+              width:"66px",
+              height:"25px",
+              
             }}
-            className="block text-[#353535] text-start text-sm font-bold mb-2"
+            className="block text-[#353535] text-start text-sm font-bold mb-2 w-[425px] h-[25px]"
             htmlFor="email"
 
           >
-            Email ID
+            Email ID 
           </label>
           <input
-            className="shadow appearance-none border rounded w-full h-[49px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full h-[49px] text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="email"
             type="email"
             placeholder="Enter your email address"
@@ -239,7 +241,8 @@ function LoginOne() {
               fontFamily: "Manrope",
               fontSize: '18px',
               fontWeight: '500',
-              borderRadius: '8px'
+              borderRadius: '8px',
+              padding:'12px 24px 12px 24px',
             }}
           />
         </div>
@@ -260,7 +263,7 @@ function LoginOne() {
             <Link to="/login-two">
               <span
                 className="text-[#632E04] text-sm font-medium"
-                style={{ fontFamily: "Manrope", fontSize: "14px", fontWeight: "500" }}
+                style={{ fontFamily: "Manrope", fontSize: "14px", fontWeight: "500",width:"81px",height:"20px",padding:'12px 24px 12px 24px', }}
               >
                 Forgot your password?
               </span>
@@ -300,7 +303,7 @@ function LoginOne() {
           </p>
         )}
 
-        <button onClick={handleLogin} type="submit" className="bg-[#632E04] shadow-xl text-white font-bold py-2 px-4 rounded w-full h-[45px] mx-auto" style={{ maxWidth: '426px', fontFamily: 'Manrope', fontSize: '18px', fontWeight: '500', borderRadius: '8px' }}>
+        <button onClick={handleLogin} type="submit" className="bg-[#632E04] shadow-xl text-white font-bold rounded w-full h-[49px] mx-auto" style={{ maxWidth: '426px', fontFamily: 'Manrope', fontSize: '18px', fontWeight: '500', borderRadius: '8px',padding:"10px 10px 10px 10px", }}>
           Log in
         </button>
       </form>
