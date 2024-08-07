@@ -211,7 +211,7 @@ function EditForm2() {
                   <div className="lg:mt-1">
                     <label
                       htmlFor="channelPartnerName"
-                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      className="block text-[#000000] text-[16px] font-[Manrope] w-[393px] h-[22px]"
                     >
                       Channel Name
                     </label>
@@ -276,7 +276,7 @@ function EditForm2() {
                   <div className="lg:mt-1">
                     <label
                       htmlFor="projectName"
-                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      className="block text-[#000000] text-[16px] font-[Manrope] w-[393px] h-[22px]"
                       style={{ fontWeight: "500" }}
                     >
                       Project
@@ -298,7 +298,7 @@ function EditForm2() {
                   <div className="lg:mt-1">
                     <label
                       htmlFor="attendantName"
-                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      className="block text-[#000000] text-[16px] font-[Manrope] w-[393px] h-[22px]"
                       style={{ fontWeight: "500" }}
                     >
                       Attendant
@@ -308,7 +308,7 @@ function EditForm2() {
                       type="text"
                       id="attendantName"
                       name="attendantName"
-                      className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1 "
                       style={{ padding: "10px 18px" }}
                       placeholder="Samyak Gandhi"
                       value={data.attendantName}
@@ -372,7 +372,7 @@ function EditForm2() {
                 <div className="textarear-comp">
                   <div className="mt-1">
                     <label
-                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      className="block text-[#000000] text-[16px] font-[Manrope] "
                       style={{ fontWeight: "500" }}
                     >
                       Executive Notes
@@ -380,7 +380,7 @@ function EditForm2() {
                     <textarea
                       disabled={!editMode}
                       name="executiveNotes"
-                      className="lg:w-[641px] lg:h-[173px] border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-[641px] lg:h-[173px] border-[2px] border-[#3D2314] rounded-lg mt-1 px-[18px] py-[10px]"
                       value={data.executiveNotes}
                       onChange={handleChange}
                     ></textarea>

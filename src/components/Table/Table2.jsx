@@ -176,11 +176,13 @@ const Table2 = () => {
                           fontWeight: "500",
                           lineHeight: "16.39px",
                           textAlign: "left",
-                          paddingLeft: "7px",
-                          width: "65px",
-                          padding: "6px, 10px, 6px, 10px",
-                          height: "28px",
-                        }}>
+                          // paddingLeft: "7px",
+                          //TC-181
+                          width: "100px",
+                          // padding: "6px, 10px, 6px, 10px",
+                          height: "28px",}} 
+                        //TC-186
+                        className="px-[10px] py-[6px]" >
                         {/* Date */}
                         Serial No
                       </th>
@@ -191,6 +193,7 @@ const Table2 = () => {
                           fontSize: "12px",
                           fontWeight: "500",
                           lineHeight: "16.39px",
+                          //TC-197
                           textAlign: "center",
                           padding: "7px",
                           width: "100px", //tc-3
@@ -201,14 +204,15 @@ const Table2 = () => {
                         Channel ID
                       </th>
                       <th
-                        className="border-b text-center"
+                        className="border-b text-center px-[10px] py-[6px] "
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
                           fontWeight: "500",
                           lineHeight: "16.39px",
+                          //TC-213
                           textAlign: "center",
-                          padding: "6px,10px,6px,10px",
+                       
                           width: "253px",
                           height: "28px",
                         }}>
@@ -216,16 +220,18 @@ const Table2 = () => {
                         List of Channel Name
                       </th>
                       <th
-                        className="border-b text-center"
+                        className="border-b "
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
                           fontWeight: "500",
                           lineHeight: "16.39px",
+                          //TC-228
                           textAlign: "center",
                           width: "253px",
                           height: "28px",
-                          padding:  "6px,10px,6px,10px",
+                          //TC-231
+                          padding:  "6px 10px 6px 10px",
                         }}>
                         {/* Customer Name */}Email
                       </th>
@@ -240,7 +246,8 @@ const Table2 = () => {
                           padding: "5px",
                           width: "109px",
                           height: "28px",
-                          padding:  "6px,10px,6px,10px",
+                          //TC-247
+                          padding:  "6px 10px 6px 10px",
                         }}>
                         Phone No
                       </th>
@@ -255,7 +262,8 @@ const Table2 = () => {
                           padding: "5px",
                           width: "139px",
                           height: "28px",
-                          padding:  "6px,10px,6px,10px",
+                          //TC-263
+                          padding:  "6px 10px 6px 10px",
                         }}>
                         Address
                       </th>
@@ -318,7 +326,7 @@ const Table2 = () => {
                               <span className="truncate flex-grow ml-2 #000000" style={{fontSize:"16px"}}>{visitor.name} </span>
                             </td>
                           </Link>
-
+                         {/* //TC */}
                           <td className="  py-3 border-b text-center">
                             {visitor.email}
                           </td>
