@@ -6,6 +6,9 @@ import carbon_customer1 from "../../../assets/carbon_customer.svg";
 import carbon_customer2 from "../../../assets/carbon_customer - Copy.svg";
 import material1 from "../../../assets/add_notes (white).png";
 import material2 from "../../../assets/ri_team-line.png";
+import team2 from '../../../assets/Vector (4).png'
+
+import material3 from "../../../assets/add_notes.png";
 import Settings2 from "../../../assets/Settings.svg";
 import Logout2 from "../../../assets/logout.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -40,6 +43,9 @@ const SideNavM = () => {
       case "/SalesManager/My_Team":
         setActiveItem("My_Team");
         break;
+
+        case "/SalesManager/Notes" :
+          setActiveItem("NotesM")
 
       default:
         setActiveItem("overview");
@@ -116,11 +122,35 @@ const SideNavM = () => {
                 }`}
               onClick={() => handleItemClick("My_Team")}>
               {activeItem === "My_Team" ? (
-                <img src={material1} alt="" />
+                <img src={team2} alt="" />
               ) : (
                 <img src={material2} alt="" />
               )}
               My Team
+            </li>
+          </Link>
+
+          <Link to="/SalesManager/Notes">
+            <li
+              style={{
+                fontFamily: "Manrope",
+                fontSize: "20px",
+                fontWeight: "500",
+                lineHeight: "27.32px",
+                textAlign: "left",
+              }}
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Notes"
+                  ? "bg-[#3D2314] text-[#FFFFFF]"
+                  : ""
+                }`}
+              onClick={() => handleItemClick("Notes")}
+            >
+              {activeItem === "Notes" ? (
+                <img src={material1} alt="" />
+              ) : (
+                <img src={material3} alt="" />
+              )}
+              Notes
             </li>
           </Link>
         </ul>

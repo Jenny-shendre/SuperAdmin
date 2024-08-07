@@ -32,6 +32,8 @@ import { PrivateRoute } from "./ForgotPass/PrivateRoute.jsx";
 import Table12 from "./components/Table/Team1.2.jsx";
 
 import Setting from "./components/Setting/Setting.jsx";
+import MyTeam from "./PagesSalesManager/MyTeam.jsx";
+import NotesDetailsMang from "./components/Table/NotesDetailsMang.jsx";
 
 const router = createBrowserRouter([
   //Login_Cred
@@ -150,7 +152,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/SalesManager/My_Team",
-        element: <PrivateRoute element={NotesM} />,
+        element: <PrivateRoute element={MyTeam} />,
+      },
+      {
+        path: "/SalesManager/Notes",
+        element: <PrivateRoute element={NotesDetailsMang} />,
       },
       {
         path: "/SalesManager/Setting",

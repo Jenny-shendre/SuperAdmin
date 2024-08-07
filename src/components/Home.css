@@ -89,4 +89,11 @@ th{
 }
 
 
+.dumbo input::placeholder{
+  color:  #5B5B5B;
+  font-family: Manrope;
+  font-weight: 600;
+  font-size: 14px;
+}
+
 
