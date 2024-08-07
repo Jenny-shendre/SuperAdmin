@@ -21,7 +21,8 @@ function App() {
   const [isRadioChecked, setIsRadioChecked] = useState(false);
 
   const handleRadioChange = (e) => {
-    setIsRadioChecked(!isRadioChecked);
+    // setIsRadioChecked(!isRadioChecked);
+    setIsRadioChecked(true);
     setRole(e.target.value);
   
 
@@ -183,6 +184,7 @@ function App() {
               </label>
             </div>
 
+            <div style={{filter: isRadioChecked ? 'none' : 'opacity(35%)'}}>
             <label
               style={{
                 fontFamily: "Manrope",
@@ -212,10 +214,11 @@ function App() {
                 fontWeight: '500',
                 borderRadius: '8px',
                 padding:'12px 24px',
-                backgroundColor: !isRadioChecked ? '#e0e0e0' : 'white'
+                // backgroundColor: !isRadioChecked ? '#e0e0e0' : 'white'
               }}
             />
-          </div>
+          <br/>
+          <br/>
 
           <div className="text-left mb-6 mx-auto" style={{ maxWidth: '426px' }}>
             <div className="flex justify-between items-center mb-2">
@@ -257,7 +260,7 @@ function App() {
                   fontSize: '18px',
                   fontWeight: '500',
                   borderRadius: '8px',
-                  backgroundColor: !isRadioChecked ? '#e0e0e0' : 'white'
+                  // backgroundColor: !isRadioChecked ? '#e0e0e0' : 'white'
                 }}
               />
               <img
@@ -278,6 +281,8 @@ function App() {
           <button type="submit" disabled={!isRadioChecked} className=" bg-[#632E04] shadow-xl text-white font-bold py-2 px-4 rounded w-full h-[45px] mx-auto" style={{ maxWidth: '426px', fontFamily: 'Manrope', fontSize: '18px', fontWeight: '500', borderRadius: '8px' }}>
             Log in
           </button>
+          </div>
+          </div>
         </form>
       </div>
     </div>
