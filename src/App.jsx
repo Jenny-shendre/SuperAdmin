@@ -8,6 +8,7 @@ import Logo from "./assets/Logo.png";
 import Eye from "./assets/Eye.png";
 import { Link } from 'react-router-dom';
 import axios from "axios";
+import SettingSideNav from "./components/Setting/SettingSideNav";
 
 function App() {
   const [role, setRole] = useState("super admin");
@@ -17,6 +18,14 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const [isRadioChecked, setIsRadioChecked] = useState(false);
+
+  const handleRadioChange = (e) => {
+    setIsRadioChecked(!isRadioChecked);
+    setRole(e.target.value);
+  
+
+  };
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -128,10 +137,10 @@ function App() {
               >
                 <input
                   type="radio"
-
+                  
                   value="super admin"
-                  checked={role === 'super admin'}
-                  onChange={(e) => setRole(e.target.value)}
+                  checked={role === 'super admin' && isRadioChecked}
+                  onChange={handleRadioChange}
                   className="mr-2 custom-radio"
                 />
                 Super Admin
@@ -148,8 +157,8 @@ function App() {
                   type="radio"
 
                   value="manager"
-                  checked={role === 'manager'}
-                  onChange={(e) => setRole(e.target.value)}
+                  checked={role === 'manager' && isRadioChecked}
+                  onChange={handleRadioChange}
                   className="mr-2 custom-radio"
                 />
                 Manager
@@ -166,8 +175,8 @@ function App() {
                   type="radio"
 
                   value="sales executive"
-                  checked={role === 'sales executive'}
-                  onChange={(e) => setRole(e.target.value)}
+                  checked={role === 'sales executive' && isRadioChecked}
+                  onChange={handleRadioChange}
                   className="mr-2 custom-radio"
                 />
                 Sales Executive
@@ -190,6 +199,7 @@ function App() {
               className="shadow appearance-none border rounded w-full h-[49px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
+              disabled={!isRadioChecked}
               placeholder="Enter your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -231,6 +241,7 @@ function App() {
               <input
                 className="shadow appearance-none border rounded w-full h-[49px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10"
                 id="password"
+                disabled={!isRadioChecked}
                 type={passwordVisible ? "text" : "password"}
                 placeholder="Enter your password"
                 value={password}
@@ -261,12 +272,16 @@ function App() {
             </p>
           )}
 
-          <button type="submit" className="bg-[#632E04] shadow-xl text-white font-bold py-2 px-4 rounded w-full h-[45px] mx-auto" style={{ maxWidth: '426px', fontFamily: 'Manrope', fontSize: '18px', fontWeight: '500', borderRadius: '8px' }}>
+          <button type="submit" disabled={!isRadioChecked} className=" bg-[#632E04] shadow-xl text-white font-bold py-2 px-4 rounded w-full h-[45px] mx-auto" style={{ maxWidth: '426px', fontFamily: 'Manrope', fontSize: '18px', fontWeight: '500', borderRadius: '8px' }}>
             Log in
           </button>
         </form>
       </div>
     </div>
+
+    // <div>
+    //   <SettingSideNav />
+    // </div>
   );
 }
 
