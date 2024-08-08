@@ -142,4 +142,9 @@ th {
   
 }
 
+.NotesT{
+  max-height: 547px !important;
+  overflow-y: scroll;
+}
+
 
