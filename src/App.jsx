@@ -51,7 +51,7 @@ function App() {
     }
     // Password validation
 
-    if (password.length < 15 || !/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
+    if (password.length < 6 || !/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
       setErrorMessage("Please enter a correct password.");
       return;
     }
