@@ -51,7 +51,7 @@ function App() {
     }
     // Password validation
 
-    if (password.length < 6 || !/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
+    if (password.length < 15 || !/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
       setErrorMessage("Please enter a correct password.");
       return;
     }
@@ -253,7 +253,7 @@ function App() {
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                maxLength={10}
+                maxLength={15}
                 style={{
                   width: '426px',
                   borderWidth: '1.5px',

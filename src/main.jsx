@@ -35,6 +35,7 @@ import Setting from "./components/SettingMang/Setting.jsx";
 import MyTeam from "./PagesSalesManager/MyTeam.jsx";
 import NotesDetailsMang from "./components/Table/NotesDetailsMang.jsx";
 import SettingEx from "./components/SettingExecutive/SettingEx.jsx";
+import NotePagesAdmin from "./components/Table/NotePagesAdmin.jsx";
 
 const router = createBrowserRouter([
   //Login_Cred
@@ -112,6 +113,10 @@ const router = createBrowserRouter([
       {
         path: "TeamB/:id",
         element: <PrivateRoute element={Table12} />,
+      },
+      {
+        path: "Note_Pages",
+        element: <PrivateRoute element={NotePagesAdmin} />,
       },
     ],
   },

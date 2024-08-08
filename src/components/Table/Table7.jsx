@@ -319,7 +319,7 @@ const Table7 = () => {
               </div>
               <div>
                 <button
-                  className="bg-[#3D2314] text-white px-4 py-2 rounded-3xl w-[220px] mt-[11px]"
+                  className="bg-[#3D2314] text-white px-[24px] py-[12px] rounded-3xl h-[48px] w-[206px] mt-[11px]"
                   onClick={() => setShowPopup(true)}>
                   + Add new Project
                 </button>

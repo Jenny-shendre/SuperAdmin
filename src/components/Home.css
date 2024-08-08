@@ -70,6 +70,11 @@ th{
   overflow-y: scroll;
 }
 
+.wrapperT{
+  max-height: 514px !important;
+  overflow-y: scroll;
+}
+
 .Cards{
   max-height: 726px !important;
   overflow-y: scroll;
@@ -100,4 +105,26 @@ th{
   color: rgba(53, 53, 53, 0.5);
 }
 
+.team1{
+  position: sticky;
+  top: -3px;
+  background: #E8E8E8;
+}
+
+.teamName{
+  position: sticky;
+  /* top: -2px;
+  background: #E8E8E8; */
+}
+
+th {
+  position: sticky;
+  top: -2px;
+  background: #E8E8E8;
+}
+
+.table-wrapperT {
+  max-height: 591px !important;
+  overflow-y: scroll;
+}
 
