@@ -142,7 +142,7 @@ function LoginThree() {
                 placeholder="Abcd@12345"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                maxLength={10} // Set maxLength to 10
+                maxLength={15} // Set maxLength to 10
                 style={{
                   width: '426px',
                   borderWidth: '1.5px',
@@ -220,7 +220,7 @@ function LoginThree() {
                 placeholder="**********"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                maxLength={10} // Set maxLength to 10
+                maxLength={15} // Set maxLength to 10
                 style={{
                   width: '426px',
                   borderWidth: '1.5px',
