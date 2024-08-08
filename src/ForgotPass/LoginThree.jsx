@@ -24,7 +24,7 @@ function LoginThree() {
 
   const validatePassword = (password) => {
     const minLength = 8;
-    const maxLength = 10;
+    const maxLength = 15;
     const uppercasePattern = /[A-Z]/;
     const lowercasePattern = /[a-z]/;
     const specialCharPattern = /[@#$%]/;
