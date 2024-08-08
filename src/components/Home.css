@@ -89,6 +89,14 @@ th{
 
 }
 
+.div3 textarea::placeholder{
+  font-weight: 500;
+  font-family: Manrope;
+  font-size: 16px;
+  line-height: 21.86px;
+
+}
+
 .add-team-members input::placeholder{
   color: rgba(0, 0, 0, 0.68);
 }
@@ -127,4 +135,11 @@ th {
   max-height: 591px !important;
   overflow-y: scroll;
 }
+
+.table-wrapperK {
+  max-height: 419px !important;
+  overflow-y: scroll;
+  
+}
+
 

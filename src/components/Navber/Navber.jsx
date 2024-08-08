@@ -194,6 +194,8 @@ const Navber = () => {
                 fontWeight: '500',
                 lineHeight: '27.32px',
                 textAlign: 'left',
+                width:'217px',
+                height:'47px'
               }}
               className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Team" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
                 }`}
