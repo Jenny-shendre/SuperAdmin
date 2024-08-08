@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import DropIcon from "../../assets/DropIcon.png";
 import { IoIosArrowForward } from "react-icons/io";
 import CiUser from "../../assets/ion_person-outline.png";
 import FaPhoneAlt from "../../assets/call.png";
 import CgMail from "../../assets/ic_outline-email.png";
-import note from "../../assets/add_notes.png";
+import noteImg from "../../assets/add_notes.png";
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import add from "../../assets/akar-icons_edit (1).png";
 import axios from "axios";
@@ -37,6 +37,53 @@ function MyTeamMang() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
   const [loading, setLoading] = useState(false);
+  const [notes, setNotes] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const getData = async (url) => {
+    try {
+      setLoading(true);
+      const res = await axios.get(url);
+      const resData = res.data;
+      if (resData && resData.allTeamMembers) {
+        setNotes(resData.allTeamMembers);
+      } else {
+        setNotes([]);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+      setNotes([]);
+    }
+  };
+
+  useEffect(() => {
+    let url;
+    if (activeTab === "All") {
+      url = "https://project-rof.vercel.app/api/teamMember/fetch-all";
+    } else if (activeTab === "Available") {
+      url = "https://project-rof.vercel.app/api/teamMember/fetch-available";
+    } else if (activeTab === "Assigned") {
+      url = "https://project-rof.vercel.app/api/teamMember/fetch-assigned";
+    }
+    getData(url);
+  }, [activeTab]);
+
+  const debouncedSearch = useCallback(
+    debounce((query) => {
+      setSearch(query);
+    }, 300),
+    []
+  );
+
+  const handleSearchChange = (e) => {
+    debouncedSearch(e.target.value);
+  };
+
+  const filteredNotes = notes.filter((note) =>
+    note.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   const notePopupRef = useRef();
   const addNotePopupRef = useRef();
@@ -108,6 +155,8 @@ function MyTeamMang() {
   const [createStatus, setCreateStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
 
+
+
   const handleProjectChange = (projectName) => {
     setProject(projectName);
     setIsProjectDropdownOpen(false);
@@ -178,8 +227,9 @@ function MyTeamMang() {
               boxShadow: " 0px 0px 4px 0px #00000040",
             }}
             type="text"
-            value=""
+            onChange={handleSearchChange}
             placeholder="Search"
+
           />
           <img
             style={{ top: "0.6rem" }}
@@ -193,9 +243,17 @@ function MyTeamMang() {
       <br />
       <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
       <br />
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <p>Loading...</p>
+        </div>
+      ) : (
       <div className="Cards gap-8">
         <div className="flex flex-wrap gap-8 mb-[30px]">
+        {filteredNotes.length > 0 ? (
+              filteredNotes.map((note) => (
           <div
+          key={note.name}
             className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
             style={{
               boxShadow: "0px 0px 4px 0px #00000040",
@@ -203,7 +261,7 @@ function MyTeamMang() {
           >
             <div className="flex items-center mb-4 justify-between">
               <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
+                <img src={CiUser} alt="User" className="w-[92px] h-[92px] text-[92px]" />
               </div>
               <div>
                 <h2
@@ -216,26 +274,27 @@ function MyTeamMang() {
                   }}
                   className=" text-center text-[#3D2314]"
                 >
-                  Sharukh
-                </h2>
+                        {note.name?.length > 0 ? note?.name : "Not found"}
+                        </h2>
                 <div>
                   <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
+                    <img src={CgMail} alt="Email" className="text-[14px]" />
 
                     <p
                       style={{ fontFamily: "Manrope" }}
                       className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
                     >
-                      {" "}
-                      sharukh@gmail.com
+                     {note.emailID?.length > 0
+                              ? note?.emailID
+                              : "Not found"}
                     </p>
                   </div>
                   <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
+                    <img src={FaPhoneAlt} alt="Phone" className="text-[24px]" />
 
                     <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
+                    {note.phone?.length > 0 ? note?.phone : "Not found"}
+
                     </p>
                   </div>
                 </div>
@@ -251,7 +310,7 @@ function MyTeamMang() {
                     Clients Attended
                   </p>
                   <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
+                  {note.clientsAttended}
                   </p>
                 </div>
                 <div
@@ -262,7 +321,7 @@ function MyTeamMang() {
                     Clients Converted
                   </p>
                   <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
+                  {note.clientsAttended}
                   </p>
                 </div>
               </div>
@@ -271,7 +330,8 @@ function MyTeamMang() {
                 style={{ borderRadius: "8px", fontFamily: "Manrope" }}
                 className="font-[Manrope] w-[70px] h-[28px] bg-[#BAEFB1] text-[#1D750E] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center"
               >
-                Available
+                                      {note.status === "assigned" ? "in meet" : "available"}
+
               </div>
             </div>
             <button
@@ -283,1027 +343,21 @@ function MyTeamMang() {
                 setShowAddNotePopup(true);
               }}
             >
-              <img src={note} className="text-[24px]" />
+              <img src={noteImg} className="text-[24px]" />
               Add Note
             </button>
           </div>
 
-          <div
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
-            style={{
-              boxShadow: "0px 0px 4px 0px #00000040",
-            }}
-          >
-            <div className="flex items-center mb-4 justify-between">
-              <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    lineHeight: "24.59px",
-                    paddingBottom: "10px",
-                  }}
-                  className=" text-center text-[#3D2314]"
-                >
-                  Sharukh
-                </h2>
-                <div>
-                  <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
-
-                    <p
-                      style={{ fontFamily: "Manrope" }}
-                      className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
-                    >
-                      {" "}
-                      sharukh@gmail.com
-                    </p>
-                  </div>
-                  <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
-
-                    <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center mb-4 justify-between">
-              <div>
-                <div
-                  className="flex flex-wrap justify-between"
-                  style={{ alignContent: "center" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Attended
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
-                  </p>
-                </div>
-                <div
-                  className="flex flex-wrap justify-between "
-                  style={{ alignContent: "center", paddingTop: "5px" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Converted
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style={{ borderRadius: "8px", fontFamily: "Manrope" }}
-                className="font-[Manrope] w-[70px] h-[28px] bg-[#BAEFB1] text-[#1D750E] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center"
-              >
-                Available
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
-            >
-              <img src={note} className="text-[24px]" />
-              Add Note
-            </button>
-          </div>
-
-          <div
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
-            style={{
-              boxShadow: "0px 0px 4px 0px #00000040",
-            }}
-          >
-            <div className="flex items-center mb-4 justify-between">
-              <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    lineHeight: "24.59px",
-                    paddingBottom: "10px",
-                  }}
-                  className=" text-center text-[#3D2314]"
-                >
-                  Sharukh
-                </h2>
-                <div>
-                  <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
-
-                    <p
-                      style={{ fontFamily: "Manrope" }}
-                      className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
-                    >
-                      {" "}
-                      sharukh@gmail.com
-                    </p>
-                  </div>
-                  <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
-
-                    <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center mb-4 justify-between">
-              <div>
-                <div
-                  className="flex flex-wrap justify-between"
-                  style={{ alignContent: "center" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Attended
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
-                  </p>
-                </div>
-                <div
-                  className="flex flex-wrap justify-between "
-                  style={{ alignContent: "center", paddingTop: "5px" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Converted
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style={{ borderRadius: "8px" }}
-                className="w-[70px] h-[28px] bg-[#F4E8C8] text-[#AF8414] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center text-center"
-              >
-                In Meet
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
-            >
-              <img src={note} className="text-[24px]" />
-              Add Note
-            </button>
-          </div>
-
-          <div
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
-            style={{
-              boxShadow: "0px 0px 4px 0px #00000040",
-            }}
-          >
-            <div className="flex items-center mb-4 justify-between">
-              <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    lineHeight: "24.59px",
-                    paddingBottom: "10px",
-                  }}
-                  className=" text-center text-[#3D2314]"
-                >
-                  Sharukh
-                </h2>
-                <div>
-                  <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
-
-                    <p
-                      style={{ fontFamily: "Manrope" }}
-                      className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
-                    >
-                      {" "}
-                      sharukh@gmail.com
-                    </p>
-                  </div>
-                  <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
-
-                    <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center mb-4 justify-between">
-              <div>
-                <div
-                  className="flex flex-wrap justify-between"
-                  style={{ alignContent: "center" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Attended
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
-                  </p>
-                </div>
-                <div
-                  className="flex flex-wrap justify-between "
-                  style={{ alignContent: "center", paddingTop: "5px" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Converted
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style={{ borderRadius: "8px" }}
-                className="w-[70px] h-[28px] bg-[#F4E8C8] text-[#AF8414] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center text-center"
-              >
-                In Meet
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
-            >
-              <img src={note} className="text-[24px]" />
-              Add Note
-            </button>
-          </div>
-        </div>
-        <div className="flex flex-wrap gap-8 mb-[30px]">
-          <div
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
-            style={{
-              boxShadow: "0px 0px 4px 0px #00000040",
-            }}
-          >
-            <div className="flex items-center mb-4 justify-between">
-              <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    lineHeight: "24.59px",
-                    paddingBottom: "10px",
-                  }}
-                  className=" text-center text-[#3D2314]"
-                >
-                  Sharukh
-                </h2>
-                <div>
-                  <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
-
-                    <p
-                      style={{ fontFamily: "Manrope" }}
-                      className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
-                    >
-                      {" "}
-                      sharukh@gmail.com
-                    </p>
-                  </div>
-                  <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
-
-                    <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center mb-4 justify-between">
-              <div>
-                <div
-                  className="flex flex-wrap justify-between"
-                  style={{ alignContent: "center" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Attended
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
-                  </p>
-                </div>
-                <div
-                  className="flex flex-wrap justify-between "
-                  style={{ alignContent: "center", paddingTop: "5px" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Converted
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style={{ borderRadius: "8px", fontFamily: "Manrope" }}
-                className="font-[Manrope] w-[70px] h-[28px] bg-[#BAEFB1] text-[#1D750E] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center"
-              >
-                Available
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
-            >
-              <img src={note} className="text-[24px]" />
-              Add Note
-            </button>
-          </div>
-
-          <div
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
-            style={{
-              boxShadow: "0px 0px 4px 0px #00000040",
-            }}
-          >
-            <div className="flex items-center mb-4 justify-between">
-              <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    lineHeight: "24.59px",
-                    paddingBottom: "10px",
-                  }}
-                  className=" text-center text-[#3D2314]"
-                >
-                  Sharukh
-                </h2>
-                <div>
-                  <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
-
-                    <p
-                      style={{ fontFamily: "Manrope" }}
-                      className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
-                    >
-                      {" "}
-                      sharukh@gmail.com
-                    </p>
-                  </div>
-                  <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
-
-                    <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center mb-4 justify-between">
-              <div>
-                <div
-                  className="flex flex-wrap justify-between"
-                  style={{ alignContent: "center" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Attended
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
-                  </p>
-                </div>
-                <div
-                  className="flex flex-wrap justify-between "
-                  style={{ alignContent: "center", paddingTop: "5px" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Converted
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style={{ borderRadius: "8px", fontFamily: "Manrope" }}
-                className="font-[Manrope] w-[70px] h-[28px] bg-[#BAEFB1] text-[#1D750E] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center"
-              >
-                Available
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
-            >
-              <img src={note} className="text-[24px]" />
-              Add Note
-            </button>
-          </div>
-
-          <div
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
-            style={{
-              boxShadow: "0px 0px 4px 0px #00000040",
-            }}
-          >
-            <div className="flex items-center mb-4 justify-between">
-              <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    lineHeight: "24.59px",
-                    paddingBottom: "10px",
-                  }}
-                  className=" text-center text-[#3D2314]"
-                >
-                  Sharukh
-                </h2>
-                <div>
-                  <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
-
-                    <p
-                      style={{ fontFamily: "Manrope" }}
-                      className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
-                    >
-                      {" "}
-                      sharukh@gmail.com
-                    </p>
-                  </div>
-                  <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
-
-                    <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center mb-4 justify-between">
-              <div>
-                <div
-                  className="flex flex-wrap justify-between"
-                  style={{ alignContent: "center" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Attended
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
-                  </p>
-                </div>
-                <div
-                  className="flex flex-wrap justify-between "
-                  style={{ alignContent: "center", paddingTop: "5px" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Converted
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style={{ borderRadius: "8px", fontFamily: "Manrope" }}
-                className="font-[Manrope] w-[70px] h-[28px] bg-[#BAEFB1] text-[#1D750E] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center"
-              >
-                Available
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
-            >
-              <img src={note} className="text-[24px]" />
-              Add Note
-            </button>
-          </div>
-
-          <div
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
-            style={{
-              boxShadow: "0px 0px 4px 0px #00000040",
-            }}
-          >
-            <div className="flex items-center mb-4 justify-between">
-              <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    lineHeight: "24.59px",
-                    paddingBottom: "10px",
-                  }}
-                  className=" text-center text-[#3D2314]"
-                >
-                  Sharukh
-                </h2>
-                <div>
-                  <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
-
-                    <p
-                      style={{ fontFamily: "Manrope" }}
-                      className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
-                    >
-                      {" "}
-                      sharukh@gmail.com
-                    </p>
-                  </div>
-                  <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
-
-                    <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center mb-4 justify-between">
-              <div>
-                <div
-                  className="flex flex-wrap justify-between"
-                  style={{ alignContent: "center" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Attended
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
-                  </p>
-                </div>
-                <div
-                  className="flex flex-wrap justify-between "
-                  style={{ alignContent: "center", paddingTop: "5px" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Converted
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style={{ borderRadius: "8px", fontFamily: "Manrope" }}
-                className="font-[Manrope] w-[70px] h-[28px] bg-[#BAEFB1] text-[#1D750E] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center"
-              >
-                Available
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
-            >
-              <img src={note} className="text-[24px]" />
-              Add Note
-            </button>
-          </div>
-        </div>
-
-        <div className="flex flex-wrap gap-8 mb-[30px]">
-          <div
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
-            style={{
-              boxShadow: "0px 0px 4px 0px #00000040",
-            }}
-          >
-            <div className="flex items-center mb-4 justify-between">
-              <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    lineHeight: "24.59px",
-                    paddingBottom: "10px",
-                  }}
-                  className=" text-center text-[#3D2314]"
-                >
-                  Sharukh
-                </h2>
-                <div>
-                  <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
-
-                    <p
-                      style={{ fontFamily: "Manrope" }}
-                      className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
-                    >
-                      {" "}
-                      sharukh@gmail.com
-                    </p>
-                  </div>
-                  <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
-
-                    <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center mb-4 justify-between">
-              <div>
-                <div
-                  className="flex flex-wrap justify-between"
-                  style={{ alignContent: "center" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Attended
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
-                  </p>
-                </div>
-                <div
-                  className="flex flex-wrap justify-between "
-                  style={{ alignContent: "center", paddingTop: "5px" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Converted
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style={{ borderRadius: "8px", fontFamily: "Manrope" }}
-                className="font-[Manrope] w-[70px] h-[28px] bg-[#BAEFB1] text-[#1D750E] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center"
-              >
-                Available
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
-            >
-              <img src={note} className="text-[24px]" />
-              Add Note
-            </button>
-          </div>
-
-          <div
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
-            style={{
-              boxShadow: "0px 0px 4px 0px #00000040",
-            }}
-          >
-            <div className="flex items-center mb-4 justify-between">
-              <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    lineHeight: "24.59px",
-                    paddingBottom: "10px",
-                  }}
-                  className=" text-center text-[#3D2314]"
-                >
-                  Sharukh
-                </h2>
-                <div>
-                  <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
-
-                    <p
-                      style={{ fontFamily: "Manrope" }}
-                      className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
-                    >
-                      {" "}
-                      sharukh@gmail.com
-                    </p>
-                  </div>
-                  <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
-
-                    <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center mb-4 justify-between">
-              <div>
-                <div
-                  className="flex flex-wrap justify-between"
-                  style={{ alignContent: "center" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Attended
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
-                  </p>
-                </div>
-                <div
-                  className="flex flex-wrap justify-between "
-                  style={{ alignContent: "center", paddingTop: "5px" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Converted
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style={{ borderRadius: "8px", fontFamily: "Manrope" }}
-                className="font-[Manrope] w-[70px] h-[28px] bg-[#BAEFB1] text-[#1D750E] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center"
-              >
-                Available
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
-            >
-              <img src={note} className="text-[24px]" />
-              Add Note
-            </button>
-          </div>
-
-          <div
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
-            style={{
-              boxShadow: "0px 0px 4px 0px #00000040",
-            }}
-          >
-            <div className="flex items-center mb-4 justify-between">
-              <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    lineHeight: "24.59px",
-                    paddingBottom: "10px",
-                  }}
-                  className=" text-center text-[#3D2314]"
-                >
-                  Sharukh
-                </h2>
-                <div>
-                  <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
-
-                    <p
-                      style={{ fontFamily: "Manrope" }}
-                      className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
-                    >
-                      {" "}
-                      sharukh@gmail.com
-                    </p>
-                  </div>
-                  <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
-
-                    <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center mb-4 justify-between">
-              <div>
-                <div
-                  className="flex flex-wrap justify-between"
-                  style={{ alignContent: "center" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Attended
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
-                  </p>
-                </div>
-                <div
-                  className="flex flex-wrap justify-between "
-                  style={{ alignContent: "center", paddingTop: "5px" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Converted
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style={{ borderRadius: "8px", fontFamily: "Manrope" }}
-                className="font-[Manrope] w-[70px] h-[28px] bg-[#BAEFB1] text-[#1D750E] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center"
-              >
-                Available
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
-            >
-              <img src={note} className="text-[24px]" />
-              Add Note
-            </button>
-          </div>
-
-          <div
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
-            style={{
-              boxShadow: "0px 0px 4px 0px #00000040",
-            }}
-          >
-            <div className="flex items-center mb-4 justify-between">
-              <div className="">
-                <img src={CiUser} className="w-[92px] h-[92px] text-[92px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "18px",
-                    fontWeight: "700",
-                    lineHeight: "24.59px",
-                    paddingBottom: "10px",
-                  }}
-                  className=" text-center text-[#3D2314]"
-                >
-                  Sharukh
-                </h2>
-                <div>
-                  <div className="flex flex-wrap">
-                    <img src={CgMail} className="text-[14px]" />
-
-                    <p
-                      style={{ fontFamily: "Manrope" }}
-                      className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]"
-                    >
-                      {" "}
-                      sharukh@gmail.com
-                    </p>
-                  </div>
-                  <div className=" flex flex-wrap pt-[5px]">
-                    <img src={FaPhoneAlt} className="text-[24px]" />
-
-                    <p className="text-[#3D2314] text-[14px] ml-3 font-[Manrope]">
-                      {" "}
-                      9012345678
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center mb-4 justify-between">
-              <div>
-                <div
-                  className="flex flex-wrap justify-between"
-                  style={{ alignContent: "center" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Attended
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    12
-                  </p>
-                </div>
-                <div
-                  className="flex flex-wrap justify-between "
-                  style={{ alignContent: "center", paddingTop: "5px" }}
-                >
-                  <p className="text-sm text-gray-600 font-[Manrope]">
-                    Clients Converted
-                  </p>
-                  <p className="text-lg font-semibold ml-[7px] font-[Manrope]">
-                    04
-                  </p>
-                </div>
-              </div>
-
-              <div
-                style={{ borderRadius: "8px", fontFamily: "Manrope" }}
-                className="font-[Manrope] w-[70px] h-[28px] bg-[#BAEFB1] text-[#1D750E] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center"
-              >
-                Available
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
-            >
-              <img src={note} className="text-[24px]" />
-              Add Note
-            </button>
-          </div>
-        </div>
-        {showAddNotePopup && (
+))
+) : (
+  <div className="flex justify-center items-center w-full">
+    <p>No notes found</p>
+  </div>
+ )}
+ </div>
+</div>
+)}
+ {showAddNotePopup && (
           <>
             <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
             <div
@@ -1421,9 +475,32 @@ function MyTeamMang() {
             </div>
           </>
         )}
-      </div>
-    </div>
-  );
+     
+
+</div>
+);
+}
+
+      
+    
+     
+       
+    
+
+
+
+
+// Utility function for debouncing
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
 }
 
 export default MyTeamMang;

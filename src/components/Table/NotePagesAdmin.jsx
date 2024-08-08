@@ -11,7 +11,7 @@ import close from "../../assets/add_notes (white).png";
 import info from "../../assets/carbon_customer.png";
 import info2 from "../../assets/hugeicons_manager.png";
 import info3 from "../../assets/eos-icons_admin-outlined.png";
-import add from "../../assets/akar-icons_edit (1).png";
+import add from '../../assets/akar-icons_edit (1).png';
 import { FaRegEdit } from "react-icons/fa";
 
 import "../Home.css";
@@ -46,12 +46,12 @@ const TabBar = ({ activeTab, setActiveTab }) => (
   </div>
 );
 
-function NotesDetails() {
+function NotePagesAdmin() {
   const [activeTab, setActiveTab] = useState("All");
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [showAddNotePopup, setShowAddNotePopup] = useState(false);
   const [showViewNotePopup, setShowViewNotePopup] = useState(false);
-
+  
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
   const [loading, setLoading] = useState(false);
@@ -61,10 +61,13 @@ function NotesDetails() {
   const dropdownRef = useRef();
   const projectDropdownRef = useRef(); // ref for project dropdown
 
+
   const [data2, setdata2] = useState([]);
+
 
   const fetchData = async () => {
     setLoading(true);
+ 
 
     const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
     setdata2(res2.data);
@@ -78,11 +81,14 @@ function NotesDetails() {
 
   //New
 
+  
+   
   const [clientConversation, setclientConversation] = useState("");
 
   const handleOptionChange = (event) => {
     setclientConversation(event.target.value);
   };
+
 
   const handleOutsideClick = (event) => {
     if (notePopupRef.current && !notePopupRef.current.contains(event.target)) {
@@ -131,7 +137,12 @@ function NotesDetails() {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [showNotePopup, showAddNotePopup, isDropdownOpen, isProjectDropdownOpen]);
+  }, [
+    showNotePopup,
+    showAddNotePopup,
+    isDropdownOpen,
+    isProjectDropdownOpen,
+  ]);
 
   // Add note popup logic
 
@@ -141,27 +152,32 @@ function NotesDetails() {
   const [isCreating, setIsCreating] = useState(false);
   const [createStatus, setCreateStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
-
+ 
   const handleProjectChange = (projectName) => {
     setProject(projectName);
     setIsProjectDropdownOpen(false);
   };
 
+
+
+
   const handleSubmit = async () => {
     if (clientName && project && briefing) {
       setIsCreating(true);
       setErrorMessage(""); // Clear any previous error messages
-      console.log("Come");
+      console.log("Come")
 
       const teamdata = {
         clientName: clientName,
-        project: project,
-        briefing: briefing,
+        project : project,
+        briefing :briefing,
       };
 
       try {
+       
         setCreateStatus("Note Successfully Added ✓");
-
+       
+        
         console.log("Response send", teamdata);
       } catch (error) {
         console.error("Error creating Note:", error);
@@ -174,33 +190,38 @@ function NotesDetails() {
     }
   };
 
+
   const [clientName2, setclientName2] = useState("");
   const [project2, setProject2] = useState("");
   const [briefing2, setBriefing2] = useState("");
   // const [isCreating, setisCreating] = useState(false);
   const [createStatus2, setCreateStatus2] = useState("");
   const [errorMessage2, setErrorMessage2] = useState(""); // state for error message
-
+ 
   const handleProjectChange2 = (projectName2) => {
     setProject2(projectName2);
     setIsProjectDropdownOpen(false);
   };
 
+
+
   const handleSubmit2 = async () => {
     if (clientName2 && project2 && briefing2) {
       // isCreating(true);
       setErrorMessage2(""); // Clear any previous error messages
-      console.log("View Note");
+      console.log("View Note")
 
       const ViewData = {
         clientName2: clientName2,
-        project2: project2,
-        briefing2: briefing2,
+        project2 : project2,
+        briefing2 :briefing2,
       };
 
       try {
+       
+        
         setCreateStatus2("Done");
-
+        
         console.log("Response send", ViewData);
       } catch (error) {
         console.error("Error Editing Note:", error);
@@ -208,7 +229,7 @@ function NotesDetails() {
       } finally {
         // setisCreating(false);
       }
-    }
+    } 
   };
 
   return (
@@ -277,10 +298,12 @@ function NotesDetails() {
               padding: "12px 24px",
               fontFamily: "Manrope",
             }}
+
             onClick={() => {
               setShowNotePopup(false);
               setShowAddNotePopup(true);
             }}
+           
           >
             <img src={close} />
             <span style={{ fontFamily: "Manrope" }}>Add Notes </span>
@@ -383,25 +406,28 @@ function NotesDetails() {
                     outline: "none",
                     width: "600px",
                     height: "100px",
-                    fontWeight: 400,
+                    fontWeight:400
                   }}
                   onChange={(e) => setBriefing2(e.target.value)}
                 />
               </div>
+
+              
+            
+             
 
               <button
                 onClick={handleSubmit2}
                 className="`create-team-btn flex flex-wrap w-[192px] h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
                 disabled={isCreating}
               >
-                {createStatus2 || (
-                  <div className="flex flex-wrap ">
-                    <span>
-                      <FaEdit className="mr-2 mt-1 font-bold font-[24px]" />
-                    </span>{" "}
-                    <span> Edit Note </span>
-                  </div>
-                )}
+                {createStatus2||(
+        <div className="flex flex-wrap ">
+    <span>
+        <FaEdit className="mr-2 mt-1 font-bold font-[24px]" />
+        </span> <span> Edit Note </span> 
+        </div>
+      )}
               </button>
               {errorMessage2 && (
                 <p className="text-red-500 mt-2">{errorMessage2}</p>
@@ -411,7 +437,8 @@ function NotesDetails() {
         </>
       )}
 
-      {showAddNotePopup && (
+
+{showAddNotePopup && (
         <>
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
           <div
@@ -506,22 +533,28 @@ function NotesDetails() {
                     outline: "none",
                     width: "600px",
                     height: "100px",
-                    fontWeight: 400,
+                    fontWeight:400
                   }}
                   onChange={(e) => setBriefing(e.target.value)}
                 />
               </div>
 
+              
+            
+             
+
               <button
-                onClick={handleSubmit}
+                onClick={handleSubmit }
                 className="`create-team-btn flex flex-wrap  h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
                 disabled={isCreating}
               >
-                {createStatus || (
-                  <div className="flex flex-wrap ">
-                    <span> Add Note </span>
-                  </div>
-                )}
+                {createStatus||(
+        <div className="flex flex-wrap ">
+  
+        
+        <span> Add Note </span> 
+        </div>
+      )}
               </button>
               {errorMessage && (
                 <p className="text-red-500 mt-2">{errorMessage}</p>
@@ -587,17 +620,22 @@ function NotesDetails() {
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
+             
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -644,23 +682,27 @@ function NotesDetails() {
             </div>
             <br />
             <div className="flex justify-between mt-[11px]">
-              <button
+            <button
                 className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -709,23 +751,27 @@ function NotesDetails() {
             <br />
             <br />
             <div className="flex justify-between">
-              <button
+            <button
                 className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -774,23 +820,27 @@ function NotesDetails() {
             </div>
             <br />
             <div className="flex justify-between">
-              <button
+            <button
                 className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
         </div>
@@ -840,23 +890,27 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
+            <button
                 className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -904,23 +958,27 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
+            <button
                 className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -968,23 +1026,27 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
+            <button
                 className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -1032,23 +1094,27 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
+            <button
                 className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
         </div>
@@ -1099,23 +1165,27 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
+            <button
                 className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -1163,23 +1233,27 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
+            <button
                 className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -1227,23 +1301,27 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
+            <button
                 className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
@@ -1291,23 +1369,27 @@ function NotesDetails() {
               </p>
             </div>
             <div className="flex justify-between">
-              <button
+            <button
                 className="flex bg-[#3D2314] text-white gap-[8px]"
                 style={{
                   borderRadius: "4px",
                   padding: "8px 24px",
                   fontFamily: "Manrope",
-                  width: "-webkit-fill-available",
-                  justifyContent: "center",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
                 }}
+
                 onClick={() => {
                   setShowNotePopup(false);
                   setShowViewNotePopup(true);
                 }}
+
+                
               >
                 <img src={edit} />
                 <span style={{ fontFamily: "Manrope" }}>View</span>
               </button>
+
             </div>
           </div>
         </div>
@@ -1316,4 +1398,4 @@ function NotesDetails() {
   );
 }
 
-export default NotesDetails;
+export default NotePagesAdmin;

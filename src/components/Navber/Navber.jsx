@@ -12,7 +12,8 @@ import Projects1 from "../../assets/ph_buildings-bold - Copy.svg";
 import Projects2 from "../../assets/ph_buildings-bold.svg";
 import Team1 from "../../assets/ri_team-line - Copy.svg";
 import Team2 from "../../assets/ri_team-line.svg";
-
+import mat1 from "../../assets/add_notes (white).png";
+import mat2 from "../../assets/add_notes.png";
 import Settings2 from "../../assets/Settings.svg";
 
 import Logout2 from "../../assets/logout.svg";
@@ -57,6 +58,9 @@ const Navber = () => {
       case "/SuperAdmin/Team":
         setActiveItem("Team");
         break;
+        case "/SuperAdmin/Note_Pages":
+          setActiveItem("Note_Pages");
+          break;
 
       default:
         setActiveItem("Overview");
@@ -200,6 +204,27 @@ const Navber = () => {
                 <img src={Team2} alt="Team" />
               )}
               Team
+            </li>
+          </Link>
+
+          <Link to="/SuperAdmin/Note_Pages">
+            <li
+              style={{
+                fontFamily: 'Manrope',
+                fontSize: '20px',
+                fontWeight: '500',
+                lineHeight: '27.32px',
+                textAlign: 'left',
+              }}
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Note_Pages" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
+                }`}
+              onClick={() => handleItemClick("Note_Pages")}>
+            {activeItem === "Note_Pages" ? (
+                <img src={mat1} alt="" />
+              ) : (
+                <img src={mat2} alt="" />
+              )}
+              Note
             </li>
           </Link>
         </ul>

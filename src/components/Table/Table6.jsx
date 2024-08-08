@@ -221,14 +221,16 @@ const Table6 = () => {
         </div>
       </div>
       <br />
+
+  
       <div style={{ textAlign: "-webkit-center" }}>
-        <div className="w-[927px] h-[591px]">
+        <div className="w-[927px]">
           <div className="bg-[#D7D7D7]">
-            <h2 className="text-xl font-semibold mb-2 text-center">
+            <h2 className="text-xl font-semibold mb-2 text-center teamName">
               {teamData.teamName}
             </h2>
             <p
-              className="text-sm mb-4 text-center [#313131]"
+              className="text-sm mb-4 text-center [#313131] teamName"
               style={{
                 fontSize: "16px",
                 fontFamily: "Manrope",
@@ -238,9 +240,11 @@ const Table6 = () => {
             >
               {teamData.managerName} (Team Lead)
             </p>
+            <div className="outer-wrapperT text-center flex items-center justify-center">
+            <div className="table-wrapperT" style={{ width: "999px" }}>
 
-            <table className="w-full">
-              <thead>
+            <table className="w-full wrapperT">
+              <thead className="team1">
                 <tr
                   className="text-center text-sm font-medium [#000000] bg-[#E8E8E8] w-[188px] h-[28px]"
                   style={{
@@ -319,7 +323,8 @@ const Table6 = () => {
           </div>
         </div>
       </div>
-
+      </div>
+      </div>
       {/* Add Executive Popup */}
       {showAddExecutivePopup2 && (
         <>

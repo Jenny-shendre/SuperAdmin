@@ -4,6 +4,7 @@ import Searchsvg from "../../assets/material-symbols_search.svg";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
+import "../Home.css";
 
 const Table12 = () => {
   const [data, setdata] = useState([]);
@@ -13,57 +14,7 @@ const Table12 = () => {
     pathname.substring(pathname.lastIndexOf("/") + 1)
   );
   console.log(employeeId);
-  /* const data = [
-    {
-      name: "Anand Jaiswal",
-      email: "AnandJaiswal@gmail.com",
-      phone: "9854847524",
-      propertyInterest: "ROF Aalayas",
-      scheduleMeeting: "26 June | 5:33 PM",
-      meetingAction: "Completed",
-    },
-
-    {
-      name: "Anand Jaiswal",
-      email: "AnandJaiswal@gmail.com",
-      phone: "9854847524",
-      propertyInterest: "ROF Aalayas",
-      scheduleMeeting: "26 June | 5:33 PM",
-      meetingAction: "Completed",
-    },
-    {
-      name: "Anand Jaiswal",
-      email: "AnandJaiswal@gmail.com",
-      phone: "9854847524",
-      propertyInterest: "ROF Aalayas",
-      scheduleMeeting: "26 June | 5:33 PM",
-      meetingAction: "Completed",
-    },
-    {
-      name: "Anand Jaiswal",
-      email: "AnandJaiswal@gmail.com",
-      phone: "9854847524",
-      propertyInterest: "ROF Aalayas",
-      scheduleMeeting: "26 June | 5:33 PM",
-      meetingAction: "Completed",
-    },
-    {
-      name: "Anand Jaiswal",
-      email: "AnandJaiswal@gmail.com",
-      phone: "9854847524",
-      propertyInterest: "ROF Aalayas",
-      scheduleMeeting: "26 June | 5:33 PM",
-      meetingAction: "Completed",
-    },
-    {
-      name: "Anand Jaiswal",
-      email: "AnandJaiswal@gmail.com",
-      phone: "9854847524",
-      propertyInterest: "ROF Aalayas",
-      scheduleMeeting: "26 June | 5:33 PM",
-      meetingAction: "Completed",
-    },
-  ];*/
+  
 
   const callApi = async (employeeId) => {
     try {
@@ -182,7 +133,7 @@ const Table12 = () => {
             </thead>
 
             <tbody
-              className="bg-white text-center [#2B2B2B] divide-y divide-gray-200"
+              className=" bg-white text-center [#2B2B2B] divide-y divide-gray-200"
               style={{
                 fontSize: "16px",
                 fontWeight: "500",

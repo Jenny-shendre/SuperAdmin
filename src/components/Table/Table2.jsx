@@ -320,12 +320,12 @@ const Table2 = () => {
                             </Link>
                           </td>
 
-                          <Link to=" ">
+                        
                             <td className="py-3  text-left flex items-center justify-center">
                               <FaCircle  className="mr-2 ml-16 text-gray-500 " style={{width:"30px",height:"30px"}}/>
                               <span className="truncate flex-grow ml-2 #000000" style={{fontSize:"16px"}}>{visitor.name} </span>
                             </td>
-                          </Link>
+                       
                          {/* //TC */}
                           <td className="  py-3 border-b text-center">
                             {visitor.email}

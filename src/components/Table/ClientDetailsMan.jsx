@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef} from "react";
 import '../Home.css';
 import { IoIosArrowForward } from "react-icons/io";
 import Searchsvg from "../../assets/material-symbols_search.svg";
@@ -12,6 +12,127 @@ function ClientDetailsMang() {
   const [data, setData] = useState([]);
   const [valueinput, setvalueinput] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [activeTab, setActiveTab] = useState("All");
+
+  const [showNotePopup, setShowNotePopup] = useState(false);
+  const [showAddNotePopup, setShowAddNotePopup] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
+  const [notes, setNotes] = useState([]);
+  const [search, setSearch] = useState("");
+
+
+
+ 
+
+
+
+
+
+  const notePopupRef = useRef();
+  const addNotePopupRef = useRef();
+
+  const dropdownRef = useRef();
+  const projectDropdownRef = useRef(); // ref for project dropdown
+
+  const [data2, setdata2] = useState([]);
+
+  const fetchData = async () => {
+    setLoading(true);
+
+    const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
+    setdata2(res2.data);
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  //New
+
+  const handleOutsideClick = (event) => {
+    if (notePopupRef.current && !notePopupRef.current.contains(event.target)) {
+      setShowNotePopup(false);
+    }
+    if (
+      addNotePopupRef.current &&
+      !addNotePopupRef.current.contains(event.target)
+    ) {
+      setShowAddNotePopup(false);
+    }
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+    if (
+      projectDropdownRef.current &&
+      !projectDropdownRef.current.contains(event.target)
+    ) {
+      setIsProjectDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (
+      showNotePopup ||
+      showAddNotePopup ||
+      isDropdownOpen ||
+      isProjectDropdownOpen
+    ) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [showNotePopup, showAddNotePopup, isDropdownOpen, isProjectDropdownOpen]);
+
+  // Add team members popup logic
+
+  const [clientName, setclientName] = useState("");
+  const [project, setProject] = useState("");
+  const [briefing, setBriefing] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+  const [createStatus, setCreateStatus] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // state for error message
+
+
+
+  const handleProjectChange = (projectName) => {
+    setProject(projectName);
+    setIsProjectDropdownOpen(false);
+  };
+
+  const handleSubmit = async () => {
+    if (clientName && project && briefing) {
+      setIsCreating(true);
+      setErrorMessage(""); // Clear any previous error messages
+      console.log("Come");
+
+      const teamdata = {
+        clientName: clientName,
+        project: project,
+        briefing: briefing,
+      };
+
+      try {
+        // setCreateStatus("Note Successfully Added ✓");
+
+        console.log("Response send", teamdata);
+      } catch (error) {
+        console.error("Error creating Note:", error);
+        setCreateStatus("Error Creating Note");
+      } finally {
+        setIsCreating(false);
+      }
+    } else {
+      setErrorMessage("Please fill in all fields.");
+    }
+  };
 
 
 
@@ -111,11 +232,11 @@ function ClientDetailsMang() {
 
         <main className=" overflow-x-hidden overflow-y-auto p-6 font-[Manrope]">
 
-          <div style={{ textAlign: '-webkit-center' }} >
-            <div className="wrapperF">
-              <table className="w-[956px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]">
+          <div style={{ textAlign: '-webkit-center' }} className="outer-wrapperT">
+            <div className="table-wrapperT">
+              <table className="w-[956px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperT">
 
-                <thead className="bg-[#D7D7D7] font-[Manrope]">
+                <thead className="bg-[#D7D7D7] font-[Manrope] team1">
                   <tr className="text-center text-[#4B4B4B] w-[171px]  h-[36px] font-[Manrope]">
                     <th style={{
                       fontFamily: "Manrope",
@@ -169,7 +290,7 @@ function ClientDetailsMang() {
                   </tr>
                 </thead>
 
-                <tbody className="font-[Manrope]">
+                <tbody className="font-[Manrope] ">
                   {data.flatMap((visitor, index) =>
                     visitor.ClientName.filter(({ ClientName }) =>
                       ClientName.toLowerCase().includes(valueinput.toLowerCase())
@@ -180,15 +301,16 @@ function ClientDetailsMang() {
                         <td className="px-4 py-2 ">{client.ClientName?.length > 0 ? client?.ClientName : "Not found"}</td>
                         <td className="px-4 py-2 text-[#000000] " style={{ fontWeight: '800' }}>{client.timeDuration?.length > 0 ? client?.timeDuration : "Not Assign"}</td>
                         <td className="px-4 py-2 r">
-                          <div style={{ textAlign: '-webkit-center' }}>
+                          <div style={{ textAlign: '-webkit-center' }}    onClick={() => {
+                setShowNotePopup(false);
+                setShowAddNotePopup(true);
+              }}>
                             <CgNotes className="w-[20px] h-[22px] text-black " />
                             {client.notes}
                           </div>
                         </td>
                         <td className="px-4 py-2">{visitor.name?.length > 0 ? visitor?.name : "Not found"}</td>
-                        {/* <td className="px-4 py-2 text-center" style={{ textAlign: '-webkit-center' }}>
-                          <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31]" />
-                        </td> */}
+                       
                         {client.completed === 'completed' ? (
                             <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31]" />
                           ) : (
@@ -204,7 +326,104 @@ function ClientDetailsMang() {
         </main>
 
 
+        {showAddNotePopup && (
+          <>
+            <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+            <div
+              ref={addNotePopupRef}
+              className="fixed inset-0 flex items-center justify-center z-50"
+            >
+              <div className="add-team-members w-[688px] h-auto p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+                <button
+                  className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[664px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                  onClick={() => setShowAddNotePopup(false)}
+                >
+                  X
+                </button>
+                <input
+                  type="text"
+                  value={clientName}
+                  onChange={(e) => setclientName(e.target.value)}
+                  className="w-[640px] h-12 mb-4"
+                  placeholder="Sales Executive Name"
+                  style={{
+                    color: "rgba(0, 0, 0, 0.68)",
+                    fontWeight: 400,
+                    fontSize: "16px",
+                    padding: "16px 24px",
+                    lineHeight: "19.2px",
+                    fontFamily: "Manrope",
+                    gap: "10px",
+                    border: "0.8px solid rgba(0,0,0,0.44) ",
+                    borderRadius: "6px",
+                  }}
+                />
+                <div
+                  className="relative w-[640px] h-[48px]   mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                  style={{
+                    color: "rgba(0, 0, 0, 0.68)",
+                    fontWeight: 400,
+                    fontSize: "16px",
+                    lineHeight: "19.2px",
+                    fontFamily: "Manrope",
+                    gap: "10px",
+                    border: "0.8px solid rgba(0,0,0,0.44) ",
+                    borderRadius: "6px",
+                  }}
+                
+                >
+                  <input type="text" placeholder="Project Name" className="cursor-pointer w-full h-full p-4 flex justify-between items-center" />
+                    
+                  
+               
+                </div>
 
+                <div
+                  style={{
+                    padding: "16px 24px",
+                    width: "640px",
+                    height: "127px",
+                    color: "rgba(0, 0, 0, 0.68)",
+                    fontWeight: 400,
+                    fontSize: "16px",
+                    lineHeight: "19.2px",
+                    fontFamily: "Manrope",
+                    gap: "10px",
+                    border: "0.8px solid rgba(0,0,0,0.44) ",
+                    borderRadius: "6px",
+                  }}
+                  className="rounded-md border border-gray-300 font-manrope  div2 mb-4"
+                >
+                  <textarea
+                    type="text"
+                    placeholder="Add your Briefing"
+                    style={{
+                      border: "none",
+                      overflowY: "scroll",
+                      outline: "none",
+                      width: "600px",
+                      height: "100px",
+                      fontWeight: 400,
+                    }}
+                    onChange={(e) => setBriefing(e.target.value)}
+                  />
+                </div>
+
+                <button
+                  onClick={handleSubmit}
+                  className=" flex flex-wrap gap-[10px] justify-between create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
+                  disabled={isCreating}
+                  style={{ alignSelf: "center" }}
+                >
+                  {createStatus || "Close Note"}
+                </button>
+                {errorMessage && (
+                  <p className="text-red-500 mt-2">{errorMessage}</p>
+                )}
+              </div>
+            </div>
+          </>
+        )}
 
 
 
