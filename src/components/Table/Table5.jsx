@@ -218,7 +218,7 @@ const Table5 = () => {
   const [managerErrorMessage, setManagerErrorMessage] = useState(''); // state for error message
 
   const validateManagerName = (name) => {
-    return /^[A-Z][a-zA-Z]*$/.test(name);
+    return /^[A-Z][a-zA-Z ]*$/.test(name);
   };
 
   const validateEmail = (email) => {
@@ -666,7 +666,7 @@ const Table5 = () => {
                 className="fixed inset-0 flex items-center justify-center z-50"
 
               >
-                <div className="add-team-members w-[488px] h-fit p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+                <div className="add-team-members w-[488px] h-[433px] p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
                   <button
                     className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
                     onClick={() => setShowAddTeamMemberPopup(false)}
@@ -758,7 +758,7 @@ const Table5 = () => {
 
                   <button
                     onClick={handleSubmit}
-                    className="w-fit create-team-btn h-12 p-3 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
+                    className="w-[192px] create-team-btn h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
                     disabled={isCreating}
                   >
                     {createStatus || 'Create Team'}
@@ -781,7 +781,7 @@ const Table5 = () => {
                 className="fixed inset-0 flex items-center justify-center z-50"
 
               >
-                <div className="add-manager w-[488px] h-fit p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+                <div className="add-manager w-[488px] h-[290px] p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
                   <button
                     className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
                     onClick={() => setShowAddManagerPopup(false)}
@@ -829,7 +829,7 @@ const Table5 = () => {
                   </div>
                   <button
                     onClick={handleManagerSubmit}
-                    className="w-fit create-manager-btn h-12 py-3 px-6 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
+                    className="w-[192px] create-manager-btn h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
                     disabled={isManagerCreating}
                   >
                     {managerCreateStatus || 'Add'}
@@ -851,7 +851,7 @@ const Table5 = () => {
                 className="fixed inset-0 flex items-center justify-center z-50"
 
               >
-                <div className="add-executive w-[488px] h-fit p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+                <div className="add-executive w-[488px] h-[290px] p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
                   <button
                     className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
                     onClick={() => setShowAddExecutivePopup(false)}

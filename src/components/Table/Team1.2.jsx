@@ -68,7 +68,7 @@ const Table12 = () => {
           type="text"
           onChange={(e) => setvalueinput(e.target.value)}
           placeholder="Search"
-          className=" w-[619px] h-[48px] px-12 py-2 rounded-full border border-[#3D2314] "
+          className=" w-[619px] h-[48px]  rounded-full border border-[#3D2314] " style={{padding:'12px 24px 12px 50px'}}
         />
         <img
           style={{ marginLeft: "15px", marginTop: "12px" }}
@@ -101,7 +101,9 @@ const Table12 = () => {
           </p>
 
           <table className="w-full ">
-            <thead>
+                      <div className="outer-wrapperK" >
+                      <div className="table-wrapperK">
+            <thead className="team1" >
               <tr
                 className="text-center text-sm font-medium [#5C5C5C] bg-[#E8E8E8] h-[28px]"
                 style={{
@@ -174,6 +176,8 @@ const Table12 = () => {
                 </tr>
               ))}
             </tbody>
+            </div> 
+            </div> 
           </table>
         </div>
       </div>

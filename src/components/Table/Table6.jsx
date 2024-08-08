@@ -10,17 +10,24 @@ import "../Home.css";
 const BtnTab = ({ doneTab, setDoneTab, isDisabled, handleSubmit }) => (
   <div className="flex mb-4 justify-end mt-5" style={{ alignSelf: "self-end" }}>
     {["Done"].map((tab) => (
-      <button
+      <button        
         key={tab}
-        style={{ fontFamily: "Manrope", padding: "10px 10px", width: "121px" }}
-        className={`w-fit assign-manager-btn mt-3 h-12 py-3 px-6 rounded-md font-manrope text-lg font-medium ${isDisabled ? "bg-[grey] text-[#3D2314]" : "bg-[#3D2314] text-white"
+        style={{ fontFamily: "Manrope", padding: "10px 20px", width: "89px", height:'47px'}}
+        className={`w-fit assign-manager-btn mt-3 h-12 py-3 px-6 rounded-md font-manrope text-lg font-medium ${isDisabled ? "bg-[grey] text-[#F4EAEA]" : "bg-[#3D2314] text-white"
           }`}
         onClick={() => !isDisabled && handleSubmit()}
         disabled={isDisabled}
+      
       >
-        {tab}
+        {tab} 
+     
+        
       </button>
-    ))}
+
+
+    ) )
+    
+    }
   </div>
 );
 
@@ -176,9 +183,9 @@ const Table6 = () => {
       </div>
 
       <div style={{ display: "flex", gap: "24px", justifyContent: "center" }}>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex" }} className="div3">
           <input
-            style={{}}
+            style={{fontFamily:'Manrope', lineHeight:'21.86px', fontWeight:'500'}}
             type="text"
             value={valueinput}
             onChange={(e) => setvalueinput(e.target.value)}
@@ -200,22 +207,25 @@ const Table6 = () => {
         </div>
         <div style={{ display: "flex", gap: "24px" }}>
           <div>
-            <button
-              className="bg-[#3D2314] text-white px-4 py-2 rounded-full w-[191px] h-[48px] flex item-center align-center justify-center gap-4"
+            <button style={{fontFamily:'Manrope',fontWeight:'500', lineHeight:'21.86px', fontSize:'16px'}}
+              className="bg-[#3D2314] text-white px-[24px] py-[12px] rounded-full w-[191px] h-[48px] flex justify-between "
               onClick={() => setShowAddExecutivePopup2(true)}
             >
-              <MdAdd className="self-center text-[24px]" />
-              <span className="mt-[3px]"> Add Executive</span>
+              <MdAdd className=" text-[24px]" />
+              Add Executive
             </button>
           </div>
 
           <div>
-            <button
-              className="border-2 border-[#3D2314] px-4 py-2 rounded-full w-[208px] h-[48px] flex item-center align-center justify-center gap-4"
+            <button style={{fontFamily:'Manrope',fontWeight:'500', lineHeight:'21.86px', fontSize:'16px'}}
+              className="border-2 border-[#3D2314] px-[24px] py-[12px] rounded-full w-[208px] h-[48px] flex justify-between"
               onClick={() => setShowAssignManagerPopup2(true)}
             >
-              <TbReload className="color-[#3D2314] self-center text-[24px]" />
+              <TbReload className="color-[#3D2314]  text-[24px]" />
+             
               Assign Manager
+
+            
             </button>
           </div>
         </div>
@@ -224,13 +234,16 @@ const Table6 = () => {
 
   
       <div style={{ textAlign: "-webkit-center" }}>
-        <div className="w-[927px]">
+        <div className="w-[927px] h-[591px]">
           <div className="bg-[#D7D7D7]">
-            <h2 className="text-xl font-semibold mb-2 text-center teamName">
+            <div style={{width:'927px', height:'77px', padding:'8px 0px', background:'#D7D7D7'}}>
+
+            
+            <h2 className="text-xl mb-2 text-center teamName" style={{fontWeight:'600', fontSize:'24px', lineHeight:'32.78px', color:'#323232'}}>
               {teamData.teamName}
             </h2>
             <p
-              className="text-sm mb-4 text-center [#313131] teamName"
+              className="text-sm text-center [#313131] teamName"
               style={{
                 fontSize: "16px",
                 fontFamily: "Manrope",
@@ -240,6 +253,7 @@ const Table6 = () => {
             >
               {teamData.managerName} (Team Lead)
             </p>
+            </div>
             <div className="outer-wrapperT text-center flex items-center justify-center">
             <div className="table-wrapperT" style={{ width: "999px" }}>
 
@@ -254,11 +268,11 @@ const Table6 = () => {
                     lineHeight: "16.39px",
                   }}
                 >
-                  <th className="py-2">Employee ID</th>
-                  <th className="py-2">Sales Executive</th>
-                  <th className="py-2">Sales Executive Email ID</th>
-                  <th className="py-2">Client Name</th>
-                  <th className="py-2">Project Name</th>
+                  <th className="px[10px] py-[6px] w-[188px] h-[28px]"style={{fontWeight:'500'}} >Employee ID</th>
+                  <th className="px[10px] py-[6px] w-[188px] h-[28px]" style={{fontWeight:'500'}}>Sales Executive</th>
+                  <th className="px[10px] py-[6px] w-[203px] h-[28px]" style={{fontWeight:'500'}}>Sales Executive Email ID</th>
+                  <th className="px[10px] py-[6px] w-[174px] h-[28px]" style={{fontWeight:'500'}}>Client Name</th>
+                  <th className="px[10px] py-[6px] w-[174px] h-[28px]" style={{fontWeight:'500'}}>Project Name</th>
                 </tr>
               </thead>
 
@@ -285,7 +299,7 @@ const Table6 = () => {
                           textDecoration: "Underline",
                         }}
                       >
-                        <td className="py-2 text-center">
+                        <td className="px[10px] py-[6px] text-center " style={{fontWeight:'700'}}>
                           <Link to={`/SuperAdmin/TeamB/${member?.employeeId}`}>
                             {member.employeeId?.length > 0
                               ? member?.employeeId
@@ -293,7 +307,7 @@ const Table6 = () => {
                           </Link>
                         </td>
                       </a>
-                      <td className="py-2">
+                      <td className="px[10px] py-[6px]" style={{fontFamily:'Manrope'}}>
                         {member.name?.length > 0 ? member?.name : "Not found"}
                       </td>
                       <td className="py-2">
@@ -380,10 +394,12 @@ const Table6 = () => {
                     onKeyDown={(e) =>
                       handleKeyDown(e, executiveInput, setExecutiveInput, setExecutives)
                     }
+                    
                   />
                 </div>
               </div>
-              <BtnTab
+              <BtnTab 
+          
                 doneTab={doneTab}
                 setDoneTab={setDoneTab}
                 isDisabled={executives.length === 0}
