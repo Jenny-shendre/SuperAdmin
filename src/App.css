@@ -35,6 +35,14 @@
     border: none;
 }
 
+canvas{
+    width: 827px !important;
+}
+
+canvas::-moz-progress-bar{
+    border-radius: 4px;
+}
+
 
 
 

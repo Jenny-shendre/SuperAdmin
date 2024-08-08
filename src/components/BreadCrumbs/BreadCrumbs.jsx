@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import OverViewAdmin from "../Overview/OverViewAdmin";
 
 const BreadCrumbs = () => {
   const location = useLocation();
@@ -35,9 +36,29 @@ const BreadCrumbs = () => {
   console.log(activeItem);
   return (
     <div>
-      <h1 className="font-bold mt-8">
-        Home / <span className="font-medium">{activeItem}</span>
+      <h1 style={{
+        fontFamily: 'Poppins',
+        fontSize: '24px',
+        fontWeight: '500',
+        lineHeight: '36px',
+        textAlign: 'left',
+        color:'black',
+        padding:'24px 0px 0px 24px'
+        
+      }}>
+        Home / <span  style={{
+        fontFamily: 'Poppins',
+        fontSize: '24px',
+        fontWeight: '400',
+        lineHeight: '36px',
+        textAlign: 'left',
+        color:'black'
+
+        
+      }}>{activeItem}</span>
       </h1>
+
+      <OverViewAdmin />
     </div>
   );
 };
