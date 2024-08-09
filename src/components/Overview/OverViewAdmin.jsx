@@ -89,30 +89,8 @@ const OverViewAdmin = () => {
 
 <div
             style={{ gap: "20px", paddingLeft: "0px" }}
-            className="p-4  overflow-x-auto flex flex-col gap-9 bg-custom-bg"
+            className="  overflow-x-auto flex flex-col gap-9 bg-custom-bg"
           >
-            {/* <h1
-              className="font-bold flex items-center gap-1"
-              style={{
-                fontFamily: "Poppins",
-                fontSize: "24px",
-                fontWeight: "500",
-                padding: '24px'
-              }}
-            >
-              Home
-              <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-              <span
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "400",
-                  fontSize: "24px",
-                }}
-                className="font-medium"
-              >
-                Overview
-              </span>
-            </h1> */}
 
             <div className="flex flex-row items-center justify-center text-center ">
               <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full">
@@ -138,8 +116,8 @@ const OverViewAdmin = () => {
               
             </div>
 
-            <div classNamename="relative inline-block text-left">
-    <div className="group flex justify-end">
+            <div classNamename="relative inline-block text-left ">
+    <div className="group flex justify-end mr-[25px]">
         <button type="button"
             className="inline-flex justify-between items-center w-[162px] h-[35px] px-4 py-2 text-sm  bg-[white] text-[black]">
             <img src = {filter} width='24px' height='24px' />
@@ -642,7 +620,7 @@ Notes */}
 
 {/* Graph */}
 
-        <div className="bg-white shadow rounded-lg p-6  w-[874px] h-[372px] " style={{marginTop:'-400px'}}>
+        <div className="bg-white shadow rounded-lg p-[24px]  w-[874px] h-[380px] " style={{marginTop:'-400px'}}>
         <div style={{marginTop:"-15px", fontfamily: 'Manrope' ,fontsize: '14px',fontweight:' 600' ,lineheight:' 19.12px',textalign: 'left',}}>Most Meeting Hour</div>
         <div style={{marginTop:"-6px",  borderBottom:'3px dashed #3D2314', display:'flex', justifyContent:'space-between'}} className="mt-2  text-[#632E04] ">
           <span style={{fontFamily:"Poppins", fontWeight:"500", fontSize:"44px",}}>

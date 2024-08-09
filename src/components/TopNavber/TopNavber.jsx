@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import userImg from "../../assets/A2.png";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../utils/TokenUtils";
 
 const TopNavber = () => {
@@ -51,9 +51,11 @@ const TopNavber = () => {
         className={`absolute right-7 top-14 bg-white p-4 ${click === true ? "" : "hidden"
           } `}>
         <ul className="flex flex-col gap-1 ">
+          <Link to="/SalesManager/Setting">
           <li style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium  ">
             Go to Settings
           </li>
+          </Link>
           <li style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium">Profile</li>
           <li onClick={handleLogOut} style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium text-[#F13737]">
             Logout

@@ -244,6 +244,7 @@ function ClientDetailsMang() {
                       fontWeight: "500",
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
+                      width:'175px'
                     }} className="px-4 py-2 ">Date</th>
                     <th style={{
                       fontFamily: "Manrope",
@@ -260,6 +261,7 @@ function ClientDetailsMang() {
                       color: "#4B4B4B",
                     }} className="px-4 py-2">Client Name</th>
                     <th style={{
+                      width:'171px',
                       fontFamily: "Manrope",
                       fontSize: "12px",
                       fontWeight: "500",
@@ -314,7 +316,10 @@ function ClientDetailsMang() {
                         {client.completed === 'completed' ? (
                             <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31]" />
                           ) : (
-                            <img src={close} alt="Progress" className="w-[24px] h-[24px]" />
+                            
+                            <img src={close} alt="Progress" className="w-[24px] h-[24px] ml-5" />
+
+                           
                           )}
                       </tr>
                     )))}

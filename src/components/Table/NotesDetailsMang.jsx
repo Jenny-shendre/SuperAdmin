@@ -232,6 +232,11 @@ function NotesDetailsMang() {
     } 
   };
 
+
+
+
+  //SEARCH
+
   return (
     <div>
       <div

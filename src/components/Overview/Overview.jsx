@@ -13,7 +13,7 @@ const Overview = () => {
         setActiveItem("Overview");
         break;
       case "/SuperAdmin/Direct_Visitors":
-        setActiveItem("Overview");
+        setActiveItem("Direct_Visitors");
         break;
       case "/SuperAdmin/Channel_Visitors":
         setActiveItem("ChannelVisitors");
@@ -29,7 +29,7 @@ const Overview = () => {
         break;
 
       default:
-        setActiveItem("DirectVisitors");
+        setActiveItem("Overview");
         break;
     }
   }, []);
