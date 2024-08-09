@@ -44,7 +44,7 @@ const Navber = () => {
         setActiveItem("Overview");
         break;
       case "/SuperAdmin/Direct_Visitors":
-        setActiveItem("Overview");
+        setActiveItem("Direct_Visitors");
         break;
       case "/SuperAdmin/Channel_Visitors":
         setActiveItem("ChannelVisitors");

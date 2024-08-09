@@ -8,6 +8,7 @@ import "../Home.css";
 
 const Table12 = () => {
   const [data, setdata] = useState([]);
+  const [valueinput, setvalueinput] = useState("");
   const location = useLocation();
   const pathname = location.pathname;
   const employeeId = decodeURIComponent(
@@ -67,6 +68,7 @@ const Table12 = () => {
         <input
           type="text"
           onChange={(e) => setvalueinput(e.target.value)}
+          value={valueinput}
           placeholder="Search"
           className=" w-[619px] h-[48px]  rounded-full border border-[#3D2314] " style={{padding:'12px 24px 12px 50px'}}
         />
@@ -141,7 +143,11 @@ const Table12 = () => {
                 fontWeight: "500",
                 fontFamily: "Manrope",
               }}>
-              {data.map((item, index) => (
+              {data.filter(({ ClientName }) =>
+                      ClientName?.toLowerCase().includes(
+                        valueinput.toLowerCase()
+                      )
+                    ).map((item, index) => (
                 <tr key={index}>
                   <td className="px-4 py-2" style={{ height: "64px" }}>
                     {item.ClientName}

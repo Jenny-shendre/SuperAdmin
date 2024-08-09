@@ -310,7 +310,7 @@ const Table5 = () => {
 
       const executiveData = {
         name: executiveName,
-        emailID: executiveEmail,
+        email: executiveEmail,
         phone: executivePhone
       }
 

@@ -66,8 +66,9 @@ function App() {
     try {
       const res = await axios.post("https://project-rof.vercel.app/api/admin/login", loginData);
       console.log("Response rend", res);
-      const { token, role: userRole } = res.data;
+      const { token, role: userRole , employeeId } = res.data;
       localStorage.setItem('token', token);
+      localStorage.setItem("EmpId", employeeId);
       setRole(userRole);
       setLoggedIn(true);
 

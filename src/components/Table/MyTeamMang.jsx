@@ -12,7 +12,7 @@ import "../Home.css";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
   <div className="flex mb-4 justify-center ">
-    {["All", "Available", "In Meet"].map((tab) => (
+    {["All", "Available", "Assigned"].map((tab) => (
       <button
         key={tab}
         style={{ fontFamily: "Manrope", padding: "10px 10px", width: "121px" }}
@@ -36,6 +36,9 @@ function MyTeamMang() {
   const [showAddNotePopup, setShowAddNotePopup] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
+ 
+ //BACKEND
+ 
   const [loading, setLoading] = useState(false);
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
@@ -84,6 +87,11 @@ function MyTeamMang() {
   const filteredNotes = notes.filter((note) =>
     note.name.toLowerCase().includes(search.toLowerCase())
   );
+
+
+
+
+  //FRONTEND
 
   const notePopupRef = useRef();
   const addNotePopupRef = useRef();
@@ -327,9 +335,13 @@ function MyTeamMang() {
               </div>
 
               <div
-                style={{ borderRadius: "8px", fontFamily: "Manrope" }}
-                className="font-[Manrope] w-[70px] h-[28px] bg-[#BAEFB1] text-[#1D750E] text-[12px]  px-[10px] py-[6px] mt-[15px] item-center justify-center"
-              >
+                      style={{ borderRadius: "8px", fontFamily: "Manrope" }}
+                      className={`font-[Manrope] w-[70px] h-[28px] ${
+                        note.status === "available"
+                          ? "bg-[#BAEFB1] text-[#1D750E]"
+                          : "bg-[#F4E8C8] text-[#AF8414]"
+                      } text-[12px] px-[10px] py-[6px] mt-[15px] item-center justify-center`}
+                    >
                                       {note.status === "assigned" ? "in meet" : "available"}
 
               </div>

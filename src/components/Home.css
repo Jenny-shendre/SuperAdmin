@@ -147,4 +147,8 @@ th {
   overflow-y: scroll;
 }
 
-
+.table-wrapperT .team1 {
+  position: sticky;
+  top: -2px;
+  background: #E8E8E8;
+}
