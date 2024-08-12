@@ -33,21 +33,21 @@ const SettingPageAdmin = () => {
      };
 
 const handleItemClick = () => {
-    setActiveItem("MyProfilePageEx");
+    setActiveItem("MyProfileAdmin");
     
   };
 
   const handleItemClick2 = () => {
-    setActiveItem("PasswordPageEx");
+    setActiveItem("PasswordAdmin");
     
   };
   useEffect(() => {
     switch (locationPath) {
-      case "/profileEx":
+      case "/profileAd":
         setActiveItem("MyProfileAdmin");
         break;
 
-      case "/passwordEx":
+      case "/passwordAd":
         setActiveItem("PasswordAdmin");
         break;
       
@@ -89,7 +89,7 @@ const handleItemClick = () => {
          
           <button
             style={{ fontWeight: "500", fontFamily: "Manrope",borderRadius:'24px',gap:'29px', lineHeight:'21.86px' }}
-            className={`w-[122px]  p-[10px]   text-[16px] items-center text-center ${activeItem === "MyProfilePageEx" ? "bg-[#8B7B72]  text-white":""}`}
+            className={`w-[122px]  p-[10px]   text-[16px] items-center text-center ${activeItem === "MyProfileAdmin" ? "bg-[#8B7B72]  text-white":""}`}
             onClick={handleItemClick}
           >
             My Profile
@@ -98,7 +98,7 @@ const handleItemClick = () => {
           
           <button
             style={{ fontWeight: "500", fontFamily: "Manrope",borderRadius:'24px',gap:'29px', lineHeight:'21.86px' }}
-            className={`w-[122px]  p-[10px]  text-[16px] items-center text-center ${activeItem === "PasswordPageEx" ? "bg-[#8B7B72]  text-white":""}`}
+            className={`w-[122px]  p-[10px]  text-[16px] items-center text-center ${activeItem === "PasswordAdmin" ? "bg-[#8B7B72]  text-white":""}`}
             onClick={ handleItemClick2}
           >
             Password
