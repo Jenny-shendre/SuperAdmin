@@ -27,23 +27,23 @@ import share from "../../assets/Vector (3).png";
 import { FcEditImage } from "react-icons/fc";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
-  <div className="flex justify-center mb-4  fab ">
-    {["All", "Client", "Manager", "Super Admin"].map((tab) => (
-      <button
-        key={tab}
-        style={{ fontFamily: "Manrope", padding: "10px 10px", width: "121px" }}
-        className={`  ${
-          activeTab === tab
-            ? "bg-[#3D2314] text-white rounded-[24px]"
-            : "bg-white text-[#3D2314] "
-        }`}
-        onClick={() => setActiveTab(tab)}
-      >
-        {tab}
-      </button>
-    ))}
-      
-  </div>
+  <div className="flex" style={{background:'white', width:'472px', borderRadius:'24px', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)'}}>
+  {["All", "Client", "Manager", "Super Admin"].map((tab) => (
+    <button
+      key={tab}
+      style={{ fontFamily: "Manrope", padding: "10px 10px", width: "121px" }}
+      className={`  ${
+        activeTab === tab
+          ? "bg-[#3D2314] text-white"
+          : " text-[#3D2314] "
+      } ${tab === 'All' ? "rounded-l-[24px] " : ""} ${tab === 'Super Admin' ? "rounded-r-[24px] " : ""}`}
+      onClick={() => setActiveTab(tab)}
+    >
+      {tab}
+    </button>
+  ))}
+    
+</div>
 );
 
 function NotePagesAdmin() {
@@ -565,9 +565,11 @@ function NotePagesAdmin() {
       )}
 
       <br />
+      <div className="flex justify-center">
       <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
+      </div>
       <br />
-      <div className="Cards gap-4 flex flex-wrap px-[55px] cardT">
+      <div className="Cards gap-4 flex flex-wrap px-[50px] cardT">
         <div className="flex flex-wrap gap-10 ">
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
             <div className="flex justify-around items-center mb-4">

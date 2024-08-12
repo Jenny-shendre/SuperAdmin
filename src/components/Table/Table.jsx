@@ -127,6 +127,7 @@ const Table = () => {
                           paddingLeft: "7px",
                           width: "125px",
                           padding: "5px",
+                          
                         }}>
                         Date
                       </th>

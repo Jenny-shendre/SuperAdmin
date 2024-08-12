@@ -209,22 +209,29 @@ function ClientDetailsMang() {
         <div className="flex flex-row items-center justify-center font-[Manrope]">
           <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full">
             <input
-              className="w-full py-2 px-12 rounded-full "
+              className="w-full rounded-full "
               style={{
-
+                width: "619px",
+                height: "48px",
+                fontFamily: "Manrope",
+                padding: "12px 24px 12px 48px",
+                gap: "24px",
+                borderRadius: "27px",
+                opacity: "0px",
+  
                 boxShadow: " 0px 0px 4px 0px #00000040",
               }}
               type="text"
               value={valueinput}
               onChange={(e) => setvalueinput(e.target.value)}
-
               placeholder="Search"
             />
             <img
-              style={{ top: "0.6rem" }}
+              style={{ top: "0.8rem" }}
               src={Searchsvg}
               alt="Search"
               className="absolute left-4"
+              
             />
           </div>
         </div>
@@ -232,11 +239,12 @@ function ClientDetailsMang() {
 
         <main className=" overflow-x-hidden overflow-y-auto p-6 font-[Manrope]">
 
-          <div style={{ textAlign: '-webkit-center' }} className="outer-wrapperT">
-            <div className="table-wrapperT">
-              <table className="w-[956px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperT">
-
-                <thead className="bg-[#D7D7D7] font-[Manrope] team1">
+          <div style={{ textAlign: '-webkit-center' }} className="outer-wrapperB">
+            
+              <table className="w-[956px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
+              <div className="table-wrapperB">
+                <thead className="bg-[#D7D7D7] font-[Manrope]">
+               
                   <tr className="text-center text-[#4B4B4B] w-[171px]  h-[36px] font-[Manrope]">
                     <th style={{
                       fontFamily: "Manrope",
@@ -297,7 +305,7 @@ function ClientDetailsMang() {
                     visitor.ClientName.filter(({ ClientName }) =>
                       ClientName.toLowerCase().includes(valueinput.toLowerCase())
                     ).map((client, clientIndex) => (
-                      <tr className="text-[#5C5C5C] text-center" key={`${index}-${clientIndex}`}>
+                      <tr className="text-[#5C5C5C] text-center border-b" key={`${index}-${clientIndex}`}>
                         <td className="px-4 py-2 ">{client.createdAt ? DateupdatedAt(client.createdAt) : "Invalide date"}</td>
                         <td className="px-4 py-2 ">{client.ClientProject?.length > 0 ? client?.ClientProject : "Not Assign"}</td>
                         <td className="px-4 py-2 ">{client.ClientName?.length > 0 ? client?.ClientName : "Not found"}</td>
@@ -314,7 +322,7 @@ function ClientDetailsMang() {
                         <td className="px-4 py-2">{visitor.name?.length > 0 ? visitor?.name : "Not found"}</td>
                        
                         {client.completed === 'completed' ? (
-                            <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31]" />
+                            <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31] ml-5" />
                           ) : (
                             
                             <img src={close} alt="Progress" className="w-[24px] h-[24px] ml-5" />
@@ -324,10 +332,12 @@ function ClientDetailsMang() {
                       </tr>
                     )))}
                 </tbody>
+                </div>
               </table>
 
+
             </div>
-          </div>
+        
         </main>
 
 
@@ -355,7 +365,7 @@ function ClientDetailsMang() {
                     color: "rgba(0, 0, 0, 0.68)",
                     fontWeight: 400,
                     fontSize: "16px",
-                    padding: "16px 24px",
+                    padding: "16px 24px 16px 16px",
                     lineHeight: "19.2px",
                     fontFamily: "Manrope",
                     gap: "10px",
@@ -363,29 +373,29 @@ function ClientDetailsMang() {
                     borderRadius: "6px",
                   }}
                 />
-                <div
-                  className="relative w-[640px] h-[48px]   mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+       
+                  <input
+                  type="text"
+                  value={clientName}
+                  onChange={(e) => setclientName(e.target.value)}
+                  className="w-[640px] h-12 mb-4"
+                  placeholder="Project Name"
                   style={{
                     color: "rgba(0, 0, 0, 0.68)",
                     fontWeight: 400,
                     fontSize: "16px",
+                    padding: "16px 24px 16px 16px",
                     lineHeight: "19.2px",
                     fontFamily: "Manrope",
                     gap: "10px",
                     border: "0.8px solid rgba(0,0,0,0.44) ",
                     borderRadius: "6px",
                   }}
-                
-                >
-                  <input type="text" placeholder="Project Name" className="cursor-pointer w-full h-full p-4 flex justify-between items-center" />
-                    
-                  
-               
-                </div>
+                />
 
                 <div
                   style={{
-                    padding: "16px 24px",
+                    padding: "16px 24px 16px 16px",
                     width: "640px",
                     height: "127px",
                     color: "rgba(0, 0, 0, 0.68)",
@@ -416,9 +426,9 @@ function ClientDetailsMang() {
 
                 <button
                   onClick={handleSubmit}
-                  className=" flex flex-wrap gap-[10px] justify-between create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
+                  className="w-[192px] h-[44px] flex flex-wrap justify-center create-team-btn bg-[#3D2314] rounded-[4px] text-center text-white"
                   disabled={isCreating}
-                  style={{ alignSelf: "center" }}
+               style={{fontFamily:"Manrope", fontWeight:"400",fontSize:"16px",borderRadius:"4px",padding:"10px",gap:"10px"}}
                 >
                   {createStatus || "Close Note"}
                 </button>
