@@ -155,9 +155,19 @@ const SideNav = () => {
               lineHeight: "27.32px",
               textAlign: "left",
             }}
-            className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] `}
+
+            className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${activeItem === "Overview" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
+            }`}
+          onClick={() => handleItemClick("SettingEx")}
+        >
+          {activeItem === "SettingEx" ? (
+            <img src={Settings2} alt="" className="w-4 lg:w-auto" />
+          ) : (
+            <img src={Settings2} alt="" />
+          )}
+            {/* className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] `}
           >
-            <img src={Settings2} alt="Settings" />
+            <img src={Settings2} alt="Settings" /> */}
             Settings
           </li>
           </Link>

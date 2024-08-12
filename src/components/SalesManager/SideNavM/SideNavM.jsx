@@ -47,6 +47,9 @@ const SideNavM = () => {
         case "/SalesManager/Notes" :
           setActiveItem("NotesM")
 
+          case "/SalesManager/Setting" :
+            setActiveItem("Setting")
+
       default:
         setActiveItem("overview");
         break;
@@ -165,8 +168,20 @@ const SideNavM = () => {
             lineHeight: '27.32px',
             textAlign: 'left',
           }}
-            className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] `}>
-            <img src={Settings2} alt="Settings" />
+            // className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] `}>
+            // <img src={Settings2} alt="Settings" />
+
+            className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === ""
+              ? "bg-[#3D2314] text-[#FFFFFF]"
+              : ""
+            }`}
+          onClick={() => handleItemClick("Setting")}
+        >
+          {activeItem === "Setting" ? (
+            <img src={Settings2} alt="" />
+          ) : (
+            <img src={Settings2} alt="" />
+          )}
             Settings
           </li>
           </Link>

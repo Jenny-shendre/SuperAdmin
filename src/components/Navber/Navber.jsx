@@ -61,6 +61,9 @@ const Navber = () => {
         case "/SuperAdmin/Note_Pages":
           setActiveItem("Note_Pages");
           break;
+          case "/SuperAdmin/SettingAdmin":
+            setActiveItem("SettingAdmin");
+            break;
 
       default:
         setActiveItem("Overview");
@@ -233,7 +236,7 @@ const Navber = () => {
       </div>
       <div>
         <ul className="flex flex-col" style={{ gap: '8px' }}>
-          <Link to="/SalesManager/Setting">
+          <Link to="/SuperAdmin/SettingAdmin">
           <li style={{
             fontFamily: 'Manrope',
             fontSize: '20px',
@@ -241,8 +244,19 @@ const Navber = () => {
             lineHeight: '27.32px',
             textAlign: 'left',
           }}
-            className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] `}>
-            <img src={Settings2}/>
+
+          className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "ChannelVisitors"
+            ? "bg-[#3D2314] text-[#FFFFFF]"
+            : ""
+            }`}
+          onClick={() => handleItemClick("SettingAdmin")}>
+          {activeItem === "SettingAdmin" ? (
+            <img src={Settings2} alt="" />
+          ) : (
+            <img src={Settings2} alt="" />
+          )}
+            {/* className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] `}> */}
+            {/* <img src={Settings2}/> */}
             Settings
           </li>
           </Link>
