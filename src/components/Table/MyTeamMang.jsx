@@ -11,16 +11,16 @@ import axios from "axios";
 import "../Home.css";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
-  <div className="flex mb-4 justify-center ">
+  <div className="flex" style={{background:'white', width:'354px', borderRadius:'24px', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)'}}>
     {["All", "Available", "Assigned"].map((tab) => (
       <button
         key={tab}
-        style={{ fontFamily: "Manrope", padding: "10px 10px", width: "121px" }}
-        className={` px-4 py-2 ${
+        style={{fontFamily: "Manrope",fontWeight:"500",fontSize:"14px",lineHeight:"19.12px", padding: "10px 24px 10px 24px", height:"39px" }}
+        className={` ${
           activeTab === tab
-            ? "bg-[#3D2314] text-white rounded-[24px]"
-            : "bg-white text-[#3D2314] "
-        }`}
+            ? "bg-[#3D2314] text-white w-[118px]"
+            : " text-[#3D2314] w-[118px]"
+        }  ${tab === 'All' ? "rounded-l-[24px] " : ""} ${tab === 'Assigned' ? "rounded-r-[24px] " : ""}`}
         onClick={() => setActiveTab(tab)}
       >
         {tab}
@@ -31,7 +31,7 @@ const TabBar = ({ activeTab, setActiveTab }) => (
 
 function MyTeamMang() {
   const [activeTab, setActiveTab] = useState("All");
-
+  const [activeRole, setActiveRole] = useState('Client');
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [showAddNotePopup, setShowAddNotePopup] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -230,8 +230,19 @@ function MyTeamMang() {
       <div className="flex flex-row items-center justify-center">
         <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full">
           <input
-            className="w-full py-2 px-12 rounded-full "
+            className="w-full  rounded-full "
             style={{
+              width: "619px",
+              height: "48px",
+              fontFamily: "Manrope",
+              fontSize:"16px",
+              fontWeight:"500",
+              lineHeight:"21.86px",
+              padding: "12px 24px 12px 48px",
+              gap: "24px",
+              borderRadius: "27px",
+              opacity: "0px",
+
               boxShadow: " 0px 0px 4px 0px #00000040",
             }}
             type="text"
@@ -240,7 +251,7 @@ function MyTeamMang() {
 
           />
           <img
-            style={{ top: "0.6rem" }}
+            style={{ top: "0.8rem" }}
             src={Searchsvg}
             alt="Search"
             className="absolute left-4"
@@ -249,7 +260,12 @@ function MyTeamMang() {
       </div>
 
       <br />
+      <div className="flex justify-center">
       <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
+
+      </div>
+     
+     
       <br />
       {loading ? (
         <div className="flex justify-center items-center">
@@ -262,7 +278,7 @@ function MyTeamMang() {
               filteredNotes.map((note) => (
           <div
           key={note.name}
-            className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
+            className=" bg-white rounded-[12px] p-[24px] max-w-xs w-[310px] h-[272px]"
             style={{
               boxShadow: "0px 0px 4px 0px #00000040",
             }}
@@ -347,8 +363,8 @@ function MyTeamMang() {
               </div>
             </div>
             <button
-              className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
-              style={{ border: "1px solid #3D2314" }}
+              className="font-[Manrope] w-[262px] h-[36px] gap-2 text-[#3D2314] bg-white py-[6px] px-[10px] rounded-lg flex items-center justify-center"
+              style={{ border: "1px solid #3D2314",fontSize:"12px",fontWeight:"500",lineHeight:"16.39px" }}
 
               onClick={() => {
                 setShowNotePopup(false);
@@ -393,7 +409,7 @@ function MyTeamMang() {
                     color: "rgba(0, 0, 0, 0.68)",
                     fontWeight: 400,
                     fontSize: "16px",
-                    padding: "16px 24px",
+                    padding: "16px 24px 16px 16px",
                     lineHeight: "19.2px",
                     fontFamily: "Manrope",
                     gap: "10px",
@@ -405,7 +421,7 @@ function MyTeamMang() {
                   className="relative w-[640px] h-[48px]   mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
                   style={{
                     color: "rgba(0, 0, 0, 0.68)",
-                    fontWeight: 400,
+                    fontWeight: "400",
                     fontSize: "16px",
                     lineHeight: "19.2px",
                     fontFamily: "Manrope",
@@ -418,7 +434,8 @@ function MyTeamMang() {
                   }
                   ref={projectDropdownRef}
                 >
-                  <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
+                  <div className="cursor-pointer w-[640px] h-[48px] flex justify-between items-center"
+                  style={{fontFamily:"Manrope",fontSize:"16px",lineHeight:"19.2px",fontWeight:"400",padding:"16px 24px 16px 16px"}}>
                     {project || "Choose Project"}
                     <img
                       className="ml-2 h-2 w-3 "
@@ -443,11 +460,11 @@ function MyTeamMang() {
 
                 <div
                   style={{
-                    padding: "16px 24px",
+                    padding: "16px 24px 16px 16px",
                     width: "640px",
                     height: "127px",
                     color: "rgba(0, 0, 0, 0.68)",
-                    fontWeight: 400,
+                    fontWeight: "400",
                     fontSize: "16px",
                     lineHeight: "19.2px",
                     fontFamily: "Manrope",
@@ -474,7 +491,7 @@ function MyTeamMang() {
 
                 <button
                   onClick={handleSubmit}
-                  className=" flex flex-wrap gap-[10px] justify-between create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
+                  className=" flex flex-wrap gap-[10px] justify-between create-team-btn w-[192px] h-[44px] p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
                   disabled={isCreating}
                   style={{ alignSelf: "center" }}
                 >

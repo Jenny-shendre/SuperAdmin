@@ -81,7 +81,7 @@ const Navber = () => {
           />
         </Link>
         <ul className="flex flex-col " style={{ gap: '10px' }}>
-          <Link to="/SuperAdmin">
+          <Link to="/SuperAdmin/">
             <li style={{
               fontFamily: 'Manrope',
               fontSize: '20px',

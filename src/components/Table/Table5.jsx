@@ -18,6 +18,7 @@ const Table5 = () => {
   const [viewedItems, setViewedItems] = useState([]);
   const [data, setdata] = useState([]);
   const [data1, setdata1] = useState([]);
+  const [executiveName, setExecutiveName] = useState('');
   const [data2, setdata2] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
@@ -277,7 +278,7 @@ const Table5 = () => {
 
   //  executive popup logic
 
-  const [executiveName, setExecutiveName] = useState('');
+ 
   const [executiveEmail, setExecutiveEmail] = useState('');
   const [executivePhone, setExecutivePhone] = useState(''); // state for phone number
   const [isExecutiveCreating, setIsExecutiveCreating] = useState(false);
@@ -627,13 +628,7 @@ const Table5 = () => {
                               display: "flex",
                             }}
                           >
-                            <LuEye
-                              style={{
-                                cursor: "pointer",
-                                fontSize: "18px",
-                                color: "#632E04",
-                              }}
-                            />
+                           
                             <Link to={`/SuperAdmin/Team/${visitor.teamName}`}
                             >
                               <IoOpenOutline
@@ -673,6 +668,7 @@ const Table5 = () => {
                   >
                     X
                   </button>
+                  <div style={{width:'440px', height:'319px'}}>
                   <input
                     type="text"
                     value={teamName}
@@ -728,7 +724,7 @@ const Table5 = () => {
                     )}
                   </div>
 
-                  <div className="add-members w-[440px] h-[127px] p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 overflow-y-auto">
+                  <div className="add-members w-[440px] h-[127px] px-[24px] py-[12px] rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 overflow-y-auto">
                     <div className="flex flex-wrap gap-2 mb-2">
                       {members.map((member, index) => (
                         <div
@@ -755,7 +751,9 @@ const Table5 = () => {
                       placeholder="Add Team Member"
                     />
                   </div>
+                  </div>
 
+                  <br />
                   <button
                     onClick={handleSubmit}
                     className="w-[192px] create-team-btn h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"

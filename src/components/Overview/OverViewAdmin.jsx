@@ -26,6 +26,7 @@ import {
   Legend,
 } from 'chart.js';
 import { data } from 'autoprefixer';
+import { Link } from 'react-router-dom';
 
 ChartJS.register(
   CategoryScale,
@@ -84,7 +85,7 @@ const OverViewAdmin = () => {
   return (
 
 
-    
+    <Link to=''>
     <div className="min-h-screen p-6">
 
 <div
@@ -639,6 +640,7 @@ Notes */}
 
       
     </div>
+    </Link>
   );
 };
 

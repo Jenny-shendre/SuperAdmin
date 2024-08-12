@@ -51,7 +51,7 @@ const TopNavber = () => {
         className={`absolute right-7 top-14 bg-white p-4 ${click === true ? "" : "hidden"
           } `}>
         <ul className="flex flex-col gap-1 ">
-          <Link to="/SalesManager/Setting">
+          <Link to="/SuperAdmin/SettingAdmin">
           <li style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium  ">
             Go to Settings
           </li>
