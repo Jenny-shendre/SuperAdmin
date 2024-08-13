@@ -131,7 +131,7 @@ const Table12 = () => {
                   Schedule Meeting
                 </th>
                 <th className="px-4 py-2" style={{ width: "187px" }}>
-                  Meeting Action
+                  Status
                 </th>
               </tr>
             </thead>

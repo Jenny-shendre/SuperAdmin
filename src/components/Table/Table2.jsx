@@ -267,17 +267,7 @@ const Table2 = () => {
                         }}>
                         Address
                       </th>
-                      <th
-                        className="border-b text-center "
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          padding: "5px",
-                          width: "65px",
-                        }}></th>
+                   
                     </tr>
                   </thead>
 
@@ -343,17 +333,7 @@ const Table2 = () => {
                             {visitor.address}
                           </td> */}
 
-                          <td className="py-3 text-center px-3 ">
-                            <LuEye
-                              onClick={() => handleView(visitor._id)}
-                              style={{
-                                cursor: "pointer",
-                                fontSize: "18px",
-                                color: "#00000",
-                              }}
-                            />
-                            {/* {viewedItems.includes(visitor._id) && <span className=""><LuEyeOff /></span>} */}
-                          </td>
+                          
                         </tr>
                       ))}
                   </tbody>

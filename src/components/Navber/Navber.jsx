@@ -204,9 +204,9 @@ const Navber = () => {
                 }`}
               onClick={() => handleItemClick("Team")}>
               {activeItem === "Team" ? (
-                <img src={Team1} alt="Team" />
+                <img src={Team1} alt="Team" style={{width:'24px', marginBottom:'7px'}}/>
               ) : (
-                <img src={Team2} alt="Team" />
+                <img src={Team2} alt="Team" style={{width:'24px',marginBottom:'7px'}}/>
               )}
               Team
             </li>
@@ -245,7 +245,7 @@ const Navber = () => {
             textAlign: 'left',
           }}
 
-          className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "ChannelVisitors"
+          className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === ""
             ? "bg-[#3D2314] text-[#FFFFFF]"
             : ""
             }`}

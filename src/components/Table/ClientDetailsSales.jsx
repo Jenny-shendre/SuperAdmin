@@ -972,7 +972,7 @@ function ClientDetails() {
                       }}
                       className="py-2 px-4 text-left th1"
                     >
-                      Meeting Status
+                      Status
                     </th>
                   </tr>
                 </thead>

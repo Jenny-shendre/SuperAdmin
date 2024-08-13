@@ -11,6 +11,7 @@ import fourrr from '../../assets/Profile.png';
 import fivee from '../../assets/building.png';
 import team from '../../assets/team.png';
 import single from '../../assets/single.png';
+import Notes from "../../assets/add_notes (white).png";
 import filter from '../../assets/filter.png';
 import '../Home.css'
 
@@ -342,7 +343,7 @@ Notes */}
 <div className=" bg-white shadow-md   w-[361px] h-[620px] ">
     <div>
 <div className='w-[361px] h-[47px] flex bg-[#3D2314] justify-center' style={{borderRadius:'8px 8px 0px 0px', }}>
-            <img src={team} style={{gap:'4px', width:'34px', height:'34px', alignSelf:'center', marginLeft:'5px'}}/>
+            <img src={Notes} style={{gap:'4px', width:'34px', height:'34px', alignSelf:'center', marginLeft:'5px'}}/>
 <p className=" [#313131] text-[white]  ml-[8px] "
         style={{fontSize:"20px",
             fontFamily:"Manrope",

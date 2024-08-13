@@ -570,7 +570,7 @@ function NotePagesAdmin() {
       </div>
       <br />
       <div className="Cards gap-4 flex flex-wrap px-[50px] cardT">
-        <div className="flex flex-wrap gap-10 ">
+       
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
             <div className="flex justify-around items-center mb-4">
               <div className="">
@@ -845,8 +845,8 @@ function NotePagesAdmin() {
 
             </div>
           </div>
-        </div>
-        <div className="flex flex-wrap gap-10">
+       
+        
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
             <div className="flex justify-around items-center mb-4">
               <div className="">
@@ -1119,9 +1119,9 @@ function NotePagesAdmin() {
 
             </div>
           </div>
-        </div>
+        
 
-        <div className="flex flex-wrap gap-10 ">
+       
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
             <div className="flex justify-around items-center mb-4">
               <div className="">
@@ -1396,7 +1396,7 @@ function NotePagesAdmin() {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 }
 
