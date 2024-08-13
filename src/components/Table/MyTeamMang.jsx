@@ -12,7 +12,7 @@ import "../Home.css";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
   <div className="flex" style={{background:'white', width:'354px', borderRadius:'24px', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)'}}>
-    {["All", "Available", "in meet"].map((tab) => (
+    {["All", "Available", "In meet"].map((tab) => (
       <button
         key={tab}
         style={{fontFamily: "Manrope",fontWeight:"500",fontSize:"14px",lineHeight:"19.12px", padding: "10px 24px 10px 24px", height:"39px" }}
