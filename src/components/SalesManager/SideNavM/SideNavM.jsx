@@ -80,12 +80,12 @@ const SideNavM = () => {
               className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${activeItem === "Overview" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
                 }`}
               onClick={() => handleItemClick("Overview")}>
-              {activeItem === "Overview" ? (
+              {/* {activeItem === "Overview" ? (
                 <img src={navicon2} alt="" className="w-4 lg:w-auto" />
               ) : (
                 <img src={navicon1} alt="" />
-              )}
-              Overview
+              )} */}
+              {/* Overview */}
             </li>
           </Link>
           <Link to="/SalesManager/Client">
@@ -125,9 +125,9 @@ const SideNavM = () => {
                 }`}
               onClick={() => handleItemClick("My_Team")}>
               {activeItem === "My_Team" ? (
-                <img src={team2} alt="" />
+                <img src={team2} alt="" style={{ width: '20px', height: '20px' }}/>
               ) : (
-                <img src={material2} alt="" />
+                <img src={material2} alt="" style={{ width: '20px', height: '20px' }} />
               )}
               My Team
             </li>

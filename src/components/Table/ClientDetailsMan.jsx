@@ -23,6 +23,10 @@ function ClientDetailsMang() {
   const [search, setSearch] = useState("");
 
 
+  const [expandedCell, setExpandedCell] = useState(null); 
+  // cc
+
+
 
  
 
@@ -307,10 +311,45 @@ function ClientDetailsMang() {
                     ).map((client, clientIndex) => (
                       <tr className="text-[#5C5C5C] text-center border-b" key={`${index}-${clientIndex}`}>
                         <td className="px-4 py-2 ">{client.createdAt ? DateupdatedAt(client.createdAt) : "Invalide date"}</td>
-                        <td className="px-4 py-2 ">{client.ClientProject?.length > 0 ? client?.ClientProject : "Not Assign"}</td>
-                        <td className="px-4 py-2 ">{client.ClientName?.length > 0 ? client?.ClientName : "Not found"}</td>
+
+                        <td className={`px-4 py-2 max-w-[150px] overflow-hidden ${expandedCell === `${index}-${clientIndex}` ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+                        style={{
+                              fontFamily: "Manrope",
+                              fontSize: "14px",
+                              lineHeight: "19px",
+                              color: "#5C5C5C",
+                              textOverflow: "ellipsis",
+                            }}
+                             title={client.ClientProject}
+                            onDoubleClick={() => setExpandedCell(expandedCell === `${index}-${clientIndex}` ? null : `${index}-${clientIndex}`)}
+                          >
+                          
+                          
+                          
+                          {client.ClientProject?.length > 0 ? client?.ClientProject : "Not Assign"}</td>
+
+                       <td className={`px-4 py-2 max-w-[150px] overflow-hidden ${expandedCell === `${index}-${clientIndex}` ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+                        style={{
+                              fontFamily: "Manrope",
+                              fontSize: "14px",
+                              lineHeight: "19px",
+                              color: "#5C5C5C",
+                              textOverflow: "ellipsis",
+                            }}
+                             title={client.ClientName}
+                            onDoubleClick={() => setExpandedCell(expandedCell === `${index}-${clientIndex}` ? null : `${index}-${clientIndex}`)}
+                          >
+                         
+                          
+                           
+                          {client.ClientName?.length > 0 ? client?.ClientName : "Not found"}
+                          
+                          
+                          </td>
+
                         <td className="px-4 py-2 text-[#000000] " style={{ fontWeight: '800' }}>{client.timeDuration?.length > 0 ? client?.timeDuration : "Not Assign"}</td>
                         <td className="px-4 py-2 r">
+                          
                           <div style={{ textAlign: '-webkit-center' }}    onClick={() => {
                 setShowNotePopup(false);
                 setShowAddNotePopup(true);
@@ -320,15 +359,17 @@ function ClientDetailsMang() {
                           </div>
                         </td>
                         <td className="px-4 py-2">{visitor.name?.length > 0 ? visitor?.name : "Not found"}</td>
-                       
+                        {/* cc */}
+                        <div className="flex justify-center items-center">
                         {client.completed === 'completed' ? (
-                            <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31] ml-5" />
+                            <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31] mt-2" />
                           ) : (
                             
-                            <img src={close} alt="Progress" className="w-[24px] h-[24px] ml-5" />
+                            <img src={close} alt="Progress" className="w-[24px] h-[24px] mt-2 " />
 
                            
                           )}
+                          </div>
                       </tr>
                     )))}
                 </tbody>

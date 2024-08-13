@@ -853,6 +853,83 @@ function NotesDetailsMang() {
             </div>
           </div>
         </div>
+
+        {/* start */}
+               
+        <div className="flex flex-wrap gap-10 ml-5">
+          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+            <div className="flex justify-around items-center mb-4">
+              <div className="">
+                <img src={info} className="text-[60px]" />
+              </div>
+              <div>
+                <h2
+                  style={{
+                    fontWeight: "700",
+                    textAlign: "justify",
+                    fontFamily: "Manrope",
+                  }}
+                  className="text-[18px] text-center text-[#3D2314]"
+                >
+                  Ramesh Kulkarni
+                </h2>
+                <br />
+                <div className="flex flex-wrap">
+                  <div>
+                    <p
+                      className="text-[#3D2314] text-[14px]"
+                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                    >
+                      24 June | 12:50 am
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-between mb-4 gap-[10px]">
+              <p
+                style={{
+                  fontSize: "12px",
+                  margin: "10px",
+                  lineHeight: "16.39px",
+                  fontWeight: "400",
+                  fontFamily: "Manrope",
+                }}
+              >
+                Client expressed interest in [Property Name]. Followed up on
+                email with additional details and brochure. Awaiting response.
+              </p>
+            </div>
+            <div className="flex justify-between">
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
+                style={{
+                  borderRadius: "4px",
+                  padding: "8px 24px",
+                  fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowViewNotePopup(true);
+                }}
+
+                
+              >
+                <img src={edit} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
+              </button>
+
+            </div>
+          </div>
+          </div>
+
+        {/* end */}
+
+
         <div className="flex flex-wrap gap-10">
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
             <div className="flex justify-around items-center mb-4">
@@ -1128,6 +1205,80 @@ function NotesDetailsMang() {
           </div>
         </div>
 
+        {/* start2 */}
+        
+        <div className="flex flex-wrap gap-10 ml-5">
+          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+            <div className="flex justify-around items-center mb-4">
+              <div className="">
+                <img src={info} className="text-[60px]" />
+              </div>
+              <div>
+                <h2
+                  style={{
+                    fontWeight: "700",
+                    textAlign: "justify",
+                    fontFamily: "Manrope",
+                  }}
+                  className="text-[18px] text-center text-[#3D2314]"
+                >
+                  Ramesh Kulkarni
+                </h2>
+                <br />
+                <div className="flex flex-wrap">
+                  <div>
+                    <p
+                      className="text-[#3D2314] text-[14px]"
+                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                    >
+                      24 June | 12:50 am
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-between mb-4 gap-[10px]">
+              <p
+                style={{
+                  fontSize: "12px",
+                  margin: "10px",
+                  lineHeight: "16.39px",
+                  fontWeight: "400",
+                  fontFamily: "Manrope",
+                }}
+              >
+                Client expressed interest in [Property Name]. Followed up on
+                email with additional details and brochure. Awaiting response.
+              </p>
+            </div>
+            <div className="flex justify-between">
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
+                style={{
+                  borderRadius: "4px",
+                  padding: "8px 24px",
+                  fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowViewNotePopup(true);
+                }}
+
+                
+              >
+                <img src={edit} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
+              </button>
+
+            </div>
+          </div>
+          </div>
+        {/* end2 */}
+
         <div className="flex flex-wrap gap-10 ">
           <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
             <div className="flex justify-around items-center mb-4">
@@ -1401,6 +1552,86 @@ function NotesDetailsMang() {
 
             </div>
           </div>
+
+        
+          {/* start3 */}
+          <div className="flex flex-wrap gap-10 ">
+          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+            <div className="flex justify-around items-center mb-4">
+              <div className="">
+                <img src={info} className="text-[60px]" />
+              </div>
+              <div>
+                <h2
+                  style={{
+                    fontWeight: "700",
+                    textAlign: "justify",
+                    fontFamily: "Manrope",
+                  }}
+                  className="text-[18px] text-center text-[#3D2314]"
+                >
+                  Ramesh Kulkarni
+                </h2>
+                <br />
+                <div className="flex flex-wrap">
+                  <div>
+                    <p
+                      className="text-[#3D2314] text-[14px]"
+                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                    >
+                      24 June | 12:50 am
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-between mb-4 gap-[10px]">
+              <p
+                style={{
+                  fontSize: "12px",
+                  margin: "10px",
+                  lineHeight: "16.39px",
+                  fontWeight: "400",
+                  fontFamily: "Manrope",
+                }}
+              >
+                Client expressed interest in [Property Name]. Followed up on
+                email with additional details and brochure. Awaiting response.
+              </p>
+            </div>
+            <div className="flex justify-between">
+            <button
+                className="flex bg-[#3D2314] text-white gap-[8px]"
+                style={{
+                  borderRadius: "4px",
+                  padding: "8px 24px",
+                  fontFamily: "Manrope",
+                  width: '-webkit-fill-available',
+                  justifyContent:'center'
+                }}
+
+                onClick={() => {
+                  setShowNotePopup(false);
+                  setShowViewNotePopup(true);
+                }}
+
+                
+              >
+                <img src={edit} />
+                <span style={{ fontFamily: "Manrope" }}>View</span>
+              </button>
+
+            </div>
+          </div>
+          </div>
+          {/* end3 */}
+
+
+
+
+
+
         </div>
       </div>
     </div>
