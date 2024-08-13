@@ -20,7 +20,7 @@ const TabBar = ({ activeTab, setActiveTab }) => (
           activeTab === tab
             ? "bg-[#3D2314] text-white w-[118px]"
             : " text-[#3D2314] w-[118px]"
-        }  ${tab === 'All' ? "rounded-l-[24px] " : ""} ${tab === 'Assigned' ? "rounded-r-[24px] " : ""}`}
+        }  ${tab === 'All' ? "rounded-l-[24px] " : ""} ${tab === 'In meet' ? "rounded-r-[24px] " : ""}`}
         onClick={() => setActiveTab(tab)}
       >
         {tab}
@@ -67,7 +67,7 @@ function MyTeamMang() {
       url = "https://project-rof.vercel.app/api/teamMember/fetch-all";
     } else if (activeTab === "Available") {
       url = "https://project-rof.vercel.app/api/teamMember/fetch-available";
-    } else if (activeTab === "Assigned") {
+    } else if (activeTab === "In meet") {
       url = "https://project-rof.vercel.app/api/teamMember/fetch-assigned";
     }
     getData(url);
