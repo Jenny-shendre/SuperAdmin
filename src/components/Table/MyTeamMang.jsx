@@ -358,7 +358,7 @@ function MyTeamMang() {
                           : "bg-[#F4E8C8] text-[#AF8414]"
                       } text-[12px] px-[10px] py-[6px] mt-[15px] item-center justify-center`}
                     >
-                                      {note.status === "assigned" ? "in meet" : "available"}
+                                      {note.status === "assigned" ? "In meet" : "available"}
 
               </div>
             </div>
