@@ -29,7 +29,10 @@ function ClientDetails() {
   const [CalRes, setCalRes] = useState([]);
   const [ClientID, setClientID] = useState();
 
-  const [IdEmp, setIdEmp] = useState("ROFEX10");
+
+  const [IdEmp, setIdEmp] = useState(
+    "ROFEX10"
+  );
 
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [showAddNotePopup, setShowAddNotePopup] = useState(false);
@@ -118,6 +121,8 @@ function ClientDetails() {
       setIsCreating(true);
       setErrorMessage(""); // Clear any previous error messages
       console.log("Come");
+      ClientDetails(upcomings[0].ClientId, IdEmp);
+
 
       const notedata = {
         clientName: clientName,
@@ -141,10 +146,48 @@ function ClientDetails() {
     }
   };
 
-  useEffect(() => {
-    const EmpId = localStorage.getItem("EmpId");
-    setClientID(EmpId);
-  }, []);
+  // useEffect(() => {
+  //   const EmpId = localStorage.getItem("EmpId");
+  //   setClientID(EmpId);
+  // }, []);
+
+  const ClientDetails = async (id, employeeId) => {
+    console.log("Client", id);
+    try {
+      const client = await axios.put(
+        `https://project-rof.vercel.app/api/customers/NoteUpdate/${id}`,
+        {
+          notes: briefing,
+        }
+      );
+      console.log("client", client);
+    } catch (error) {
+      console.error(
+        "Error adding client:",
+        error.response ? error.response.data : error.message
+      );
+    }
+    try {
+      const dataNote = await axios.post(
+        `https://project-rof.vercel.app/api/notes`,
+        {
+          name: clientName,
+          note: briefing,
+          role: "Client",
+          project: project,
+          employeeId,
+        }
+      );
+      console.log("AddNote", dataNote);
+    } catch (error) {
+      console.error(
+        "Error adding note:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
+
+
   const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
     const minutes = Math.floor(totalSeconds / 60);
@@ -314,6 +357,8 @@ function ClientDetails() {
       console.log(error);
     }
   };
+
+
 
   const DateupdatedAt = (DateupdatedAt) => {
     const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
@@ -542,7 +587,7 @@ function ClientDetails() {
                             textAlign: "center",
                             alignContent: "center",
                             alignItems: "center",
-                            padding:'8px'
+                            padding: '8px'
                           }}
                         >
                           <span className="bg-green-200 text-green-800 py-1 px-2 rounded">
@@ -988,7 +1033,7 @@ function ClientDetails() {
                     lineHeight: "21.86px",
                     color: "#2B2B2B",
                     textAlign: "center",
-                    padding:'10px'
+                    padding: '10px'
                   }}
                 >
                   {data
@@ -998,7 +1043,7 @@ function ClientDetails() {
                       )
                     )
                     .map((visitor, index) => (
-                      <tr style={{height:'48px'}}>
+                      <tr style={{ height: '48px' }}>
                         <td
                           style={{ borderBottom: "1px solid #E4E7EC" }}
                           className="py-4 px-4"
@@ -1035,29 +1080,34 @@ function ClientDetails() {
                         >
                           <span
                             style={{ borderBottom: "1px solid #E4E7EC" }}
-                             className={`rounded   ${
-                              visitor.completed === "completed"  ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded" : 
-                              visitor.completed === "notCompleted"   ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded"  :
-                              visitor.completed === "progress"  ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded" :
-                              ""
+                            className={`rounded   ${visitor.completed === "completed" ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded" :
+                              visitor.completed === "notCompleted" ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded" :
+                                visitor.completed === "progress" ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded" :
+                                  ""
 
-                             }`}>
-                            {visitor.completed}
+                              }`}>
+                            {visitor.completed === "notCompleted"
+                              ? "Not completed"
+                              : visitor.completed === "completed"
+                                ? "Completed"
+                                : visitor.completed === "progress"
+                                  ? "In Progress"
+                                  : ""}
                           </span>
-                          <span style={{alignContent:'center'}}>
+                          <span style={{ alignContent: 'center' }}>
                             {
-      visitor.completed === "completed"  ?  <FaCheck style={{color:'#48A321'}}/> :
-      visitor.completed === "notCompleted"  ? <RxCross2 style={{color:'#A32121'}} /> :
-      visitor.completed === "progress"  ? <BsThreeDots style={{color:"yellowgreen"}}/> :
-      ""
+                              visitor.completed === "completed" ? <FaCheck style={{ color: '#48A321' }} /> :
+                                visitor.completed === "notCompleted" ? <RxCross2 style={{ color: '#A32121' }} /> :
+                                  visitor.completed === "progress" ? <BsThreeDots style={{ color: "yellowgreen" }} /> :
+                                    ""
                             }
-                    
 
-      
-                            
-                            
+
+
+
+
                           </span>
-      
+
 
                           {/* <span>
                             <button className="text-[#48A321] mr-2"></button>
@@ -1167,13 +1217,13 @@ function ClientDetails() {
                     outline: "none",
                     width: "600px",
                     height: "100px",
-                    fontWeight:400
+                    fontWeight: 400
                   }}
                   onChange={(e) => setBriefing(e.target.value)}
                 />
               </div>
 
-              
+
               <div
                 style={{ padding: "16px 24px" }}
                 className="rounded-md border mb-4 border-gray-300 font-manrope flex flex-wrap w-[640px] h-[51px] justify-between"
@@ -1252,7 +1302,7 @@ function ClientDetails() {
                   </label>
                 </div>
               </div>
-             
+
 
               <button
                 onClick={handleSubmit}

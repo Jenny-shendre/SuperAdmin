@@ -20,22 +20,55 @@ const SettingPagesEx = () => {
   const locationPath = location.pathname;
   const inputRef = useRef(null);
   const [executiveData, setExectiveData] = useState([]);
+  const [image, setImage] = useState(null);
+
+
 
   const [editMode, setEditMode] = useState(false);
 
+  const [IdEmp, setIdEmp] = useState(
+    localStorage.getItem("EmpId") || "ROFEX10"
+  );
+
+  useEffect(() => {
+    const EmpId = localStorage.getItem("EmpId");
+    setIdEmp(EmpId);
+  }, []);
+
+
 
   ///Add Image Logic
-
-
-  const [image, setImage] = useState(null);
-
-  const handleImageUpload = (event) => {
-    inputRef.current.click();
-  };
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    console.log('File', file);
-    setImage(event.target.files[0]);
+
+    if (file) {
+      console.log('File', file);
+      setImage(file);
+
+    }
+  };
+
+
+
+
+  const handleImageUpload = async () => {
+
+    inputRef.current.click();
+    const formData = new FormData();
+    formData.append('CoverImage', image);
+
+    try {
+      const res = await axios.put(`https://project-rof.vercel.app/api/settingsExecutive/CoverImage/${IdEmp}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(res.data);
+      console.log("Image sent successfully", res);
+    } catch (error) {
+      console.log("Error occurred during image upload", error);
+    }
+   
   };
 
   const handleItemClick = () => {
@@ -76,14 +109,6 @@ const SettingPagesEx = () => {
     aadharCard: "",
   });
 
-  const [IdEmp, setIdEmp] = useState(
-    localStorage.getItem("EmpId") || "ROFEX10"
-  );
-
-  useEffect(() => {
-    const EmpId = localStorage.getItem("EmpId");
-    setIdEmp(EmpId);
-  }, []);
 
 
   const gitAPiData = async (employeeId) => {
@@ -110,7 +135,7 @@ const SettingPagesEx = () => {
   return (
 
     <div className="flex  min-h-screen ">
-      <div className="w-1/6 h-[794px] text-black flex flex-col" style={{ borderRight: '1px solid #D0D0D0',  alignItems:'center' }}>
+      <div className="w-1/6 h-[794px] text-black flex flex-col" style={{ borderRight: '1px solid #D0D0D0', alignItems: 'center' }}>
         <div className="flex flex-col items-center mt-10 w-[122px] h-[101px] gap-[17px] justify-between">
 
           <button
@@ -146,7 +171,7 @@ const SettingPagesEx = () => {
                 height: '77px',
                 borderRadius: '50%',
               }} /> : <img src='' alt='' />}
-              <img src={''} className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4" />
+              <img src={executiveData.CoverImage} alt='nk' className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4" />
               <input type='file' ref={inputRef} style={{ display: 'none' }} />
             </div>
             <div>
@@ -173,13 +198,13 @@ const SettingPagesEx = () => {
           <button
             className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[138px] h-[48px]"
             onClick={handleEditClick && handleImageUpload}
-            style={{justifyContent:'flex-end'}}
+            style={{ justifyContent: 'flex-end' }}
           >
             <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
               <img src={edit} />
             </h4>
             <p style={{ fontFamily: "Manrope" }}>
-              Upload
+              {image ? "Upload" : "Select"}
             </p>
 
           </button>

@@ -12,12 +12,24 @@ const SettingPages = () => {
   const [activeItem, setActiveItem] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const [managerData,setManagerData] =useState([]);
+  const [managerData, setManagerData] = useState([]);
   const locationPath = location.pathname;
+  const [image, setImage] = useState(null);
+
+
   const handleItemClick = () => {
     setActiveItem("MyProfilePage");
 
   };
+
+  const [IdEmp, setIdEmp] = useState(
+    localStorage.getItem("EmpId") || "ROFEX10"
+  );
+
+  useEffect(() => {
+    const EmpId = localStorage.getItem("EmpId");
+    setIdEmp(EmpId);
+  }, []);
 
   const handleItemClick2 = () => {
     setActiveItem("PasswordPage");
@@ -39,26 +51,7 @@ const SettingPages = () => {
         break;
     }
   }, []);
-  // const [profile, setProfile] = useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   email: "",
-  //   phoneNumber: "",
-  //   designation: "",
-  //   employeeId: "",
-  //   country: "",
-  //   cityState: "",
-  //   postalCode: "",
-  //   adhaarCard: "",
-  // });
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setProfile((prevProfile) => ({
-  //     ...prevProfile,
-  //     [name]: value,
-  //   }));
-  // };
 
   const handleEditClick = () => {
     console.log(profile);
@@ -68,25 +61,35 @@ const SettingPages = () => {
   ///Add Image Logic
   const inputRef = useRef(null);
 
-  const [image, setImage] = useState(null);
-
-  const handleImageUpload = (event) => {
-    inputRef.current.click();
-  };
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    console.log('File', file);
-    setImage(event.target.files[0]);
+    if (file) {
+      console.log('File', file);
+      setImage(file);
+
+    }
   };
 
-  const [IdEmp, setIdEmp] = useState(
-    localStorage.getItem("EmpId") || "ROFEX10"
-  );
+  const handleImageUpload = async () => {
+    inputRef.current.click();
+    const formData = new FormData();
+    formData.append('CoverImage', image);
 
-  useEffect(() => {
-    const EmpId = localStorage.getItem("EmpId");
-    setIdEmp(EmpId);
-  }, []);
+    try {
+      const res = await axios.put(`https://project-rof.vercel.app/api/settingsManager/CoverImage/${IdEmp}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(res.data);
+      console.log("Image sent successfully", res);
+    } catch (error) {
+      console.log("Error occurred during image upload", error);
+    }
+
+  };
+
+
 
   const gitAPiData = async (employeeId) => {
     const res = await axios.get(
@@ -139,7 +142,7 @@ const SettingPages = () => {
                 height: '77px',
                 borderRadius: '50%',
               }} /> : <img src='' alt='' />}
-              <img src={''} className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4" />
+              <img src={managerData.CoverImage} className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4" />
               <input type='file' ref={inputRef} style={{ display: 'none' }} />
             </div>
 
@@ -167,7 +170,7 @@ const SettingPages = () => {
           <button
             className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[138px] h-[48px]"
             onClick={handleEditClick && handleImageUpload}
-            style={{justifyContent:'flex-end'}}
+            style={{ justifyContent: 'flex-end' }}
           >
             <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
               <img src={edit} />
