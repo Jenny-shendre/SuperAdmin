@@ -27,22 +27,21 @@ import share from "../../assets/Vector (3).png";
 import { FcEditImage } from "react-icons/fc";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
-  <div className="flex" style={{background:'white', width:'472px', borderRadius:'24px', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)'}}>
+  <div className="flex" style={{ background: 'white', width: '472px', borderRadius: '24px', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)' }}>
     {["All", "Client", "Manager", "Super Admin"].map((tab) => (
       <button
         key={tab}
         style={{ fontFamily: "Manrope", padding: "10px 10px", width: "121px" }}
-        className={`  ${
-          activeTab === tab
+        className={`  ${activeTab === tab
             ? "bg-[#3D2314] text-white"
             : " text-[#3D2314] "
-        } ${tab === 'All' ? "rounded-l-[24px] " : ""} ${tab === 'Super Admin' ? "rounded-r-[24px] " : ""}`}
+          } ${tab === 'All' ? "rounded-l-[24px] " : ""} ${tab === 'Super Admin' ? "rounded-r-[24px] " : ""}`}
         onClick={() => setActiveTab(tab)}
       >
         {tab}
       </button>
     ))}
-      
+
   </div>
 );
 
@@ -51,7 +50,7 @@ function NotesDetailsMang() {
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [showAddNotePopup, setShowAddNotePopup] = useState(false);
   const [showViewNotePopup, setShowViewNotePopup] = useState(false);
-  
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
   const [loading, setLoading] = useState(false);
@@ -67,7 +66,7 @@ function NotesDetailsMang() {
 
   const fetchData = async () => {
     setLoading(true);
- 
+
 
     const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
     setdata2(res2.data);
@@ -81,8 +80,8 @@ function NotesDetailsMang() {
 
   //New
 
-  
-   
+
+
   const [clientConversation, setclientConversation] = useState("");
 
   const handleOptionChange = (event) => {
@@ -152,7 +151,7 @@ function NotesDetailsMang() {
   const [isCreating, setIsCreating] = useState(false);
   const [createStatus, setCreateStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
- 
+
   const handleProjectChange = (projectName) => {
     setProject(projectName);
     setIsProjectDropdownOpen(false);
@@ -169,15 +168,15 @@ function NotesDetailsMang() {
 
       const teamdata = {
         clientName: clientName,
-        project : project,
-        briefing :briefing,
+        project: project,
+        briefing: briefing,
       };
 
       try {
-       
+
         setCreateStatus("Note Successfully Added ✓");
-       
-        
+
+
         console.log("Response send", teamdata);
       } catch (error) {
         console.error("Error creating Note:", error);
@@ -197,7 +196,7 @@ function NotesDetailsMang() {
   // const [isCreating, setisCreating] = useState(false);
   const [createStatus2, setCreateStatus2] = useState("");
   const [errorMessage2, setErrorMessage2] = useState(""); // state for error message
- 
+
   const handleProjectChange2 = (projectName2) => {
     setProject2(projectName2);
     setIsProjectDropdownOpen(false);
@@ -213,15 +212,15 @@ function NotesDetailsMang() {
 
       const ViewData = {
         clientName2: clientName2,
-        project2 : project2,
-        briefing2 :briefing2,
+        project2: project2,
+        briefing2: briefing2,
       };
 
       try {
-       
-        
+
+
         setCreateStatus2("Done");
-        
+
         console.log("Response send", ViewData);
       } catch (error) {
         console.error("Error Editing Note:", error);
@@ -229,7 +228,7 @@ function NotesDetailsMang() {
       } finally {
         // setisCreating(false);
       }
-    } 
+    }
   };
 
 
@@ -308,7 +307,7 @@ function NotesDetailsMang() {
               setShowNotePopup(false);
               setShowAddNotePopup(true);
             }}
-           
+
           >
             <img src={close} />
             <span style={{ fontFamily: "Manrope" }}>Add Notes </span>
@@ -411,28 +410,28 @@ function NotesDetailsMang() {
                     outline: "none",
                     width: "600px",
                     height: "100px",
-                    fontWeight:400
+                    fontWeight: 400
                   }}
                   onChange={(e) => setBriefing2(e.target.value)}
                 />
               </div>
 
-              
-            
-             
+
+
+
 
               <button
                 onClick={handleSubmit2}
                 className="`create-team-btn flex flex-wrap w-[192px] h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
                 disabled={isCreating}
               >
-                {createStatus2||(
-        <div className="flex flex-wrap ">
-    <span>
-        <FaEdit className="mr-2 mt-1 font-bold font-[24px]" />
-        </span> <span> Edit Note </span> 
-        </div>
-      )}
+                {createStatus2 || (
+                  <div className="flex flex-wrap ">
+                    <span>
+                      <FaEdit className="mr-2 mt-1 font-bold font-[24px]" />
+                    </span> <span> Edit Note </span>
+                  </div>
+                )}
               </button>
               {errorMessage2 && (
                 <p className="text-red-500 mt-2">{errorMessage2}</p>
@@ -443,7 +442,7 @@ function NotesDetailsMang() {
       )}
 
 
-{showAddNotePopup && (
+      {showAddNotePopup && (
         <>
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
           <div
@@ -538,28 +537,28 @@ function NotesDetailsMang() {
                     outline: "none",
                     width: "600px",
                     height: "100px",
-                    fontWeight:400
+                    fontWeight: 400
                   }}
                   onChange={(e) => setBriefing(e.target.value)}
                 />
               </div>
 
-              
-            
-             
+
+
+
 
               <button
-                onClick={handleSubmit }
+                onClick={handleSubmit}
                 className="`create-team-btn flex flex-wrap  h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
                 disabled={isCreating}
               >
-                {createStatus||(
-        <div className="flex flex-wrap ">
-  
-        
-        <span> Add Note </span> 
-        </div>
-      )}
+                {createStatus || (
+                  <div className="flex flex-wrap ">
+
+
+                    <span> Add Note </span>
+                  </div>
+                )}
               </button>
               {errorMessage && (
                 <p className="text-red-500 mt-2">{errorMessage}</p>
@@ -571,839 +570,839 @@ function NotesDetailsMang() {
 
       <br />
       <div className="flex justify-center">
-      <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       </div>
-     
+
       <br />
       <div className="Cards gap-4 flex flex-wrap px-[55px] cardT">
-        
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Ramesh Kulkarni
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  margin: "10px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Client expressed interest in [Property Name]. Followed up on
-                email with additional details and brochure. Awaiting response.
-              </p>
-            </div>
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
             <div className="">
-              <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
-
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
-
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
-
-             
+              <img src={info} className="text-[60px]" />
             </div>
-          </div>
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Ramesh Kulkarni
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Ramesh Kulkarni
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Client expressed interest in [Property Name]. Followed up on
-                email with additional details and brochure. Awaiting response.
-              </p>
-            </div>
-            <br />
-            <div className="flex justify-between mt-[11px]">
-            <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
-
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
-
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
-
-            </div>
           </div>
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info2} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Manager
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
+
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                margin: "10px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Client expressed interest in [Property Name]. Followed up on
+              email with additional details and brochure. Awaiting response.
+            </p>
+          </div>
+          <div className="">
+            <button
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
+
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
+
+
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
+
+          </div>
+        </div>
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
+            <div className="">
+              <img src={info} className="text-[60px]" />
+            </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Ramesh Kulkarni
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
                 </div>
               </div>
             </div>
-
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Discussed Riyaana Dey’s financing options and need for
-                pre-approval assistance.
-              </p>
-            </div>
-            <br />
-            <br />
-            <div className="flex justify-between">
-            <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
-
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
-
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
-
-            </div>
           </div>
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info3} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Superadmin
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Client expressed interest in [Property Name]. Followed up on
+              email with additional details and brochure. Awaiting response.
+            </p>
+          </div>
+          <br />
+          <div className="flex justify-between mt-[11px]">
+            <button
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
+
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
+
+
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
+          </div>
+        </div>
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
+            <div className="">
+              <img src={info2} className="text-[60px]" />
+            </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Manager
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
                 </div>
               </div>
             </div>
-            <br />
-
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Confirmation on available closing dates for shortlisted
-                properties.
-              </p>
-            </div>
-            <br />
-            <div className="flex justify-between">
-            <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
-
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
-
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
-
-            </div>
           </div>
-        
-        
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Ramesh Kulkarni
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
+
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Discussed Riyaana Dey’s financing options and need for
+              pre-approval assistance.
+            </p>
+          </div>
+          <br />
+          <br />
+          <div className="flex justify-between">
+            <button
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
+
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
+
+
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
+          </div>
+        </div>
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
+            <div className="">
+              <img src={info3} className="text-[60px]" />
+            </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Superadmin
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
                 </div>
               </div>
             </div>
-
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  margin: "10px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Client expressed interest in [Property Name]. Followed up on
-                email with additional details and brochure. Awaiting response.
-              </p>
-            </div>
-            <div className="flex justify-between">
-            <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
-
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
-
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
-
-            </div>
           </div>
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Ramesh Kulkarni
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
+          <br />
+
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Confirmation on available closing dates for shortlisted
+              properties.
+            </p>
+          </div>
+          <br />
+          <div className="flex justify-between">
+            <button
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
+
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
+
+
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
+          </div>
+        </div>
+
+
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
+            <div className="">
+              <img src={info} className="text-[60px]" />
+            </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Ramesh Kulkarni
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
                 </div>
               </div>
             </div>
-
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  margin: "10px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Client expressed interest in [Property Name]. Followed up on
-                email with additional details and brochure. Awaiting response.
-              </p>
-            </div>
-            <div className="flex justify-between">
-            <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
-
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
-
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
-
-            </div>
           </div>
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Ramesh Kulkarni
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
+
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                margin: "10px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Client expressed interest in [Property Name]. Followed up on
+              email with additional details and brochure. Awaiting response.
+            </p>
+          </div>
+          <div className="flex justify-between">
+            <button
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
+
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
+
+
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
+          </div>
+        </div>
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
+            <div className="">
+              <img src={info} className="text-[60px]" />
+            </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Ramesh Kulkarni
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
                 </div>
               </div>
             </div>
-
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  margin: "10px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Client expressed interest in [Property Name]. Followed up on
-                email with additional details and brochure. Awaiting response.
-              </p>
-            </div>
-            <div className="flex justify-between">
-            <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
-
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
-
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
-
-            </div>
           </div>
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Ramesh Kulkarni
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
+
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                margin: "10px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Client expressed interest in [Property Name]. Followed up on
+              email with additional details and brochure. Awaiting response.
+            </p>
+          </div>
+          <div className="flex justify-between">
+            <button
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
+
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
+
+
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
+          </div>
+        </div>
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
+            <div className="">
+              <img src={info} className="text-[60px]" />
+            </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Ramesh Kulkarni
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
                 </div>
               </div>
             </div>
-
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  margin: "10px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Client expressed interest in [Property Name]. Followed up on
-                email with additional details and brochure. Awaiting response.
-              </p>
-            </div>
-            <div className="flex justify-between">
-            <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
-
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
-
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
-
-            </div>
           </div>
-        
 
-        
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Ramesh Kulkarni
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                margin: "10px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Client expressed interest in [Property Name]. Followed up on
+              email with additional details and brochure. Awaiting response.
+            </p>
+          </div>
+          <div className="flex justify-between">
+            <button
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
+
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
+
+
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
+          </div>
+        </div>
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
+            <div className="">
+              <img src={info} className="text-[60px]" />
+            </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Ramesh Kulkarni
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
                 </div>
               </div>
             </div>
-
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  margin: "10px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Client expressed interest in [Property Name]. Followed up on
-                email with additional details and brochure. Awaiting response.
-              </p>
-            </div>
-            <div className="flex justify-between">
-            <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
-
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
-
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
-
-            </div>
           </div>
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Ramesh Kulkarni
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
+
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                margin: "10px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Client expressed interest in [Property Name]. Followed up on
+              email with additional details and brochure. Awaiting response.
+            </p>
+          </div>
+          <div className="flex justify-between">
+            <button
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
+
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
+
+
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
+          </div>
+        </div>
+
+
+
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
+            <div className="">
+              <img src={info} className="text-[60px]" />
+            </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Ramesh Kulkarni
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
                 </div>
               </div>
             </div>
-
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  margin: "10px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Client expressed interest in [Property Name]. Followed up on
-                email with additional details and brochure. Awaiting response.
-              </p>
-            </div>
-            <div className="flex justify-between">
-            <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
-
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
-
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
-
-            </div>
           </div>
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Ramesh Kulkarni
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
+
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                margin: "10px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Client expressed interest in [Property Name]. Followed up on
+              email with additional details and brochure. Awaiting response.
+            </p>
+          </div>
+          <div className="flex justify-between">
+            <button
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
+
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
+
+
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
+          </div>
+        </div>
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
+            <div className="">
+              <img src={info} className="text-[60px]" />
+            </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Ramesh Kulkarni
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
                 </div>
               </div>
             </div>
-
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  margin: "10px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Client expressed interest in [Property Name]. Followed up on
-                email with additional details and brochure. Awaiting response.
-              </p>
-            </div>
-            <div className="flex justify-between">
-            <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
-
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
-
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
-
-            </div>
           </div>
-          <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
-            <div className="flex justify-around items-center mb-4">
-              <div className="">
-                <img src={info} className="text-[60px]" />
-              </div>
-              <div>
-                <h2
-                  style={{
-                    fontWeight: "700",
-                    textAlign: "justify",
-                    fontFamily: "Manrope",
-                  }}
-                  className="text-[18px] text-center text-[#3D2314]"
-                >
-                  Ramesh Kulkarni
-                </h2>
-                <br />
-                <div className="flex flex-wrap">
-                  <div>
-                    <p
-                      className="text-[#3D2314] text-[14px]"
-                      style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                    >
-                      24 June | 12:50 am
-                    </p>
-                  </div>
+
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                margin: "10px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Client expressed interest in [Property Name]. Followed up on
+              email with additional details and brochure. Awaiting response.
+            </p>
+          </div>
+          <div className="flex justify-between">
+            <button
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
+
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
+
+
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
+          </div>
+        </div>
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
+            <div className="">
+              <img src={info} className="text-[60px]" />
+            </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Ramesh Kulkarni
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="flex justify-between mb-4 gap-[10px]">
-              <p
-                style={{
-                  fontSize: "12px",
-                  margin: "10px",
-                  lineHeight: "16.39px",
-                  fontWeight: "400",
-                  fontFamily: "Manrope",
-                }}
-              >
-                Client expressed interest in [Property Name]. Followed up on
-                email with additional details and brochure. Awaiting response.
-              </p>
-            </div>
-            <div className="flex justify-between">
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                margin: "10px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Client expressed interest in [Property Name]. Followed up on
+              email with additional details and brochure. Awaiting response.
+            </p>
+          </div>
+          <div className="flex justify-between">
             <button
-                className="flex bg-[#3D2314] text-white gap-[8px]"
-                style={{
-                  borderRadius: "4px",
-                  padding: "8px 24px",
-                  fontFamily: "Manrope",
-                  width: '-webkit-fill-available',
-                  justifyContent:'center'
-                }}
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
 
-                onClick={() => {
-                  setShowNotePopup(false);
-                  setShowViewNotePopup(true);
-                }}
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
 
-                
-              >
-                <img src={edit} />
-                <span style={{ fontFamily: "Manrope" }}>View</span>
-              </button>
 
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
+          </div>
+        </div>
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+          <div className="flex justify-around items-center mb-4">
+            <div className="">
+              <img src={info} className="text-[60px]" />
             </div>
+            <div>
+              <h2
+                style={{
+                  fontWeight: "700",
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                }}
+                className="text-[18px] text-center text-[#3D2314]"
+              >
+                Ramesh Kulkarni
+              </h2>
+              <br />
+              <div className="flex flex-wrap">
+                <div>
+                  <p
+                    className="text-[#3D2314] text-[14px]"
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
+                  >
+                    24 June | 12:50 am
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-between mb-4 gap-[10px]">
+            <p
+              style={{
+                fontSize: "12px",
+                margin: "10px",
+                lineHeight: "16.39px",
+                fontWeight: "400",
+                fontFamily: "Manrope",
+              }}
+            >
+              Client expressed interest in [Property Name]. Followed up on
+              email with additional details and brochure. Awaiting response.
+            </p>
+          </div>
+          <div className="flex justify-between">
+            <button
+              className="flex bg-[#3D2314] text-white gap-[8px]"
+              style={{
+                borderRadius: "4px",
+                padding: "8px 24px",
+                fontFamily: "Manrope",
+                width: '-webkit-fill-available',
+                justifyContent: 'center'
+              }}
+
+              onClick={() => {
+                setShowNotePopup(false);
+                setShowViewNotePopup(true);
+              }}
+
+
+            >
+              <img src={edit} />
+              <span style={{ fontFamily: "Manrope" }}>View</span>
+            </button>
+
           </div>
         </div>
       </div>
-    
+    </div>
+
   );
 }
 

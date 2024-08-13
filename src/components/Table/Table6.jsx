@@ -11,23 +11,23 @@ import "../Home.css";
 const BtnTab = ({ doneTab, setDoneTab, isDisabled, handleSubmit }) => (
   <div className="flex mb-4 justify-end mt-5" style={{ alignSelf: "self-end" }}>
     {["Done"].map((tab) => (
-      <button        
+      <button
         key={tab}
-        style={{ fontFamily: "Manrope", padding: "10px 20px", width: "89px", height:'47px'}}
+        style={{ fontFamily: "Manrope", padding: "10px 20px", width: "89px", height: '47px' }}
         className={`w-fit assign-manager-btn mt-3 h-12 py-3 px-6 rounded-md font-manrope text-lg font-medium ${isDisabled ? "bg-[grey] text-[#F4EAEA]" : "bg-[#3D2314] text-white"
           }`}
         onClick={() => !isDisabled && handleSubmit()}
         disabled={isDisabled}
-      
+
       >
-        {tab} 
-     
-        
+        {tab}
+
+
       </button>
 
 
-    ) )
-    
+    ))
+
     }
   </div>
 );
@@ -43,19 +43,29 @@ const Table6 = () => {
   const [managerInput, setManagerInput] = useState("");
   const [managers, setManagers] = useState([]);
   const [objectId, setObjectId] = useState("");
-    const location = useLocation();
+  const location = useLocation();
   const id = location.state || 0;
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
-  const handleDeleteClick = (id) => {
-    setDeleteId(id);
-    setShowPopup(true);
-    console.log("delete")
+  const handleDeleteClick = async (id) => {
+
+    try {
+      let teamId = objectId
+      let memberId = id
+
+      setDeleteId(id);
+      setShowPopup(true);
+      const res = await axios.delete(`https://project-rof.vercel.app/api/teams/deleteTeamsMembers/${teamId}/${memberId}`)
+      console.log("Member deleted", res);
+    } catch (error) {
+      console.log(error);
+    }
+
   };
-  
+
   const [inputChar3, setInputChar3] = useState('');
-  
+
   const executiveHandle = (event) => {
     const value = event.target.value;
     const regex = /^[a-zA-Z]*$/;
@@ -66,7 +76,7 @@ const Table6 = () => {
 
   const confirmDelete = async () => {
     setShowPopup(false);
-    fetchData(); 
+    fetchData();
   };
 
 
@@ -80,7 +90,7 @@ const Table6 = () => {
   }
 
 
- 
+
   const pathname = location.pathname;
   const teamName = decodeURIComponent(
     pathname.substring(pathname.lastIndexOf("/") + 1)
@@ -89,7 +99,7 @@ const Table6 = () => {
   const addExecutivePopupRef2 = useRef();
   const assignManagerPopupRef2 = useRef();
 
-  
+
 
   const handleOutsideClick2 = (event) => {
     if (
@@ -119,13 +129,15 @@ const Table6 = () => {
     }
   };
 
-  
- 
+
+
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  //  console.log("teamData",teamData);
+  //  console.log("teamData with member name",teamData.teamMemberNames)
 
   useEffect(() => {
     if (showAddExecutivePopup2 || showAssignManagerPopup2) {
@@ -146,10 +158,10 @@ const Table6 = () => {
     }
   };
 
- 
 
 
-  
+
+
 
   const handleRemoveItem = (item, setList) => {
     setList((prevList) => prevList.filter((i) => i !== item));
@@ -170,7 +182,7 @@ const Table6 = () => {
   }
 
   console.log("object", sendExecutiveData);
-  console.log("objectId", objectId);
+  // console.log("objectId", objectId);
 
 
   const handleSubmitExecutives = async () => {
@@ -231,7 +243,7 @@ const Table6 = () => {
       <div style={{ display: "flex", gap: "24px", justifyContent: "center" }}>
         <div style={{ display: "flex" }} className="div3">
           <input
-            style={{fontFamily:'Manrope', lineHeight:'21.86px', fontWeight:'500'}}
+            style={{ fontFamily: 'Manrope', lineHeight: '21.86px', fontWeight: '500' }}
             type="text"
             value={valueinput}
             onChange={(e) => setvalueinput(e.target.value)}
@@ -253,7 +265,7 @@ const Table6 = () => {
         </div>
         <div style={{ display: "flex", gap: "24px" }}>
           <div>
-            <button style={{fontFamily:'Manrope',fontWeight:'500', lineHeight:'21.86px', fontSize:'16px'}}
+            <button style={{ fontFamily: 'Manrope', fontWeight: '500', lineHeight: '21.86px', fontSize: '16px' }}
               className="bg-[#3D2314] text-white px-[24px] py-[12px] rounded-full w-[191px] h-[48px] flex justify-between "
               onClick={() => setShowAddExecutivePopup2(true)}
             >
@@ -263,133 +275,133 @@ const Table6 = () => {
           </div>
 
           <div>
-            <button style={{fontFamily:'Manrope',fontWeight:'500', lineHeight:'21.86px', fontSize:'16px'}}
+            <button style={{ fontFamily: 'Manrope', fontWeight: '500', lineHeight: '21.86px', fontSize: '16px' }}
               className="border-2 border-[#3D2314] px-[24px] py-[12px] rounded-full w-[208px] h-[48px] flex justify-between"
               onClick={() => setShowAssignManagerPopup2(true)}
             >
               <TbReload className="color-[#3D2314]  text-[24px]" />
-             
+
               Assign Manager
 
-            
+
             </button>
           </div>
         </div>
       </div>
       <br />
 
-  
+
       <div style={{ textAlign: "-webkit-center" }}>
         <div className="w-[927px] h-[591px]">
           <div className="bg-[#D7D7D7]">
-            <div style={{width:'927px', height:'77px', padding:'8px 0px', background:'#D7D7D7'}}>
+            <div style={{ width: '927px', height: '77px', padding: '8px 0px', background: '#D7D7D7' }}>
 
-            
-            <h2 className="text-xl mb-2 text-center teamName" style={{fontWeight:'600', fontSize:'24px', lineHeight:'32.78px', color:'#323232'}}>
-              {teamData.teamName}
-            </h2>
-            <p
-              className="text-sm text-center [#313131] teamName"
-              style={{
-                fontSize: "16px",
-                fontFamily: "Manrope",
-                fontWeight: "700",
-                lineHeight: "21.86px",
-              }}
-            >
-              {teamData.managerName} (Team Lead)
-            </p>
+
+              <h2 className="text-xl mb-2 text-center teamName" style={{ fontWeight: '600', fontSize: '24px', lineHeight: '32.78px', color: '#323232' }}>
+                {teamData.teamName}
+              </h2>
+              <p
+                className="text-sm text-center [#313131] teamName"
+                style={{
+                  fontSize: "16px",
+                  fontFamily: "Manrope",
+                  fontWeight: "700",
+                  lineHeight: "21.86px",
+                }}
+              >
+                {teamData.managerName} (Team Lead)
+              </p>
             </div>
             <div className="outer-wrapperT text-center flex items-center justify-center">
-            <div className="table-wrapperT" style={{ width: "999px" }}>
+              <div className="table-wrapperT" style={{ width: "999px" }}>
 
-            <table className="w-full wrapperT">
-              <thead className="team1">
-                <tr
-                  className="text-center text-sm font-medium [#000000] bg-[#E8E8E8] w-[188px] h-[28px]"
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "12px",
-                    fontWeight: "500",
-                    lineHeight: "16.39px",
-                  }}
-                >
-                  <th className="px[10px] py-[6px] w-[188px] h-[28px]"style={{fontWeight:'500', borderRight:'1px solid #E4E7EC'}} >Employee ID</th>
-                  <th className="px[10px] py-[6px] w-[188px] h-[28px]" style={{fontWeight:'500',borderRight:'1px solid #E4E7EC'}}>Sales Executive</th>
-                  <th className="px[10px] py-[6px] w-[203px] h-[28px]" style={{fontWeight:'500',borderRight:'1px solid #E4E7EC'}}>Sales Executive Email ID</th>
-                  <th className="px[10px] py-[6px] w-[174px] h-[28px]" style={{fontWeight:'500',borderRight:'1px solid #E4E7EC'}}>Client Name</th>
-                  <th className="px[10px] py-[6px] w-[174px] h-[28px]" style={{fontWeight:'500',borderRight:'1px solid #E4E7EC'}}>Project Name</th>
-                  <th className="px[10px] py-[6px] w-[58px] h-[28px]" style={{fontWeight:'500',borderRight:'1px solid #E4E7EC'}}>Delete</th>
-
-                </tr>
-              </thead>
-
-              <tbody>
-                {teamData?.teamMemberNames?.length > 0 ? (
-                  teamData.teamMemberNames.filter(({ name, emailID }) =>
-                    name?.toLowerCase().includes(valueinput.toLowerCase()) ||
-                    emailID?.toLowerCase().includes(valueinput.toLowerCase())
-                  ).map((member, index) => (
+                <table className="w-full wrapperT">
+                  <thead className="team1">
                     <tr
-                      key={index}
-                      className="border-t border-gray-200 text-center [#000000] w-[188px] h-[54px] p-10 bg-white"
+                      className="text-center text-sm font-medium [#000000] bg-[#E8E8E8] w-[188px] h-[28px]"
                       style={{
                         fontFamily: "Manrope",
-                        fontSize: "16px",
+                        fontSize: "12px",
                         fontWeight: "500",
-                        lineHeight: "21.86px",
+                        lineHeight: "16.39px",
                       }}
                     >
-                      <a
-                        href=""
-                        className="text-[#000AFF] text-center"
-                        style={{
-                          textDecoration: "Underline",
-                        }}
-                      >
-                        <td className="px[10px] py-[6px] text-center " style={{fontWeight:'700',}}>
-                          <Link to={`/SuperAdmin/TeamB/${member?.employeeId}`}>
-                            {member.employeeId?.length > 0
-                              ? member?.employeeId
-                              : "Not found"}
-                          </Link>
-                        </td>
-                      </a>
-                      <td className="px[10px] py-[6px]" style={{fontFamily:'Manrope',borderRight:'1px solid #E4E7EC',borderLeft:'1px solid #E4E7EC'}}>
-                        {member.name?.length > 0 ? member?.name : "Not found"}
-                      </td>
-                      <td className="py-2" style={{borderRight:'1px solid #E4E7EC'}}>
-                        {member.emailID?.length > 0
-                          ? member?.emailID
-                          : "Not found"}
-                      </td>
-                      <td className="py-2" style={{borderRight:'1px solid #E4E7EC'}}>
-                        {arrayClientName(member.ClientName)}
-                      </td>
-                      <td className="py-2" style={{borderRight:'1px solid #E4E7EC'}}>
-                        {member.projectName?.length > 0
-                          ? member?.projectName
-                          : "Not Assign"}
-                      </td>
-                      <td className="py-2" style={{textAlign:'-webkit-center'}}>
-                      <RiDeleteBin6Line style={{color:'rgba(147, 0, 0, 1)', cursor:'pointer'}} onClick={() => handleDeleteClick()}/>
+                      <th className="px[10px] py-[6px] w-[188px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }} >Employee ID</th>
+                      <th className="px[10px] py-[6px] w-[188px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }}>Sales Executive</th>
+                      <th className="px[10px] py-[6px] w-[203px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }}>Sales Executive Email ID</th>
+                      <th className="px[10px] py-[6px] w-[174px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }}>Client Name</th>
+                      <th className="px[10px] py-[6px] w-[174px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }}>Project Name</th>
+                      <th className="px[10px] py-[6px] w-[58px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }}>Delete</th>
 
-                      </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="5" className="text-center py-2">
-                      No team members found
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  </thead>
+
+                  <tbody>
+                    {teamData?.teamMemberNames?.length > 0 ? (
+                      teamData.teamMemberNames.filter(({ name, emailID }) =>
+                        name?.toLowerCase().includes(valueinput.toLowerCase()) ||
+                        emailID?.toLowerCase().includes(valueinput.toLowerCase())
+                      ).map((member, index) => (
+                        <tr
+                          key={index}
+                          className="border-t border-gray-200 text-center [#000000] w-[188px] h-[54px] p-10 bg-white"
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "16px",
+                            fontWeight: "500",
+                            lineHeight: "21.86px",
+                          }}
+                        >
+                          <a
+                            href=""
+                            className="text-[#000AFF] text-center"
+                            style={{
+                              textDecoration: "Underline",
+                            }}
+                          >
+                            <td className="px[10px] py-[6px] text-center " style={{ fontWeight: '700', }}>
+                              <Link to={`/SuperAdmin/TeamB/${member?.employeeId}`}>
+                                {member.employeeId?.length > 0
+                                  ? member?.employeeId
+                                  : "Not found"}
+                              </Link>
+                            </td>
+                          </a>
+                          <td className="px[10px] py-[6px]" style={{ fontFamily: 'Manrope', borderRight: '1px solid #E4E7EC', borderLeft: '1px solid #E4E7EC' }}>
+                            {member.name?.length > 0 ? member?.name : "Not found"}
+                          </td>
+                          <td className="py-2" style={{ borderRight: '1px solid #E4E7EC' }}>
+                            {member.emailID?.length > 0
+                              ? member?.emailID
+                              : "Not found"}
+                          </td>
+                          <td className="py-2" style={{ borderRight: '1px solid #E4E7EC' }}>
+                            {arrayClientName(member.ClientName)}
+                          </td>
+                          <td className="py-2" style={{ borderRight: '1px solid #E4E7EC' }}>
+                            {member.projectName?.length > 0
+                              ? member?.projectName
+                              : "Not Assign"}
+                          </td>
+                          <td className="py-2" style={{ textAlign: '-webkit-center' }}>
+                            <RiDeleteBin6Line style={{ color: 'rgba(147, 0, 0, 1)', cursor: 'pointer' }} onClick={() => handleDeleteClick(member._id)} />
+
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="5" className="text-center py-2">
+                          No team members found
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      </div>
       </div>
       {/* Add Executive Popup */}
       {showAddExecutivePopup2 && (
@@ -447,12 +459,12 @@ const Table6 = () => {
                     onKeyDown={(e) =>
                       handleKeyDown(e, executiveInput, setExecutiveInput, setExecutives)
                     }
-                    
+
                   />
                 </div>
               </div>
-              <BtnTab 
-          
+              <BtnTab
+
                 doneTab={doneTab}
                 setDoneTab={setDoneTab}
                 isDisabled={executives.length === 0}
@@ -532,47 +544,47 @@ const Table6 = () => {
           </div>
         </>
 
-        
+
       )}
 
-         {/* Delete Popup */}
-{showPopup && (
-  <div className="fixed inset-0 flex items-center justify-center z-50">
-    <div className="fixed inset-0 bg-black opacity-50"></div>
-    <div className="Delete-popup w-[257px] h-[192px] py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
-      <div className="text-center">
-        <p className="font-manrope text-[20px] font-medium">
-          Are you sure you want to delete this Member?
-        </p>
-        <p className="font-manrope text-[12px] font-medium text-[#6A6A6A] mt-2">
-          This action cannot be undone.
-        </p>
-        <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
-          <button
-            className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-            onClick={confirmDelete}
-            style={{fontWeight:'600', fontSize:'18px'}}
-          >
-            Delete
-          </button>
-          <button
-            className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
-            onClick={() => setShowPopup(false)}
-            style={{fontWeight:'600', fontSize:'18px'}}
-          >
-            Cancel
-          </button>
+      {/* Delete Popup */}
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div className="Delete-popup w-[257px] h-[192px] py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
+            <div className="text-center">
+              <p className="font-manrope text-[20px] font-medium">
+                Are you sure you want to delete this Member?
+              </p>
+              <p className="font-manrope text-[12px] font-medium text-[#6A6A6A] mt-2">
+                This action cannot be undone.
+              </p>
+              <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
+                <button
+                  className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
+                  onClick={confirmDelete}
+                  style={{ fontWeight: '600', fontSize: '18px' }}
+                >
+                  Delete
+                </button>
+                <button
+                  className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
+                  onClick={() => setShowPopup(false)}
+                  style={{ fontWeight: '600', fontSize: '18px' }}
+                >
+                  Cancel
+                </button>
+              </div>
+              <p className="font-manrope text-[12px] text-[#6A6A6A] font-medium text-center mt-2">
+                Select "Delete" to confirm.
+              </p>
+            </div>
+          </div>
         </div>
-        <p className="font-manrope text-[12px] text-[#6A6A6A] font-medium text-center mt-2">
-          Select "Delete" to confirm.
-        </p>
-      </div>
-    </div>
-  </div>
-)}
+      )}
     </div>
 
-    
+
   );
 };
 
