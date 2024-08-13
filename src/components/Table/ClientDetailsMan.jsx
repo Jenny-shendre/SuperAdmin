@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef} from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import '../Home.css';
 import { IoIosArrowForward } from "react-icons/io";
 import Searchsvg from "../../assets/material-symbols_search.svg";
@@ -21,10 +21,11 @@ function ClientDetailsMang() {
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
+  const [expandedCell, setExpandedCell] = useState(null);
 
 
 
- 
+
 
 
 
@@ -172,7 +173,7 @@ function ClientDetailsMang() {
       return "Invalid Date";
     }
   };
-  
+
 
   return (
     <> {loading ? (
@@ -218,7 +219,7 @@ function ClientDetailsMang() {
                 gap: "24px",
                 borderRadius: "27px",
                 opacity: "0px",
-  
+
                 boxShadow: " 0px 0px 4px 0px #00000040",
               }}
               type="text"
@@ -231,7 +232,7 @@ function ClientDetailsMang() {
               src={Searchsvg}
               alt="Search"
               className="absolute left-4"
-              
+
             />
           </div>
         </div>
@@ -240,11 +241,11 @@ function ClientDetailsMang() {
         <main className=" overflow-x-hidden overflow-y-auto p-6 font-[Manrope]">
 
           <div style={{ textAlign: '-webkit-center' }} className="outer-wrapperB">
-            
-              <table className="w-[956px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
+
+            <table className="w-[956px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
               <div className="table-wrapperB">
                 <thead className="bg-[#D7D7D7] font-[Manrope]">
-               
+
                   <tr className="text-center text-[#4B4B4B] w-[171px]  h-[36px] font-[Manrope]">
                     <th style={{
                       fontFamily: "Manrope",
@@ -252,7 +253,7 @@ function ClientDetailsMang() {
                       fontWeight: "500",
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
-                      width:'175px'
+                      width: '175px'
                     }} className="px-4 py-2 ">Date</th>
                     <th style={{
                       fontFamily: "Manrope",
@@ -269,7 +270,7 @@ function ClientDetailsMang() {
                       color: "#4B4B4B",
                     }} className="px-4 py-2">Client Name</th>
                     <th style={{
-                      width:'171px',
+                      width: '171px',
                       fontFamily: "Manrope",
                       fontSize: "12px",
                       fontWeight: "500",
@@ -296,7 +297,8 @@ function ClientDetailsMang() {
                       fontWeight: "500",
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
-                    }} className="px-4 py-2 ">Actions</th>
+                      
+                    }} className="px-4 py-2 ">Status</th>
                   </tr>
                 </thead>
 
@@ -307,39 +309,74 @@ function ClientDetailsMang() {
                     ).map((client, clientIndex) => (
                       <tr className="text-[#5C5C5C] text-center border-b" key={`${index}-${clientIndex}`}>
                         <td className="px-4 py-2 ">{client.createdAt ? DateupdatedAt(client.createdAt) : "Invalide date"}</td>
-                        <td className="px-4 py-2 ">{client.ClientProject?.length > 0 ? client?.ClientProject : "Not Assign"}</td>
-                        <td className="px-4 py-2 ">{client.ClientName?.length > 0 ? client?.ClientName : "Not found"}</td>
+
+                        <td className={`px-4 py-2 max-w-[150px] overflow-hidden ${expandedCell === `${index}-${clientIndex}` ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "14px",
+                            lineHeight: "19px",
+                            color: "#5C5C5C",
+                            textOverflow: "ellipsis",
+                          }}
+                          title={client.ClientProject}
+                          onDoubleClick={() => setExpandedCell(expandedCell === `${index}-${clientIndex}` ? null : `${index}-${clientIndex}`)}
+                        >
+
+
+
+                          {client.ClientProject?.length > 0 ? client?.ClientProject : "Not Assign"}</td>
+
+                        <td className={`px-4 py-2 max-w-[150px] overflow-hidden ${expandedCell === `${index}-${clientIndex}` ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "14px",
+                            lineHeight: "19px",
+                            color: "#5C5C5C",
+                            textOverflow: "ellipsis",
+                          }}
+                          title={client.ClientName}
+                          onDoubleClick={() => setExpandedCell(expandedCell === `${index}-${clientIndex}` ? null : `${index}-${clientIndex}`)}
+                        >
+
+
+
+                          {client.ClientName?.length > 0 ? client?.ClientName : "Not found"}
+
+
+                        </td>
+
                         <td className="px-4 py-2 text-[#000000] " style={{ fontWeight: '800' }}>{client.timeDuration?.length > 0 ? client?.timeDuration : "Not Assign"}</td>
                         <td className="px-4 py-2 r">
-                          <div style={{ textAlign: '-webkit-center' }}    onClick={() => {
-                setShowNotePopup(false);
-                setShowAddNotePopup(true);
-              }}>
+
+                          <div style={{ textAlign: '-webkit-center' }} onClick={() => {
+                            setShowNotePopup(false);
+                            setShowAddNotePopup(true);
+                          }}>
                             <CgNotes className="w-[20px] h-[22px] text-black " />
                             {client.notes}
                           </div>
                         </td>
                         <td className="px-4 py-2">{visitor.name?.length > 0 ? visitor?.name : "Not found"}</td>
-                       
-                       <td style={{textAlign:'-webkit-center'}}>
-                        {client.completed === 'completed' ? (
-                            <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31]" />
+                        {/* cc */}
+                        <div className="flex justify-center items-center">
+                          {client.completed === 'completed' ? (
+                            <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31] mt-2" />
                           ) : (
-                            
-                            <img src={close} alt="Progress" className="w-[24px] h-[24px] " />
 
-                           
+                            <img src={close} alt="Progress" className="w-[24px] h-[24px] mt-2 " />
+
+
                           )}
-                          </td>
+                        </div>
                       </tr>
                     )))}
                 </tbody>
-                </div>
-              </table>
+              </div>
+            </table>
 
 
-            </div>
-        
+          </div>
+
         </main>
 
 
@@ -375,8 +412,8 @@ function ClientDetailsMang() {
                     borderRadius: "6px",
                   }}
                 />
-       
-                  <input
+
+                <input
                   type="text"
                   value={clientName}
                   onChange={(e) => setclientName(e.target.value)}
@@ -430,7 +467,7 @@ function ClientDetailsMang() {
                   onClick={handleSubmit}
                   className="w-[192px] h-[44px] flex flex-wrap justify-center create-team-btn bg-[#3D2314] rounded-[4px] text-center text-white"
                   disabled={isCreating}
-               style={{fontFamily:"Manrope", fontWeight:"400",fontSize:"16px",borderRadius:"4px",padding:"10px",gap:"10px"}}
+                  style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", borderRadius: "4px", padding: "10px", gap: "10px" }}
                 >
                   {createStatus || "Close Note"}
                 </button>
@@ -447,7 +484,7 @@ function ClientDetailsMang() {
 
 
       </div>
-     )}
+    )}
     </>
   );
 }
