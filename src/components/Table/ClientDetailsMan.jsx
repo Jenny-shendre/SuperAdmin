@@ -320,15 +320,17 @@ function ClientDetailsMang() {
                           </div>
                         </td>
                         <td className="px-4 py-2">{visitor.name?.length > 0 ? visitor?.name : "Not found"}</td>
-                       
-                        {client.completed === 'completed' ? (
-                            <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31] ml-5" />
+                       <td style={{textAlign:'-webkit-center'}}>
+                       {client.completed === 'completed' ? (
+                            <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31]" />
                           ) : (
                             
-                            <img src={close} alt="Progress" className="w-[24px] h-[24px] ml-5" />
+                            <img src={close} alt="Progress" className="w-[24px] h-[24px] "  />
 
                            
                           )}
+                       </td>
+                        
                       </tr>
                     )))}
                 </tbody>

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import OverViewAdmin from "../Overview/OverViewAdmin";
+import Arrow from '../../assets/arrow_forward_ios copy 2.png'
+import { IoIosArrowForward } from "react-icons/io";
+
 
 const BreadCrumbs = () => {
   const location = useLocation();
@@ -29,34 +32,32 @@ const BreadCrumbs = () => {
         break;
 
       default:
-        setActiveItem("DirectVisitors");
+        setActiveItem("Overview");
         break;
     }
   }, []);
   console.log(activeItem);
   return (
-    <div>
-      <h1 style={{
-        fontFamily: 'Poppins',
-        fontSize: '24px',
-        fontWeight: '500',
-        lineHeight: '36px',
-        textAlign: 'left',
-        color:'black',
-        padding:'24px 0px 0px 24px'
-        
-      }}>
-        Home / <span  style={{
-        fontFamily: 'Poppins',
-        fontSize: '24px',
-        fontWeight: '400',
-        lineHeight: '36px',
-        textAlign: 'left',
-        color:'black'
-
-        
-      }}>{activeItem}</span>
-      </h1>
+    <div className="p-6">
+       <h1
+              className="font-bold flex items-center gap-1"
+              style={{
+                fontFamily: "Poppins",
+                fontSize: "24px",
+                fontWeight: "500",
+              }}>
+              Home
+              <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+              <span
+                style={{
+                  fontFamily: "Poppins",
+                  fontWeight: "400",
+                  fontSize: "24px",
+                }}
+                className="font-medium">
+                Overview
+              </span>
+            </h1>
 
       <OverViewAdmin />
     </div>

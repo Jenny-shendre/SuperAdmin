@@ -2,11 +2,14 @@ import React, { useRef } from 'react';
 import { BrowserRouter as Router, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import  { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
+import { IoIosArrowForward } from "react-icons/io";
+
 import edit from "../../assets/Group.png";
 
 
 import MyProfileAdmin from './MyProfileAdmin';
 import PasswordAdmin from './PasswordAdmin';
+
 
 
 
@@ -17,6 +20,11 @@ const SettingPageAdmin = () => {
   const location = useLocation();
   const locationPath = location.pathname;
   const inputRef = useRef(null);
+
+  const [editMode, setEditMode] = useState(false);
+  const toggleEditMode =  () => {
+    setEditMode(!editMode);
+  }
 
     ///Add Image Logic
 
@@ -33,27 +41,27 @@ const SettingPageAdmin = () => {
      };
 
 const handleItemClick = () => {
-    setActiveItem("MyProfileAdmin");
+    setActiveItem("MyProfilePage");
     
   };
 
   const handleItemClick2 = () => {
-    setActiveItem("PasswordAdmin");
+    setActiveItem("PasswordPage");
     
   };
   useEffect(() => {
     switch (locationPath) {
-      case "/profileAd":
-        setActiveItem("MyProfileAdmin");
+      case "/profile":
+        setActiveItem("MyProfilePage");
         break;
 
-      case "/passwordAd":
-        setActiveItem("PasswordAdmin");
+      case "/password":
+        setActiveItem("PasswordPage");
         break;
       
 
       default:
-        setActiveItem("MyProfileAdmin");
+        setActiveItem("MyProfilePage");
         break;
     }
   }, []);
@@ -82,14 +90,37 @@ const handleItemClick = () => {
     console.log(profile);
   };
   return (
+    <div className='p-[24px]'>
+
+<h1
+          className="font-bold flex items-center gap-1 font-[Manrope] pb-[10px]"
+          style={{
+            fontFamily: "Poppins",
+            fontSize: "24px",
+            fontWeight: "500",
+          }}
+        >
+          Home
+          <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+          <span
+            style={{
+              fontFamily: "Poppins",
+              fontWeight: "500",
+              fontSize: "24px",
+            }}
+            className="font-medium font-[Manrope]"
+          >
+            Settings
+          </span>
+        </h1>
     
-      <div className="flex  min-h-screen p-[24px]">
-        <div className="w-1/6 h-[794px] text-black flex flex-col"style={{borderRight:'1px solid #D0D0D0'}}>
+      <div className="flex  min-h-screen  bg-[white] w-[1238px]">
+        <div className="w-1/6 h-[794px]  text-black flex flex-col"style={{borderRight:'1px solid #D0D0D0', alignItems:'center'}}>
         <div className="flex flex-col items-center mt-10 w-[122px] h-[101px] gap-[17px] justify-between">
          
           <button
             style={{ fontWeight: "500", fontFamily: "Manrope",borderRadius:'24px',gap:'29px', lineHeight:'21.86px' }}
-            className={`w-[122px]  p-[10px]   text-[16px] items-center text-center ${activeItem === "MyProfileAdmin" ? "bg-[#8B7B72]  text-white":""}`}
+            className={`w-[122px]  p-[10px]   text-[16px] items-center text-center ${activeItem === "MyProfilePage" ? "bg-[#8B7B72]  text-white":""}`}
             onClick={handleItemClick}
           >
             My Profile
@@ -98,7 +129,7 @@ const handleItemClick = () => {
           
           <button
             style={{ fontWeight: "500", fontFamily: "Manrope",borderRadius:'24px',gap:'29px', lineHeight:'21.86px' }}
-            className={`w-[122px]  p-[10px]  text-[16px] items-center text-center ${activeItem === "PasswordAdmin" ? "bg-[#8B7B72]  text-white":""}`}
+            className={`w-[122px]  p-[10px]  text-[16px] items-center text-center ${activeItem === "PasswordPage" ? "bg-[#8B7B72]  text-white":""}`}
             onClick={ handleItemClick2}
           >
             Password
@@ -108,11 +139,11 @@ const handleItemClick = () => {
         </div>
       </div>
 
-       <div className='w-[1032px] h-[724px] gap-[16px] p-[24px] pt-0 ' >
+       <div className='w-[1032px] h-[724px] gap-[16px] p-[24px] ' >
 
       <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
           <div className="flex items-center gap-4" >
-            <div  onChange={handleImageChange}  onClick={handleImageUpload}>
+            <div  onChange={handleImageChange}  >
   { image ? <img src={URL.createObjectURL(image)} alt='' style={{
         position: 'absolute',
         top: '196px',
@@ -145,20 +176,20 @@ const handleItemClick = () => {
             </div>
           </div>
           <button
-            className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px]"
-            onClick={handleEditClick}
+            className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[138px] h-[48px]"
+            onClick={handleEditClick && handleImageUpload}
           >
-            <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
+            <h4 className="w-[54px] h-[22px] lg:mt-1 lg:relative lg:right-2 gap-2">
               <img src={edit} />
             </h4>
-            <p>Edit</p>
+            <p>Upload</p>
           </button>
         </div>
 
         
         <div>
-        {activeItem === 'MyProfileAdmin' && <MyProfileAdmin />}
-        {activeItem === 'PasswordAdmin' && <PasswordAdmin />}
+        {activeItem === 'MyProfilePage' && <MyProfileAdmin />}
+        {activeItem === 'PasswordPage' && <PasswordAdmin />}
           
         </div>
         </div>
@@ -166,7 +197,7 @@ const handleItemClick = () => {
 
        
       </div>
-  
+      </div>
   );
 }
 

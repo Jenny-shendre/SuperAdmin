@@ -7,11 +7,16 @@ import edit from "../../assets/Group.png";
 const PasswordPage = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [editMode, setEditMode] = useState(false);
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const handleButtonClick = (data) => {
     console.log(data);
   };
+
+  const toggleEditMode =  () => {
+    setEditMode(!editMode);
+  }
 
   const handleEditClick = () => {
     const data = {
@@ -22,19 +27,21 @@ const PasswordPage = () => {
     handleButtonClick(data);
   };
   return (
-    <div className="px-[24px] py-[8px]">
-      <hr className="mb-6 text-[#D0D0D0]" />
-              <div>
+    <div className="px-[24px] py-[8px]" >
+    <hr className="mb-6 text-[#D0D0D0]" />
+    <div >
           <div className="flex justify-between items-center mb-4">
             <h2 style={{ fontWeight: '700', fontFamily: 'Manrope' }} className="text-[#3C3C3C] text-[Manrope] text-[20px]">Change Password</h2>
             <button
               className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px]"
-              onClick={handleEditClick}
+              onClick={handleEditClick && toggleEditMode}
+              // onClick={() => toggleEditMode(FormData._id)}>
+
             >
               <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
                 <img src={edit}/>
               </h4>
-              <p style={{fontFamily:'Manrope'}}>Edit</p>
+              {editMode ? "Save" : "Edit"}
             </button>
           </div>
 
@@ -53,7 +60,7 @@ const PasswordPage = () => {
 
           <div className="mb-2 dumbo">
             <div className="mr-24 mb-4">
-              <label style={{ fontWeight: '400', lineHeight: '19.12px',fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] w-[280px] h-[19px] mb-[4px]">Add New Password</label>
+              <label style={{ fontWeight: '400', lineHeight: '19.12px',fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">Add New Password</label>
               <input
                 type="text"
                 className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg"
@@ -66,7 +73,7 @@ const PasswordPage = () => {
 
           <div className="dumbo ">
             <div className="mr-24 mb-4">
-              <label style={{ fontWeight: '400', lineHeight: '19.12px',fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px] w-[280px] h-[19px] ">Confirm New Password</label>
+              <label style={{ fontWeight: '400', lineHeight: '19.12px',fontFamily:"Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">Confirm New Password</label>
               <input
                 type="text"
                 className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg"
@@ -78,7 +85,7 @@ const PasswordPage = () => {
           </div>
         </div>
 
-        <hr className="mt-1 mb-4" />
+        
 
 
     </div>

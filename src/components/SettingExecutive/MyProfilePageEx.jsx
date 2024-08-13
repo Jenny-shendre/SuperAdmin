@@ -7,6 +7,16 @@ import "../Home.css";
 
 
 const MyProfilePageEx = () => {
+  const [editMode, setEditMode] = useState(false);
+  const [editMode2, setEditMode2] = useState(false);
+  const toggleEditMode =  () => {
+    setEditMode(!editMode);
+  }
+
+  const toggleEditMode2 =  () => {
+    setEditMode2(!editMode2);
+  }
+
   const [profile, setProfile] = useState({
     firstName: "",
     lastName: "",
@@ -46,12 +56,12 @@ const MyProfilePageEx = () => {
     </h2>
     <button
       className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px] "
-      onClick={handleEditClick}
-    >
+      onClick={handleEditClick && toggleEditMode}
+      >
       <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
         <img src={edit} />
       </h4>
-      <p style={{fontFamily:'Manrope'}}>Edit</p>
+      {editMode ? "Save" : "Edit"}
     </button>
   </div>
 
@@ -154,12 +164,12 @@ const MyProfilePageEx = () => {
     </h2>
     <button
       className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px] "
-      onClick={handleEditClick}
+      onClick={handleEditClick && toggleEditMode2}
     >
       <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
         <img src={edit} />
       </h4>
-      <p style={{fontFamily:'Manrope'}}>Edit</p>
+      {editMode2 ? "Save" : "Edit"}
     </button>
   </div>
 

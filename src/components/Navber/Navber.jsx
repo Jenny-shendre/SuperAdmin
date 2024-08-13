@@ -74,7 +74,7 @@ const Navber = () => {
   return (
     <div style={{ zIndex: '+1', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)' }} className="right-shadow border-0 bg-[#FFFFFF] h-screen text-white flex flex-col justify-between p-4 shadow-md  pt-0">
       <div className="flex flex-col  W-[70%] md::w-auto" style={{ gap: '10px' }}>
-        <Link to="/SuperAdmin" style={{
+        <Link to="" style={{
           textAlign: '-webkit-center'
         }}>
           <img
@@ -84,7 +84,7 @@ const Navber = () => {
           />
         </Link>
         <ul className="flex flex-col " style={{ gap: '10px' }}>
-          <Link to="/SuperAdmin/">
+          <Link to="/SuperAdmin">
             <li style={{
               fontFamily: 'Manrope',
               fontSize: '20px',
@@ -94,7 +94,8 @@ const Navber = () => {
             }}
               className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${activeItem === "Overview" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
                 }`}
-              onClick={() => handleItemClick("Overview")}>
+              onClick={() => handleItemClick("Overview")}
+              >
               {activeItem === "Overview" ? (
                 <img src={navicon2} alt="" className="w-4 lg:w-auto" />
               ) : (
@@ -204,9 +205,9 @@ const Navber = () => {
                 }`}
               onClick={() => handleItemClick("Team")}>
               {activeItem === "Team" ? (
-                <img src={Team1} alt="Team" />
+                <img src={Team1} alt="Team" width='24px' height='fit-content' style={{marginBottom:'5px'}}/>
               ) : (
-                <img src={Team2} alt="Team" />
+                <img src={Team2} alt="Team" width='24px' height='fit-content' style={{marginBottom:'5px'}}/>
               )}
               Team
             </li>
@@ -225,7 +226,7 @@ const Navber = () => {
                 }`}
               onClick={() => handleItemClick("Note_Pages")}>
             {activeItem === "Note_Pages" ? (
-                <img src={mat1} alt="" />
+                <img src={mat1} alt=""  />
               ) : (
                 <img src={mat2} alt="" />
               )}
@@ -245,7 +246,7 @@ const Navber = () => {
             textAlign: 'left',
           }}
 
-          className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "ChannelVisitors"
+          className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === ""
             ? "bg-[#3D2314] text-[#FFFFFF]"
             : ""
             }`}

@@ -8,6 +8,7 @@ import Logo from "./assets/Logo.png";
 import Eye from "./assets/Eye.png";
 import { Link } from 'react-router-dom';
 import axios from "axios";
+import OverViewAdmin from "./components/Overview/OverViewAdmin";
 
 
 function App() {
@@ -83,7 +84,7 @@ function App() {
   if (loggedIn) {
     return (
       <div>
-        {role === "super admin" && <SuperAdminScreen />}
+        {role === "super admin" && <SuperAdminScreen /> && <SuperAdminScreen />}
         {role === "sales executive" && <SalesExecutiveScreen />}
         {role === "manager" && <SalesManagerScreen />}
       </div>

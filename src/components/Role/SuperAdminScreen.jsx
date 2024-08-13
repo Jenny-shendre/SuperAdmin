@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom"
 import Navber from "../Navber/Navber"
 import TopNavber from "../TopNavber/TopNavber"
+import OverViewAdmin from "../Overview/OverViewAdmin";
 
 const SuperAdminScreen = () =>{
     return(
@@ -12,6 +13,7 @@ const SuperAdminScreen = () =>{
       <div className="w-full">
         <TopNavber />
         <Outlet />
+       
       </div>
     </div> 
         

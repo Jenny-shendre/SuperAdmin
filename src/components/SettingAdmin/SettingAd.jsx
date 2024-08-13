@@ -1,7 +1,8 @@
 
 
 import { IoIosArrowForward } from "react-icons/io";
-import SettingPagesAdmin from "./SettingPageAdmin";
+import SettingPagesEx from './SettingPagesEx';
+import SettingPageAdmin from "./SettingPageAdmin";
 
 const  SettingAd = () => {
     return (
@@ -36,7 +37,7 @@ const  SettingAd = () => {
         </div>
         <div className="w-[1238px] h-[819px] p-[24px]  bg-white m-[24px]"style={{borderRadius:'8px'}}>
             
-           <SettingPagesAdmin />
+           <SettingPageAdmin />
 
           
             

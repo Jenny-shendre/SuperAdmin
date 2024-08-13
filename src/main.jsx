@@ -67,7 +67,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorComp />,
     children: [
       { 
-        path: "", element: <PrivateRoute element={Overview} /> },
+        path: "/SuperAdmin", element: <PrivateRoute element={Overview} /> },
       {
         path: "Direct_Visitors",
         element: <PrivateRoute element={Direct_Visitors} />,

@@ -7,11 +7,16 @@ import edit from "../../assets/Group.png";
 const PasswordPageEx = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [editMode, setEditMode] = useState(false);
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const handleButtonClick = (data) => {
     console.log(data);
   };
+
+  const toggleEditMode =  () => {
+    setEditMode(!editMode);
+  }
 
   const handleEditClick = () => {
     const data = {
@@ -29,12 +34,14 @@ const PasswordPageEx = () => {
             <h2 style={{ fontWeight: '700', fontFamily: 'Manrope' }} className="text-[#3C3C3C] text-[Manrope] text-[20px]">Change Password</h2>
             <button
               className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px]"
-              onClick={handleEditClick}
+              onClick={handleEditClick && toggleEditMode}
+              // onClick={() => toggleEditMode(FormData._id)}>
+
             >
               <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
                 <img src={edit}/>
               </h4>
-              <p style={{fontFamily:'Manrope'}}>Edit</p>
+              {editMode ? "Save" : "Edit"}
             </button>
           </div>
 
