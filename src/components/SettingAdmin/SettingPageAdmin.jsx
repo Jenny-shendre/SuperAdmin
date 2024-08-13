@@ -1,12 +1,13 @@
 import React, { useRef } from 'react';
 import { BrowserRouter as Router, Route, Link, useNavigate, useLocation } from 'react-router-dom';
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import edit from "../../assets/Group.png";
 
 
 import MyProfileAdmin from './MyProfileAdmin';
 import PasswordAdmin from './PasswordAdmin';
+import axios from 'axios';
 
 
 
@@ -17,29 +18,30 @@ const SettingPageAdmin = () => {
   const location = useLocation();
   const locationPath = location.pathname;
   const inputRef = useRef(null);
+  const [adminData, setAdminData] = useState([]);
 
-    ///Add Image Logic
+  ///Add Image Logic
 
 
   const [image, setImage] = useState(null);
 
   const handleImageUpload = (event) => {
-   inputRef.current.click();
+    inputRef.current.click();
   };
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     console.log('File', file);
     setImage(event.target.files[0]);
-     };
+  };
 
-const handleItemClick = () => {
+  const handleItemClick = () => {
     setActiveItem("MyProfileAdmin");
-    
+
   };
 
   const handleItemClick2 = () => {
     setActiveItem("PasswordAdmin");
-    
+
   };
   useEffect(() => {
     switch (locationPath) {
@@ -50,7 +52,7 @@ const handleItemClick = () => {
       case "/passwordAd":
         setActiveItem("PasswordAdmin");
         break;
-      
+
 
       default:
         setActiveItem("MyProfileAdmin");
@@ -81,66 +83,85 @@ const handleItemClick = () => {
   const handleEditClick = () => {
     console.log(profile);
   };
+  const [IdEmp, setIdEmp] = useState(
+    localStorage.getItem("EmpId") || "ROFEX10"
+  );
+
+  useEffect(() => {
+    const EmpId = localStorage.getItem("EmpId");
+    setIdEmp(EmpId);
+  }, []);
+
+  const gitAPiData = async (employeeId) => {
+    const res = await axios.get(
+      `https://project-rof.vercel.app/api/settingsAdmin/${employeeId}`
+    );
+    setAdminData(res.data);
+  };
+  useEffect(() => {
+    gitAPiData(IdEmp);
+  }, []);
+
   return (
-    
-      <div className="flex  min-h-screen p-[24px]">
-        <div className="w-1/6 h-[794px] text-black flex flex-col"style={{borderRight:'1px solid #D0D0D0'}}>
+
+    <div className="flex  min-h-screen p-[24px]">
+      <div className="w-1/6 h-[794px] text-black flex flex-col" style={{ borderRight: '1px solid #D0D0D0' }}>
         <div className="flex flex-col items-center mt-10 w-[122px] h-[101px] gap-[17px] justify-between">
-         
+
           <button
-            style={{ fontWeight: "500", fontFamily: "Manrope",borderRadius:'24px',gap:'29px', lineHeight:'21.86px' }}
-            className={`w-[122px]  p-[10px]   text-[16px] items-center text-center ${activeItem === "MyProfileAdmin" ? "bg-[#8B7B72]  text-white":""}`}
+            style={{ fontWeight: "500", fontFamily: "Manrope", borderRadius: '24px', gap: '29px', lineHeight: '21.86px' }}
+            className={`w-[122px]  p-[10px]   text-[16px] items-center text-center ${activeItem === "MyProfileAdmin" ? "bg-[#8B7B72]  text-white" : ""}`}
             onClick={handleItemClick}
           >
             My Profile
           </button>
-          
-          
+
+
           <button
-            style={{ fontWeight: "500", fontFamily: "Manrope",borderRadius:'24px',gap:'29px', lineHeight:'21.86px' }}
-            className={`w-[122px]  p-[10px]  text-[16px] items-center text-center ${activeItem === "PasswordAdmin" ? "bg-[#8B7B72]  text-white":""}`}
-            onClick={ handleItemClick2}
+            style={{ fontWeight: "500", fontFamily: "Manrope", borderRadius: '24px', gap: '29px', lineHeight: '21.86px' }}
+            className={`w-[122px]  p-[10px]  text-[16px] items-center text-center ${activeItem === "PasswordAdmin" ? "bg-[#8B7B72]  text-white" : ""}`}
+            onClick={handleItemClick2}
           >
             Password
           </button>
-          
-          
+
+
         </div>
       </div>
 
-       <div className='w-[1032px] h-[724px] gap-[16px] p-[24px] pt-0 ' >
+      <div className='w-[1032px] h-[724px] gap-[16px] p-[24px] pt-0 ' >
 
-      <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
+        <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
           <div className="flex items-center gap-4" >
-            <div  onChange={handleImageChange}  onClick={handleImageUpload}>
-  { image ? <img src={URL.createObjectURL(image)} alt='' style={{
-        position: 'absolute',
-        top: '196px',
-        width: '77px',
-        height: '77px',
-        borderRadius: '50%',
-  }}/> : <img src='' alt='' />}
-  <img src={''} className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4"/>
-             <input type='file' ref={inputRef} style={{display:'none'}}/>
+            <div onChange={handleImageChange} onClick={handleImageUpload}>
+              {image ? <img src={URL.createObjectURL(image)} alt='' style={{
+                position: 'absolute',
+                top: '196px',
+                width: '77px',
+                height: '77px',
+                borderRadius: '50%',
+              }} /> : <img src='' alt='' />}
+              <img src={''} className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4" />
+              <input type='file' ref={inputRef} style={{ display: 'none' }} />
             </div>
             <div>
               <div
                 style={{ fontWeight: "700", lineHeight: "27.32px", fontFamily: "Manrope" }}
                 className="text-[Manrope] text-[20px] text-[#3C3C3C]"
               >
-                Ram Mahajan
+                {adminData.name}
               </div>
               <div
                 style={{ fontWeight: "600", lineHeight: "19.12px", fontFamily: "Manrope" }}
                 className="mt-2 text-[Manrope] text-[14px] text-[#5B5B5B]"
               >
-                Super Admin
+                {adminData.role}
               </div>
               <div
                 style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }}
                 className="mt-1 text-[Manrope] text-[14px] text-[#5B5B5B]"
               >
-                Gurugram, Haryana
+                {adminData.location}
               </div>
             </div>
           </div>
@@ -155,18 +176,18 @@ const handleItemClick = () => {
           </button>
         </div>
 
-        
+
         <div>
-        {activeItem === 'MyProfileAdmin' && <MyProfileAdmin />}
-        {activeItem === 'PasswordAdmin' && <PasswordAdmin />}
-          
-        </div>
-        </div>
+          {activeItem === 'MyProfileAdmin' && <MyProfileAdmin />}
+          {activeItem === 'PasswordAdmin' && <PasswordAdmin email={adminData.email}/>}
 
-
-       
+        </div>
       </div>
-  
+
+
+
+    </div>
+
   );
 }
 
