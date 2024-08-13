@@ -34,9 +34,7 @@ const SideNavM = () => {
 
   useEffect(() => {
     switch (locationPath) {
-      case "/SalesManager":
-        setActiveItem("Overview");
-        break;
+     
       case "/SalesManager/Client":
         setActiveItem("Client");
         break;
@@ -51,7 +49,7 @@ const SideNavM = () => {
             setActiveItem("Setting")
 
       default:
-        setActiveItem("overview");
+        setActiveItem("Client");
         break;
     }
   }, []);
@@ -69,25 +67,7 @@ const SideNavM = () => {
           />
         </Link>
         <ul className="flex flex-col " style={{ gap: '10px' }}>
-          <Link to="/SalesManager">
-            <li style={{
-              fontFamily: 'Manrope',
-              fontSize: '20px',
-              fontWeight: '500',
-              lineHeight: '27.32px',
-              textAlign: 'left',
-            }}
-              className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${activeItem === "Overview" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
-                }`}
-              onClick={() => handleItemClick("Overview")}>
-              {activeItem === "Overview" ? (
-                <img src={navicon2} alt="" className="w-4 lg:w-auto" />
-              ) : (
-                <img src={navicon1} alt="" />
-              )}
-              Overview
-            </li>
-          </Link>
+        
           <Link to="/SalesManager/Client">
             <li
               style={{
@@ -125,9 +105,9 @@ const SideNavM = () => {
                 }`}
               onClick={() => handleItemClick("My_Team")}>
               {activeItem === "My_Team" ? (
-                <img src={team2} alt="" />
+                <img src={team2} alt="" style={{width:'24px', marginBottom:'7px'}}/>
               ) : (
-                <img src={material2} alt="" />
+                <img src={material2} alt="" style={{width:'24px', marginBottom:'7px'}}/>
               )}
               My Team
             </li>

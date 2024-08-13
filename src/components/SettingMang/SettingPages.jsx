@@ -131,7 +131,7 @@ const SettingPages = () => {
         <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
           <div className="flex items-center gap-4">
 
-            <div onChange={handleImageChange} onClick={handleImageUpload}>
+            <div onChange={handleImageChange}>
               {image ? <img src={URL.createObjectURL(image)} alt='' style={{
                 position: 'absolute',
                 top: '196px',
@@ -165,13 +165,14 @@ const SettingPages = () => {
             </div>
           </div>
           <button
-            className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px]"
-            onClick={handleEditClick}
+            className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[138px] h-[48px]"
+            onClick={handleEditClick && handleImageUpload}
+            style={{justifyContent:'flex-end'}}
           >
             <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
               <img src={edit} />
             </h4>
-            <p>Edit</p>
+            <p>Upload</p>
           </button>
         </div>
         <div>

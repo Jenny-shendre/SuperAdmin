@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link, useNavigate, useLocation } from '
 import { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import edit from "../../assets/Group.png";
+import { IoIosArrowForward } from "react-icons/io";
 
 
 import MyProfileAdmin from './MyProfileAdmin';
@@ -104,8 +105,31 @@ const SettingPageAdmin = () => {
 
   return (
 
-    <div className="flex  min-h-screen p-[24px]">
-      <div className="w-1/6 h-[794px] text-black flex flex-col" style={{ borderRight: '1px solid #D0D0D0' }}>
+    <div className='p-[24px]'>
+
+<h1
+              className="font-bold flex items-center gap-1 pb-[20px]"
+              style={{
+                fontFamily: "Poppins",
+                fontSize: "24px",
+                fontWeight: "500",
+              }}>
+              Home
+              <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+              <span
+                style={{
+                  fontFamily: "Poppins",
+                  fontWeight: "400",
+                  fontSize: "24px",
+                }}
+                className="font-medium">
+                {/* Direct Visitors */}
+                Setting
+              </span>
+            </h1>
+
+    <div className="flex  min-h-screen w-[1032px] bg-white">
+      <div className="w-[25%] h-[794px] text-black flex flex-col" style={{ borderRight: '1px solid #D0D0D0', alignItems:'center' }}>
         <div className="flex flex-col items-center mt-10 w-[122px] h-[101px] gap-[17px] justify-between">
 
           <button
@@ -129,11 +153,11 @@ const SettingPageAdmin = () => {
         </div>
       </div>
 
-      <div className='w-[1032px] h-[724px] gap-[16px] p-[24px] pt-0 ' >
+      <div className='w-[1032px] h-[724px] gap-[16px] p-[24px] ' >
 
         <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
           <div className="flex items-center gap-4" >
-            <div onChange={handleImageChange} onClick={handleImageUpload}>
+            <div onChange={handleImageChange} >
               {image ? <img src={URL.createObjectURL(image)} alt='' style={{
                 position: 'absolute',
                 top: '196px',
@@ -166,13 +190,13 @@ const SettingPageAdmin = () => {
             </div>
           </div>
           <button
-            className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px]"
-            onClick={handleEditClick}
+            className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[138px] h-[48px] justify-end"
+            onClick={handleEditClick && handleImageUpload} 
           >
             <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
               <img src={edit} />
             </h4>
-            <p>Edit</p>
+            <p>Upload</p>
           </button>
         </div>
 
@@ -181,12 +205,14 @@ const SettingPageAdmin = () => {
           {activeItem === 'MyProfileAdmin' && <MyProfileAdmin />}
           {activeItem === 'PasswordAdmin' && <PasswordAdmin email={adminData.email}/>}
 
+          
+        </div>
         </div>
       </div>
 
+      </div>
 
-
-    </div>
+    
 
   );
 }
