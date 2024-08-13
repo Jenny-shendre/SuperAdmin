@@ -31,10 +31,7 @@ const SideNav = () => {
 
   useEffect(() => {
     switch (locationPath) {
-      case "/SalesExecutive/":
-        setActiveItem("OverviewPage");
-        break;
-
+    
       case "/SalesExecutive/Client":
         setActiveItem("Client");
         break;
@@ -47,7 +44,7 @@ const SideNav = () => {
           break;
 
       default:
-        setActiveItem("OverviewPage");
+        setActiveItem("Client");
         break;
     }
   }, []);
@@ -74,27 +71,7 @@ const SideNav = () => {
           />
         </Link>
         <ul className="flex flex-col " style={{ gap: "10px" }}>
-          <Link to="/SalesExecutive/">
-            <li
-              style={{
-                fontFamily: "Manrope",
-                fontSize: "20px",
-                fontWeight: "500",
-                lineHeight: "27.32px",
-                textAlign: "left",
-              }}
-              className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${activeItem === "Overview" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
-                }`}
-              onClick={() => handleItemClick("Overview")}
-            >
-              {activeItem === "Overview" ? (
-                <img src={navicon2} alt="" className="w-4 lg:w-auto" />
-              ) : (
-                <img src={navicon1} alt="" />
-              )}
-              Overview
-            </li>
-          </Link>
+         
           <Link to="/SalesExecutive/Client">
             <li
               style={{

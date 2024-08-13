@@ -6,6 +6,9 @@ import notify from "../../assets/add_notes (black).png";
 import backButtton from "../../assets/back-button.png";
 import stopButton from "../../assets/stop-button.png";
 import DropIcon from "../../assets/DropIcon.png";
+import { RxCross2 } from "react-icons/rx";
+import { FaCheck } from "react-icons/fa6";
+import { BsThreeDots } from "react-icons/bs";
 import axios from "axios";
 import { format } from "date-fns";
 
@@ -539,12 +542,13 @@ function ClientDetails() {
                             textAlign: "center",
                             alignContent: "center",
                             alignItems: "center",
+                            padding:'8px'
                           }}
                         >
                           <span className="bg-green-200 text-green-800 py-1 px-2 rounded">
                             New Client
                           </span>
-                          <span style={{ color: "#5C5C5C", fontSize: "18px" }}>
+                          <span style={{ color: "#5C5C5C", fontSize: "16px" }}>
                             {value.ClientName}
                           </span>
                         </td>
@@ -984,6 +988,7 @@ function ClientDetails() {
                     lineHeight: "21.86px",
                     color: "#2B2B2B",
                     textAlign: "center",
+                    padding:'10px'
                   }}
                 >
                   {data
@@ -993,7 +998,7 @@ function ClientDetails() {
                       )
                     )
                     .map((visitor, index) => (
-                      <tr>
+                      <tr style={{height:'48px'}}>
                         <td
                           style={{ borderBottom: "1px solid #E4E7EC" }}
                           className="py-4 px-4"
@@ -1030,14 +1035,33 @@ function ClientDetails() {
                         >
                           <span
                             style={{ borderBottom: "1px solid #E4E7EC" }}
-                            className="bg-[#E1F8D7] text-[#48A321] py-1 px-2 rounded"
-                          >
+                             className={`rounded   ${
+                              visitor.completed === "completed"  ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded" : 
+                              visitor.completed === "notCompleted"   ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded"  :
+                              visitor.completed === "progress"  ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded" :
+                              ""
+
+                             }`}>
                             {visitor.completed}
                           </span>
+                          <span style={{alignContent:'center'}}>
+                            {
+      visitor.completed === "completed"  ?  <FaCheck style={{color:'#48A321'}}/> :
+      visitor.completed === "notCompleted"  ? <RxCross2 style={{color:'#A32121'}} /> :
+      visitor.completed === "progress"  ? <BsThreeDots style={{color:"yellowgreen"}}/> :
+      ""
+                            }
+                    
 
-                          <span>
-                            <button className="text-[#48A321] mr-2">✓</button>
+      
+                            
+                            
                           </span>
+      
+
+                          {/* <span>
+                            <button className="text-[#48A321] mr-2"></button>
+                          </span> */}
                         </td>
                       </tr>
                     ))}

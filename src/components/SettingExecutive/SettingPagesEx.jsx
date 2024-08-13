@@ -110,7 +110,7 @@ const SettingPagesEx = () => {
   return (
 
     <div className="flex  min-h-screen ">
-      <div className="w-[25%] h-[794px] text-black flex flex-col" style={{ borderRight: '1px solid #D0D0D0', alignContent:'right' }}>
+      <div className="w-1/6 h-[794px] text-black flex flex-col" style={{ borderRight: '1px solid #D0D0D0',  alignItems:'center' }}>
         <div className="flex flex-col items-center mt-10 w-[122px] h-[101px] gap-[17px] justify-between">
 
           <button
