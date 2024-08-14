@@ -54,21 +54,32 @@ const Table3 = () => {
     };
   };
 
-  const handleSearch = useCallback(debounce((query) => {
-    const filtered = data.filter((item) =>
-      item.customerName.toLowerCase().startsWith(query) ||
-      item.channelPartnerName.toLowerCase().startsWith(query) ||
-      item.projectName.toLowerCase().startsWith(query)
-    );
-
-    setFilteredData(filtered);
-  }, 300), [data]);
-
   const onSearchChange = (e) => {
-    const query = e.target.value.toLowerCase();
-    setvalueinput(query);
-    handleSearch(query);
+    // Ensure we're using the native event (not a synthetic one) for getModifierState
+    const nativeEvent = e.nativeEvent;
+  
+    const query = e.target.value;
+    const isCapsLockOn = nativeEvent.getModifierState && nativeEvent.getModifierState('CapsLock');
+  
+    // Display the query in uppercase if Caps Lock is on
+    setvalueinput(isCapsLockOn ? query.toUpperCase() : query);
+  
+    // Perform a case-insensitive search
+    handleSearch(query.toLowerCase());
   };
+  
+
+const handleSearch = useCallback(debounce((query) => {
+  const filtered = data.filter((item) =>
+    item.customerName.toLowerCase().startsWith(query) ||
+    item.channelPartnerName.toLowerCase().startsWith(query) ||
+    item.projectName.toLowerCase().startsWith(query)
+  );
+
+  setFilteredData(filtered);
+}, 300), [data]);
+
+ 
   const sortedData = filteredData.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 
   return (
