@@ -54,21 +54,27 @@ const Table3 = () => {
     };
   };
 
-  const handleSearch = useCallback(debounce((query) => {
-    const filtered = data.filter((item) =>
-      item.customerName.toLowerCase().startsWith(query) ||
-      item.channelPartnerName.toLowerCase().startsWith(query) ||
-      item.projectName.toLowerCase().startsWith(query)
-    );
-
-    setFilteredData(filtered);
-  }, 300), [data]);
-
   const onSearchChange = (e) => {
-    const query = e.target.value.toLowerCase();
-    setvalueinput(query);
-    handleSearch(query);
+    const nativeEvent = e.nativeEvent;
+    const query = e.target.value;
+    const isCapsLockOn = nativeEvent.getModifierState && nativeEvent.getModifierState('CapsLock');
+    setvalueinput(isCapsLockOn ? query.toUpperCase() : query);
+  
+    handleSearch(query.toLowerCase());
   };
+  
+
+const handleSearch = useCallback(debounce((query) => {
+  const filtered = data.filter((item) =>
+    item.customerName.toLowerCase().startsWith(query) ||
+    item.channelPartnerName.toLowerCase().startsWith(query) ||
+    item.projectName.toLowerCase().startsWith(query)
+  );
+
+  setFilteredData(filtered);
+}, 300), [data]);
+
+ 
   const sortedData = filteredData.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 
   return (
