@@ -16,7 +16,7 @@ const SideNav = () => {
   const locationPath = location.pathname;
   const [activeItem, setActiveItem] = useState("");
   const navigate = useNavigate();
-
+  const [initialLoad, setInitialLoad] = useState(true); // Track initial load
 
   const handleItemClick = (item) => {
     setActiveItem(item);
@@ -26,28 +26,31 @@ const SideNav = () => {
     logout();
     window.location.reload();
     navigate("/");
-    window.location.reload();
-  }
+  };
 
   useEffect(() => {
-    switch (locationPath) {
-    
-      case "/SalesExecutive/Client":
-        setActiveItem("Client");
-        break;
-      case "/SalesExecutive/Notes":
-        setActiveItem("Notes");
-        break;
-
+    if (initialLoad) {
+      setActiveItem("Client");
+      navigate("/SalesExecutive/Client");
+      setInitialLoad(false); // Disable initial load after the first load
+    } else {
+      switch (locationPath) {
+        case "/SalesExecutive/Client":
+          setActiveItem("Client");
+          break;
+        case "/SalesExecutive/Notes":
+          setActiveItem("Notes");
+          break;
         case "/SalesExecutive/SettingEx":
           setActiveItem("SettingEx");
           break;
-
-      default:
-        setActiveItem("Client");
-        break;
+        default:
+          setActiveItem("Client");
+          navigate("/SalesExecutive/Client");
+          break;
+      }
     }
-  }, []);
+  }, [locationPath, navigate, initialLoad]);
 
   return (
     <div
@@ -71,7 +74,7 @@ const SideNav = () => {
           />
         </Link>
         <ul className="flex flex-col " style={{ gap: "10px" }}>
-         
+
           <Link to="/SalesExecutive/Client">
             <li
               style={{
@@ -82,8 +85,8 @@ const SideNav = () => {
                 textAlign: "left",
               }}
               className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Client"
-                  ? "bg-[#3D2314] text-[#FFFFFF]"
-                  : ""
+                ? "bg-[#3D2314] text-[#FFFFFF]"
+                : ""
                 }`}
               onClick={() => handleItemClick("Client")}
             >
@@ -105,8 +108,8 @@ const SideNav = () => {
                 textAlign: "left",
               }}
               className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Notes"
-                  ? "bg-[#3D2314] text-[#FFFFFF]"
-                  : ""
+                ? "bg-[#3D2314] text-[#FFFFFF]"
+                : ""
                 }`}
               onClick={() => handleItemClick("Notes")}
             >
@@ -123,30 +126,27 @@ const SideNav = () => {
       </div>
       <div>
         <ul className="flex flex-col" style={{ gap: "8px" }}>
-        <Link to="/SalesExecutive/SettingEx">
-          <li
-            style={{
-              fontFamily: "Manrope",
-              fontSize: "20px",
-              fontWeight: "500",
-              lineHeight: "27.32px",
-              textAlign: "left",
-            }}
+          <Link to="/SalesExecutive/SettingEx">
+            <li
+              style={{
+                fontFamily: "Manrope",
+                fontSize: "20px",
+                fontWeight: "500",
+                lineHeight: "27.32px",
+                textAlign: "left",
+              }}
 
-            className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${activeItem === "" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
-            }`}
-          onClick={() => handleItemClick("SettingEx")}
-        >
-          {activeItem === "SettingEx" ? (
-            <img src={Settings2} alt="" className="w-4 lg:w-auto" />
-          ) : (
-            <img src={Settings2} alt="" />
-          )}
-            {/* className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] `}
-          >
-            <img src={Settings2} alt="Settings" /> */}
-            Settings
-          </li>
+              className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${activeItem === "SettingEx" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
+                }`}
+              onClick={() => handleItemClick("SettingEx")}
+            >
+              {activeItem === "SettingEx" ? (
+                <img src={Settings2} alt="" className="w-4 lg:w-auto" />
+              ) : (
+                <img src={Settings2} alt="" />
+              )}
+              Settings
+            </li>
           </Link>
           <li onClick={handleLogOut}
             style={{
