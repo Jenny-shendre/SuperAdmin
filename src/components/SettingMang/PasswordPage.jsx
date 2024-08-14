@@ -19,7 +19,7 @@ const PasswordPage = ({ email }) => {
     setUserEmail(email);
   }, [email]);
 
-  const handleEditClick = () => {
+  const handleEditClick = async() => {
     const data = {
       email: userEmail,
       oldPassword: oldPassword,
@@ -28,7 +28,7 @@ const PasswordPage = ({ email }) => {
     };
 
     try {
-      const res = axios.post("https://project-rof.vercel.app/api/admin/change-password",data);
+      const res = await axios.post("https://project-rof.vercel.app/api/admin/change-password",data);
       console.log("Password Change Successfully",res);
     } catch (error) {
       console.log(error)
