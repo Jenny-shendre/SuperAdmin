@@ -55,16 +55,11 @@ const Table3 = () => {
   };
 
   const onSearchChange = (e) => {
-    // Ensure we're using the native event (not a synthetic one) for getModifierState
     const nativeEvent = e.nativeEvent;
-  
     const query = e.target.value;
     const isCapsLockOn = nativeEvent.getModifierState && nativeEvent.getModifierState('CapsLock');
-  
-    // Display the query in uppercase if Caps Lock is on
     setvalueinput(isCapsLockOn ? query.toUpperCase() : query);
   
-    // Perform a case-insensitive search
     handleSearch(query.toLowerCase());
   };
   
