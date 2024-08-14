@@ -31,7 +31,7 @@ function ClientDetails() {
 
 
   const [IdEmp, setIdEmp] = useState(
-    "ROFEX10"
+    localStorage.getItem("EmpId") || "ROFEX10"
   );
 
   const [showNotePopup, setShowNotePopup] = useState(false);
@@ -123,6 +123,14 @@ function ClientDetails() {
       console.log("Come");
       ClientDetails(upcomings[0].ClientId, IdEmp);
 
+      try {
+        if (clientConversation === "Yes") {
+          const res = await axios.put(`https://project-rof.vercel.app/api/attendants/clientConversion/${IdEmp}`)
+          console.log("count the client converted", res);
+        }
+      } catch (error) {
+        console.log(error);
+      }
 
       const notedata = {
         clientName: clientName,
@@ -132,8 +140,8 @@ function ClientDetails() {
       };
 
       try {
-        setCreateStatus("Note Successfully Added ✓");
 
+        setCreateStatus("Note Successfully Added ✓");
         console.log("Response send", notedata);
       } catch (error) {
         console.error("Error creating Note:", error);
@@ -404,6 +412,7 @@ function ClientDetails() {
     setclientConversation(event.target.value);
   };
 
+  // console.log("clientConversation", clientConversation);
   return (
     <div>
       <div
@@ -1138,7 +1147,7 @@ function ClientDetails() {
               </button>
               <input
                 type="text"
-                value={clientName}
+                value={upcomings[0].ClientName}
                 onChange={(e) => setclientName(e.target.value)}
                 className="w-[640px] h-12 mb-4"
                 placeholder="Client Name"
