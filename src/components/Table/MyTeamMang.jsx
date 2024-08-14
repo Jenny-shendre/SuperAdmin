@@ -12,7 +12,7 @@ import "../Home.css";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
   <div className="flex mb-4 justify-center ">
-    {["All", "Available", "Assigned"].map((tab) => (
+    {["All", "Available", "In meet"].map((tab) => (
       <button
         key={tab}
         style={{ fontFamily: "Manrope", padding: "10px 10px", width: "121px" }}
@@ -66,7 +66,7 @@ function MyTeamMang() {
       url = "https://project-rof.vercel.app/api/teamMember/fetch-all";
     } else if (activeTab === "Available") {
       url = "https://project-rof.vercel.app/api/teamMember/fetch-available";
-    } else if (activeTab === "Assigned") {
+    } else if (activeTab === "In meet") {
       url = "https://project-rof.vercel.app/api/teamMember/fetch-assigned";
     }
     getData(url);
