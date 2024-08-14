@@ -26,11 +26,6 @@ function ClientDetailsMang() {
 
 
 
-
-
-
-
-
   const notePopupRef = useRef();
   const addNotePopupRef = useRef();
 
@@ -321,8 +316,6 @@ function ClientDetailsMang() {
                           title={client.ClientProject}
                           onDoubleClick={() => setExpandedCell(expandedCell === `${index}-${clientIndex}` ? null : `${index}-${clientIndex}`)}
                         >
-
-
 
                           {client.ClientProject?.length > 0 ? client?.ClientProject : "Not Assign"}</td>
 

@@ -9,6 +9,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import "../Home.css";
 
+
 const Table1 = () => {
   const [valueinput, setvalueinput] = useState("");
   const [data, setdata] = useState([]);
@@ -28,6 +29,7 @@ const Table1 = () => {
       setShowPopup(false); // Hide popup after deletion
     }
   };
+  const [expandedCell, setExpandedCell] = useState(null);
 
   const fetchData = async () => {
     setLoading(true);
@@ -115,7 +117,7 @@ const Table1 = () => {
                     style={{ boxShadow: " 0px 0px 4px 0px #00000040" }}>
                     <thead>
                       <tr className="text-[9px] lg:text-[15px] text-left  bg-[#E8E8E8]">
-                        <th
+                        <th className="border-b"
                           style={{
                             fontFamily: "Manrope",
                             fontSize: "12px",
@@ -179,6 +181,7 @@ const Table1 = () => {
                           className="border-b"
                           style={{
                             fontFamily: "Manrope",
+                            width:"144px",
                             fontSize: "12px",
                             fontWeight: "500",
                             lineHeight: "16.39px",
@@ -191,6 +194,7 @@ const Table1 = () => {
                           className="border-b text-center"
                           style={{
                             fontFamily: "Manrope",
+                            width:"112px",
                             fontSize: "12px",
                             fontWeight: "500",
                             lineHeight: "16.39px",
@@ -288,11 +292,27 @@ const Table1 = () => {
                             <td className="py-1 border-b text-center">
                               {visitor.channelPartnerCompanyName}
                             </td>
-                            <td className="py-1 border-b text-center">
-                              {visitor.channelPartnerName}
+                            <td className={`px-4 py-2 max-w-[144px] overflow-hidden ${expandedCell === index ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+                              style={{
+                                borderBottom: "1px solid #E8E8E8",
+                                textAlign:"center",
+                                textOverflow: "ellipsis",
+                              }}
+                              title={visitor.channelPartnerName}
+                              onDoubleClick={() => setExpandedCell(expandedCell === index ? null : index)}
+                            >
+                              {visitor.channelPartnerName || "channelPartnerName"}
                             </td>
-                            <td className="py-1 border-b text-center">
-                              {visitor.customerName}
+                            <td className={`px-4 py-2 max-w-[112px] overflow-hidden ${expandedCell === index ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+                             style={{
+                              borderBottom: "1px solid #E8E8E8",
+                              textAlign:"center",
+                              textOverflow: "ellipsis",
+                            }}
+                            title={visitor.customerName}
+                            onDoubleClick={() => setExpandedCell(expandedCell === index ? null : index)}
+                            >
+                              {visitor.customerName ||"name"}
                             </td>
                             <td className="py-1 border-b text-center">
                               {visitor.customerMobileLastFour}

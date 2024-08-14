@@ -11,17 +11,18 @@ import axios from "axios";
 import "../Home.css";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
-  <div className="flex mb-4 justify-center ">
+  <div className="flex" style={{background:'white', width:'354px', borderRadius:'24px', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)'}}>
     {["All", "Available", "In meet"].map((tab) => (
       <button
         key={tab}
-        style={{ fontFamily: "Manrope", padding: "10px 10px", width: "121px" }}
-        className={` px-4 py-2 ${
+        style={{fontFamily: "Manrope",fontWeight:"500",fontSize:"14px",lineHeight:"19.12px", padding: "10px 24px 10px 24px", height:"39px" }}
+        className={` ${
           activeTab === tab
-            ? "bg-[#3D2314] text-white rounded-[24px]"
-            : "bg-white text-[#3D2314] "
-        }`}
-        onClick={() => setActiveTab(tab)}>
+            ? "bg-[#3D2314] text-white w-[118px]"
+            : " text-[#3D2314] w-[118px]"
+        }  ${tab === 'All' ? "rounded-l-[24px] " : ""} ${tab === 'In meet' ? "rounded-r-[24px] " : ""}`}
+        onClick={() => setActiveTab(tab)}
+      >
         {tab}
       </button>
     ))}
@@ -245,7 +246,10 @@ function MyTeamMang() {
       </div>
 
       <br />
+      
+      <div className="flex justify-center">
       <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
+      </div>
       <br />
       {loading ? (
         <div className="flex justify-center items-center">

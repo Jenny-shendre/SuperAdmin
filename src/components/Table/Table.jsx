@@ -18,6 +18,7 @@ const Table = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteCustomerId, setDeleteCustomerId] = useState(null);
+ 
 
   const deletedAt = async () => {
     if (deleteId) {
@@ -28,6 +29,7 @@ const Table = () => {
       setShowPopup(false); // Hide popup after deletion
     }
   };
+  const [expandedCell, setExpandedCell] = useState(null);
 
   const fetchData = async () => {
     setLoading(true);
@@ -117,7 +119,7 @@ const Table = () => {
                   style={{ boxShadow: " 0px 0px 4px 0px #00000040" }}>
                   <thead>
                     <tr className="text-[9px] lg:text-[15px] text-left  bg-[#E8E8E8]">
-                      <th
+                      <th className="border-b"
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
@@ -159,6 +161,8 @@ const Table = () => {
                         className="border-b text-center"
                         style={{
                           fontFamily: "Manrope",
+                          width:"166px",
+                          height:"35px",
                           fontSize: "12px",
                           fontWeight: "500",
                           lineHeight: "16.39px",
@@ -262,8 +266,17 @@ const Table = () => {
                           <td className="py-1 border-b text-center">
                             {visitor.timeDuration}
                           </td>
-                          <td className="py-1 border-b text-center">
-                            {visitor.name}
+                          <td className={`px-4 py-2 max-w-[150px] overflow-hidden ${expandedCell === index ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+                            style={{
+                              borderBottom: "1px solid #E8E8E8",
+                              textAlign:"center",
+                              textOverflow: "ellipsis",
+                            }}
+                            title={visitor.name}
+                            onDoubleClick={() => setExpandedCell(expandedCell === index ? null : index)}
+                        
+                          >
+                            {visitor.name || "name"}
                           </td>
                           <td className="py-1 border-b text-center">
                             <Link

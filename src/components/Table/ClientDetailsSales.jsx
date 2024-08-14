@@ -692,6 +692,7 @@ function ClientDetails() {
                         <td
                           style={{
                             fontFamily: "Manrope",
+                            height: "47px",
                             fontSize: "16px",
                             fontWeight: "500",
                             lineHeight: "21.86px",
@@ -700,7 +701,7 @@ function ClientDetails() {
                             display: "flex",
                             justifyContent: "space-around",
                           }}
-                          className="py-2 px-2"
+                          className="py-1 px-2"
                         >
                           <button
                             className="text-green-500 mr-2 correct1"
