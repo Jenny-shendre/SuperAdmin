@@ -81,7 +81,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute element={Channel_Partners} />,
       },
       {
-        path: "overseas",
+        path: "Rainbow_overseas",
         element: <PrivateRoute element={Channel_Partners_Overseas} />,
       },
       {

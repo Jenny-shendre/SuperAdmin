@@ -120,7 +120,7 @@ const MyProfileAdmin = () => {
               readOnly={!editMode}
             />
           </div>
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               Last Name
             </label>
@@ -131,6 +131,20 @@ const MyProfileAdmin = () => {
               onChange={handleInputChange}
               className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg"
               placeholder="Enter last name"
+            />
+          </div> */}
+               <div className="mb-4">
+            <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+              Phone Number
+            </label>
+            <input
+              type="text"
+              name="phone"
+              value={profile.phone}
+              onChange={handleInputChange}
+              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              placeholder="Enter phone number"
+              readOnly={!editMode}
             />
           </div>
         </div>
@@ -149,7 +163,7 @@ const MyProfileAdmin = () => {
               readOnly={true}
             />
           </div>
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               Phone Number
             </label>
@@ -161,6 +175,20 @@ const MyProfileAdmin = () => {
               className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
               placeholder="Enter phone number"
               readOnly={!editMode}
+            />
+          </div> */}
+             <div>
+            <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+              Employee ID
+            </label>
+            <input
+              type="text"
+              name="employeeId"
+              value={profile.employeeId}
+              onChange={handleInputChange}
+              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              placeholder="Enter employee ID"
+              readOnly={true}
             />
           </div>
         </div>
@@ -179,7 +207,7 @@ const MyProfileAdmin = () => {
               readOnly={true}
             />
           </div>
-          <div>
+          {/* <div>
             <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               Employee ID
             </label>
@@ -192,7 +220,7 @@ const MyProfileAdmin = () => {
               placeholder="Enter employee ID"
               readOnly={true}
             />
-          </div>
+          </div> */}
         </div>
       </div>
 

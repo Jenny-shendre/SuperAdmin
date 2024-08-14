@@ -294,7 +294,7 @@ const Table2 = () => {
                             {/* {ResponseAt(visitor.updatedAt)} */}
                             
                             <Link
-                              onClick={() => navigate('/SuperAdmin/overseas', { state: { id: visitor._id } })}
+                              onClick={() => navigate('/SuperAdmin/Rainbow_overseas', { state: { id: visitor._id } })}
                               style={{
                                 fontFamily: "Manrope",
                                 fontSize: "14px",

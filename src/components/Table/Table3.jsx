@@ -23,6 +23,8 @@ const Table3 = () => {
     setShowPopup(true);
   };
 
+  const [expandedCell, setExpandedCell] = useState(null);
+
   const confirmDelete = async () => {
     await axios.delete(`https://prodictivity-management-tool2.vercel.app/api/record/deleteRecord/${deleteId}`);
     setShowPopup(false);
@@ -133,7 +135,17 @@ const handleSearch = useCallback(debounce((query) => {
                         {/* <td className="py-3 ml-6 text-center flex items-center" style={{ paddingLeft: "5px", textAlign: 'center' }}>{index + 1}</td> */}
                         <td className="py-3  text-center flex items-center justify-center"  style={{  borderBottom:"1px solid #E4E7EC" }}>{index + 1}</td>
                         <td className="py-1 border-b" style={{ paddingLeft: "5px", textAlign: 'center' }}>{DateupdatedAt(item.updatedAt)}</td>
-                        <td className="py-1 border-b text-center">{item.customerName}</td>
+                        <td className={`px-4 py-2 max-w-[120px] overflow-hidden ${expandedCell === index ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+                        style={{
+                          borderBottom: "1px solid #E8E8E8",
+                          textAlign:"center",
+                          textOverflow: "ellipsis",
+                        }}
+                        title={item.customerName}
+                        onDoubleClick={() => setExpandedCell(expandedCell === index ? null : index)}
+                        >
+                          {item.customerName || "name"}
+                          </td>
                         <td className="py-1 border-b text-center">{item.customerMobileLastFour}</td>
                         <td className="py-1 border-b text-center">{item.channelPartnerCompanyName}</td>
                         <td className="py-1 border-b text-center">8484815614</td>
