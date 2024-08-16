@@ -344,9 +344,29 @@ const truncateText = (text, limit = 10) => {
 
                   <tbody>
                     {teamData?.teamMemberNames?.length > 0 ? (
-                      teamData.teamMemberNames.filter(({ name, emailID }) =>
-                        name?.toLowerCase().includes(valueinput.toLowerCase()) ||
-                        emailID?.toLowerCase().includes(valueinput.toLowerCase())
+                      teamData.teamMemberNames.filter(
+                        ({
+                          name,
+                          emailID,
+                          projectName,
+                          employeeId,
+                          ClientName,
+                        }) =>
+                          name
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          projectName
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          employeeId
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          arrayClientName(ClientName)
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          emailID
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase())
                       ).map((member, index) => (
                         <tr
                           key={index}

@@ -443,8 +443,41 @@ const Table7 = () => {
                         overflowY: "auto",
                       }}>
                       {serviceData
-                        .filter(({ name }) =>
-                          name.toLowerCase().includes(valueinput.toLowerCase())
+                         .filter(
+                          ({
+                            name,
+                            servicePersonName,
+                            typeOfService,
+                            createdAt,
+                            statusService,
+                            star,
+                            feedback,
+                            mobileNo,
+                          }) =>
+                            name
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            typeOfService
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            DateupdatedAt(createdAt)
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            statusService
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            star
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            feedback
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            servicePersonName
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase())||
+                              mobileNo
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase())
                         )
                         .map((log, index) => (
                           <tr
@@ -532,8 +565,20 @@ const Table7 = () => {
                         overflowY: "auto",
                       }}>
                       {chequeData
-                        .filter(({ name }) =>
-                          name.toLowerCase().includes(valueinput.toLowerCase())
+                        .filter(
+                          ({ name, createdAt, customerId, mobile }) =>
+                            name
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            customerId
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            mobile
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            DateupdatedAt(createdAt)
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase())
                         )
                         .map((row, index) => (
                           <tr key={index}>

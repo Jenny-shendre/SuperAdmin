@@ -151,10 +151,29 @@ const Table12 = () => {
                 fontWeight: "500",
                 fontFamily: "Manrope",
               }}>
-              {data.filter(({ ClientName }) =>
-                      ClientName?.toLowerCase().includes(
-                        valueinput.toLowerCase()
-                      )
+              {data.filter(
+                      ({
+                        ClientName,
+                        ClientEmail,
+                        ClientMobile,
+                        ClientProject,
+                        createdAt,
+                      }) =>
+                        ClientEmail?.toLowerCase().includes(
+                          valueinput.toLowerCase()
+                        ) ||
+                        ClientMobile?.toLowerCase().includes(
+                          valueinput.toLowerCase()
+                        ) ||
+                        DateupdatedAt(createdAt)
+                          ?.toLowerCase()
+                          .includes(valueinput.toLowerCase()) ||
+                        ClientProject?.toLowerCase().includes(
+                          valueinput.toLowerCase()
+                        ) ||
+                        ClientName?.toLowerCase().includes(
+                          valueinput.toLowerCase()
+                        )
                     ).map((item, index) => (
                 <tr key={index}>
 

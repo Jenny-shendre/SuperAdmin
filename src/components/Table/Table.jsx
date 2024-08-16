@@ -255,8 +255,37 @@ const Table = () => {
 
                   <tbody>
                     {data
-                      .filter(({ name }) =>
-                        name.toLowerCase().includes(valueinput.toLowerCase())
+                      .filter(
+                        ({
+                          name,
+                          updatedAt,
+                          customerId,
+                          mobile,
+                          email,
+                          projectName,
+                          attendantName,
+                        }) =>
+                          name
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          DateupdatedAt(updatedAt)
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          customerId
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          mobile
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          email
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          projectName
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          attendantName
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase())
                       )
                       .map((visitor, index) => (
                         <tr
