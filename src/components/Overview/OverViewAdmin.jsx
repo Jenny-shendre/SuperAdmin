@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import 'tailwindcss/tailwind.css';
 import { FiEye } from "react-icons/fi";
@@ -42,6 +42,22 @@ ChartJS.register(
 
 
 const OverViewAdmin = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOpt, setSelectedOpt] = useState(null);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionClick = (opt) => {
+    setSelectedOpt(opt);
+    setIsOpen(false);
+  };
+
+  const opts = ['Daily', 'Weekly', 'Monthly', 'Yearly'];
+
+
   const data =
   {
     labels: ['08-09', '09-10', '10-11', '11-12', '12-01', '01-02', '02-03', '03-04', '04-05', '05-06'],
@@ -122,18 +138,19 @@ const OverViewAdmin = () => {
 
           <div classNamename="dropdown-section relative inline-block text-left ">
             <div className="group flex justify-end mr-[25px]">
-              <button type="button"
-                className="Daily-dropdown inline-flex justify-between items-center w-[162px] h-[35px] px-4 py-2 text-sm  bg-[white] text-[black]">
-                <img src={filter} width='24px' height='24px' />
-                Daily
-                {/* <!-- Dropdown arrow --> */}
-                <svg className="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+             
+
+              <button onClick={toggleDropdown} className="dropdown-toggle inline-flex justify-between items-center w-[162px] h-[35px] px-4 py-2 text-sm  bg-[white] text-[black]">
+              <img src={filter} width='24px' height='24px' />
+              {selectedOpt || 'Daily'}
+
+        <svg className="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
                 </svg>
-              </button>
+      </button>
 
               {/* <!-- Dropdown menu --> */}
-              <div
+              {/* <div
                 className="absolute top-[260px] w-40 mt-1 origin-top-left item-center bg-white divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
                 <div className="py-1">
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Daily</a>
@@ -141,11 +158,20 @@ const OverViewAdmin = () => {
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Monthly</a>
                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Yearly</a>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
 
+        {isOpen && (
+        <ul className="dropdown-menu top-[240px] w-40 mt-1 origin-top-left item-center bg-white" style={{position:'absolute', textAlign:'center', right:'0'}}>
+          {opts.map((opt, index) => (
+            <li className="py-1" key={index} onClick={() => handleOptionClick(opt)}>
+              {opt }
+            </li>
+          ))}
+        </ul>
+      )}
 
 
         <div className=" grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-[20px] mt-4">
