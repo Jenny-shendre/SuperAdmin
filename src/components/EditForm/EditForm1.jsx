@@ -162,7 +162,9 @@ function EditForm1() {
                 </span>
               </h1>
             </div>
-            <div className="lg:ml-[1000px]">
+         
+          </div>
+          <div className="flex pr-[50px]" style={{justifyContent:'end'}}>
               <button
                 className="flex lg:px-8 lg:py-4 editbutton bg-[#3D2314] text-white rounded-full"
                 key={FormData._id}
@@ -176,7 +178,6 @@ function EditForm1() {
                 </p>
               </button>
             </div>
-          </div>
           <main className="flex flex-wrap gap-5 lg:ml-8 mt-6 ">
             <div
               className="lg:w-[695px] lg:h-[792px] bg-[#FFFFFF] p-[24px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 lg:mr-4"

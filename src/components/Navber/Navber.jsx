@@ -24,17 +24,21 @@ const Navber = () => {
   const locationPath = location.pathname;
   const [activeItem, setActiveItem] = useState("");
   const navigate = useNavigate();
-  const [initialLoad, setInitialLoad] = useState(true); // Track initial load
+  const [initialLoad, setInitialLoad] = useState(true);
 
   const handleItemClick = (item) => {
-    setActiveItem(item);
-    navigate(`/SuperAdmin/${item}`);
+    if (activeItem !== item) {
+      setActiveItem(item); // Set the active item
+      navigate(/SuperAdmin/`${item}`); // Navigate to the selected item
+    }
   };
 
   const handleLogOut = () => {
     logout();
     window.location.reload();
+    
     navigate("/");
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -43,37 +47,36 @@ const Navber = () => {
       navigate("/SuperAdmin");
       setInitialLoad(false); // Disable initial load after the first load
     } else {
-      switch (locationPath) {
-        case "/SuperAdmin":
-          setActiveItem("OverViewAdmin");
-          break;
-        case "/SuperAdmin/Direct_Visitors":
-          setActiveItem("Direct_Visitors");
-          break;
-        case "/SuperAdmin/Channel_Visitors":
-          setActiveItem("ChannelVisitors");
-          break;
-        case "/SuperAdmin/Channel_Partners":
-          setActiveItem("ChannelPartners");
-          break;
-        case "/SuperAdmin/Project":
-          setActiveItem("Project");
-          break;
-        case "/SuperAdmin/Team":
-          setActiveItem("Team");
-          break;
-        case "/SuperAdmin/Note_Pages":
-          setActiveItem("Note_Pages");
-          break;
-        case "/SuperAdmin/SettingAdmin":
-          setActiveItem("SettingAdmin");
-          break;
-        default:
-          setActiveItem("OverViewAdmin");
-          break;
+      if (locationPath.startsWith("/SuperAdmin/Direct_Visitors")) {
+        setActiveItem("Direct_Visitors");
+      } else if (locationPath.startsWith("/SuperAdmin/Channel_Visitors")) {
+        setActiveItem("ChannelVisitors");
+      } else if (locationPath.startsWith("/SuperAdmin/Channel_Partners")) {
+        setActiveItem("ChannelPartners");
+      }
+      else if (locationPath.startsWith("/SuperAdmin/Rainbow_overseas")) {
+        setActiveItem("ChannelPartners");
+      }
+      else if (locationPath.startsWith("/SuperAdmin/EditForm2")) {
+        setActiveItem("ChannelPartners");
+      }
+      else if (locationPath.startsWith("/SuperAdmin/Project")) {
+        setActiveItem("Projects");
+      }
+      else if (locationPath.startsWith("/SuperAdmin/project/Project%")) {
+        setActiveItem("Projects");
+      }
+      else if (locationPath.startsWith("/SuperAdmin/Team")) {
+        setActiveItem("Team");
+      } else if (locationPath.startsWith("/SuperAdmin/Note_Pages")) {
+        setActiveItem("Note_Pages");
+      } else if (locationPath.startsWith("/SuperAdmin/SettingAdmin")) {
+        setActiveItem("SettingAdmin");
+      } else {
+        setActiveItem("OverViewAdmin");
       }
     }
-  }, [locationPath, navigate, initialLoad]);
+  }, [locationPath, initialLoad]);
 
   return (
     <div
@@ -113,9 +116,9 @@ const Navber = () => {
                 ? "bg-[#3D2314] text-[#FFFFFF]"
                 : ""
                 }`}
-              onClick={() => handleItemClick("Overview")}
+              onClick={() => handleItemClick("OverViewAdmin")}
             >
-              {activeItem === "Overview" ? (
+              {activeItem === "OverViewAdmin" ? (
                 <img src={navicon2} alt="" className="w-4 lg:w-auto" />
               ) : (
                 <img src={navicon1} alt="" />
@@ -305,10 +308,12 @@ const Navber = () => {
               fontWeight: "500",
               lineHeight: "27.32px",
               textAlign: "left",
+              color:'#3D2314',
+              
             }}
-            className={`text-[red] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-[s] lg:text-lg font-[Manrope]`}
+            className={"text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-[s] lg:text-lg font-[Manrope]"}
           >
-            <img src={Logout2} alt="Logout" />
+            <img src={Logout2} alt="Logout" style={{color:'#3D2314'}} />
             Logout
           </li>
         </ul>
