@@ -308,7 +308,7 @@ const Table = () => {
                           </td>
                           
 
-                          <td className="py-1 flex gap-2">
+                          <td className="py-3  px-2 flex gap-2">
                             <Link to={`/SuperAdmin/Direct_Visitors/${visitor.customerId}`}>
                               <PiNotePencilBold
                                 // onClick={() => handleEdit(visitor._id)}

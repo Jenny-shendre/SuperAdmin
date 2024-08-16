@@ -136,7 +136,9 @@ function EditForm2() {
               </span>
             </h1>
           </div>
-          <div className="flex lg:ml-[1000px] mt-9 gap-4">
+          </div>
+          
+          <div className="flex pr-[50px]" style={{justifyContent:'end'}}>
             <button
               className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
               onClick={toggleEditMode}
@@ -148,9 +150,9 @@ function EditForm2() {
                 {editMode ? "Save" : "Edit Details"}
               </p>
             </button>
-          </div>
+          
         </div>
-        <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10">
+        <main className="flex flex-wrap gap-5 pl-[50px]">
           <div
             className="lg:w-[695px] lg:h-[792px] bg-[#FFFFFF] p-[24px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 lg:mr-4"
             style={{ borderRadius: "24px" }}

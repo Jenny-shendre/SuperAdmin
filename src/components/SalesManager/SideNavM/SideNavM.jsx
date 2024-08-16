@@ -28,6 +28,7 @@ const SideNavM = () => {
     logout();
     window.location.reload();
     navigate("/");
+    window.location.reload();
   };
 
   useEffect(() => {
