@@ -263,10 +263,41 @@ const Table1 = () => {
                     </thead>
                     <tbody>
                       {data
-                        .filter(({ channelPartnerName }) =>
-                          channelPartnerName
-                            .toLowerCase()
-                            .includes(valueinput.toLowerCase())
+                        .filter(
+                          ({
+                            channelPartnerName,
+                            updatedAt,
+                            partnerId,
+                            attendantName,
+                            customerName,
+                            customerMobileLastFour,
+                            projectName,
+                            channelPartnerCompanyName,
+                          }) =>
+                            channelPartnerName
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            DateupdatedAt(updatedAt)
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            partnerId
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            attendantName
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            customerName
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            customerMobileLastFour
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            channelPartnerCompanyName
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            projectName
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase())
                         )
                         .map((visitor, index) => (
                           <tr className="text-[9px] lg:text-[14px]" key={index}>

@@ -551,10 +551,29 @@ const Table5 = () => {
                   </thead>
 
                   <tbody>
-                    {data1.filter(({ teamName, managerName }) =>
-                      teamName.toLowerCase().includes(valueinput.toLowerCase()) ||
-                      managerName.toLowerCase().includes(valueinput.toLowerCase())
-                    ).map((visitor, index) => (
+                    {data1.filter(
+                        ({
+                          teamName,
+                          managerName,
+                          projectName,
+                          managerEmail,
+                        }) =>
+                          teamName
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          projectName
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          projectName
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          managerEmail
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase()) ||
+                          managerName
+                            ?.toLowerCase()
+                            .includes(valueinput.toLowerCase())
+                      ).map((visitor, index) => (
                       <tr
                         key={index}
                         className="border-b text-[9px] lg:text-[14px]"

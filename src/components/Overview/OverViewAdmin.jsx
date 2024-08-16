@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import 'tailwindcss/tailwind.css';
 import { FiEye } from "react-icons/fi";
@@ -30,6 +30,8 @@ import {
 } from 'chart.js';
 import { data } from 'autoprefixer';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { dealsClosedResponse, fetchChannelVisitors, fetchDirectVisitors, fetchTotalMeetings } from '../../Services/OverviewAPIs';
 
 ChartJS.register(
   CategoryScale,
@@ -44,16 +46,16 @@ ChartJS.register(
 const OverViewAdmin = () => {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOpt, setSelectedOpt] = useState(null);
+  const [selectedOpt, setSelectedOpt] = useState('Daily');
+  const [directVisitors, setDirectVisitors] = useState(0);
+  const [channelVisitors, setChannelVisitors] = useState(0);
+  const [totalMeetings, setTotalMeetings] = useState(0);
+  const [dealClosed, setDealClosed] = useState(0);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
 
-  const handleOptionClick = (opt) => {
-    setSelectedOpt(opt);
-    setIsOpen(false);
-  };
+
+
+
 
   const opts = ['Daily', 'Weekly', 'Monthly', 'Yearly'];
 
@@ -65,7 +67,7 @@ const OverViewAdmin = () => {
 
     datasets: [
       {
-        label: 'Today',
+        label: 'selectedOpt',
 
         backgroundColor: function (contex) {
           const value = contex.raw;
@@ -101,8 +103,38 @@ const OverViewAdmin = () => {
     },
   };
 
-  return (
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
+  const handleOptionClick = async (opt) => {
+    setSelectedOpt(opt.toLowerCase());
+    setIsOpen(false);
+    try {
+      const directData = await fetchDirectVisitors(opt.toLowerCase());
+      const channelData = await fetchChannelVisitors(opt.toLowerCase());
+      const meetingsData = await fetchTotalMeetings(opt.toLowerCase());
+      const dealsClosed = await dealsClosedResponse(opt.toLowerCase());
+
+
+      setDirectVisitors(directData.numberOfDirectVisitors || 0);
+      setChannelVisitors(channelData.numberOfChannelVisitors || 0);
+      setTotalMeetings(meetingsData.totalMeetings || 0);
+      setDealClosed(dealsClosed.totalClientConversion || 0);
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    handleOptionClick(selectedOpt);
+  }, [selectedOpt]);
+
+
+
+
+  return (
 
     <Link to=''>
       <div className="min-h-screen p-6">
@@ -138,16 +170,16 @@ const OverViewAdmin = () => {
 
           <div classNamename="dropdown-section relative inline-block text-left ">
             <div className="group flex justify-end mr-[25px]">
-             
+
 
               <button onClick={toggleDropdown} className="dropdown-toggle inline-flex justify-between items-center w-[162px] h-[35px] px-4 py-2 text-sm  bg-[white] text-[black]">
-              <img src={filter} width='24px' height='24px' />
-              {selectedOpt || 'Daily'}
+                <img src={filter} width='24px' height='24px' />
+                {selectedOpt || 'Daily'}
 
-        <svg className="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <svg className="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
                 </svg>
-      </button>
+              </button>
 
               {/* <!-- Dropdown menu --> */}
               {/* <div
@@ -164,14 +196,14 @@ const OverViewAdmin = () => {
         </div>
 
         {isOpen && (
-        <ul className="dropdown-menu top-[240px] w-40 mt-1 origin-top-left item-center bg-white" style={{position:'absolute', textAlign:'center', right:'0'}}>
-          {opts.map((opt, index) => (
-            <li className="py-1" key={index} onClick={() => handleOptionClick(opt)}>
-              {opt }
-            </li>
-          ))}
-        </ul>
-      )}
+          <ul className="dropdown-menu top-[240px] w-40 mt-1 origin-top-left item-center bg-white" style={{ position: 'absolute', textAlign: 'center', right: '0' }}>
+            {opts.map((opt, index) => (
+              <li className="py-1" key={index} onClick={() => handleOptionClick(opt)}>
+                {opt}
+              </li>
+            ))}
+          </ul>
+        )}
 
 
         <div className=" grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-[20px] mt-4">
@@ -182,21 +214,21 @@ const OverViewAdmin = () => {
 
 
 
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2  text-[#632E04] ">150</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2  text-[#632E04] ">{directVisitors || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
             <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total Channel Visitors
 
               <img className='h-[24px] w-[24px] mt-3' src={twoo} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2  text-[#632E04] ">150</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2  text-[#632E04] ">{channelVisitors || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
             <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Deals Closed
 
               <img className='h-[24px] w-[24px] mt-3' src={threee} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2 ml-12   text-[#632E04]">20</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2 ml-12   text-[#632E04]">{dealClosed || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
             <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total Staff Online
@@ -210,7 +242,7 @@ const OverViewAdmin = () => {
 
               <img className='h-[24px] w-[24px] mt-3' src={fivee} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2 ml-10  text-[#632E04]">350</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2 ml-10  text-[#632E04]">{totalMeetings || 0}</div>
           </div>
         </div>
 
