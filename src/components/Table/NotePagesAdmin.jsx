@@ -158,9 +158,6 @@ function NotePagesAdmin() {
     setIsProjectDropdownOpen(false);
   };
 
-
-
-
   const handleSubmit = async () => {
     if (clientName && project && briefing) {
       setIsCreating(true);
@@ -231,6 +228,8 @@ function NotePagesAdmin() {
       }
     } 
   };
+
+  
 
   return (
     <div>

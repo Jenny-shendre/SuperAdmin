@@ -18,7 +18,13 @@ const Table = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteCustomerId, setDeleteCustomerId] = useState(null);
- 
+ //vb
+ const truncateText = (text, limit = 10) => {
+  if (text && text.length > limit) {
+    return text.slice(0, limit) + '...';
+  }
+  return text || '';
+};
 
   const deletedAt = async () => {
     if (deleteId) {
@@ -266,18 +272,18 @@ const Table = () => {
                           <td className="py-1 border-b text-center">
                             {visitor.timeDuration}
                           </td>
-                          <td className={`px-4 py-2 max-w-[150px] overflow-hidden ${expandedCell === index ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+                          <td className= "px-4 py-2 max-w-[150px] overflow-hidden "
                             style={{
                               borderBottom: "1px solid #E8E8E8",
                               textAlign:"center",
                               textOverflow: "ellipsis",
                             }}
                             title={visitor.name}
-                            onDoubleClick={() => setExpandedCell(expandedCell === index ? null : index)}
                         
                           >
-                            {visitor.name || "name"}
+                            {truncateText(visitor.name)}
                           </td>
+
                           <td className="py-1 border-b text-center">
                             <Link
                               to={`/SuperAdmin/Direct_Visitors/${visitor.customerId}`}
@@ -296,16 +302,21 @@ const Table = () => {
                           <td className="py-1 border-b text-center">
                             {visitor.mobile}
                           </td>
-                          <td className="py-1 border-b text-center">
-                            {visitor.email}
+                          <td className="py-1 border-b text-center max-w-[150px] overflow-hidden"
+                           title= {visitor.email}
+                           >
+                            {truncateText(visitor.email)}
                           </td>
-                          <td className="py-1 border-b text-center">
-                            {visitor.projectName}
+                          <td className="py-1 border-b text-center max-w-[150px] overflow-hidden"
+                          title= {visitor.projectName}>
+                              {truncateText(visitor.projectName)}
                           </td>
 
-                          <td className="py-1 border-b  text-center">
-                            {visitor.attendantName}
+                          <td className="py-1 border-b  text-center max-w-[150px] overflow-hidden"
+                          title=  {visitor.attendantName}>
+                            {truncateText(visitor.attendantName)}
                           </td>
+                          
                           
 
                           <td className="py-3  px-2 flex gap-2">

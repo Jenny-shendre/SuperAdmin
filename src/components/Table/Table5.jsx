@@ -36,7 +36,13 @@ const Table5 = () => {
   const addExecutivePopupRef = useRef(); //  ref for executive popup
   const dropdownRef = useRef();
   const projectDropdownRef = useRef(); // ref for project dropdown
-
+  //vb
+  const truncateText = (text, limit = 10) => {
+    if (text && text.length > limit) {
+      return text.slice(0, limit) + '...';
+    }
+    return text || '';
+  };
   const handleView = (id) => {
     if (viewedItems.includes(id)) {
       setViewedItems((prevViewedItems) =>
@@ -574,7 +580,7 @@ const Table5 = () => {
                         </td>
 
                         <td
-                          className="py-3 border-b text-center"
+                          className="py-3 border-b text-center max-w-[150px] overflow-hidden"
                           style={{
                             textAlign: "center",
                             border: "1px solid #ddd",
@@ -582,32 +588,32 @@ const Table5 = () => {
                             width: "178px",
                             height: "54px",
                           }}
-                        >
-                          {visitor.managerName}
+                          title=  {visitor.managerName}>
+                           {truncateText(visitor.managerName)} 
                         </td>
-
+                       
                         <td
-                          className=" py-3 border-b text-center"
+                          className=" py-3 border-b text-center max-w-[150px] overflow-hidden"
                           style={{
                             border: "1px solid #ddd",
                             padding: "10px",
                             width: "224px",
                             height: "54px",
                           }}
-                        >
-                          {visitor.managerEmail}
+                          title= {visitor.managerEmail}>
+                            {truncateText(visitor.managerEmail)} 
                         </td>
 
                         <td
-                          className="  py-3 border-b text-center"
+                          className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
                           style={{
                             border: "1px solid #ddd",
                             padding: "10px",
                             width: "174px",
                             height: "54px",
                           }}
-                        >
-                          {visitor.projectName}
+                           title= {visitor.projectName}>
+                          {truncateText(visitor.projectName)} 
                         </td>
 
                         <td

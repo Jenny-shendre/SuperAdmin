@@ -19,6 +19,13 @@ const Table1 = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [deletePartnerId, setDeletePartnerId] = useState(null);
+    //vb
+    const truncateText = (text, limit = 10) => {
+      if (text && text.length > limit) {
+        return text.slice(0, limit) + '...';
+      }
+      return text || '';
+    };
 
   const deletedAt = async () => {
     if (deleteId) {
@@ -289,40 +296,49 @@ const Table1 = () => {
                               </Link>
                             </td>
 
-                            <td className="py-1 border-b text-center">
-                              {visitor.channelPartnerCompanyName}
+                            <td className="py-1 border-b text-center max-w-[150px] overflow-hidden"
+                            title= {visitor.channelPartnerCompanyName}>
+                            {truncateText(visitor.channelPartnerCompanyName)} 
                             </td>
-                            <td className={`px-4 py-2 max-w-[144px] overflow-hidden ${expandedCell === index ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+
+                            <td className= "px-4 py-2 max-w-[144px] overflow-hidden "
                               style={{
                                 borderBottom: "1px solid #E8E8E8",
                                 textAlign:"center",
                                 textOverflow: "ellipsis",
                               }}
                               title={visitor.channelPartnerName}
-                              onDoubleClick={() => setExpandedCell(expandedCell === index ? null : index)}
                             >
-                              {visitor.channelPartnerName || "channelPartnerName"}
+                             {truncateText (visitor.channelPartnerName )}
+
                             </td>
-                            <td className={`px-4 py-2 max-w-[112px] overflow-hidden ${expandedCell === index ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+
+
+                            <td className="px-4 py-2 max-w-[112px] overflow-hidden "
                              style={{
                               borderBottom: "1px solid #E8E8E8",
                               textAlign:"center",
                               textOverflow: "ellipsis",
                             }}
                             title={visitor.customerName}
-                            onDoubleClick={() => setExpandedCell(expandedCell === index ? null : index)}
                             >
-                              {visitor.customerName ||"name"}
+                               {truncateText (visitor.customerName)}
+
                             </td>
+
                             <td className="py-1 border-b text-center">
                               {visitor.customerMobileLastFour}
                             </td>
 
-                            <td className="py-1 border-b text-center">
-                              {visitor.projectName}
+                            <td className="py-1 border-b text-center max-w-[150px] overflow-hidden "
+                            title={visitor.projectName}>
+                            {truncateText(visitor.projectName)}  
                             </td>
-                            <td className="py-1 border-b text-center">
-                              {visitor.attendantName}
+
+                            <td className="py-1 border-b text-center max-w-[150px] overflow-hidden "
+                            title={visitor.attendantName}>
+                            {truncateText(visitor.attendantName)}  
+
                             </td>
 
                             <td className="py-[8px] px-3 border-b flex gap-2" style={{height:'39.8px'}}>

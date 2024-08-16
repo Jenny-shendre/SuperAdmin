@@ -21,7 +21,13 @@ function ClientDetailsMang() {
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
-  const [expandedCell, setExpandedCell] = useState(null);
+ //vb
+ const truncateText = (text, limit = 10) => {
+  if (text && text.length > limit) {
+    return text.slice(0, limit) + '...';
+  }
+  return text || '';
+};
 
 
 
@@ -237,9 +243,9 @@ function ClientDetailsMang() {
 
           <div style={{ textAlign: '-webkit-center' }} className="outer-wrapperB">
 
-            <table className="w-[956px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
+            <table className="w-[886px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
               <div className="table-wrapperB">
-                <thead className="bg-[#D7D7D7] font-[Manrope]">
+                <thead className=" font-[Manrope]">
 
                   <tr className="text-center text-[#4B4B4B] w-[171px]  h-[36px] font-[Manrope]">
                     <th style={{
@@ -305,7 +311,7 @@ function ClientDetailsMang() {
                       <tr className="text-[#5C5C5C] text-center border-b" key={`${index}-${clientIndex}`}>
                         <td className="px-4 py-2 ">{client.createdAt ? DateupdatedAt(client.createdAt) : "Invalide date"}</td>
 
-                        <td className={`px-4 py-2 max-w-[150px] overflow-hidden ${expandedCell === `${index}-${clientIndex}` ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+                        {/* <td className={`px-4 py-2 max-w-[150px] overflow-hidden ${expandedCell === `${index}-${clientIndex}` ? 'whitespace-normal' : 'whitespace-nowrap'}`}
                           style={{
                             fontFamily: "Manrope",
                             fontSize: "14px",
@@ -336,7 +342,31 @@ function ClientDetailsMang() {
                           {client.ClientName?.length > 0 ? client?.ClientName : "Not found"}
 
 
+                        </td> */}
+                         <td className="px-4 py-2 max-w-[150px] overflow-hidden"
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "14px",
+                            lineHeight: "19px",
+                            color: "#5C5C5C",
+      
+                          }}
+                          title={client.ClientProject} >
+
+                          {truncateText(client.ClientProject?.length > 0 ? client?.ClientProject : "Not Assign")}
+                          </td>
+
+                        <td className="px-4 py-2 max-w-[150px] overflow-hidden "
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "14px",
+                            lineHeight: "19px",
+                            color: "#5C5C5C",
+                          }}
+                          title={client.ClientName}>
+                         {truncateText(client.ClientName)}
                         </td>
+
 
                         <td className="px-4 py-2 text-[#000000] " style={{ fontWeight: '800' }}>{client.timeDuration?.length > 0 ? client?.timeDuration : "Not Assign"}</td>
                         <td className="px-4 py-2 r">
@@ -349,7 +379,14 @@ function ClientDetailsMang() {
                             {client.notes}
                           </div>
                         </td>
-                        <td className="px-4 py-2">{visitor.name?.length > 0 ? visitor?.name : "Not found"}</td>
+
+                        <td className="px-4 py-2 max-w-[150px] overflow-hidden"
+                          title={visitor.name?.length > 0 ? visitor?.name : "Not found"}>
+                            {truncateText(visitor.name?.length > 0 ? visitor?.name : "Not found")}
+                        </td>
+
+
+                        {/* <td className="px-4 py-2">{visitor.name?.length > 0 ? visitor?.name : "Not found"}</td> */}
                         {/* cc */}
                         <div className="flex justify-center items-center">
                           {client.completed === 'completed' ? (
