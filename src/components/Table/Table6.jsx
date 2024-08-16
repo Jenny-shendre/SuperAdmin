@@ -68,7 +68,7 @@ const Table6 = () => {
 
   const executiveHandle = (event) => {
     const value = event.target.value;
-    const regex = /^[a-zA-Z]*$/;
+    const regex = /^[a-zA-Z ]*$/;
     if (regex.test(value)) {
       setExecutiveInput(value);
     }
@@ -83,7 +83,7 @@ const Table6 = () => {
 
   const managerHandle = (event) => {
     const value = event.target.value;
-    const regex = /^[a-zA-Z]*$/;
+    const regex = /^[a-zA-Z ]*$/;
     if (regex.test(value)) {
       setManagerInput(value);
     }

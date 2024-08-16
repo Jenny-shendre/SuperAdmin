@@ -756,7 +756,7 @@ const Table5 = () => {
                   <br />
                   <button
                     onClick={handleSubmit}
-                    className="w-[192px] create-team-btn h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
+                    className="w-fit create-team-btn h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
                     disabled={isCreating}
                   >
                     {createStatus || 'Create Team'}
@@ -827,7 +827,7 @@ const Table5 = () => {
                   </div>
                   <button
                     onClick={handleManagerSubmit}
-                    className="w-[192px] create-manager-btn h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
+                    className="w-fit create-manager-btn h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
                     disabled={isManagerCreating}
                   >
                     {managerCreateStatus || 'Add'}
