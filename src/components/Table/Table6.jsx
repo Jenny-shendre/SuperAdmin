@@ -47,7 +47,13 @@ const Table6 = () => {
   const id = location.state || 0;
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
-
+//vb
+const truncateText = (text, limit = 10) => {
+  if (text && text.length > limit) {
+    return text.slice(0, limit) + '...';
+  }
+  return text || '';
+};
   const handleDeleteClick = async (id) => {
 
     try {
@@ -367,22 +373,42 @@ const Table6 = () => {
                               </Link>
                             </td>
                           </a>
-                          <td className="px[10px] py-[6px]" style={{ fontFamily: 'Manrope', borderRight: '1px solid #E4E7EC', borderLeft: '1px solid #E4E7EC' }}>
-                            {member.name?.length > 0 ? member?.name : "Not found"}
+
+                          <td className="px[10px] py-[6px]  max-w-[150px] overflow-hidden" 
+                          style={{ fontFamily: 'Manrope', borderRight: '1px solid #E4E7EC', borderLeft: '1px solid #E4E7EC' }}
+                            title= {member.name?.length > 0 ? member?.name : "Not found"}>
+                              {truncateText(member.name?.length > 0 ? member?.name : "Not found")}
                           </td>
-                          <td className="py-2" style={{ borderRight: '1px solid #E4E7EC' }}>
-                            {member.emailID?.length > 0
+
+                          <td className="py-2 max-w-[150px] overflow-hidden" 
+                          style={{ borderRight: '1px solid #E4E7EC' }}
+                             title= {member.emailID?.length > 0
                               ? member?.emailID
-                              : "Not found"}
+                              : "Not found"}>
+                                {truncateText(member.emailID?.length > 0
+                              ? member?.emailID
+                              : "Not found")}  
                           </td>
-                          <td className="py-2" style={{ borderRight: '1px solid #E4E7EC' }}>
-                            {arrayClientName(member.ClientName)}
+
+                          <td className="py-2 max-w-[150px] overflow-hidden" 
+                          style={{ borderRight: '1px solid #E4E7EC' }}
+                            title={arrayClientName(member.ClientName)}>
+                              {truncateText(arrayClientName(member.ClientName))} 
                           </td>
-                          <td className="py-2" style={{ borderRight: '1px solid #E4E7EC' }}>
-                            {member.projectName?.length > 0
+
+                          <td className="py-2 max-w-[150px] overflow-hidden" 
+                          style={{ borderRight: '1px solid #E4E7EC' }}
+                          title={member.projectName?.length > 0
                               ? member?.projectName
-                              : "Not Assign"}
+                              : "Not Assign"}>
+                          {truncateText(member.projectName?.length > 0
+                              ? member?.projectName
+                              : "Not Assign")} 
                           </td>
+                          
+
+
+
                           <td className="py-2" style={{ textAlign: '-webkit-center' }}>
                             <RiDeleteBin6Line style={{ color: 'rgba(147, 0, 0, 1)', cursor: 'pointer' }} onClick={() => handleDeleteClick(member._id)} />
 

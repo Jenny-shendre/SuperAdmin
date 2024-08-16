@@ -103,7 +103,13 @@ const Table2 = () => {
     const formattedDate = format(new Date(DateupdatedAt), "hh:mm a");
     return formattedDate;
   };
-
+ //vb
+ const truncateText = (text, limit = 10) => {
+  if (text && text.length > limit) {
+    return text.slice(0, limit) + '...';
+  }
+  return text || '';
+};
   return (
     <div className="arrowss">
       {loading ? (
@@ -316,22 +322,20 @@ const Table2 = () => {
                               <span className="truncate flex-grow ml-2 #000000" style={{fontSize:"16px"}}>{visitor.name} </span>
                             </td>
                        
-                         {/* //TC */}
-                          <td className="  py-3 border-b text-center">
-                            {visitor.email}
+                            <td className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
+                            title= {visitor.email}>
+                            {truncateText(visitor.email)} 
                           </td>
 
-                          <td className=" py-3 border-b text-center  ">
+                          <td className=" py-3 border-b text-center">
                             {visitor.phone}
                           </td>
 
-                          <td className="  py-3 border-b text-center">
-                            {visitor.address}
-                          </td>
+                          <td className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
+                           title= {visitor.address}>
+                             {truncateText(visitor.address)} 
 
-                          {/* <td className="  py-3 border-b text-center">
-                            {visitor.address}
-                          </td> */}
+                          </td>
 
                           
                         </tr>

@@ -308,10 +308,10 @@ const Navber = () => {
               fontWeight: "500",
               lineHeight: "27.32px",
               textAlign: "left",
-              color:'#3D2314',
+              color:'#F13737',
               
             }}
-            className={"text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-[s] lg:text-lg font-[Manrope]"}
+            className={"text-[#F13737] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-[s] lg:text-lg font-[Manrope]"}
           >
             <img src={Logout2} alt="Logout" style={{color:'#3D2314'}} />
             Logout

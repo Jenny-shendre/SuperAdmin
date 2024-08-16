@@ -78,6 +78,13 @@ const handleSearch = useCallback(debounce((query) => {
 
  
   const sortedData = filteredData.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+//vb
+const truncateText = (text, limit = 10) => {
+  if (text && text.length > limit) {
+    return text.slice(0, limit) + '...';
+  }
+  return text || '';
+};
 
   return (
     <>
@@ -135,22 +142,35 @@ const handleSearch = useCallback(debounce((query) => {
                         {/* <td className="py-3 ml-6 text-center flex items-center" style={{ paddingLeft: "5px", textAlign: 'center' }}>{index + 1}</td> */}
                         <td className="py-3  text-center flex items-center justify-center"  style={{  borderBottom:"1px solid #E4E7EC" }}>{index + 1}</td>
                         <td className="py-1 border-b" style={{ paddingLeft: "5px", textAlign: 'center' }}>{DateupdatedAt(item.updatedAt)}</td>
-                        <td className={`px-4 py-2 max-w-[120px] overflow-hidden ${expandedCell === index ? 'whitespace-normal' : 'whitespace-nowrap'}`}
+                       
+                       
+                        <td className="px-4 py-2 max-w-[120px] overflow-hidden "
                         style={{
                           borderBottom: "1px solid #E8E8E8",
                           textAlign:"center",
-                          textOverflow: "ellipsis",
+
                         }}
                         title={item.customerName}
-                        onDoubleClick={() => setExpandedCell(expandedCell === index ? null : index)}
                         >
-                          {item.customerName || "name"}
+                          {truncateText(item.customerName)}
                           </td>
-                        <td className="py-1 border-b text-center">{item.customerMobileLastFour}</td>
-                        <td className="py-1 border-b text-center">{item.channelPartnerCompanyName}</td>
+                        <td className="py-1 border-b text-center ">
+                          {item.customerMobileLastFour}
+                        </td>
+                        <td className="py-1 border-b text-center max-w-[120px] overflow-hidden "
+                         title= {item.channelPartnerCompanyName}>
+                          {truncateText(item.channelPartnerCompanyName)}
+                        </td>
                         <td className="py-1 border-b text-center">8484815614</td>
-                        <td className="py-1 border-b text-center">{item.projectName}</td>
-                        <td className="py-1 border-b text-center">{item.attendantName}</td>
+                        <td className="py-1 border-b text-center max-w-[120px] overflow-hidden "
+                         title= {item.projectName}>
+                          {truncateText(item.projectName)}
+                        </td>
+                        <td className="py-1 border-b text-center max-w-[120px] overflow-hidden"
+                          title={item.attendantName}>
+                            {truncateText(item.attendantName)}
+                        </td>
+
                         <td className="py-1 px-3 border-b text-center">
                           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                             <Link to={`/SuperAdmin/EditForm2/${item._id}`}>

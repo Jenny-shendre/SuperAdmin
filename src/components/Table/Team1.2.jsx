@@ -39,6 +39,14 @@ const Table12 = () => {
     return formattedDate;
   };
 
+    //vb
+    const truncateText = (text, limit = 10) => {
+      if (text && text.length > limit) {
+        return text.slice(0, limit) + '...';
+      }
+      return text || '';
+    };
+
   return (
     <div className="bg-[#F7F3E8] p-4 ">
       <div
@@ -149,12 +157,32 @@ const Table12 = () => {
                       )
                     ).map((item, index) => (
                 <tr key={index}>
-                  <td className="px-4 py-2" style={{ height: "64px" }}>
-                    {item.ClientName}
+
+
+                  <td className="px-4 py-2 max-w-[150px] overflow-hidden" 
+                    style={{ height: "64px" }}
+                    title={item.ClientName}>
+                    {truncateText(item.ClientName)}
                   </td>
-                  <td className="px-4 py-2">{item.ClientEmail}</td>
-                  <td className="px-4 py-2">{item.ClientMobile}</td>
-                  <td className="px-4 py-2">{item.ClientProject}</td>
+
+
+              {/* cc by back */}
+                  <td className="px-4 py-2  max-w-[150px] overflow-hidden"
+                   title= {item.ClientEmail}>
+                    {truncateText(item.ClientEmail)}
+                    </td>
+
+                  <td className="px-4 py-2   max-w-[150px] overflow-hidden"
+                   title= {item.ClientMobile}>
+                    {truncateText(item.ClientMobile)}
+                  </td>
+
+                  <td className="px-4 py-2 max-w-[150px] overflow-hidden"
+                    title={item.ClientProject}>
+                      {truncateText(item.ClientProjec)}
+                    </td>
+
+
                   <td className="px-4 py-2">{DateupdatedAt(item.createdAt)}</td>
                   <td className="px-4 py-2">
                     <span
