@@ -64,17 +64,55 @@ const Table3 = () => {
   
     handleSearch(query.toLowerCase());
   };
+  const monthMapping = {
+    january: 'jan',
+    february: 'feb',
+    march: 'mar',
+    april: 'apr',
+    may: 'may',
+    june: 'jun',
+    july: 'jul',
+    august: 'aug',
+    september: 'sep',
+    october: 'oct',
+    november: 'nov',
+    december: 'dec'
+  };
+  const normalizeQuery = (query) => {
+    const lowerQuery = query.toLowerCase();
+    let normalized = lowerQuery;
   
+    Object.keys(monthMapping).forEach(month => {
+      const regex = new RegExp(month, 'g');
+      normalized = normalized.replace(regex, monthMapping[month]);
+    });
+  
+    return normalized;
+  };
 
-const handleSearch = useCallback(debounce((query) => {
-  const filtered = data.filter((item) =>
-    item.customerName.toLowerCase().startsWith(query) ||
-    item.channelPartnerName.toLowerCase().startsWith(query) ||
-    item.projectName.toLowerCase().startsWith(query)
-  );
 
-  setFilteredData(filtered);
-}, 300), [data]);
+  const handleSearch = useCallback(debounce((query) => {
+    const normalizedQuery = normalizeQuery(query);
+  
+    const filtered = data.filter((item) => {
+      // Convert dates to comparable strings for search
+      const formattedDate = format(new Date(item.updatedAt), "dd MMM | hh:mm a").toLowerCase();
+      const phoneNo = item.agentPhoneNo?.toString().replace(/[^0-9]/g, '') || ''; // Remove non-numeric characters
+      
+      return (
+        item.customerName.toLowerCase().includes(normalizedQuery) ||
+        item.channelPartnerName.toLowerCase().includes(normalizedQuery) ||
+        item.projectName.toLowerCase().includes(normalizedQuery) ||
+        item.channelPartnerCompanyName.toLowerCase().includes(normalizedQuery) ||
+        item.attendantName.toLowerCase().includes(normalizedQuery) ||
+        phoneNo.includes(normalizedQuery) ||
+        formattedDate.includes(normalizedQuery)
+      );
+    });
+  
+    setFilteredData(filtered);
+  }, 300), [data]);
+ 
 
  
   const sortedData = filteredData.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
@@ -161,7 +199,7 @@ const truncateText = (text, limit = 10) => {
                          title= {item.channelPartnerCompanyName}>
                           {truncateText(item.channelPartnerCompanyName)}
                         </td>
-                        <td className="py-1 border-b text-center">8484815614</td>
+                        <td className="py-1 border-b text-center">{item.agentPhoneNo || "9845443838"}</td>
                         <td className="py-1 border-b text-center max-w-[120px] overflow-hidden "
                          title= {item.projectName}>
                           {truncateText(item.projectName)}
