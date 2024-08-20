@@ -20,12 +20,13 @@ const Table1 = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [deletePartnerId, setDeletePartnerId] = useState(null);
     //vb
-    const truncateText = (text, limit = 10) => {
+    const truncateText = (text, limit ) => {
       if (text && text.length > limit) {
         return text.slice(0, limit) + '...';
       }
       return text || '';
     };
+   
 
   const deletedAt = async () => {
     if (deleteId) {
@@ -201,7 +202,7 @@ const Table1 = () => {
                           className="border-b text-center"
                           style={{
                             fontFamily: "Manrope",
-                            width:"112px",
+                            // width:"112px",
                             fontSize: "12px",
                             fontWeight: "500",
                             lineHeight: "16.39px",
@@ -329,7 +330,7 @@ const Table1 = () => {
 
                             <td className="py-1 border-b text-center max-w-[150px] overflow-hidden"
                             title= {visitor.channelPartnerCompanyName}>
-                            {truncateText(visitor.channelPartnerCompanyName)} 
+                            {truncateText(visitor.channelPartnerCompanyName, 12)} 
                             </td>
 
                             <td className= "px-4 py-2 max-w-[144px] overflow-hidden "
@@ -340,7 +341,7 @@ const Table1 = () => {
                               }}
                               title={visitor.channelPartnerName}
                             >
-                             {truncateText (visitor.channelPartnerName )}
+                             {truncateText (visitor.channelPartnerName, 12 )}
 
                             </td>
 
@@ -353,7 +354,7 @@ const Table1 = () => {
                             }}
                             title={visitor.customerName}
                             >
-                               {truncateText (visitor.customerName)}
+                               {truncateText (visitor.customerName, 12)}
 
                             </td>
 
@@ -363,12 +364,12 @@ const Table1 = () => {
 
                             <td className="py-1 border-b text-center max-w-[150px] overflow-hidden "
                             title={visitor.projectName}>
-                            {truncateText(visitor.projectName)}  
+                            {truncateText(visitor.projectName, 13)}  
                             </td>
 
                             <td className="py-1 border-b text-center max-w-[150px] overflow-hidden "
                             title={visitor.attendantName}>
-                            {truncateText(visitor.attendantName)}  
+                            {truncateText(visitor.attendantName, 12)}  
 
                             </td>
 

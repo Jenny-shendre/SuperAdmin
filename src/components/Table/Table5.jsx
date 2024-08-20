@@ -37,6 +37,8 @@ const Table5 = () => {
   const dropdownRef = useRef();
   const projectDropdownRef = useRef(); // ref for project dropdown
 
+  
+
   const handleView = (id) => {
     if (viewedItems.includes(id)) {
       setViewedItems((prevViewedItems) =>
@@ -358,6 +360,14 @@ const Table5 = () => {
     }
   };
 
+   //vb
+   const truncateText = (text, limit ) => {
+    if (text && text.length > limit) {
+      return text.slice(0, limit) + "...";
+    }
+    return text || "";
+  };
+
   return (
     <div className="arrowss">
       {loading ? (
@@ -624,7 +634,7 @@ const Table5 = () => {
                         </td>
 
                         <td
-                          className="py-3 border-b text-center"
+                          className="py-3 border-b text-center  max-w-[120px] overflow-hidden "
                           style={{
                             textAlign: "center",
                             border: "1px solid #ddd",
@@ -632,8 +642,9 @@ const Table5 = () => {
                             width: "178px",
                             height: "54px",
                           }}
-                        >
-                          {visitor.managerName}
+                        
+                         title= {visitor.managerName}>
+                           {truncateText(visitor.managerName, 14)}
                         </td>
 
                         <td
@@ -644,8 +655,10 @@ const Table5 = () => {
                             width: "224px",
                             height: "54px",
                           }}
-                        >
-                          {visitor.managerEmail}
+                        
+                         title= {visitor.managerEmail}>
+                            {truncateText(visitor.managerEmail, 18)}
+
                         </td>
 
                         <td
@@ -656,8 +669,10 @@ const Table5 = () => {
                             width: "174px",
                             height: "54px",
                           }}
-                        >
-                          {visitor.projectName}
+                        
+                          title ={visitor.projectName}>
+                           {truncateText(visitor.projectName, 13)} 
+
                         </td>
 
                         <td

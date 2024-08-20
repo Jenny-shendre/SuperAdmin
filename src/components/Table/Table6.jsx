@@ -48,12 +48,13 @@ const Table6 = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 //vb
-const truncateText = (text, limit = 10) => {
+const truncateText = (text, limit ) => {
   if (text && text.length > limit) {
     return text.slice(0, limit) + '...';
   }
   return text || '';
 };
+
   const handleDeleteClick = async (id) => {
 
     try {
@@ -397,7 +398,7 @@ const truncateText = (text, limit = 10) => {
                           <td className="px[10px] py-[6px]  max-w-[150px] overflow-hidden" 
                           style={{ fontFamily: 'Manrope', borderRight: '1px solid #E4E7EC', borderLeft: '1px solid #E4E7EC' }}
                             title= {member.name?.length > 0 ? member?.name : "Not found"}>
-                              {truncateText(member.name?.length > 0 ? member?.name : "Not found")}
+                              {truncateText(member.name?.length > 0 ? member?.name : "Not found", 12)}
                           </td>
 
                           <td className="py-2 max-w-[150px] overflow-hidden" 
@@ -407,13 +408,13 @@ const truncateText = (text, limit = 10) => {
                               : "Not found"}>
                                 {truncateText(member.emailID?.length > 0
                               ? member?.emailID
-                              : "Not found")}  
+                              : "Not found", 18)}  
                           </td>
 
                           <td className="py-2 max-w-[150px] overflow-hidden" 
                           style={{ borderRight: '1px solid #E4E7EC' }}
                             title={arrayClientName(member.ClientName)}>
-                              {truncateText(arrayClientName(member.ClientName))} 
+                              {truncateText(arrayClientName(member.ClientName, 13))} 
                           </td>
 
                           <td className="py-2 max-w-[150px] overflow-hidden" 
@@ -423,12 +424,9 @@ const truncateText = (text, limit = 10) => {
                               : "Not Assign"}>
                           {truncateText(member.projectName?.length > 0
                               ? member?.projectName
-                              : "Not Assign")} 
+                              : "Not Assign", 13)} 
                           </td>
                           
-
-
-
                           <td className="py-2" style={{ textAlign: '-webkit-center' }}>
                             <RiDeleteBin6Line style={{ color: 'rgba(147, 0, 0, 1)', cursor: 'pointer' }} onClick={() => handleDeleteClick(member._id)} />
 

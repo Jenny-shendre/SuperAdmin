@@ -18,6 +18,15 @@ const Table3 = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
+   //vb
+   const truncateText = (text, limit ) => {
+    if (text && text.length > limit) {
+      return text.slice(0, limit) + "...";
+    }
+    return text || "";
+  };
+
+
   const handleDeleteClick = (id) => {
     setDeleteId(id);
     setShowPopup(true);
@@ -128,14 +137,7 @@ const Table3 = () => {
   const sortedData = filteredData.sort(
     (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
   );
-  //vb
-  const truncateText = (text, limit = 10) => {
-    if (text && text.length > limit) {
-      return text.slice(0, limit) + "...";
-    }
-    return text || "";
-  };
-
+ 
   return (
     <>
       {data.length === 0 ? (
@@ -365,7 +367,7 @@ const Table3 = () => {
                             }}
                             title={item.customerName}
                           >
-                            {truncateText(item.customerName)}
+                            {truncateText(item.customerName, 14)}
                           </td>
                           <td className="py-1 border-b text-center ">
                             {item.customerMobileLastFour}
@@ -374,7 +376,7 @@ const Table3 = () => {
                             className="py-1 border-b text-center max-w-[120px] overflow-hidden "
                             title={item.channelPartnerCompanyName}
                           >
-                            {truncateText(item.channelPartnerCompanyName)}
+                            {truncateText(item.channelPartnerCompanyName, 12)}
                           </td>
                           <td className="py-1 border-b text-center">
                             {item.agentPhoneNo || "9845443838"}
@@ -383,13 +385,13 @@ const Table3 = () => {
                             className="py-1 border-b text-center max-w-[120px] overflow-hidden "
                             title={item.projectName}
                           >
-                            {truncateText(item.projectName)}
+                            {truncateText(item.projectName, 13)}
                           </td>
                           <td
                             className="py-1 border-b text-center max-w-[120px] overflow-hidden"
                             title={item.attendantName}
                           >
-                            {truncateText(item.attendantName)}
+                            {truncateText(item.attendantName, 13)}
                           </td>
 
                           <td className="py-1 px-3 border-b text-center">
