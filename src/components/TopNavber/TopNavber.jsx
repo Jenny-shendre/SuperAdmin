@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import userImg from "../../assets/A2.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../utils/TokenUtils";
+import axios from "axios";
 
 const TopNavber = () => {
   const [title, setTitle] = useState("Super Admin");
   const [click, setclick] = useState(false);
   const navigate = useNavigate();
 
+
+  const [IdEmp, setIdEmp] = useState(
+    localStorage.getItem("EmpId") || "ROFEX10"
+  );
+
+  useEffect(() => {
+    const EmpId = localStorage.getItem("EmpId");
+    setIdEmp(EmpId);
+  }, []);
 
 
   const clickfun = () => {
@@ -24,6 +34,48 @@ const TopNavber = () => {
     navigate("/");
     window.location.reload();
   }
+
+
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    // Function to handle online event
+    const handleOnline = () => {
+      setIsOnline(true);
+      sendStatusToBackend(true);
+    };
+
+    // Function to handle offline event
+    const handleOffline = () => {
+      setIsOnline(false);
+      sendStatusToBackend(false);
+    };
+
+    // Add event listeners for online and offline events
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    // Cleanup event listeners on component unmount
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
+  // Function to send status to the backend
+  const sendStatusToBackend = async (status) => {
+    try {
+      const response = await axios.post(
+        `https://project-rof.vercel.app/api/attendants/status/${IdEmp}`,
+        {
+          StaffStatus: status ? "online" : "offline",
+        },
+      );
+      console.log("Status sent:", response.data);
+    } catch (error) {
+      console.error("Error sending status:", error);
+    }
+  };
 
   return (
     <div style={{

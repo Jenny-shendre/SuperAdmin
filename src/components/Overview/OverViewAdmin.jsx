@@ -31,7 +31,7 @@ import {
 import { data } from 'autoprefixer';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { dealsClosedResponse, fetchChannelVisitors, fetchDirectVisitors, fetchTotalMeetings } from '../../Services/OverviewAPIs';
+import { BargraphData, dealsClosedResponse, fetchChannelVisitors, fetchDirectVisitors, fetchTotalMeetings, StaffOnline } from '../../Services/OverviewAPIs';
 
 ChartJS.register(
   CategoryScale,
@@ -51,11 +51,13 @@ const OverViewAdmin = () => {
   const [channelVisitors, setChannelVisitors] = useState(0);
   const [totalMeetings, setTotalMeetings] = useState(0);
   const [dealClosed, setDealClosed] = useState(0);
+  const [staffOnline, setStaffOnline] = useState(0);
+  const [barData, setBarData] = useState([]);
 
 
 
 
-
+  console.log("barData", barData);
 
   const opts = ['Daily', 'Weekly', 'Monthly', 'Yearly'];
 
@@ -76,7 +78,7 @@ const OverViewAdmin = () => {
         },
         borderRadius: 5,
 
-        data: [10, 5, 8, 3, 4, 18, 2, 9, 1, 3],
+        data: barData,
 
       },
 
@@ -115,12 +117,20 @@ const OverViewAdmin = () => {
       const channelData = await fetchChannelVisitors(opt.toLowerCase());
       const meetingsData = await fetchTotalMeetings(opt.toLowerCase());
       const dealsClosed = await dealsClosedResponse(opt.toLowerCase());
+      const stafOnline = await StaffOnline(opt.toLowerCase());
+      const graphData = await BargraphData(opt.toLowerCase());
+
+
 
 
       setDirectVisitors(directData.numberOfDirectVisitors || 0);
       setChannelVisitors(channelData.numberOfChannelVisitors || 0);
       setTotalMeetings(meetingsData.totalMeetings || 0);
       setDealClosed(dealsClosed.totalClientConversion || 0);
+      setStaffOnline(stafOnline.totalStatus || 0);
+      setBarData(graphData.data || 0);
+
+
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -235,7 +245,7 @@ const OverViewAdmin = () => {
 
               <img className='h-[24px] w-[24px] mt-3' src={fourrr} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2  text-[#632E04]">350</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2  text-[#632E04]">{staffOnline || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
             <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total <br /> Meetings
