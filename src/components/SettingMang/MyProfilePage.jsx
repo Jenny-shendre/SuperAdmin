@@ -122,7 +122,7 @@ const MyProfilePage = () => {
               readOnly={!editMode}
             />
           </div>
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label
               style={{
                 fontWeight: "400",
@@ -140,7 +140,27 @@ const MyProfilePage = () => {
               className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg"
               placeholder="Enter last name"
             />
-          </div>
+          </div> */}
+          <div className="mb-4">
+            <label
+              style={{
+                fontWeight: "400",
+                lineHeight: "19.12px",
+                fontFamily: "Manrope",
+              }}
+              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+              Phone Number
+            </label>
+            <input
+              type="text"
+              name="phone"
+              value={profile.phone}
+              onChange={handleInputChange}
+              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              placeholder="Enter phone number"
+              readOnly={!editMode}
+            />
+          </div>          
         </div>
         <div className="flex flex-wrap dumbo mb-2">
           <div className="mr-24 mb-4">
@@ -163,7 +183,8 @@ const MyProfilePage = () => {
               readOnly={true}
             />
           </div>
-          <div className="mb-4">
+          
+          {/* <div className="mb-4">
             <label
               style={{
                 fontWeight: "400",
@@ -182,8 +203,32 @@ const MyProfilePage = () => {
               placeholder="Enter phone number"
               readOnly={!editMode}
             />
+          </div> */}
+       <div>
+            <label
+              style={{
+                fontWeight: "400",
+                lineHeight: "19.12px",
+                fontFamily: "Manrope",
+              }}
+              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+              Employee ID
+            </label>
+            <input
+              type="text"
+              name="employeeId"
+              value={profile.employeeId}
+              onChange={handleInputChange}
+              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              placeholder="Enter employee ID"
+              readOnly={true}
+            />
           </div>
-        </div>
+          </div>
+          
+          
+          
+        
         <div className="flex flex-wrap dumbo">
           <div className="mr-24 mb-4">
             <label
@@ -205,7 +250,7 @@ const MyProfilePage = () => {
               readOnly={true}
             />
           </div>
-          <div>
+          {/* <div>
             <label
               style={{
                 fontWeight: "400",
@@ -224,7 +269,7 @@ const MyProfilePage = () => {
               placeholder="Enter employee ID"
               readOnly={true}
             />
-          </div>
+          </div> */}
         </div>
       </div>
 
