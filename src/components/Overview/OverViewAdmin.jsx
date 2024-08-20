@@ -151,7 +151,7 @@ const OverViewAdmin = () => {
 
         <div
           style={{ gap: "20px", paddingLeft: "0px" }}
-          className="  overflow-x-auto flex flex-col gap-9 bg-custom-bg"
+          className="  overflow-x-auto flex flex-col gap- bg-custom-bg"
         >
 
           <div className="flex flex-row items-center justify-center text-center ">
@@ -224,7 +224,7 @@ const OverViewAdmin = () => {
 
 
 
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2  text-[#632E04] ">{directVisitors || 0}</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" , textAlign:"center"}} className="mt-2  text-[#632E04] ">{directVisitors || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
             <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total Channel Visitors
@@ -238,7 +238,7 @@ const OverViewAdmin = () => {
 
               <img className='h-[24px] w-[24px] mt-3' src={threee} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2 ml-12   text-[#632E04]">{dealClosed || 0}</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center" }} className="mt-2 ml-12   text-[#632E04]">{dealClosed || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
             <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total Staff Online
@@ -411,7 +411,7 @@ const OverViewAdmin = () => {
 Notes */}
 
 
-
+<Link to="/">
           <div className=" bg-white shadow-md   w-[361px] h-[620px] ">
             <div>
               <div className='w-[361px] h-[47px] flex bg-[#3D2314] justify-center' style={{ borderRadius: '8px 8px 0px 0px', }}>
@@ -692,6 +692,7 @@ Notes */}
               </div>
             </div>
           </div>
+          </Link>
 
           {/* Graph */}
 

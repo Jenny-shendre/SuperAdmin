@@ -152,6 +152,15 @@ function NotesDetailsMang() {
   const [createStatus, setCreateStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
 
+  const resetForm = () => {
+    setclientName('');
+    setProject('');
+    setBriefing('');
+    setCreateStatus('');
+    setErrorMessage('');
+  };
+
+
   const handleProjectChange = (projectName) => {
     setProject(projectName);
     setIsProjectDropdownOpen(false);
@@ -306,6 +315,7 @@ function NotesDetailsMang() {
             onClick={() => {
               setShowNotePopup(false);
               setShowAddNotePopup(true);
+              resetForm();
             }}
 
           >
@@ -575,9 +585,9 @@ function NotesDetailsMang() {
       </div>
 
       <br />
-      <div className="Cards gap-4 flex flex-wrap px-[55px] cardT">
+      <div className="Cards gap-4 flex flex-wrap px-[25px] cardT">
 
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -629,7 +639,9 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                marginTop:"68px"
+                
               }}
 
               onClick={() => {
@@ -646,7 +658,7 @@ function NotesDetailsMang() {
 
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -697,7 +709,8 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                marginTop:"38px"
               }}
 
               onClick={() => {
@@ -713,7 +726,7 @@ function NotesDetailsMang() {
 
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info2} className="text-[60px]" />
@@ -766,7 +779,8 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                 marginTop:"38px"
               }}
 
               onClick={() => {
@@ -782,7 +796,7 @@ function NotesDetailsMang() {
 
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info3} className="text-[60px]" />
@@ -835,7 +849,8 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                 marginTop:"38px"
               }}
 
               onClick={() => {
@@ -853,7 +868,7 @@ function NotesDetailsMang() {
         </div>
 
 
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -905,7 +920,8 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                 marginTop:"52px"
               }}
 
               onClick={() => {
@@ -921,7 +937,7 @@ function NotesDetailsMang() {
 
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -973,7 +989,9 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                 marginTop:"52px"
+        
               }}
 
               onClick={() => {
@@ -989,7 +1007,7 @@ function NotesDetailsMang() {
 
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1041,7 +1059,8 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                 marginTop:"52px"
               }}
 
               onClick={() => {
@@ -1057,7 +1076,7 @@ function NotesDetailsMang() {
 
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1109,7 +1128,8 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                 marginTop:"52px"
               }}
 
               onClick={() => {
@@ -1128,7 +1148,7 @@ function NotesDetailsMang() {
 
 
 
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1180,7 +1200,8 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                 marginTop:"52px"
               }}
 
               onClick={() => {
@@ -1196,7 +1217,7 @@ function NotesDetailsMang() {
 
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1248,7 +1269,8 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                 marginTop:"52px"
               }}
 
               onClick={() => {
@@ -1264,7 +1286,7 @@ function NotesDetailsMang() {
 
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1316,7 +1338,8 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                 marginTop:"52px"
               }}
 
               onClick={() => {
@@ -1332,7 +1355,7 @@ function NotesDetailsMang() {
 
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1384,7 +1407,8 @@ function NotesDetailsMang() {
                 padding: "8px 24px",
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                 marginTop:"52px"
               }}
 
               onClick={() => {

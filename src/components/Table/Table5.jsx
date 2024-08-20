@@ -443,7 +443,7 @@ const Table5 = () => {
                   <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
                   <div
                     ref={teamPopupRef}
-                    className="ml-[594px] mt-[190px] team-creation-popup w-[125px] h-[117px] rounded-[4px] bg-white absolute z-50 flex flex-col justify-between"
+                    className="ml-[594px] mt-[190px] team-creation-popup w-[125px] h-[147px] rounded-[4px] bg-white absolute z-50 flex flex-col justify-between"
                   >
                     <button
                       className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
