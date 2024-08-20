@@ -29,3 +29,16 @@ import axios from "axios";
     return response.data;
   };
   
+  export const StaffOnline = async (interval) => {
+    const response = await axios.get('https://project-rof.vercel.app/api/overview/total-status', {
+      params: { interval }
+    });
+    return response.data;
+  };
+  
+  export const BargraphData = async (interval) => {
+    const response = await axios.get('https://project-rof.vercel.app/api/overview/Bar', {
+      params: { interval }
+    });
+    return response.data;
+  };
