@@ -578,8 +578,8 @@ function NotePagesAdmin() {
         <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
       <br />
-      <div className="Cards gap-4 flex flex-wrap px-[50px] cardT">
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+      <div className="Cards gap-4 flex flex-wrap px-[25px] cardT">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -632,6 +632,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                  marginTop:"70px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -643,7 +644,7 @@ function NotePagesAdmin() {
             </button>
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -695,6 +696,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                  marginTop:"40px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -706,7 +708,7 @@ function NotePagesAdmin() {
             </button>
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info2} className="text-[60px]" />
@@ -760,6 +762,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                  marginTop:"40px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -771,7 +774,7 @@ function NotePagesAdmin() {
             </button>
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info3} className="text-[60px]" />
@@ -825,6 +828,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                 marginTop:"40px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -837,7 +841,7 @@ function NotePagesAdmin() {
           </div>
         </div>
 
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -890,6 +894,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                 marginTop:"52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -901,7 +906,7 @@ function NotePagesAdmin() {
             </button>
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -954,6 +959,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                 marginTop:"52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -965,7 +971,7 @@ function NotePagesAdmin() {
             </button>
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1018,6 +1024,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                 marginTop:"52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -1029,7 +1036,7 @@ function NotePagesAdmin() {
             </button>
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1082,6 +1089,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                 marginTop:"52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -1094,7 +1102,7 @@ function NotePagesAdmin() {
           </div>
         </div>
 
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1147,6 +1155,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                 marginTop:"52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -1158,7 +1167,7 @@ function NotePagesAdmin() {
             </button>
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1211,6 +1220,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                 marginTop:"52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -1222,7 +1232,7 @@ function NotePagesAdmin() {
             </button>
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1275,6 +1285,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                 marginTop:"52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -1286,7 +1297,7 @@ function NotePagesAdmin() {
             </button>
           </div>
         </div>
-        <div className=" bg-white rounded-lg shadow-md p-4 w-[287px]">
+        <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
               <img src={info} className="text-[60px]" />
@@ -1339,6 +1350,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
+                 marginTop:"52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
