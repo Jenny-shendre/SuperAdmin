@@ -19,7 +19,7 @@ const Table = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [deleteCustomerId, setDeleteCustomerId] = useState(null);
  //vb
- const truncateText = (text, limit = 10) => {
+ const truncateText = (text, limit ) => {
   if (text && text.length > limit) {
     return text.slice(0, limit) + '...';
   }
@@ -35,7 +35,7 @@ const Table = () => {
       setShowPopup(false); // Hide popup after deletion
     }
   };
-  const [expandedCell, setExpandedCell] = useState(null);
+  // const [expandedCell, setExpandedCell] = useState(null);
 
   const fetchData = async () => {
     setLoading(true);
@@ -310,7 +310,7 @@ const Table = () => {
                             title={visitor.name}
                         
                           >
-                            {truncateText(visitor.name)}
+                            {truncateText(visitor.name, 14)}
                           </td>
 
                           <td className="py-1 border-b text-center">
@@ -334,16 +334,16 @@ const Table = () => {
                           <td className="py-1 border-b text-center max-w-[150px] overflow-hidden"
                            title= {visitor.email}
                            >
-                            {truncateText(visitor.email)}
+                            {truncateText(visitor.email, 17)}
                           </td>
                           <td className="py-1 border-b text-center max-w-[150px] overflow-hidden"
                           title= {visitor.projectName}>
-                              {truncateText(visitor.projectName)}
+                              {truncateText(visitor.projectName, 13)}
                           </td>
 
                           <td className="py-1 border-b  text-center max-w-[150px] overflow-hidden"
                           title=  {visitor.attendantName}>
-                            {truncateText(visitor.attendantName)}
+                            {truncateText(visitor.attendantName, 12)}
                           </td>
                           
                           

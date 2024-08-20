@@ -40,7 +40,7 @@ const Table12 = () => {
   };
 
     //vb
-    const truncateText = (text, limit = 10) => {
+    const truncateText = (text, limit ) => {
       if (text && text.length > limit) {
         return text.slice(0, limit) + '...';
       }
@@ -181,24 +181,24 @@ const Table12 = () => {
                   <td className="px-4 py-2 max-w-[150px] overflow-hidden" 
                     style={{ height: "64px" }}
                     title={item.ClientName}>
-                    {truncateText(item.ClientName)}
+                    {truncateText(item.ClientName, 14)}
                   </td>
 
 
               {/* cc by back */}
                   <td className="px-4 py-2  max-w-[150px] overflow-hidden"
                    title= {item.ClientEmail}>
-                    {truncateText(item.ClientEmail)}
+                    {truncateText(item.ClientEmail, 17)}
                     </td>
 
                   <td className="px-4 py-2   max-w-[150px] overflow-hidden"
                    title= {item.ClientMobile}>
-                    {truncateText(item.ClientMobile)}
+                    {truncateText(item.ClientMobile,10)}
                   </td>
 
                   <td className="px-4 py-2 max-w-[150px] overflow-hidden"
                     title={item.ClientProject}>
-                      {truncateText(item.ClientProjec)}
+                      {truncateText(item.ClientProject,14)}
                     </td>
 
 

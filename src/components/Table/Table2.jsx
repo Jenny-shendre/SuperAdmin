@@ -104,12 +104,13 @@ const Table2 = () => {
     return formattedDate;
   };
  //vb
- const truncateText = (text, limit = 10) => {
+ const truncateText = (text, limit ) => {
   if (text && text.length > limit) {
     return text.slice(0, limit) + '...';
   }
   return text || '';
 };
+
   return (
     <div className="arrowss">
       {loading ? (
@@ -339,7 +340,7 @@ const Table2 = () => {
                        
                             <td className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
                             title= {visitor.email}>
-                            {truncateText(visitor.email)} 
+                            {truncateText(visitor.email, 17)} 
                           </td>
 
                           <td className=" py-3 border-b text-center">
@@ -348,7 +349,7 @@ const Table2 = () => {
 
                           <td className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
                            title= {visitor.address}>
-                             {truncateText(visitor.address)} 
+                             {truncateText(visitor.address, 13)} 
 
                           </td>
 
