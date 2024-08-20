@@ -154,6 +154,16 @@ const Table5 = () => {
   const [createStatus, setCreateStatus] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); // state for error message
 
+  const resetTeamForm = () => {
+    setTeamName('');
+    setProject('');
+    setManager('');
+    setMembers([]);
+    setNewMember('');
+    setCreateStatus('');
+    setErrorMessage('');
+  };
+
   const handleAddMember = () => {
     if (newMember.trim() && !members.includes(newMember.trim())) {
       setMembers([...members, newMember.trim()]);
@@ -217,6 +227,15 @@ const Table5 = () => {
   const [isManagerCreating, setIsManagerCreating] = useState(false);
   const [managerCreateStatus, setManagerCreateStatus] = useState('');
   const [managerErrorMessage, setManagerErrorMessage] = useState(''); // state for error message
+
+  const resetManagerForm = () => {
+    setManagerName('');
+    setManagerEmail('');
+    setManagerPhone('');
+    setManagerCreateStatus('');
+    setManagerErrorMessage('');
+  };
+
 
   const validateManagerName = (name) => {
     return /^[A-Z][a-zA-Z ]*$/.test(name);
@@ -284,6 +303,14 @@ const Table5 = () => {
   const [isExecutiveCreating, setIsExecutiveCreating] = useState(false);
   const [executiveCreateStatus, setExecutiveCreateStatus] = useState('');
   const [executiveErrorMessage, setExecutiveErrorMessage] = useState(''); //  state for error message
+
+  const resetExecutiveForm = () => {
+    setExecutiveName('');
+    setExecutiveEmail('');
+    setExecutivePhone('');
+    setExecutiveCreateStatus('');
+    setExecutiveErrorMessage('');
+  };
 
   const handleExecutivePhoneChange = (e) => {
     const value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
@@ -423,6 +450,7 @@ const Table5 = () => {
                       onClick={() => {
                         setShowTeamPopup(false);
                         setShowAddTeamMemberPopup(true);
+                        resetTeamForm();
                       }}
                     >
                       Add Team
@@ -432,6 +460,8 @@ const Table5 = () => {
                       onClick={() => {
                         setShowTeamPopup(false);
                         setShowAddManagerPopup(true);
+                        resetManagerForm();
+                        
                       }}
                     >
                       Add Manager
@@ -441,6 +471,7 @@ const Table5 = () => {
                       onClick={() => {
                         setShowTeamPopup(false);
                         setShowAddExecutivePopup(true);
+                        resetExecutiveForm();
                       }}
                     >
                       Add Executive

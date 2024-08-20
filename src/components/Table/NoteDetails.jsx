@@ -181,6 +181,13 @@ function NotesDetails() {
   const [createStatus2, setCreateStatus2] = useState("");
   const [errorMessage2, setErrorMessage2] = useState(""); // state for error message
 
+  const resetclientForm = () => {
+    setProject2('');
+    setBriefing2('');
+    setCreateStatus2('');
+    setErrorMessage2('');
+  };
+
   const handleProjectChange2 = (projectName2) => {
     setProject2(projectName2);
     setIsProjectDropdownOpen(false);
@@ -210,6 +217,7 @@ function NotesDetails() {
       }
     }
   };
+  
 
   return (
     <div>
@@ -280,6 +288,8 @@ function NotesDetails() {
             onClick={() => {
               setShowNotePopup(false);
               setShowAddNotePopup(true);
+            
+
             }}
           >
             <img src={close} />

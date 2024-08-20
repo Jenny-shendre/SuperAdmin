@@ -23,7 +23,7 @@ const Table3 = () => {
     setShowPopup(true);
   };
 
-  const [expandedCell, setExpandedCell] = useState(null);
+
 
   const confirmDelete = async () => {
     await axios.delete(
