@@ -146,8 +146,8 @@ const OverViewAdmin = () => {
 
   return (
 
-    <Link to=''>
-      <div className="min-h-screen p-6">
+    
+      <div  className="min-h-screen p-6">
 
         <div
           style={{ gap: "20px", paddingLeft: "0px" }}
@@ -216,47 +216,47 @@ const OverViewAdmin = () => {
         )}
 
 
-        <div className=" grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-[20px] mt-4">
+        <div  className=" grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-[20px] mt-4">
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
-            <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total Direct Visitors
+            <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total Direct <br /> Visitors
               <img className='h-[24px] w-[24px] mt-3' src={onee} alt="" />
             </div>
 
 
 
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" , textAlign:"center"}} className="mt-2  text-[#632E04] ">{directVisitors || 0}</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" , textAlign:"center",width:"82px",height:"31px"}} className="mt-2  text-[#632E04] ">{directVisitors || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
-            <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total Channel Visitors
+            <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total Channel <br /> Visitors
 
               <img className='h-[24px] w-[24px] mt-3' src={twoo} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2  text-[#632E04] ">{channelVisitors || 0}</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center",width:"82px",height:"31px" }} className="mt-2  text-[#632E04] ">{channelVisitors || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
-            <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Deals Closed
+            <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Deals <br /> Closed
 
               <img className='h-[24px] w-[24px] mt-3' src={threee} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center" }} className="mt-2 ml-12   text-[#632E04]">{dealClosed || 0}</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center",width:"82px",height:"31px" }} className="mt-2 ml-12   text-[#632E04]">{dealClosed || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
-            <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total Staff Online
+            <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total Staff <br /> Online
 
               <img className='h-[24px] w-[24px] mt-3' src={fourrr} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2  text-[#632E04]">{staffOnline || 0}</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center",width:"82px",height:"31px" }} className="mt-2  text-[#632E04]">{staffOnline || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
             <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total <br /> Meetings
 
               <img className='h-[24px] w-[24px] mt-3' src={fivee} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" }} className="mt-2 ml-10  text-[#632E04]">{totalMeetings || 0}</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center",width:"82px",height:"31px" }} className="mt-2 ml-10  text-[#632E04]">{totalMeetings || 0}</div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-6  ">
+        <div  className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-6  ">
 
           <div className="w-[417px] h-[47px]  ">
             <div>
@@ -411,7 +411,7 @@ const OverViewAdmin = () => {
 Notes */}
 
 
-<Link to="/">
+<Link to="/SuperAdmin/Note_Pages">
           <div className=" bg-white shadow-md   w-[361px] h-[620px] ">
             <div>
               <div className='w-[361px] h-[47px] flex bg-[#3D2314] justify-center' style={{ borderRadius: '8px 8px 0px 0px', }}>
@@ -715,7 +715,7 @@ Notes */}
 
 
       </div>
-    </Link>
+    
   );
 };
 
