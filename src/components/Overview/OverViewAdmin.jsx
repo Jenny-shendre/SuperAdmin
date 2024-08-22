@@ -224,14 +224,14 @@ const OverViewAdmin = () => {
 
 
 
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" , textAlign:"center",width:"82px",height:"31px"}} className="mt-2  text-[#632E04] ">{directVisitors || 0}</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px" , textAlign:"center",width:"102px",height:"31px"}} className="mt-2  text-[#632E04] ">{directVisitors || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
             <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total Channel <br /> Visitors
 
               <img className='h-[24px] w-[24px] mt-3' src={twoo} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center",width:"82px",height:"31px" }} className="mt-2  text-[#632E04] ">{channelVisitors || 0}</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center",width:"89px",height:"31px" }} className="mt-2  text-[#632E04] ">{channelVisitors || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
             <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Deals <br /> Closed
@@ -245,14 +245,14 @@ const OverViewAdmin = () => {
 
               <img className='h-[24px] w-[24px] mt-3' src={fourrr} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center",width:"82px",height:"31px" }} className="mt-2  text-[#632E04]">{staffOnline || 0}</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center",width:"112px",height:"31px" }} className="mt-2  text-[#632E04]">{staffOnline || 0}</div>
           </div>
           <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
             <div style={{ fontFamily: 'Manrope', fontWeight: "400", fontSize: "14px", lineHeight: "19.12px", }} >Total <br /> Meetings
 
               <img className='h-[24px] w-[24px] mt-3' src={fivee} alt="" />
             </div>
-            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center",width:"82px",height:"31px" }} className="mt-2 ml-10  text-[#632E04]">{totalMeetings || 0}</div>
+            <div style={{ fontFamily: "Poppins", fontWeight: "500", fontSize: "44px",textAlign:"center",width:"62px",height:"31px" }} className="mt-2 ml-10  text-[#632E04]">{totalMeetings || 0}</div>
           </div>
         </div>
 
@@ -279,7 +279,7 @@ const OverViewAdmin = () => {
 
               <table className="w-[417px] h-[170px] ">
                 <thead>
-                  <tr className="text-center text-sm font-medium "
+                  <tr className="text-center text-sm font-medium divide-x-2 divide-gray-300 "
                     style={{
                       fontFamily: "Manrope",
                       fontSize: "14px",
@@ -298,7 +298,7 @@ const OverViewAdmin = () => {
                 <tbody className="bg-white text-center [#2B2B2B] divide-y divide-gray-200"
                   style={{ fontSize: "16px", fontWeight: "500", fontFamily: "Manrope" }}>
 
-                  <tr >
+                  <tr className='divide-x-2 divide-gray-200'>
                     <td className="px-4 py-2">1</td>
                     <td className="px-4 py-2">Raghav</td>
                     <td className="px-4 py-2">44</td>
@@ -307,7 +307,7 @@ const OverViewAdmin = () => {
 
                   </tr>
 
-                  <tr >
+                  <tr className='divide-x-2 divide-gray-200'>
                     <td className="px-4 py-2">2</td>
                     <td className="px-4 py-2">Raghav</td>
                     <td className="px-4 py-2">40</td>
@@ -316,7 +316,7 @@ const OverViewAdmin = () => {
 
                   </tr>
 
-                  <tr >
+                  <tr className='divide-x-2 divide-gray-200'>
                     <td className="px-4 py-2">3</td>
                     <td className="px-4 py-2">Raghav</td>
                     <td className="px-4 py-2">36</td>
@@ -356,7 +356,7 @@ const OverViewAdmin = () => {
 
               <table className="w-[417px] h-[170px] ">
                 <thead>
-                  <tr className="text-center text-sm font-medium "
+                  <tr className="text-center text-sm font-medium divide-x-2 divide-gray-200"
                     style={{
                       fontFamily: "Manrope",
                       fontSize: "14px",
@@ -375,7 +375,7 @@ const OverViewAdmin = () => {
                 <tbody className="bg-white text-center [#2B2B2B] divide-y divide-gray-200"
                   style={{ fontSize: "16px", fontWeight: "500", fontFamily: "Manrope" }}>
 
-                  <tr >
+                  <tr className='divide-x-2 divide-gray-200'>
                     <td className="px-4 py-2">1</td>
                     <td className="px-4 py-2">Team A</td>
                     <td className="px-4 py-2">105</td>
@@ -384,7 +384,7 @@ const OverViewAdmin = () => {
 
                   </tr>
 
-                  <tr >
+                  <tr className='divide-x-2 divide-gray-200'>
                     <td className="px-4 py-2">2</td>
                     <td className="px-4 py-2">Team B</td>
                     <td className="px-4 py-2">86</td>
@@ -393,7 +393,7 @@ const OverViewAdmin = () => {
 
                   </tr>
 
-                  <tr >
+                  <tr className='divide-x-2 divide-gray-200'>
                     <td className="px-4 py-2">3</td>
                     <td className="px-4 py-2">Team C</td>
                     <td className="px-4 py-2">75</td>
