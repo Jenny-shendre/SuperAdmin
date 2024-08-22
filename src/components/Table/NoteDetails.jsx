@@ -307,9 +307,9 @@ function NotesDetails() {
             ref={addNotePopupRef}
             className="fixed inset-0 flex items-center justify-center z-50"
           >
-            <div className="add-team-members w-[324px] h-auto p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+            <div className="add-team-members w-[688px] h-[369px] p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
               <button
-                className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[320px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[664px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
                 onClick={() => setShowViewNotePopup(false)}
               >
                 X
@@ -318,7 +318,7 @@ function NotesDetails() {
                 type="text"
                 value={clientName2}
                 onChange={(e) => setclientName2(e.target.value)}
-                className="w-[296px] h-[48px] mb-4"
+                className="w-[640px] h-[48px] mb-4"
                 placeholder="Sales Executive Name"
                 style={{
                   color: "rgba(0, 0, 0, 0.68)",
@@ -333,10 +333,10 @@ function NotesDetails() {
                 }}
               />
               <div
-                className="relative w-[296px]   mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                className="relative w-[640px] h-[48px] mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
                 style={{
                   color: "rgba(0, 0, 0, 0.68)",
-                  fontWeight: 400,
+                  fontWeight: "600",
                   fontSize: "16px",
                   lineHeight: "19.2px",
                   fontFamily: "Manrope",
@@ -347,8 +347,8 @@ function NotesDetails() {
                 onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
                 ref={projectDropdownRef}
               >
-                <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center"
-                 style={{ padding: "16px 24px",fontWeight:"600"}}>
+                <div className="cursor-pointer w-[640px] h-[48px] p-4 flex justify-between items-center"
+                style={{padding:"16px 24px"}}>
                   {project2 || "Choose Project"}
                   <img
                     className="ml-2 h-2 w-3 "
@@ -357,7 +357,7 @@ function NotesDetails() {
                   />
                 </div>
                 {isProjectDropdownOpen && (
-                  <div className="absolute w-[296px] z-10 mt-2 p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
+                  <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
                     {data2.map((projects) => (
                       <div
                         key={projects.name}
@@ -374,7 +374,7 @@ function NotesDetails() {
               <div
                 style={{
                   padding: "16px 24px",
-                  width: "296px",
+                  width: "640px",
                   height: "127px",
                   color: "rgba(0, 0, 0, 0.68)",
                   fontWeight: "600",
@@ -394,7 +394,7 @@ function NotesDetails() {
                     border: "none",
                     overflowY: "scroll",
                     outline: "none",
-                    width: "270px",
+                    width: "600px",
                     height: "100px",
                     fontWeight: "600",
                   }}
@@ -409,7 +409,7 @@ function NotesDetails() {
               >
                 {createStatus2 || (
                   <div className="flex flex-wrap ">
-                    
+                 
                     <span> Close Note </span>
                   </div>
                 )}
@@ -498,7 +498,7 @@ function NotesDetails() {
                   width: "640px",
                   height: "127px",
                   color: "rgba(0, 0, 0, 0.68)",
-                  fontWeight: 400,
+                  fontWeight: "600",
                   fontSize: "16px",
                   lineHeight: "19.2px",
                   fontFamily: "Manrope",
@@ -506,18 +506,19 @@ function NotesDetails() {
                   border: "0.8px solid rgba(0,0,0,0.44) ",
                   borderRadius: "6px",
                 }}
-                className="rounded-md border border-gray-300 font-manrope  div2 mb-4"
+                className="rounded-md border border-gray-300  mb-4"
               >
                 <textarea
                   type="text"
                   placeholder="Add your Briefing"
                   style={{
                     border: "none",
+                    fontFamily:"Manrope",
                     overflowY: "scroll",
                     outline: "none",
                     width: "600px",
                     height: "100px",
-                    fontWeight: 400,
+                 
                   }}
                   onChange={(e) => setBriefing(e.target.value)}
                 />

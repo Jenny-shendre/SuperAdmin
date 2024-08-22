@@ -332,7 +332,7 @@ function NotesDetailsMang() {
             ref={addNotePopupRef}
             className="fixed inset-0 flex items-center justify-center z-50"
           >
-            <div className="add-team-members w-[688px] h-auto p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
+            <div className="add-team-members w-[688px] h-[369px] p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
               <button
                 className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[664px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
                 onClick={() => setShowViewNotePopup(false)}
@@ -343,11 +343,11 @@ function NotesDetailsMang() {
                 type="text"
                 value={clientName2}
                 onChange={(e) => setclientName2(e.target.value)}
-                className="w-[640px] h-12 mb-4"
-                placeholder="Client Name"
+                className="w-[640px] h-[48px] mb-4"
+                placeholder="Sales Executive Name"
                 style={{
                   color: "rgba(0, 0, 0, 0.68)",
-                  fontWeight: 400,
+                  fontWeight: "400",
                   fontSize: "16px",
                   padding: "16px 24px",
                   lineHeight: "19.2px",
@@ -358,10 +358,10 @@ function NotesDetailsMang() {
                 }}
               />
               <div
-                className="relative w-[640px] h-[48px]   mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                className="relative w-[640px] h-[48px] mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
                 style={{
                   color: "rgba(0, 0, 0, 0.68)",
-                  fontWeight: 400,
+                  fontWeight: "400",
                   fontSize: "16px",
                   lineHeight: "19.2px",
                   fontFamily: "Manrope",
@@ -372,7 +372,8 @@ function NotesDetailsMang() {
                 onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
                 ref={projectDropdownRef}
               >
-                <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
+                <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center"
+                style={{padding:"16px 24px",fontFamily:"Manrope",fontWeight:"400"}}>
                   {project2 || "Choose Project"}
                   <img
                     className="ml-2 h-2 w-3 "
@@ -401,7 +402,7 @@ function NotesDetailsMang() {
                   width: "640px",
                   height: "127px",
                   color: "rgba(0, 0, 0, 0.68)",
-                  fontWeight: 400,
+                  fontWeight: "400",
                   fontSize: "16px",
                   lineHeight: "19.2px",
                   fontFamily: "Manrope",
@@ -420,7 +421,7 @@ function NotesDetailsMang() {
                     outline: "none",
                     width: "600px",
                     height: "100px",
-                    fontWeight: 400
+                    fontWeight: "400",
                   }}
                   onChange={(e) => setBriefing2(e.target.value)}
                 />
@@ -437,9 +438,7 @@ function NotesDetailsMang() {
               >
                 {createStatus2 || (
                   <div className="flex flex-wrap ">
-                    <span>
-                      <FaEdit className="mr-2 mt-1 font-bold font-[24px]" />
-                    </span> <span> Edit Note </span>
+                   <span> Close Note </span>
                   </div>
                 )}
               </button>
