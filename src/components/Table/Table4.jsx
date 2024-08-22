@@ -5,6 +5,8 @@ import projectUploadIcon from "../../assets/project-upload.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Loading from "../Loding/Loding";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { BiSolidEditAlt } from "react-icons/bi";
 
 // const projects = [
 //   { name: "ROF Aalayas", image: one },
@@ -30,6 +32,11 @@ const Table4 = () => {
   const [projectData, setProjectData] = useState([]);
   const [valueinput, setvalueinput] = useState("");
   const [loading, setLoading] = useState(false);
+
+ 
+//b
+const [deleteId, setDeleteId] = useState(null);
+
 
 
   const popupRef = useRef();
@@ -63,6 +70,7 @@ const Table4 = () => {
       address: projectAddress,
       image: uploadedImage,
     };
+
 
     // Reset form and close popup
     setUploadedImage(null);
@@ -99,8 +107,39 @@ const Table4 = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+// //b
+// // Delete and Edit logic
+// const handleDelete = (projectId) => {
+//   if (window.confirm("Are you sure you want to delete this project?")) {
+//     // Logic to delete the project
+//     console.log("Project deleted with ID:", projectId);
+//   }
+// };
 
-  return (
+// const handleEdit = (projectId) => {
+//   // Logic to edit the project
+//   console.log("Project edited with ID:", projectId);
+// };
+const handleEdit = (projectId) => {
+  // Logic to edit the project
+  console.log("Project edited with ID:", projectId);
+};
+
+// const deletedAt = () => {
+//   if (deleteId) {
+//     // Remove the project from the projectData state
+//     setProjectData((prevData) => prevData.filter(project => project.id !== deleteId));
+//     // Reset deleteId and close popup
+//     setDeleteId(null);
+//     setShowPopup(false);
+//   }
+// };
+const handleClosePopup = () => {
+  setShowPopup(false);
+};
+
+
+    return (
     <>
       {loading ? (
         <Loading />
@@ -205,19 +244,76 @@ const Table4 = () => {
                       >
                         {project.name}
                       </h3>
-
-
-
+                      <button className="text-gray-500 flex gap-3 mt-3">
+                            <BiSolidEditAlt 
+                                onClick={() => handleEdit(project.id)}
+                                style={{
+                                  cursor: "pointer",
+                                  color: "#000000",
+                                  width: "20px",
+                                  height: "20px",
+                                }}
+                              />
+                            <RiDeleteBin6Line
+                            //  onClick={() => handleDelete(project.id)}
+                            onClick={() => {
+                              setShowPopup(true);
+                              setDeleteId(project.id);
+                            }}
+                              style={{
+                                cursor: "pointer",
+                                color: "#930000",
+                                width: "20px",
+                                height: "20px",
+                                
+                              }}
+                            />
+                      </button>
                     </div>
-
                   </div>
 
                 ))}
               </div>
             </div>
           </main>
+          {/* //b */}
+          {showPopup && deleteId !== null && (
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="fixed inset-0 bg-black opacity-50"></div>
+              <div className="Delete-popup w-[257px] h-[192px] py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
+                <div className="text-center">
+                  <p className="font-manrope text-[20px] font-medium">
+                    Are you sure you want to delete this Project?
+                  </p>
+                  <p className="font-manrope text-[12px] font-medium text-[#6A6A6A] mt-2">
+                    This action cannot be undone.
+                  </p>
+                  <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
+                    <button
+                      className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
+                      // onClick={deletedAt}
+                      onClick={handleClosePopup} // Close the popup
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
+                      // onClick={() => setShowPopup(false)}
+                      onClick={handleClosePopup} // Close the popup
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  <p className="font-manrope text-[12px] text-[#6A6A6A] font-medium text-center mt-2">
+                    Select "Delete" to confirm.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+          {/* //b */}
 
-          {showPopup && (
+          {showPopup && deleteId === null && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="fixed inset-0 bg-black opacity-50"></div>
               <div
@@ -282,7 +378,12 @@ const Table4 = () => {
           )}
         </div>)}
     </>
+
   );
+
 };
 
 export default Table4;
+
+
+

@@ -348,7 +348,7 @@ const truncateText = (text, limit ) => {
                       teamData.teamMemberNames.filter(
                         ({
                           name,
-                          emailID,
+                          email,
                           projectName,
                           employeeId,
                           ClientName,
@@ -365,7 +365,7 @@ const truncateText = (text, limit ) => {
                           arrayClientName(ClientName)
                             ?.toLowerCase()
                             .includes(valueinput.toLowerCase()) ||
-                          emailID
+                          email
                             ?.toLowerCase()
                             .includes(valueinput.toLowerCase())
                       ).map((member, index) => (
@@ -379,6 +379,7 @@ const truncateText = (text, limit ) => {
                             lineHeight: "21.86px",
                           }}
                         >
+                          <td className="px-[10px] py-[6px] text-center  ">
                           <a
                             href=""
                             className="text-[#000AFF] text-center"
@@ -386,7 +387,11 @@ const truncateText = (text, limit ) => {
                               textDecoration: "Underline",
                             }}
                           >
-                            <td className="px[10px] py-[6px] text-center " style={{ fontWeight: '700', }}>
+                       
+                            
+                            <td className="px[10px] py-[6px] text-center " 
+                            //id center
+                            style={{ fontWeight: '700'}}>
                               <Link to={`/SuperAdmin/TeamB/${member?.employeeId}`}>
                                 {member.employeeId?.length > 0
                                   ? member?.employeeId
@@ -394,6 +399,7 @@ const truncateText = (text, limit ) => {
                               </Link>
                             </td>
                           </a>
+                          </td>
 
                           <td className="px[10px] py-[6px]  max-w-[150px] overflow-hidden" 
                           style={{ fontFamily: 'Manrope', borderRight: '1px solid #E4E7EC', borderLeft: '1px solid #E4E7EC' }}
@@ -403,11 +409,11 @@ const truncateText = (text, limit ) => {
 
                           <td className="py-2 max-w-[150px] overflow-hidden" 
                           style={{ borderRight: '1px solid #E4E7EC' }}
-                             title= {member.emailID?.length > 0
-                              ? member?.emailID
+                             title= {member.email?.length > 0
+                              ? member?.email
                               : "Not found"}>
-                                {truncateText(member.emailID?.length > 0
-                              ? member?.emailID
+                                {truncateText(member.email?.length > 0
+                              ? member?.email
                               : "Not found", 18)}  
                           </td>
 

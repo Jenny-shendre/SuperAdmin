@@ -28,7 +28,7 @@ import { FcEditImage } from "react-icons/fc";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
   <div className="flex" style={{ background: 'white', width: '472px', borderRadius: '24px', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)' }}>
-    {["All", "Client", "Manager", "Super Admin"].map((tab) => (
+    {/* {["All", "Client", "Manager", "Super Admin"].map((tab) => (
       <button
         key={tab}
         style={{ fontFamily: "Manrope", padding: "10px 10px", width: "121px" }}
@@ -40,7 +40,7 @@ const TabBar = ({ activeTab, setActiveTab }) => (
       >
         {tab}
       </button>
-    ))}
+    ))} */}
 
   </div>
 );
