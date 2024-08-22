@@ -37,7 +37,7 @@ const Table1 = () => {
       setShowPopup(false); // Hide popup after deletion
     }
   };
-  const [expandedCell, setExpandedCell] = useState(null);
+
 
   const fetchData = async () => {
     setLoading(true);
@@ -257,6 +257,7 @@ const Table1 = () => {
                             lineHeight: "16.39px",
                             textAlign: "left",
                             padding: "5px",
+                           
                           }}>
                           Actions
                         </th>
@@ -373,7 +374,7 @@ const Table1 = () => {
 
                             </td>
 
-                            <td className="py-[8px] px-3 border-b flex gap-2" style={{height:'39.8px'}}>
+                            <td className="py-3 px-2 border-b flex gap-2" style={{height:'39.8px'}}>
                               <Link to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}>
                                 <PiNotePencilBold
                                   onClick={() => handleEdit(visitor._id)}
@@ -381,9 +382,8 @@ const Table1 = () => {
                                     cursor: "pointer",
                                     fontSize: "18px",
                                     color: "#632E04",
-                                  }}
-
-                                  
+                                   
+                                  }} 
                                 />
                               </Link>
 

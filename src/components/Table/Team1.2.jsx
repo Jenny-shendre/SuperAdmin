@@ -184,8 +184,6 @@ const Table12 = () => {
                     {truncateText(item.ClientName, 14)}
                   </td>
 
-
-              {/* cc by back */}
                   <td className="px-4 py-2  max-w-[150px] overflow-hidden"
                    title= {item.ClientEmail}>
                     {truncateText(item.ClientEmail, 17)}
