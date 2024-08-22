@@ -150,7 +150,7 @@ const OverViewAdmin = () => {
       <div  className="min-h-screen p-6">
 
         <div
-          style={{ gap: "20px", paddingLeft: "0px" }}
+          style={{ paddingLeft: "0px" }}
           className="  overflow-x-auto flex flex-col gap- bg-custom-bg"
         >
 

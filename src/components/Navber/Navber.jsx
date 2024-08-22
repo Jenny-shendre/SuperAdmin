@@ -63,7 +63,7 @@ const Navber = () => {
       else if (locationPath.startsWith("/SuperAdmin/Project")) {
         setActiveItem("Projects");
       }
-      else if (locationPath.startsWith("/SuperAdmin/project/Project%")) {
+      else if (locationPath.startsWith("/SuperAdmin/Project/Project%")) {
         setActiveItem("Projects");
       }
       else if (locationPath.startsWith("/SuperAdmin/Team")) {
