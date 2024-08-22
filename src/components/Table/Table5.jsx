@@ -12,8 +12,10 @@ import { IoOpenOutline } from "react-icons/io5";
 import DropIcon from "../../assets/DropIcon.png";
 import EmailIcon from "../../assets/email.png";
 import PhoneIcon from "../../assets/phone.png";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Table5 = () => {
+   const [showPopup, setShowPopup] = useState(false);
   const [valueinput, setvalueinput] = useState("");
   const [viewedItems, setViewedItems] = useState([]);
   const [data, setdata] = useState([]);
@@ -507,7 +509,7 @@ const Table5 = () => {
           </div>
 
           <div className="outer-wrapper text-center flex items-center justify-center">
-            <div className="table-wrapper" style={{ width: "999px" }}>
+            <div className="table-wrapper" style={{ width: "900px" }}>
               {data.length !== 0 ? (
                 <table
                   className="min-w-full bg-white"
@@ -526,7 +528,8 @@ const Table5 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           paddingLeft: "10px",
-                          width: "65px",
+                          width: "188px",
+                         
                           padding: "10px",
                           border: "1px solid #ddd",
                           justifyContent: "center",
@@ -543,7 +546,7 @@ const Table5 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: "180px",
+                          width: "178px",
                           border: "1px solid #ddd",
                         }}
                       >
@@ -558,7 +561,7 @@ const Table5 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: "253px",
+                          width: "224px",
                           border: "1px solid #ddd",
                         }}
                       >
@@ -572,7 +575,7 @@ const Table5 = () => {
                           fontWeight: "500",
                           lineHeight: "16.39px",
                           textAlign: "center",
-                          width: "253px",
+                          width: "174px",
                           border: "1px solid #ddd",
                         }}
                       >
@@ -587,7 +590,7 @@ const Table5 = () => {
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
-                          width: "44px",
+                          width: "125px",
                           height: "16px",
                           justifyItems: "center",
                           alignItems: "center",
@@ -643,6 +646,10 @@ const Table5 = () => {
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
+                                fontSize:"16px",
+                                fontWeight:"500",
+                                fontFamily:"Manrope",
+                                lineHeight:"21.86px",
                               }}
                             >
                               {visitor.teamName}
@@ -657,6 +664,10 @@ const Table5 = () => {
                               padding: "10px",
                               width: "178px",
                               height: "54px",
+                              fontSize:"16px",
+                              fontWeight:"500",
+                              fontFamily:"Manrope",
+                              lineHeight:"21.86px",
                             }}
                             title={visitor.managerName}
                           >
@@ -670,6 +681,10 @@ const Table5 = () => {
                               padding: "10px",
                               width: "224px",
                               height: "54px",
+                              fontSize:"16px",
+                              fontWeight:"500",
+                              fontFamily:"Manrope",
+                              lineHeight:"21.86px",
                             }}
                             title={visitor.managerEmail}
                           >
@@ -683,6 +698,10 @@ const Table5 = () => {
                               padding: "10px",
                               width: "174px",
                               height: "54px",
+                              fontSize:"16px",
+                              fontWeight:"500",
+                              fontFamily:"Manrope",
+                              lineHeight:"21.86px",
                             }}
                             title={visitor.projectName}
                           >
@@ -707,18 +726,34 @@ const Table5 = () => {
                                 display: "flex",
                               }}
                             >
+                            
                               <Link to={`/SuperAdmin/Team/${visitor.teamName}`}>
                                 <IoOpenOutline
                                   onClick={() =>
                                     deletedAt(visitor._id, visitor.customerId)
                                   }
                                   style={{
+                                    width:"24px",
+                                  height:"24px",
                                     cursor: "pointer",
                                     fontSize: "18px",
                                     color: "#632E04",
                                   }}
                                 />
                               </Link>
+
+                              <RiDeleteBin6Line
+                                onClick={() => { handleDeleteClick(item._id)}
+                                }
+                                
+                                style={{
+                                  width:"27px",
+                                  height:"27px",
+                                  cursor: "pointer",
+                                  fontSize: "18px",
+                                  color: "#930000",
+                                }}
+                                />
                             </div>
                           </td>
                         </tr>
@@ -730,6 +765,38 @@ const Table5 = () => {
               )}
             </div>
           </div>
+          {showPopup && (
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="fixed inset-0 bg-black opacity-50"></div>
+              <div className="Delete-popup w-[257px] h-[192px] py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
+                <div className="text-center">
+                  <p className="font-manrope text-[20px] font-medium">
+                    Are you sure you want to delete this row?
+                  </p>
+                  <p className="font-manrope text-[12px] font-medium text-[#6A6A6A] mt-2">
+                    This action cannot be undone.
+                  </p>
+                  <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
+                    <button
+                      className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
+                      onClick={deletedAt}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
+                      onClick={() => setShowPopup(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  <p className="font-manrope text-[12px] text-[#6A6A6A] font-medium text-center mt-2">
+                    Select "Delete" to confirm.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Add team member screen */}
           {showAddTeamMemberPopup && (
