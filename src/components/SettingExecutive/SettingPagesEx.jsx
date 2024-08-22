@@ -159,7 +159,7 @@ const SettingPagesEx = () => {
         </div>
       </div>
 
-      <div className='w-[1032px] h-[724px] gap-[16px] p-[24px] pt-0 ' >
+      <div className='w-[1285px] h-[819px] gap-[16px] p-[24px] pt-0 ' >
 
         <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
           <div className="flex items-center gap-4" >

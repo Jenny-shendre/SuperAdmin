@@ -149,7 +149,7 @@ const SettingPageAdmin = () => {
         </span>
       </h1>
 
-      <div className="flex  min-h-screen w-[1032px] bg-white">
+      <div className="flex h-[819px] w-[1285px] bg-white">
         <div className="w-[25%] h-[794px] text-black flex flex-col" style={{ borderRight: '1px solid #D0D0D0', alignItems: 'center' }}>
           <div className="flex flex-col items-center mt-10 w-[122px] h-[101px] gap-[17px] justify-between">
 

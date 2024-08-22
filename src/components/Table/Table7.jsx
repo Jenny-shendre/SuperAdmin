@@ -397,7 +397,7 @@ const Table7 = () => {
               {action === "service" && (
                 <div className="overflow-x-auto" style={{ maxHeight: "363px" }}>
                   <table
-                    className="bg-white border border-gray-300"
+                    className="bg-white border border-gray-600"
                     style={{ width: "fit-content" }}>
                     <thead>
                       <tr
@@ -407,10 +407,10 @@ const Table7 = () => {
                           fontSize: "14px",
                           fontWeight: "500",
                         }}>
-                        <th className="p-2 bg-[#3D2314] text-[#F7F3E8]">
+                        <th className="p-2 bg-[#3D2314] text-[#F7F3E8] divide-x-2 divide-gray-600 ">
                           Date
                         </th>
-                        <th className="p-2 bg-[#3D2314] text-[#F7F3E8]">
+                        <th className="p-2 bg-[#3D2314] text-[#F7F3E8] divide-x-2 divide-gray-600">
                           Customer Name
                         </th>
                         <th className="p-2 bg-[#3D2314] text-[#F7F3E8]">
