@@ -159,7 +159,7 @@ const Table4 = () => {
                 <button
                   onClick={() => setShowPopup(true)}
                   className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[206px] mt-[11px]"
-                  style={{ padding:"12px 24px 12px 24px" , gap:"12px"}}
+                  style={{ padding:"12px 24px 12px 24px" , gap:"10px"}}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -225,7 +225,8 @@ const Table4 = () => {
                 className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
               >
                 <div
-                  className="upload-box w-[323px] h-[189px] border-dotted border flex flex-col items-center justify-center gap-3 cursor-pointer"
+                  className="upload-box description w-[323px] h-[189px] border-dotted border-[5px] flex flex-col items-center justify-center gap-3 cursor-pointer"
+
                   onClick={() => fileInputRef.current.click()}
                 >
                   {uploadedImage ? (
@@ -241,7 +242,7 @@ const Table4 = () => {
                         alt="Upload"
                         className="w-12 h-12"
                       />
-                      <p className="font-manrope text-lg font-normal">
+                      <p style={{fontWeight:"400",fontFamily:"Manrope",fontSize:"16px"}}>
                         Upload Image
                       </p>
                     </>
@@ -255,19 +256,20 @@ const Table4 = () => {
                 />
                 <input
                   type="text"
-                  className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mt-6"
+                  className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg mt-6"
                   placeholder="Project Name"
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
                 />
                 <textarea
-                  className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mt-6"
+                  className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 mt-6"
+                  style={{fontFamily:"Manrope",fontWeight:"400",fontSize:"16px",color:"#000000"}}
                   placeholder="Project Description"
                   value={projectAddress}
                   onChange={(e) => setProjectAddress(e.target.value)}
                 />
                 <button
-                  className="add-project-button w-[170px] h-12 p-3 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white mt-6"
+                  className="add-project-button w-[170px] h-12 p-2 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white mt-6"
                   onClick={handleAddProject}
                 >
                   Add new Project

@@ -243,7 +243,7 @@ function ClientDetailsMang() {
 
           <div style={{ textAlign: '-webkit-center' }} className="outer-wrapperB">
 
-            <table className="w-[886px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
+            <table className="w-[840px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
               <div className="table-wrapperB">
                 <thead className=" font-[Manrope]">
 
@@ -254,10 +254,11 @@ function ClientDetailsMang() {
                       fontWeight: "500",
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
-                      width: '175px'
+                      width:"200px",
                     }} className="px-4 py-2 ">Date</th>
                     <th style={{
                       fontFamily: "Manrope",
+                      width:"171px",
                       fontSize: "12px",
                       fontWeight: "500",
                       lineHeight: "16.39px",
@@ -265,13 +266,14 @@ function ClientDetailsMang() {
                     }} className="px-4 py-2">Project Name</th>
                     <th style={{
                       fontFamily: "Manrope",
+                      width:"171px",
                       fontSize: "12px",
                       fontWeight: "500",
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
                     }} className="px-4 py-2">Client Name</th>
                     <th style={{
-                      width: '171px',
+                      width: '130px',
                       fontFamily: "Manrope",
                       fontSize: "12px",
                       fontWeight: "500",
@@ -280,6 +282,7 @@ function ClientDetailsMang() {
                     }} className="px-4 py-2">Duration</th>
                     <th style={{
                       fontFamily: "Manrope",
+                      width:"105px",
                       fontSize: "12px",
                       fontWeight: "500",
                       lineHeight: "16.39px",
@@ -287,6 +290,7 @@ function ClientDetailsMang() {
                     }} className="px-4 py-2">Notes</th>
                     <th style={{
                       fontFamily: "Manrope",
+                      width:"125px",
                       fontSize: "12px",
                       fontWeight: "500",
                       lineHeight: "16.39px",
@@ -294,12 +298,13 @@ function ClientDetailsMang() {
                     }} className="px-4 py-2">Executive</th>
                     <th style={{
                       fontFamily: "Manrope",
+                      width:"93px",
                       fontSize: "12px",
                       fontWeight: "500",
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
                       
-                    }} className="px-4 py-2 ">Status</th>
+                    }} className="px-4 py-2 ">Actions</th>
                   </tr>
                 </thead>
 

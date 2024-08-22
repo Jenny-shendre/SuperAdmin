@@ -113,6 +113,8 @@ th{
   color: rgba(53, 53, 53, 0.5);
 }
 
+
+
 .team1{
   position: sticky;
   top: -3px;
@@ -155,7 +157,7 @@ th {
 
 .table-wrapperB  {
   max-height: 747px !important;
-  width: 880px !important;
+  width: 850px !important;
   overflow-y: scroll;
 }
 
@@ -189,4 +191,8 @@ thead{
 .role-switch-button button.active {
   background-color: #3D2314;
   color: white;
+}
+
+.description textarea::placeholder{
+  color: #3D2314;
 }
