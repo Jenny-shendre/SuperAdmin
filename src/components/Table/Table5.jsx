@@ -254,12 +254,12 @@ const Table5 = () => {
   };
 
   const validatePhoneNumber = (phone) => {
-    return /^\d{10}$/.test(phone);
+    return /^\d{10,15}$/.test(phone);
   };
 
   const handleManagerPhoneChange = (e) => {
     const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-    if (value.length <= 10) {
+    if (value.length <= 15) {
       setManagerPhone(value);
     }
   };
@@ -325,7 +325,7 @@ const Table5 = () => {
 
   const handleExecutivePhoneChange = (e) => {
     const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-    if (value.length <= 10) {
+    if (value.length <= 15) {
       setExecutivePhone(value);
     }
   };
@@ -902,14 +902,13 @@ const Table5 = () => {
                       alt="Email"
                       className="absolute right-3 top-1/2 transform -translate-y-1/2"
                     />
-                  {/* //@gmail.com validation applied */}
-                    {(!validateEmail(managerEmail) ||
-                      !managerEmail.endsWith("@gmail.com")) &&
-                      managerEmail.length > 0 && (
-                        <p className="text-red-500 text-left text-xs">
-                          Please enter a valid email address.
-                        </p>
-                      )}
+
+                    {!validateEmail(managerEmail) && managerEmail.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">
+                        Please enter a valid email address.
+                      </p>
+                    )}
+
 
                   </div>
                   <div className="relative w-[440px] h-12 mb-4">
@@ -919,7 +918,7 @@ const Table5 = () => {
                       onChange={handleManagerPhoneChange}
                       className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
                       placeholder="Phone No"
-                      maxLength={10} // Ensures no more than 10 characters
+                      maxLength={15} // Ensures no more than 10 characters
                     />
                     <img
                       src={PhoneIcon}
@@ -929,7 +928,7 @@ const Table5 = () => {
                     {!validatePhoneNumber(managerPhone) &&
                       managerPhone.length > 0 && (
                         <p className="text-red-500 text-left text-xs">
-                          Phone number must be exactly 10 digits.
+                          {/* Phone number must be exactly 10 digits. */}
                         </p>
                       )}
                   </div>
@@ -991,13 +990,14 @@ const Table5 = () => {
                       alt="Email"
                       className="absolute right-3 top-1/2 transform -translate-y-1/2"
                     />
-                    
-                    {(!validateEmail(executiveEmail) || !executiveEmail.endsWith("@gmail.com")) &&
+
+                    {!validateEmail(executiveEmail) &&
                       executiveEmail.length > 0 && (
                         <p className="text-red-500 text-left text-xs">
                           Please enter a valid email address.
                         </p>
                       )}
+
 
                   </div>
                   <div className="relative w-[440px] h-12 mb-4">
@@ -1007,7 +1007,7 @@ const Table5 = () => {
                       onChange={handleExecutivePhoneChange}
                       className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
                       placeholder="Phone No"
-                      maxLength={10} // Ensures no more than 10 characters
+                      maxLength={15} // Ensures no more than 10 characters
                     />
                     <img
                       src={PhoneIcon}
@@ -1017,7 +1017,7 @@ const Table5 = () => {
                     {!validatePhoneNumber(executivePhone) &&
                       executivePhone.length > 0 && (
                         <p className="text-red-500 text-left text-xs">
-                          Phone number must be exactly 10 digits.
+                          {/* Phone number must be exactly 10 digits. */}
                         </p>
                       )}
                   </div>
