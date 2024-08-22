@@ -8,6 +8,7 @@ import close from '../../assets/close.png';
 import axios from "axios";
 import { format, isValid } from "date-fns";
 import Loading from "../Loding/Loding";
+
 function ClientDetailsMang() {
   const [data, setData] = useState([]);
   const [valueinput, setvalueinput] = useState("");
@@ -16,10 +17,13 @@ function ClientDetailsMang() {
   const [activeTab, setActiveTab] = useState("All");
 
   const [showNotePopup, setShowNotePopup] = useState(false);
+  
   const [showAddNotePopup, setShowAddNotePopup] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
-  const [notes, setNotes] = useState([]);
+  const [selectedClient, setSelectedClient] = useState({});
+  const [selectedExecutive, setSelectedExecutive] = useState({});
+  const [errorMessage, setErrorMessage] = useState("")
   const [search, setSearch] = useState("");
  //vb
  const truncateText = (text, limit = 10) => {
@@ -40,7 +44,7 @@ function ClientDetailsMang() {
 
   const [data2, setdata2] = useState([]);
 
-  const fetchData = async () => {
+  /*const fetchData = async () => {
     setLoading(true);
 
     const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
@@ -51,11 +55,11 @@ function ClientDetailsMang() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, []);*/
 
   //New
 
-  const handleOutsideClick = (event) => {
+  /*const handleOutsideClick = (event) => {
     if (notePopupRef.current && !notePopupRef.current.contains(event.target)) {
       setShowNotePopup(false);
     }
@@ -91,25 +95,25 @@ function ClientDetailsMang() {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [showNotePopup, showAddNotePopup, isDropdownOpen, isProjectDropdownOpen]);
+  }, [showNotePopup, showAddNotePopup, isDropdownOpen, isProjectDropdownOpen]);*/
 
   // Add team members popup logic
 
-  const [clientName, setclientName] = useState("");
+  /*const [clientName, setclientName] = useState("");
   const [project, setProject] = useState("");
   const [briefing, setBriefing] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const [createStatus, setCreateStatus] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // state for error message
+  const [errorMessage, setErrorMessage] = useState("");*/ // state for error message
 
 
 
-  const handleProjectChange = (projectName) => {
+  /*const handleProjectChange = (projectName) => {
     setProject(projectName);
     setIsProjectDropdownOpen(false);
-  };
+  };*/
 
-  const handleSubmit = async () => {
+  /*const handleSubmit = async () => {
     if (clientName && project && briefing) {
       setIsCreating(true);
       setErrorMessage(""); // Clear any previous error messages
@@ -134,18 +138,34 @@ function ClientDetailsMang() {
     } else {
       setErrorMessage("Please fill in all fields.");
     }
+  };*/
+
+  const handleOutsideClick = (event) => {
+    if (addNotePopupRef.current && !addNotePopupRef.current.contains(event.target)) {
+      setShowAddNotePopup(false);
+    }
   };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
 
 
   const getData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`https://project-rof.vercel.app/api/attendants/fetch-all`);
+      const res = await axios.get(`https://prodictivity-management-tool2.vercel.app/api/notes`);
       const resData = res.data;
       // console.log("API Response Data:", responseData);
-      setData(resData);
-      console.log(resData[0].ClientName);
+      const filteredData = resData.filter(item => item.role === "Client");
+      console.log("output", res.data);
+      setData(filteredData);
+      
       setLoading(false);
 
     } catch (error) {
@@ -174,6 +194,16 @@ function ClientDetailsMang() {
       return "Invalid Date";
     }
   };
+
+  const onNoteIconClick = (item) => {
+    //console.log("Selected Visitor:", client.ClientProject); 
+    setSelectedClient(item);
+    setShowAddNotePopup(true);
+  };
+
+  
+
+  
 
 
   return (
@@ -243,7 +273,7 @@ function ClientDetailsMang() {
 
           <div style={{ textAlign: '-webkit-center' }} className="outer-wrapperB">
 
-            <table className="w-[840px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
+            <table className="w-[886px] h-[477px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
               <div className="table-wrapperB">
                 <thead className=" font-[Manrope]">
 
@@ -254,11 +284,10 @@ function ClientDetailsMang() {
                       fontWeight: "500",
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
-                      width:"200px",
+                      width: '175px'
                     }} className="px-4 py-2 ">Date</th>
                     <th style={{
                       fontFamily: "Manrope",
-                      width:"171px",
                       fontSize: "12px",
                       fontWeight: "500",
                       lineHeight: "16.39px",
@@ -266,14 +295,13 @@ function ClientDetailsMang() {
                     }} className="px-4 py-2">Project Name</th>
                     <th style={{
                       fontFamily: "Manrope",
-                      width:"171px",
                       fontSize: "12px",
                       fontWeight: "500",
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
                     }} className="px-4 py-2">Client Name</th>
                     <th style={{
-                      width: '130px',
+                      width: '171px',
                       fontFamily: "Manrope",
                       fontSize: "12px",
                       fontWeight: "500",
@@ -282,7 +310,6 @@ function ClientDetailsMang() {
                     }} className="px-4 py-2">Duration</th>
                     <th style={{
                       fontFamily: "Manrope",
-                      width:"105px",
                       fontSize: "12px",
                       fontWeight: "500",
                       lineHeight: "16.39px",
@@ -290,7 +317,6 @@ function ClientDetailsMang() {
                     }} className="px-4 py-2">Notes</th>
                     <th style={{
                       fontFamily: "Manrope",
-                      width:"125px",
                       fontSize: "12px",
                       fontWeight: "500",
                       lineHeight: "16.39px",
@@ -298,23 +324,37 @@ function ClientDetailsMang() {
                     }} className="px-4 py-2">Executive</th>
                     <th style={{
                       fontFamily: "Manrope",
-                      width:"93px",
                       fontSize: "12px",
                       fontWeight: "500",
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
                       
-                    }} className="px-4 py-2 ">Actions</th>
+                    }} className="px-4 py-2 ">Status</th>
                   </tr>
                 </thead>
 
                 <tbody className="font-[Manrope] ">
-                  {data.flatMap((visitor, index) =>
-                    visitor.ClientName.filter(({ ClientName }) =>
-                      ClientName.toLowerCase().includes(valueinput.toLowerCase())
-                    ).map((client, clientIndex) => (
-                      <tr className="text-[#5C5C5C] text-center border-b" key={`${index}-${clientIndex}`}>
-                        <td className="px-4 py-2 ">{client.createdAt ? DateupdatedAt(client.createdAt) : "Invalide date"}</td>
+                  
+                  {data
+                  .filter(
+                    ({name,executiveName,project}) =>
+                      name
+                    ?.toLowerCase()
+                    .includes(valueinput.toLowerCase()) ||
+                    executiveName
+                    ?.toLowerCase()
+                    .includes(valueinput.toLowerCase()) ||
+                    project
+                    ?.toLowerCase()
+                    .includes(valueinput.toLowerCase()) 
+
+                  )
+                  .map((item, index) => (
+                    
+                      
+                    
+                      <tr className="text-[#5C5C5C] text-center border-b" key={item}>
+                        <td className="px-4 py-2 ">{item.date ? DateupdatedAt(item.date) : "Invalide date"}</td>
 
                         {/* <td className={`px-4 py-2 max-w-[150px] overflow-hidden ${expandedCell === `${index}-${clientIndex}` ? 'whitespace-normal' : 'whitespace-nowrap'}`}
                           style={{
@@ -356,9 +396,9 @@ function ClientDetailsMang() {
                             color: "#5C5C5C",
       
                           }}
-                          title={client.ClientProject} >
+                          title={item.project} >
 
-                          {truncateText(client.ClientProject?.length > 0 ? client?.ClientProject : "Not Assign")}
+                          {truncateText(item.project?.length > 0 ? item?.project : "Not Assign")}
                           </td>
 
                         <td className="px-4 py-2 max-w-[150px] overflow-hidden "
@@ -368,43 +408,43 @@ function ClientDetailsMang() {
                             lineHeight: "19px",
                             color: "#5C5C5C",
                           }}
-                          title={client.ClientName}>
-                         {truncateText(client.ClientName)}
+                          title={item.name}>
+                         {truncateText(item.name)}
                         </td>
 
 
-                        <td className="px-4 py-2 text-[#000000] " style={{ fontWeight: '800' }}>{client.timeDuration?.length > 0 ? client?.timeDuration : "Not Assign"}</td>
+                        <td className="px-4 py-2 text-[#000000] " style={{ fontWeight: '800' }}>{item.duration?.length > 0 ? item?.duration : "Not Assign"}</td>
                         <td className="px-4 py-2 r">
 
-                          <div style={{ textAlign: '-webkit-center' }} onClick={() => {
-                            setShowNotePopup(false);
-                            setShowAddNotePopup(true);
-                          }}>
+                          <div style={{ textAlign: '-webkit-center' }} onClick={() => onNoteIconClick(item)}>
+                            
                             <CgNotes className="w-[20px] h-[22px] text-black " />
-                            {client.notes}
+                            {/*{item.note}*/}
                           </div>
                         </td>
 
                         <td className="px-4 py-2 max-w-[150px] overflow-hidden"
-                          title={visitor.name?.length > 0 ? visitor?.name : "Not found"}>
-                            {truncateText(visitor.name?.length > 0 ? visitor?.name : "Not found")}
+                          title={item.executiveName?.length > 0 ? item?.executiveName : "Not found"}>
+                            {truncateText(item.executiveName?.length > 0 ? item?.executiveName : "Not found")}
                         </td>
 
 
                         {/* <td className="px-4 py-2">{visitor.name?.length > 0 ? visitor?.name : "Not found"}</td> */}
                         {/* cc */}
                         <div className="flex justify-center items-center">
-                          {client.completed === 'completed' ? (
+                          {item.action === 'Completed' ? (
                             <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31] mt-2" />
-                          ) : (
+                          ) : item.action === 'In Progress' ?(
 
-                            <img src={close} alt="Progress" className="w-[24px] h-[24px] mt-2 " />
+                            <img src={close} alt="In Progress" className="w-[24px] h-[24px] mt-2 " />
+                          ) : (
+                            <span className="text-[#000000] mt-2">No Action</span>
 
 
                           )}
                         </div>
                       </tr>
-                    )))}
+                    ))}
                 </tbody>
               </div>
             </table>
@@ -431,8 +471,8 @@ function ClientDetailsMang() {
                 </button>
                 <input
                   type="text"
-                  value={clientName}
-                  onChange={(e) => setclientName(e.target.value)}
+                  value={selectedClient.executiveName || 'Not Found'}
+                  onChange={() => { }}
                   className="w-[640px] h-12 mb-4"
                   placeholder="Sales Executive Name"
                   style={{
@@ -450,8 +490,8 @@ function ClientDetailsMang() {
 
                 <input
                   type="text"
-                  value={clientName}
-                  onChange={(e) => setclientName(e.target.value)}
+                  value={selectedClient.project || 'Not Assign'}
+                  onChange={() => { }}
                   className="w-[640px] h-12 mb-4"
                   placeholder="Project Name"
                   style={{
@@ -484,6 +524,7 @@ function ClientDetailsMang() {
                   className="rounded-md border border-gray-300 font-manrope  div2 mb-4"
                 >
                   <textarea
+                    value={selectedClient.note || 'Empty'}
                     type="text"
                     placeholder="Add your Briefing"
                     style={{
@@ -494,18 +535,25 @@ function ClientDetailsMang() {
                       height: "100px",
                       fontWeight: 400,
                     }}
-                    onChange={(e) => setBriefing(e.target.value)}
+                    onChange={() => { }}
                   />
                 </div>
 
                 <button
+                  className="flex flex-wrap gap-[10px] justify-between create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
+                  onClick={() => setShowAddNotePopup(false)}
+                >
+                  Close Note
+                </button>
+
+                {/*<button
                   onClick={handleSubmit}
                   className="w-[192px] h-[44px] flex flex-wrap justify-center create-team-btn bg-[#3D2314] rounded-[4px] text-center text-white"
                   disabled={isCreating}
                   style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", borderRadius: "4px", padding: "10px", gap: "10px" }}
                 >
                   {createStatus || "Close Note"}
-                </button>
+                </button>*/}
                 {errorMessage && (
                   <p className="text-red-500 mt-2">{errorMessage}</p>
                 )}
