@@ -15,7 +15,6 @@ import PhoneIcon from "../../assets/phone.png";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Table5 = () => {
-   const [showPopup, setShowPopup] = useState(false);
   const [valueinput, setvalueinput] = useState("");
   const [viewedItems, setViewedItems] = useState([]);
   const [data, setdata] = useState([]);
@@ -31,6 +30,10 @@ const Table5 = () => {
   const [showAddExecutivePopup, setShowAddExecutivePopup] = useState(false); // state for executive popup
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
+  const [showPopup, setShowPopup] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
+
 
   const teamPopupRef = useRef();
   const addTeamMemberPopupRef = useRef();
@@ -385,6 +388,28 @@ const Table5 = () => {
     return text || "";
   };
 
+  const handleDeleteClick = (id) => {
+    setDeleteId(id);  // Set the ID of the item to be deleted
+    setShowPopup(true); // Show the delete confirmation popup
+  };
+
+  const handleDeleteConfirm = async () => {
+    try {
+      const res = await axios.delete(`https://project-rof.vercel.app/api/teams/${deleteId}`);
+      console.log("Team deleted", res);
+      setShowPopup(false); // Close the popup after deletion
+      setDeleteId(null); // Clear the delete ID
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCancel = () => {
+    setShowPopup(false); // Close the popup
+    setDeleteId(null); // Clear the delete ID
+  };
+
+
   return (
     <div className="arrowss">
       {loading ? (
@@ -529,7 +554,7 @@ const Table5 = () => {
                           textAlign: "center",
                           paddingLeft: "10px",
                           width: "188px",
-                         
+
                           padding: "10px",
                           border: "1px solid #ddd",
                           justifyContent: "center",
@@ -646,10 +671,10 @@ const Table5 = () => {
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
-                                fontSize:"16px",
-                                fontWeight:"500",
-                                fontFamily:"Manrope",
-                                lineHeight:"21.86px",
+                                fontSize: "16px",
+                                fontWeight: "500",
+                                fontFamily: "Manrope",
+                                lineHeight: "21.86px",
                               }}
                             >
                               {visitor.teamName}
@@ -664,10 +689,10 @@ const Table5 = () => {
                               padding: "10px",
                               width: "178px",
                               height: "54px",
-                              fontSize:"16px",
-                              fontWeight:"500",
-                              fontFamily:"Manrope",
-                              lineHeight:"21.86px",
+                              fontSize: "16px",
+                              fontWeight: "500",
+                              fontFamily: "Manrope",
+                              lineHeight: "21.86px",
                             }}
                             title={visitor.managerName}
                           >
@@ -681,10 +706,10 @@ const Table5 = () => {
                               padding: "10px",
                               width: "224px",
                               height: "54px",
-                              fontSize:"16px",
-                              fontWeight:"500",
-                              fontFamily:"Manrope",
-                              lineHeight:"21.86px",
+                              fontSize: "16px",
+                              fontWeight: "500",
+                              fontFamily: "Manrope",
+                              lineHeight: "21.86px",
                             }}
                             title={visitor.managerEmail}
                           >
@@ -698,10 +723,10 @@ const Table5 = () => {
                               padding: "10px",
                               width: "174px",
                               height: "54px",
-                              fontSize:"16px",
-                              fontWeight:"500",
-                              fontFamily:"Manrope",
-                              lineHeight:"21.86px",
+                              fontSize: "16px",
+                              fontWeight: "500",
+                              fontFamily: "Manrope",
+                              lineHeight: "21.86px",
                             }}
                             title={visitor.projectName}
                           >
@@ -726,15 +751,13 @@ const Table5 = () => {
                                 display: "flex",
                               }}
                             >
-                            
+
                               <Link to={`/SuperAdmin/Team/${visitor.teamName}`}>
                                 <IoOpenOutline
-                                  onClick={() =>
-                                    deletedAt(visitor._id, visitor.customerId)
-                                  }
+
                                   style={{
-                                    width:"24px",
-                                  height:"24px",
+                                    width: "24px",
+                                    height: "24px",
                                     cursor: "pointer",
                                     fontSize: "18px",
                                     color: "#632E04",
@@ -743,17 +766,17 @@ const Table5 = () => {
                               </Link>
 
                               <RiDeleteBin6Line
-                                onClick={() => { handleDeleteClick(item._id)}
+                                onClick={() => { handleDeleteClick(visitor._id) }
                                 }
-                                
+
                                 style={{
-                                  width:"27px",
-                                  height:"27px",
+                                  width: "27px",
+                                  height: "27px",
                                   cursor: "pointer",
                                   fontSize: "18px",
                                   color: "#930000",
                                 }}
-                                />
+                              />
                             </div>
                           </td>
                         </tr>
@@ -779,13 +802,13 @@ const Table5 = () => {
                   <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
                     <button
                       className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-                      onClick={deletedAt}
+                      onClick={handleDeleteConfirm}
                     >
                       Delete
                     </button>
                     <button
                       className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
-                      onClick={() => setShowPopup(false)}
+                      onClick={handleCancel}
                     >
                       Cancel
                     </button>
