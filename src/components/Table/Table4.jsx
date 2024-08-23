@@ -33,9 +33,9 @@ const Table4 = () => {
   const [valueinput, setvalueinput] = useState("");
   const [loading, setLoading] = useState(false);
 
- 
-//b
-const [deleteId, setDeleteId] = useState(null);
+
+  //b
+  const [deleteId, setDeleteId] = useState(null);
 
 
 
@@ -107,39 +107,45 @@ const [deleteId, setDeleteId] = useState(null);
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-// //b
-// // Delete and Edit logic
-// const handleDelete = (projectId) => {
-//   if (window.confirm("Are you sure you want to delete this project?")) {
-//     // Logic to delete the project
-//     console.log("Project deleted with ID:", projectId);
-//   }
-// };
+  // //b
+  // Delete and Edit logic
+  const handleDelete = async (deleteId) => {
+    try {
+      const res = await axios.delete(`https://project-rof.vercel.app/api/projects/delete/${deleteId}`)
+      console.log("Project deleted", res);
+      setShowPopup(false); // Close the popup after successful deletion
+    } catch (error) {
+      console.log(error);
 
-// const handleEdit = (projectId) => {
-//   // Logic to edit the project
-//   console.log("Project edited with ID:", projectId);
-// };
-const handleEdit = (projectId) => {
-  // Logic to edit the project
-  console.log("Project edited with ID:", projectId);
-};
+    }
+  };
 
-// const deletedAt = () => {
-//   if (deleteId) {
-//     // Remove the project from the projectData state
-//     setProjectData((prevData) => prevData.filter(project => project.id !== deleteId));
-//     // Reset deleteId and close popup
-//     setDeleteId(null);
-//     setShowPopup(false);
-//   }
-// };
-const handleClosePopup = () => {
-  setShowPopup(false);
-};
+  // const handleEdit = (projectId) => {
+  //   // Logic to edit the project
+  //   console.log("Project edited with ID:", projectId);
+  // };
+  const handleEdit = (projectId) => {
+    // Logic to edit the project
+    console.log("Project edited with ID:", projectId);
+  };
+
+  // const deletedAt = () => {
+  //   if (deleteId) {
+  //     // Remove the project from the projectData state
+  //     setProjectData((prevData) => prevData.filter(project => project.id !== deleteId));
+  //     // Reset deleteId and close popup
+  //     setDeleteId(null);
+  //     setShowPopup(false);
+  //   }
+  // };
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setDeleteId(null); // Clear the deleteId when the popup is closed
+
+  };
 
 
-    return (
+  return (
     <>
       {loading ? (
         <Loading />
@@ -177,7 +183,7 @@ const handleClosePopup = () => {
                     type="text"
                     placeholder="Search"
                     className="w-full rounded-full h-[48px]"
-                    style={{ padding:"12px 24px 12px 60px",border:"1px solid #3D2314"}}
+                    style={{ padding: "12px 24px 12px 60px", border: "1px solid #3D2314" }}
                     value={valueinput}
                     onChange={(e) => setvalueinput(e.target.value)}
                   />
@@ -195,31 +201,31 @@ const handleClosePopup = () => {
                   </svg>
                 </div>
                 <div>
-                <button
-                  onClick={() => setShowPopup(true)}
-                  className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[206px] mt-[11px]"
-                  style={{ padding:"12px 24px 12px 24px" , gap:"10px"}}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
+                  <button
+                    onClick={() => setShowPopup(true)}
+                    className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[206px] mt-[11px]"
+                    style={{ padding: "12px 24px 12px 24px", gap: "10px" }}
                   >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Add new Project
-                </button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 mr-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Add new Project
+                  </button>
                 </div>
-                
+
               </div>
 
-              <div className="cardT  pr-[12px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"   
-               >
+              <div className="cardT  pr-[12px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+              >
 
                 {projectData.filter(({ name }) =>
                   name.toLowerCase().includes(valueinput.toLowerCase())
@@ -240,34 +246,34 @@ const handleClosePopup = () => {
                     <div className=" w-[288px] h-[24px] flex justify-between items-center">
                       <h3
                         className="font-[16px]"
-                        style={{ fontWeight: 500, fontFamily: "Manrope", paddingLeft:"12px", paddingTop:"12px",gap:"16px"}}
+                        style={{ fontWeight: 500, fontFamily: "Manrope", paddingLeft: "12px", paddingTop: "12px", gap: "16px" }}
                       >
                         {project.name}
                       </h3>
                       <button className="text-gray-500 flex gap-3 mt-3">
-                            <BiSolidEditAlt 
-                                onClick={() => handleEdit(project.id)}
-                                style={{
-                                  cursor: "pointer",
-                                  color: "#000000",
-                                  width: "20px",
-                                  height: "20px",
-                                }}
-                              />
-                            <RiDeleteBin6Line
-                            //  onClick={() => handleDelete(project.id)}
-                            onClick={() => {
-                              setShowPopup(true);
-                              setDeleteId(project.id);
-                            }}
-                              style={{
-                                cursor: "pointer",
-                                color: "#930000",
-                                width: "20px",
-                                height: "20px",
-                                
-                              }}
-                            />
+                        <BiSolidEditAlt
+                          onClick={() => handleEdit(project.id)}
+                          style={{
+                            cursor: "pointer",
+                            color: "#000000",
+                            width: "20px",
+                            height: "20px",
+                          }}
+                        />
+                        <RiDeleteBin6Line
+                          //  onClick={() => handleDelete(project.id)}
+                          onClick={() => {
+                            setShowPopup(true);
+                            setDeleteId(project._id);
+                          }}
+                          style={{
+                            cursor: "pointer",
+                            color: "#930000",
+                            width: "20px",
+                            height: "20px",
+
+                          }}
+                        />
                       </button>
                     </div>
                   </div>
@@ -292,7 +298,7 @@ const handleClosePopup = () => {
                     <button
                       className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
                       // onClick={deletedAt}
-                      onClick={handleClosePopup} // Close the popup
+                      onClick={() => handleDelete(deleteId)} // Delete the project
                     >
                       Delete
                     </button>
@@ -338,7 +344,7 @@ const handleClosePopup = () => {
                         alt="Upload"
                         className="w-12 h-12"
                       />
-                      <p style={{fontWeight:"400",fontFamily:"Manrope",fontSize:"16px"}}>
+                      <p style={{ fontWeight: "400", fontFamily: "Manrope", fontSize: "16px" }}>
                         Upload Image
                       </p>
                     </>
@@ -359,7 +365,7 @@ const handleClosePopup = () => {
                 />
                 <textarea
                   className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 mt-6"
-                  style={{fontFamily:"Manrope",fontWeight:"400",fontSize:"16px",color:"#000000"}}
+                  style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
                   placeholder="Project Description"
                   value={projectAddress}
                   onChange={(e) => setProjectAddress(e.target.value)}
