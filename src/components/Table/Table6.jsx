@@ -47,27 +47,19 @@ const Table6 = () => {
   const id = location.state || 0;
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
-//vb
-const truncateText = (text, limit ) => {
-  if (text && text.length > limit) {
-    return text.slice(0, limit) + '...';
-  }
-  return text || '';
-};
+  //vb
+  const truncateText = (text, limit) => {
+    if (text && text.length > limit) {
+      return text.slice(0, limit) + '...';
+    }
+    return text || '';
+  };
 
   const handleDeleteClick = async (id) => {
 
-    try {
-      let teamId = objectId
-      let memberId = id
+    setDeleteId(id);
+    setShowPopup(true);
 
-      setDeleteId(id);
-      setShowPopup(true);
-      const res = await axios.delete(`https://project-rof.vercel.app/api/teams/deleteTeamsMembers/${teamId}/${memberId}`)
-      console.log("Member deleted", res);
-    } catch (error) {
-      console.log(error);
-    }
 
   };
 
@@ -82,8 +74,27 @@ const truncateText = (text, limit ) => {
   }
 
   const confirmDelete = async () => {
-    setShowPopup(false);
-    fetchData();
+    if (deleteId) {
+      try {
+        let teamId = objectId; // Replace with your actual teamId logic
+        let memberId = deleteId;
+
+        const res = await axios.delete(`https://project-rof.vercel.app/api/teams/deleteTeamsMembers/${teamId}/${memberId}`);
+        console.log("Member deleted", res);
+        fetchData(); // Refresh data after deletion
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setShowPopup(false); // Close the popup
+        setDeleteId(null); // Reset deleteId
+      }
+    }
+
+  };
+
+  const cancelDelete = () => {
+    setShowPopup(false); // Close the popup
+    setDeleteId(null); // Reset deleteId
   };
 
 
@@ -380,59 +391,59 @@ const truncateText = (text, limit ) => {
                           }}
                         >
                           <td className="px-[10px] py-[6px] text-center  ">
-                          <a
-                            href=""
-                            className="text-[#000AFF] text-center"
-                            style={{
-                              textDecoration: "Underline",
-                            }}
-                          >
-                       
-                            
-                            <td className="px[10px] py-[6px] text-center " 
-                            //id center
-                            style={{ fontWeight: '700'}}>
-                              <Link to={`/SuperAdmin/TeamB/${member?.employeeId}`}>
-                                {member.employeeId?.length > 0
-                                  ? member?.employeeId
-                                  : "Not found"}
-                              </Link>
-                            </td>
-                          </a>
+                            <a
+                              href=""
+                              className="text-[#000AFF] text-center"
+                              style={{
+                                textDecoration: "Underline",
+                              }}
+                            >
+
+
+                              <td className="px[10px] py-[6px] text-center "
+                                //id center
+                                style={{ fontWeight: '700' }}>
+                                <Link to={`/SuperAdmin/TeamB/${member?.employeeId}`}>
+                                  {member.employeeId?.length > 0
+                                    ? member?.employeeId
+                                    : "Not found"}
+                                </Link>
+                              </td>
+                            </a>
                           </td>
 
-                          <td className="px[10px] py-[6px]  max-w-[150px] overflow-hidden" 
-                          style={{ fontFamily: 'Manrope', borderRight: '1px solid #E4E7EC', borderLeft: '1px solid #E4E7EC' }}
-                            title= {member.name?.length > 0 ? member?.name : "Not found"}>
-                              {truncateText(member.name?.length > 0 ? member?.name : "Not found", 12)}
+                          <td className="px[10px] py-[6px]  max-w-[150px] overflow-hidden"
+                            style={{ fontFamily: 'Manrope', borderRight: '1px solid #E4E7EC', borderLeft: '1px solid #E4E7EC' }}
+                            title={member.name?.length > 0 ? member?.name : "Not found"}>
+                            {truncateText(member.name?.length > 0 ? member?.name : "Not found", 12)}
                           </td>
 
-                          <td className="py-2 max-w-[150px] overflow-hidden" 
-                          style={{ borderRight: '1px solid #E4E7EC' }}
-                             title= {member.email?.length > 0
+                          <td className="py-2 max-w-[150px] overflow-hidden"
+                            style={{ borderRight: '1px solid #E4E7EC' }}
+                            title={member.email?.length > 0
                               ? member?.email
                               : "Not found"}>
-                                {truncateText(member.email?.length > 0
+                            {truncateText(member.email?.length > 0
                               ? member?.email
-                              : "Not found", 18)}  
+                              : "Not found", 18)}
                           </td>
 
-                          <td className="py-2 max-w-[150px] overflow-hidden" 
-                          style={{ borderRight: '1px solid #E4E7EC' }}
+                          <td className="py-2 max-w-[150px] overflow-hidden"
+                            style={{ borderRight: '1px solid #E4E7EC' }}
                             title={arrayClientName(member.ClientName)}>
-                              {truncateText(arrayClientName(member.ClientName, 13))} 
+                            {truncateText(arrayClientName(member.ClientName, 13))}
                           </td>
 
-                          <td className="py-2 max-w-[150px] overflow-hidden" 
-                          style={{ borderRight: '1px solid #E4E7EC' }}
-                          title={member.projectName?.length > 0
+                          <td className="py-2 max-w-[150px] overflow-hidden"
+                            style={{ borderRight: '1px solid #E4E7EC' }}
+                            title={member.projectName?.length > 0
                               ? member?.projectName
                               : "Not Assign"}>
-                          {truncateText(member.projectName?.length > 0
+                            {truncateText(member.projectName?.length > 0
                               ? member?.projectName
-                              : "Not Assign", 13)} 
+                              : "Not Assign", 13)}
                           </td>
-                          
+
                           <td className="py-2" style={{ textAlign: '-webkit-center' }}>
                             <RiDeleteBin6Line style={{ color: 'rgba(147, 0, 0, 1)', cursor: 'pointer' }} onClick={() => handleDeleteClick(member._id)} />
 
@@ -612,14 +623,14 @@ const truncateText = (text, limit ) => {
               <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
                 <button
                   className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-                  onClick={confirmDelete}
+                  onClick={confirmDelete} //Confirm delete action
                   style={{ fontWeight: '600', fontSize: '18px' }}
                 >
                   Delete
                 </button>
                 <button
                   className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
-                  onClick={() => setShowPopup(false)}
+                  onClick={cancelDelete} // Cancel delete action
                   style={{ fontWeight: '600', fontSize: '18px' }}
                 >
                   Cancel
