@@ -18,13 +18,13 @@ const Table = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteCustomerId, setDeleteCustomerId] = useState(null);
- //vb
- const truncateText = (text, limit ) => {
-  if (text && text.length > limit) {
-    return text.slice(0, limit) + '...';
-  }
-  return text || '';
-};
+  //vb
+  const truncateText = (text, limit) => {
+    if (text && text.length > limit) {
+      return text.slice(0, limit) + '...';
+    }
+    return text || '';
+  };
 
   const deletedAt = async () => {
     if (deleteId) {
@@ -82,7 +82,9 @@ const Table = () => {
                 fontSize: "24px",
                 fontWeight: "500",
               }}>
-              Home
+              <Link to="/SuperAdmin">
+                <span>Home</span>
+              </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
                 style={{
@@ -135,7 +137,7 @@ const Table = () => {
                           paddingLeft: "7px",
                           width: "125px",
                           padding: "5px",
-                          
+
                         }}>
                         Date
                       </th>
@@ -167,8 +169,8 @@ const Table = () => {
                         className="border-b text-center"
                         style={{
                           fontFamily: "Manrope",
-                          width:"166px",
-                          height:"35px",
+                          width: "166px",
+                          height: "35px",
                           fontSize: "12px",
                           fontWeight: "500",
                           lineHeight: "16.39px",
@@ -301,14 +303,14 @@ const Table = () => {
                           <td className="py-1 border-b text-center">
                             {visitor.timeDuration}
                           </td>
-                          <td className= "px-4 py-2 max-w-[150px] overflow-hidden "
+                          <td className="px-4 py-2 max-w-[150px] overflow-hidden "
                             style={{
                               borderBottom: "1px solid #E8E8E8",
-                              textAlign:"center",
+                              textAlign: "center",
                               textOverflow: "ellipsis",
                             }}
                             title={visitor.name}
-                        
+
                           >
                             {truncateText(visitor.name, 14)}
                           </td>
@@ -332,21 +334,21 @@ const Table = () => {
                             {visitor.mobile}
                           </td>
                           <td className="py-1 border-b text-center max-w-[150px] overflow-hidden"
-                           title= {visitor.email}
-                           >
+                            title={visitor.email}
+                          >
                             {truncateText(visitor.email, 17)}
                           </td>
                           <td className="py-1 border-b text-center max-w-[150px] overflow-hidden"
-                          title= {visitor.projectName}>
-                              {truncateText(visitor.projectName, 13)}
+                            title={visitor.projectName}>
+                            {truncateText(visitor.projectName, 13)}
                           </td>
 
                           <td className="py-1 border-b  text-center max-w-[150px] overflow-hidden"
-                          title=  {visitor.attendantName}>
+                            title={visitor.attendantName}>
                             {truncateText(visitor.attendantName, 12)}
                           </td>
-                          
-                          
+
+
 
                           <td className="py-3 px-1 flex gap-4 item-center justify-center">
                             <Link to={`/SuperAdmin/Direct_Visitors/${visitor.customerId}`}>
@@ -374,7 +376,7 @@ const Table = () => {
                             />
                           </td>
 
-                          
+
                         </tr>
                       ))}
                   </tbody>

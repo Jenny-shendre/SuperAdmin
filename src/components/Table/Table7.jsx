@@ -282,7 +282,9 @@ const Table7 = () => {
                 fontSize: "24px",
                 fontWeight: "500",
               }}>
-              <span>Home</span>
+              <Link to="/SuperAdmin">
+                  <span >Home</span>
+                </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <Link to="/SuperAdmin/Project">
                 <span

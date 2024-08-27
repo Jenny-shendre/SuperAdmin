@@ -439,7 +439,7 @@ function ClientDetails() {
             }}
             className="font-medium"
           >
-            Client Managment
+            Overview
           </span>
         </h1>
       </div>

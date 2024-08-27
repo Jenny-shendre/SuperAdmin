@@ -239,7 +239,7 @@ function ClientDetailsMang() {
               }}
               className="font-medium font-[Manrope]"
             >
-              Clients
+             Overview
             </span>
           </h1>
         </div>
