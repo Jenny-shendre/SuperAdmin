@@ -96,7 +96,7 @@ const SideNav = () => {
               ) : (
                 <img src={carbon_customer2} alt="" />
               )}
-              Client
+              Overview
             </li>
           </Link>
           <Link to="/SalesExecutive/Notes">

@@ -5,6 +5,8 @@ import { CgMail } from "react-icons/cg";
 import { TbBrandTelegram } from "react-icons/tb";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import close from "../../assets/add_notes (white).png";
@@ -261,7 +263,9 @@ function NotesDetailsMang() {
             color: "black",
           }}
         >
-          Home
+          <Link to="/SuperAdmin">
+            Home
+          </Link>
           <IoIosArrowForward style={{ color: "black" }} />
           <span
             style={{
@@ -373,7 +377,7 @@ function NotesDetailsMang() {
                 ref={projectDropdownRef}
               >
                 <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center"
-                style={{padding:"16px 24px",fontFamily:"Manrope",fontWeight:"400"}}>
+                  style={{ padding: "16px 24px", fontFamily: "Manrope", fontWeight: "400" }}>
                   {project2 || "Choose Project"}
                   <img
                     className="ml-2 h-2 w-3 "
@@ -438,7 +442,7 @@ function NotesDetailsMang() {
               >
                 {createStatus2 || (
                   <div className="flex flex-wrap ">
-                   <span> Close Note </span>
+                    <span> Close Note </span>
                   </div>
                 )}
               </button>
@@ -639,8 +643,8 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                marginTop:"68px"
-                
+                marginTop: "68px"
+
               }}
 
               onClick={() => {
@@ -709,7 +713,7 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                marginTop:"38px"
+                marginTop: "38px"
               }}
 
               onClick={() => {
@@ -779,7 +783,7 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                 marginTop:"38px"
+                marginTop: "38px"
               }}
 
               onClick={() => {
@@ -849,7 +853,7 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                 marginTop:"38px"
+                marginTop: "38px"
               }}
 
               onClick={() => {
@@ -920,7 +924,7 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
 
               onClick={() => {
@@ -989,8 +993,8 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                 marginTop:"52px"
-        
+                marginTop: "52px"
+
               }}
 
               onClick={() => {
@@ -1059,7 +1063,7 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
 
               onClick={() => {
@@ -1128,7 +1132,7 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
 
               onClick={() => {
@@ -1200,7 +1204,7 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
 
               onClick={() => {
@@ -1269,7 +1273,7 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
 
               onClick={() => {
@@ -1338,7 +1342,7 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
 
               onClick={() => {
@@ -1407,7 +1411,7 @@ function NotesDetailsMang() {
                 fontFamily: "Manrope",
                 width: '-webkit-fill-available',
                 justifyContent: 'center',
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
 
               onClick={() => {

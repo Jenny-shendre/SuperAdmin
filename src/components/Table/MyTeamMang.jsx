@@ -9,18 +9,18 @@ import Searchsvg from "../../assets/material-symbols_search.svg";
 import add from "../../assets/akar-icons_edit (1).png";
 import axios from "axios";
 import "../Home.css";
+import { Link } from "react-router-dom";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
-  <div className="flex" style={{background:'white', width:'354px', borderRadius:'24px', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)'}}>
+  <div className="flex" style={{ background: 'white', width: '354px', borderRadius: '24px', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)' }}>
     {["All", "Available", "In meet"].map((tab) => (
       <button
         key={tab}
-        style={{fontFamily: "Manrope",fontWeight:"500",fontSize:"14px",lineHeight:"19.12px", padding: "10px 24px 10px 24px", height:"39px" }}
-        className={` ${
-          activeTab === tab
+        style={{ fontFamily: "Manrope", fontWeight: "500", fontSize: "14px", lineHeight: "19.12px", padding: "10px 24px 10px 24px", height: "39px" }}
+        className={` ${activeTab === tab
             ? "bg-[#3D2314] text-white w-[118px]"
             : " text-[#3D2314] w-[118px]"
-        }  ${tab === 'All' ? "rounded-l-[24px] " : ""} ${tab === 'In meet' ? "rounded-r-[24px] " : ""}`}
+          }  ${tab === 'All' ? "rounded-l-[24px] " : ""} ${tab === 'In meet' ? "rounded-r-[24px] " : ""}`}
         onClick={() => setActiveTab(tab)}
       >
         {tab}
@@ -210,7 +210,9 @@ function MyTeamMang() {
             fontSize: "24px",
             fontWeight: "500",
           }}>
-          Home
+          <Link to="/SuperAdmin">
+            Home
+          </Link>
           <IoIosArrowForward style={{ color: "#1C1B1F" }} />
           <span
             style={{
@@ -246,9 +248,9 @@ function MyTeamMang() {
       </div>
 
       <br />
-      
+
       <div className="flex justify-center">
-      <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
       <br />
       {loading ? (
@@ -342,11 +344,10 @@ function MyTeamMang() {
 
                     <div
                       style={{ borderRadius: "8px", fontFamily: "Manrope" }}
-                      className={`font-[Manrope] w-[70px] h-[28px] ${
-                        note.status === "available"
+                      className={`font-[Manrope] w-[70px] h-[28px] ${note.status === "available"
                           ? "bg-[#BAEFB1] text-[#1D750E]"
                           : "bg-[#F4E8C8] text-[#AF8414]"
-                      } text-[12px] px-[10px] py-[6px] mt-[15px] item-center justify-center`}>
+                        } text-[12px] px-[10px] py-[6px] mt-[15px] item-center justify-center`}>
                       {note.status === "assigned" ? "in meet" : "available"}
                     </div>
                   </div>

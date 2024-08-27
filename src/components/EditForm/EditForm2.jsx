@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 function EditForm2() {
@@ -100,9 +100,12 @@ function EditForm2() {
                 fontWeight: "500",
               }}
             >
+              <Link to="/SuperAdmin">
               Home
+              </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-              <span
+              <Link
+              to="/SuperAdmin/Channel_Partners"
                 style={{
                   fontFamily: "Poppins",
                   fontWeight: "400",
@@ -111,9 +114,9 @@ function EditForm2() {
                 className="font-medium"
               >
                 Channel Partners
-              </span>
+              </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-              <span
+              <Link to="/SuperAdmin/Rainbow_overseas"
                 style={{
                   fontFamily: "Poppins",
                   fontWeight: "400",
@@ -122,7 +125,7 @@ function EditForm2() {
                 className="font-medium"
               >
                 Rainbow Overseas
-              </span>
+              </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
                 style={{

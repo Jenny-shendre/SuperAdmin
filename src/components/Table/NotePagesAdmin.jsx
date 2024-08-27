@@ -10,6 +10,8 @@ import "../Home.css";
 import axios from "axios";
 import DropIcon from "../../assets/DropIcon.png";
 import edit from "../../assets/hugeicons_view.png";
+import { Link } from "react-router-dom";
+
 
 
 
@@ -37,7 +39,7 @@ const TabBar = ({ activeTab, setActiveTab }) => (
         {tab}
       </button>
     ))} */}
-      
+
   </div>
 );
 
@@ -139,7 +141,7 @@ function NotePagesAdmin() {
   const [createStatus, setCreateStatus] = useState("");
   const [error, setError] = useState('');
   const [buttonText, setButtonText] = useState('Add Note');
-    const [errorMessage, setErrorMessage] = useState(""); // state for error message
+  const [errorMessage, setErrorMessage] = useState(""); // state for error message
 
   const handleProjectChange = (projectName) => {
     setProject(projectName);
@@ -150,7 +152,7 @@ function NotePagesAdmin() {
 
     e.preventDefault();
 
-    if(clientName.trim === "" || project.trim === "" || briefing === ""){
+    if (clientName.trim === "" || project.trim === "" || briefing === "") {
       setError('All fields are required.');
       setButtonText('Add Note');
       return;
@@ -163,18 +165,18 @@ function NotePagesAdmin() {
     setError('');
 
     const teamdata = {
-          clientName: clientName,
-          project: project,
-          briefing: briefing,
-        };
+      clientName: clientName,
+      project: project,
+      briefing: briefing,
+    };
 
     if (clientName && project && briefing) {
-        setErrorMessage(""); // Clear any previous error messages
-         console.log("Come");
-         console.log('team data', teamdata)
+      setErrorMessage(""); // Clear any previous error messages
+      console.log("Come");
+      console.log('team data', teamdata)
     }
 
-    
+
 
     // if (clientName && project && briefing) {
     //   setIsCreating(true);
@@ -202,7 +204,7 @@ function NotePagesAdmin() {
     // }
   };
 
-  const handleCross = () =>{
+  const handleCross = () => {
     setShowAddNotePopup(false);
     setButtonText('Add Note');
     setError('')
@@ -262,7 +264,9 @@ function NotePagesAdmin() {
             color: "black",
           }}
         >
-          Home
+          <Link to="/SuperAdmin">
+            Home
+          </Link>
           <IoIosArrowForward style={{ color: "black" }} />
           <span
             style={{
@@ -359,7 +363,7 @@ function NotePagesAdmin() {
                 className="relative w-[640px] h-[48px] mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
                 style={{
                   color: "rgba(0, 0, 0, 0.68)",
-                  fontWeight:"400",
+                  fontWeight: "400",
                   fontSize: "16px",
                   lineHeight: "19.2px",
                   fontFamily: "Manrope",
@@ -371,7 +375,7 @@ function NotePagesAdmin() {
                 ref={projectDropdownRef}
               >
                 <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center"
-                  style={{padding:"16px 24px"}}>
+                  style={{ padding: "16px 24px" }}>
                   {project2 || "Choose Project"}
                   <img
                     className="ml-2 h-2 w-3 "
@@ -432,7 +436,7 @@ function NotePagesAdmin() {
               >
                 {createStatus2 || (
                   <div className="flex flex-wrap ">
-                   
+
                     <span> Close Note </span>
                   </div>
                 )}
@@ -545,7 +549,7 @@ function NotePagesAdmin() {
                     width: "600px",
                     height: "100px",
                     fontWeight: 400,
-                    color:'#3D2314'
+                    color: '#3D2314'
                   }}
                   onChange={(e) => setBriefing(e.target.value)}
                 />
@@ -562,7 +566,7 @@ function NotePagesAdmin() {
                   </div>
                 )} */}
 
-{buttonText}
+                {buttonText}
               </button>
               {error && (
                 <p className="text-red-500 mt-2">{error}</p>
@@ -631,7 +635,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                  marginTop:"70px"
+                marginTop: "70px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -695,7 +699,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                  marginTop:"40px"
+                marginTop: "40px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -761,7 +765,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                  marginTop:"40px"
+                marginTop: "40px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -827,7 +831,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                 marginTop:"40px"
+                marginTop: "40px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -893,7 +897,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -958,7 +962,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -1023,7 +1027,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -1088,7 +1092,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -1154,7 +1158,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -1219,7 +1223,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -1284,7 +1288,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
@@ -1349,7 +1353,7 @@ function NotePagesAdmin() {
                 fontFamily: "Manrope",
                 width: "-webkit-fill-available",
                 justifyContent: "center",
-                 marginTop:"52px"
+                marginTop: "52px"
               }}
               onClick={() => {
                 setShowNotePopup(false);
