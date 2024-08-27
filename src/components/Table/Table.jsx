@@ -244,7 +244,7 @@ const Table = () => {
                           fontSize: "12px",
                           fontWeight: "500",
                           lineHeight: "16.39px",
-                          textAlign: "left",
+                          textAlign: "center",
                           padding: "5px",
                         }}>
                         Actions
@@ -348,7 +348,7 @@ const Table = () => {
                           
                           
 
-                          <td className="py-3  px-2 flex gap-2">
+                          <td className="py-3 px-1 flex gap-4 item-center justify-center">
                             <Link to={`/SuperAdmin/Direct_Visitors/${visitor.customerId}`}>
                               <PiNotePencilBold
                                 // onClick={() => handleEdit(visitor._id)}

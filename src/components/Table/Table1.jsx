@@ -243,7 +243,7 @@ const Table1 = () => {
                             fontWeight: "500",
                             lineHeight: "16.39px",
                             textAlign: "center",
-                            width: "100px",
+                           
                             padding: "5px",
                           }}>
                           Attendant
@@ -374,7 +374,7 @@ const Table1 = () => {
 
                             </td>
 
-                            <td className="py-3 px-2 border-b flex gap-2" style={{height:'39.8px'}}>
+                            <td className="py-6 px-1 border-b flex gap-4" style={{height:"35px"}}>
                               <Link to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}>
                                 <PiNotePencilBold
                                   onClick={() => handleEdit(visitor._id)}
