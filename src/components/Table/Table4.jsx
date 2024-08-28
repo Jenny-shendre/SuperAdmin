@@ -27,7 +27,7 @@ const Table4 = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [projectName, setProjectName] = useState("");
-  const [projectAddress, setProjectAddress] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
   const [projectLocation, setProjectLocation] = useState("");
   const [validationError, setValidationError] = useState("");
   const [projectData, setProjectData] = useState([]);
@@ -60,28 +60,43 @@ const Table4 = () => {
     }
   };
 
-  const handleAddProject = () => {
-    if (!projectName || !projectAddress || !uploadedImage || !projectLocation) {
-      setValidationError("All fields are required.");
+
+  const handleAddProject = async () => {
+    if (!projectName) {
+      setValidationError("Peoject name  are required.");
+      return;
+    }
+
+    if (!projectLocation) {
+      setValidationError("Peoject location  are required.");
       return;
     }
 
     const newProject = {
       name: projectName,
-      address: projectAddress,
-      image: uploadedImage,
       location: projectLocation,
+      image: uploadedImage,
+      description: projectDescription,
     };
 
+    try {
+      const sendData = await axios.post("https://project-rof.vercel.app/api/projects", newProject)
+      console.log("Project added successfully", sendData);
+      setProjectData(prevData => [...prevData, sendData.data]);
 
-    // Reset form and close popup
-    setUploadedImage(null);
-    setProjectName("");
-    setProjectLocation("");
-    setProjectAddress("");
-    setShowPopup(false);
-    setValidationError("");
-    console.log("Project added:", newProject);
+      // Reset form and close popup
+      setUploadedImage(null);
+      setProjectName("");
+      setProjectLocation("");
+      setProjectDescription("");
+      setShowPopup(false);
+      setValidationError("");
+
+    } catch (error) {
+      console.log("Error adding project:", error);
+    }
+
+    // console.log("Project added:", newProject);
   };
 
   const fetchData = async () => {
@@ -101,7 +116,7 @@ const Table4 = () => {
     fetchData();
   }, []);
 
-  console.log("projectData", projectData);
+  // console.log("projectData", projectData);
 
 
   useEffect(() => {
@@ -116,6 +131,10 @@ const Table4 = () => {
     try {
       const res = await axios.delete(`https://project-rof.vercel.app/api/projects/delete/${deleteId}`)
       console.log("Project deleted", res);
+
+      // Update projectData state by removing the deleted project
+      setProjectData(prevData => prevData.filter(project => project._id !== deleteId));
+
       setShowPopup(false); // Close the popup after successful deletion
     } catch (error) {
       console.log(error);
@@ -129,7 +148,7 @@ const Table4 = () => {
   // };
   const handleEdit = (projectId) => {
     // Logic to edit the project
-    console.log("Project edited with ID:", projectId);
+    // console.log("Project edited with ID:", projectId);
   };
 
   // const deletedAt = () => {
@@ -166,8 +185,8 @@ const Table4 = () => {
                   }}
                 >
                   <Link to="/SuperAdmin">
-                  <span >Home</span>
-                </Link>
+                    <span >Home</span>
+                  </Link>
                   <IoIosArrowForward style={{ color: "#1C1B1F" }} />
                   <span
                     style={{
@@ -379,8 +398,8 @@ const Table4 = () => {
                   className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 mt-6"
                   style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
                   placeholder="Project Description"
-                  value={projectAddress}
-                  onChange={(e) => setProjectAddress(e.target.value)}
+                  value={projectDescription}
+                  onChange={(e) => setProjectDescription(e.target.value)}
                 />
                 <button
                   className="add-project-button w-[170px] h-12 p-2 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white mt-6"

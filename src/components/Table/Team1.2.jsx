@@ -13,10 +13,17 @@ const Table12 = () => {
   const [valueinput, setvalueinput] = useState("");
   const location = useLocation();
   const pathname = location.pathname;
-  const employeeId = decodeURIComponent(
-    pathname.substring(pathname.lastIndexOf("/") + 1)
-  );
-  console.log(employeeId);
+  // const employeeId = decodeURIComponent(
+  //   pathname.substring(pathname.lastIndexOf("/") + 1)
+  // );
+  // console.log(employeeId);
+
+  const pathSegments = pathname.split('/');
+  const teamName = decodeURIComponent(pathSegments[3]); // Assuming 'teamName' is at index 3
+  const employeeId = decodeURIComponent(pathSegments[4]); // Assuming 'employeeId' is at index 4
+
+  console.log("teamName", teamName);
+  console.log("employeeId", employeeId);
 
 
   const callApi = async (employeeId) => {
@@ -54,25 +61,25 @@ const Table12 = () => {
       <div
         className="flex items-center [#000000]"
         style={{ fontFamily: "Poppins", fontSize: "24px", fontWeight: "500" }}>
-           <Link to="/SuperAdmin">
-        <h1
-              className="font-bold flex items-center gap-1"
-              style={{
-                fontFamily: "Poppins",
-                fontSize: "24px",
-                fontWeight: "500",
-              }}>
-             
-                  <span >Home</span>
-                
-                </h1>
-                </Link>
+        <Link to="/SuperAdmin">
+          <h1
+            className="font-bold flex items-center gap-1"
+            style={{
+              fontFamily: "Poppins",
+              fontSize: "24px",
+              fontWeight: "500",
+            }}>
+
+            <span >Home</span>
+
+          </h1>
+        </Link>
         <IoIosArrowForward style={{ color: "#1C1B1F" }} />
 
         <span
           style={{ fontFamily: "Poppins", fontSize: "24px", fontWeight: "500" }}
           className="font-semibold">
-          Team A
+          {teamName}
         </span>
         <IoIosArrowForward style={{ color: "#1C1B1F" }} />
 
@@ -111,7 +118,7 @@ const Table12 = () => {
               fontSize: "24px",
               fontWeight: "600",
             }}>
-            Team A
+            {teamName}
           </h2>
           <p
             className="text-sm mb-2 text-center [#313131]"

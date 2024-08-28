@@ -113,7 +113,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute element={Table7} />,
       },
       {
-        path: "TeamB/:id",
+        path: "teamName/:teamName/:employeeId",
         element: <PrivateRoute element={Table12} />,
       },
       {
