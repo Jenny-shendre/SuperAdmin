@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef  } from "react";
 import { LuPencilLine } from "react-icons/lu";
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +14,8 @@ import { LuEyeOff } from "react-icons/lu";
 import { LuEye } from "react-icons/lu";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaCircle } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
+
 
 // const navigate=useNavigate()
 
@@ -22,12 +24,98 @@ const API_URL = import.meta.env.VITE_API_URL
 
 const Table2 = () => {
   const [valueinput, setvalueinput] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [channelName, setChannelName] = useState("");
+  const [address, setaddress] = useState("");
+  const [phone, setphone] = useState("");
+  const [validationError, setValidationError] = useState("");
+  const [showPopupAdd, setShowPopupAdd] = useState(false);
   const [viewedItems, setViewedItems] = useState([]);
+  const [channelEmailID, setChannelEmailID] = useState('');
   const [data, setdata] = useState([]);
   //const [currentPage, setCurrentPage] = useState(1);
   //const [recordsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
+  const id = location.state || 0;
+  const [showPopup, setShowPopup] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
   const navigate = useNavigate();
+
+  const handleDeleteClick = (id) => {
+    setDeleteId(id);
+    setShowPopup(true);
+  };
+
+  const popupRef = useRef();
+  const fileInputRef = useRef();
+
+
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setShowPopup(false);
+    }
+  };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setUploadedImage(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+
+  const handleAddProject = async () => {
+    if (!channelName) {
+      setValidationError("Channel Name is required.");
+      return;
+    }
+
+    if (!phone) {
+      setValidationError("Phone No are required.");
+      return;
+    }
+
+    const newProject = {
+      name: channelName,
+      phone: phone,
+      address: address,
+      channelEmailID : channelEmailID,
+    };
+
+    try {
+      const sendData = await axios.post("https://project-rof.vercel.app/api/projects", newProject)
+      console.log("Project added successfully", sendData);
+      setProjectData(prevData => [...prevData, sendData.data]);
+
+      // Reset form and close popup
+      setUploadedImage(null);
+      setChannelName("");
+      setphone("");
+      setaddress("");
+      setShowPopup(false);
+      setChannelEmailID('')
+      setValidationError("");
+
+    } catch (error) {
+      console.log("Error adding project:", error);
+    }
+
+    // console.log("Project added:", newProject);
+  };
+
+
+  const confirmDelete = async () => {
+    await axios.delete(
+      `https://prodictivity-management-tool2.vercel.app/api/record/deleteRecord/${deleteId}`
+    );
+    setShowPopup(false);
+    fetchData();
+  };
+
   const handleView = (id) => {
     if (viewedItems.includes(id)) {
       // Item already viewed, remove it from viewedItems
@@ -168,6 +256,27 @@ const Table2 = () => {
                   className="absolute  left-4"
                 />
               </div>
+              <div>
+                  <button
+                    onClick={() => setShowPopupAdd(true)}
+                    className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[250px] mt-[11px]"
+                    style={{ padding: "12px 24px 12px 24px", gap: "10px" }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 mr-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Add Channel Partner
+                  </button>
+                </div>
             </div>
           </div>
           <div className="outer-wrapper text-center flex items-center justify-center">
@@ -276,6 +385,23 @@ const Table2 = () => {
                         }}>
                         Address
                       </th>
+
+                      <th
+                        className="border-b"
+                        style={{
+                          fontFamily: "Manrope",
+                          fontSize: "12px",
+                          fontWeight: "500",
+                          lineHeight: "16.39px",
+                          textAlign: "center",
+                          padding: "5px",
+                          width: "139px",
+                          height: "28px",
+                          //TC-263
+                          padding:  "6px 10px 6px 10px",
+                        }}>
+                        Delete
+                      </th>
                    
                     </tr>
                   </thead>
@@ -354,6 +480,26 @@ const Table2 = () => {
                              {truncateText(visitor.address, 13)} 
 
                           </td>
+                          <td className="py-1 px-3 border-b text-center">
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }}
+                            >
+                              <RiDeleteBin6Line
+                                onClick={() => handleDeleteClick()}
+                                style={{
+                                  cursor: "pointer",
+                                  fontSize: "18px",
+                                  color: "#930000",
+                                }}
+                              />
+                            </div>
+                          </td>
+
+
 
                           
                         </tr>
@@ -367,6 +513,98 @@ const Table2 = () => {
           </div>
         </div>
       )}
+
+{showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div className="Delete-popup w-[257px] h-[192px] py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
+           
+            <div className="text-center">
+              <p className="font-manrope text-[20px] font-medium">
+                Are you sure you want to delete this row?
+              </p>
+              <p className="font-manrope text-[12px] font-medium text-[#6A6A6A] mt-2">
+                This action cannot be undone.
+              </p>
+              <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
+                <button
+                  className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
+                  onClick={confirmDelete}
+                >
+                  Delete
+                </button>
+                <button
+                  className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
+                  onClick={() => setShowPopup(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+              <p className="font-manrope text-[12px] text-[#6A6A6A] font-medium text-center mt-2">
+                Select "Delete" to confirm.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+{showPopupAdd && deleteId === null && (
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="fixed inset-0 bg-black opacity-50"></div>
+              <div
+                ref={popupRef}
+                className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
+              >
+                  <button
+                className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                onClick={() => setShowPopupAdd(false)}
+              >
+                X
+              </button>
+               
+               
+                <input
+                  type="text"
+                  className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
+                  placeholder="Channel Name"
+                  value={channelName}
+                  onChange={(e) => setChannelName(e.target.value)}
+                />
+
+<input
+                  type="text"
+                  className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
+                  placeholder="Channel Email ID"
+                  value={channelName}
+                  onChange={(e) => setChannelEmailID(e.target.value)}
+                />
+                <input
+                  type="text"
+                  className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
+                  placeholder="Phone No"
+                  value={phone}
+                  onChange={(e) => setphone(e.target.value)}
+                />
+                <textarea
+                  className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 "
+                  style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
+                  placeholder="Address"
+                  value={address}
+                  onChange={(e) => setaddress(e.target.value)}
+                />
+                <button
+                  className="add-project-button w-[170px] h-12 p-2 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white "
+                  onClick={handleAddProject}
+                >
+                  Register Channel
+                </button>
+                {validationError && (
+                  <p className="text-red-500 mt-2">{validationError}</p>
+                )}
+              </div>
+            </div>
+          )}
     </div>
   );
 };

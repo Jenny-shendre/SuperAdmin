@@ -30,7 +30,7 @@ const BreadCrumbs = () => {
         break;
 
       default:
-        setActiveItem("DirectVisitors");
+        setActiveItem("Overview");
         break;
     }
   }, []);
