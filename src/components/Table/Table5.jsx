@@ -201,7 +201,7 @@ const Table5 = () => {
   };
 
   const handleSubmit = async () => {
-    if (teamName && project && manager && members.length > 0) {
+    if (teamName && project && manager && members) {
       setIsCreating(true);
       setErrorMessage(""); // Clear any previous error messages
 
@@ -226,7 +226,11 @@ const Table5 = () => {
       } finally {
         setIsCreating(false);
       }
-    } 
+    } else {
+      setErrorMessage(
+        "Please fill in all fields and add at least one team member."
+      );
+    }
   };
 
   //  manager popup logic
