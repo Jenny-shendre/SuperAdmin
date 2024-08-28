@@ -218,7 +218,9 @@ const Table5 = () => {
           teamdata
         );
         console.log("res", res);
+        setdata1((prevData) => [...prevData, res.data]); // Update state with new team data
         setCreateStatus("Team Created Successfully ✓");
+        resetTeamForm();
         console.log("Response send", teamdata);
       } catch (error) {
         console.error("Error creating team:", error);
@@ -300,6 +302,15 @@ const Table5 = () => {
         console.log("res", res);
         setManagerCreateStatus("Manager Created Successfully ✓");
         console.log("Response send", res);
+
+        // Fetch the updated list of managers after successful creation
+        const updatedManagers = await axios.get(
+          "https://project-rof.vercel.app/api/salesManager/fetch-all"
+        );
+        setdata(updatedManagers.data); // Assuming setdata is used for storing managers data
+
+        console.log("Updated Managers:", updatedManagers.data);
+
       } catch (error) {
         console.error("Error creating manager:", error);
         setManagerCreateStatus("Error Creating Manager");
@@ -397,6 +408,7 @@ const Table5 = () => {
     try {
       const res = await axios.delete(`https://project-rof.vercel.app/api/teams/${deleteId}`);
       console.log("Team deleted", res);
+      setdata1((prevData) => prevData.filter(item => item._id !== deleteId)); // Update state to remove deleted item
       setShowPopup(false); // Close the popup after deletion
       setDeleteId(null); // Clear the delete ID
     } catch (error) {
@@ -432,8 +444,8 @@ const Table5 = () => {
               }}
             >
               <Link to="/SuperAdmin">
-                  <span >Home</span>
-                </Link>
+                <span >Home</span>
+              </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
                 style={{
