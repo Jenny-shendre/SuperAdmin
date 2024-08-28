@@ -269,7 +269,7 @@ const OverViewAdmin = () => {
           <div className="group flex justify-end mr-[25px]">
 
 
-            <button onClick={toggleDropdown} className="dropdown-toggle inline-flex justify-between items-center w-[162px] h-[35px] px-4 py-2 text-sm  bg-[white] text-[black]">
+            <button onClick={toggleDropdown} className="pointer dropdown-toggle inline-flex justify-between items-center w-[162px] h-[35px] px-4 py-2 text-sm  bg-[white] text-[black]">
               <img src={filter} width='24px' height='24px' />
               {selectedOpt || 'Daily'}
 
