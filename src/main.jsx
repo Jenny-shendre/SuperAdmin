@@ -37,6 +37,12 @@ import NotesDetailsMang from "./components/Table/NotesDetailsMang.jsx";
 import SettingEx from "./components/SettingExecutive/SettingEx.jsx";
 import NotePagesAdmin from "./components/Table/NotePagesAdmin.jsx";
 import SettingPageAdmin from "./components/SettingAdmin/SettingPageAdmin.jsx";
+import ClientHistory from "./components/Table/MyTeamMan2.jsx";
+import SettingPages from "./components/SettingMang/SettingPages.jsx";
+import SettingAd from "./components/SettingAdmin/SettingAd.jsx";
+import MyProfileAdmin from "./components/SettingAdmin/MyProfileAdmin.jsx";
+import MyProfilePage from "./components/SettingMang/MyProfilePage.jsx";
+import IDMan from "./components/EditForm/IDMan.jsx";
 
 const router = createBrowserRouter([
   //Login_Cred
@@ -124,6 +130,10 @@ const router = createBrowserRouter([
         path: "SettingAdmin",
         element: <PrivateRoute element={SettingPageAdmin} />,
       },
+      {
+        path: "Profile",
+        element: <PrivateRoute element={MyProfileAdmin} />,
+      },
     ],
   },
 
@@ -170,13 +180,31 @@ const router = createBrowserRouter([
         path: "/SalesManager/My_Team",
         element: <PrivateRoute element={MyTeam} />,
       },
+      // {
+      //   path: "/SalesManager/History",
+      //   element: <PrivateRoute element={ClientHistory} />,
+      // },
+
+      {
+        path: "/SalesManager/History",
+        element: <PrivateRoute element={ClientHistory} />,
+      },
       {
         path: "/SalesManager/Notes",
         element: <PrivateRoute element={NotesDetailsMang} />,
       },
+      
       {
         path: "/SalesManager/Setting",
         element: <PrivateRoute element={Setting} />,
+      },
+      {
+        path: "/SalesManager/IDMan",
+        element: <PrivateRoute element={IDMan} />,
+      },
+      {
+        path: "/SalesManager/profile",
+        element: <PrivateRoute element={MyProfilePage} />,
       },
     ],
   },

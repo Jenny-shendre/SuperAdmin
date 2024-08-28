@@ -9,7 +9,7 @@ import Searchsvg from "../../assets/material-symbols_search.svg";
 import add from "../../assets/akar-icons_edit (1).png";
 import axios from "axios";
 import "../Home.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
   <div className="flex" style={{ background: 'white', width: '354px', borderRadius: '24px', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)' }}>
@@ -210,9 +210,9 @@ function MyTeamMang() {
             fontSize: "24px",
             fontWeight: "500",
           }}>
-          <Link to="/SuperAdmin">
+        
             Home
-          </Link>
+          
           <IoIosArrowForward style={{ color: "#1C1B1F" }} />
           <span
             style={{
@@ -221,7 +221,7 @@ function MyTeamMang() {
               fontSize: "24px",
             }}
             className="font-medium font-[Manrope]">
-            Notes
+            My Team
           </span>
         </h1>
       </div>
@@ -351,16 +351,17 @@ function MyTeamMang() {
                       {note.status === "assigned" ? "in meet" : "available"}
                     </div>
                   </div>
+                 
+
+                  <Link to="/SalesManager/History" >
                   <button
-                    className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
+                    className="font-[Manrope] w-full gap-2 bg-[#3D2314] text-white py-2 px-4 rounded-lg flex items-center justify-center"
                     style={{ border: "1px solid #3D2314" }}
-                    onClick={() => {
-                      setShowNotePopup(false);
-                      setShowAddNotePopup(true);
-                    }}>
-                    <img src={noteImg} className="text-[24px]" />
-                    Add Note
+                   >
+                    View Client History
                   </button>
+                  </Link>
+                  
                 </div>
               ))
             ) : (

@@ -29,7 +29,7 @@ const Navber = () => {
   const handleItemClick = (item) => {
     if (activeItem !== item) {
       setActiveItem(item); // Set the active item
-      navigate("/SuperAdmin/`${item}`"); // Navigate to the selected item
+      navigate(/SuperAdmin/`${item}`); // Navigate to the selected item
     }
   };
 
@@ -63,7 +63,7 @@ const Navber = () => {
       else if (locationPath.startsWith("/SuperAdmin/Project")) {
         setActiveItem("Projects");
       }
-      else if (locationPath.startsWith("/SuperAdmin/Project/Project%")) {
+      else if (locationPath.startsWith("/SuperAdmin/project/")) {
         setActiveItem("Projects");
       }
       else if (locationPath.startsWith("/SuperAdmin/Team")) {
@@ -250,7 +250,7 @@ const Navber = () => {
             </li>
           </Link>
 
-          <Link to="/SuperAdmin/Note_Pages">
+          {/* <Link to="/SuperAdmin/Note_Pages">
             <li
               style={{
                 fontFamily: "Manrope",
@@ -272,7 +272,7 @@ const Navber = () => {
               )}
               Note
             </li>
-          </Link>
+          </Link> */}
         </ul>
       </div>
       <div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import userImg from "../../../assets/A2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../utils/TokenUtils";
@@ -9,15 +9,10 @@ const TopNav = () => {
   const [title, setTitle] = useState("Sales Executive");
   const [click, setclick] = useState(false);
   const navigate = useNavigate();
-
-  
+  const popupRef = useRef(null); // Create a ref for the popup
 
   const clickfun = () => {
-    if (click === true) {
-      setclick(false);
-    } else {
-      setclick(true);
-    }
+    setclick((prev) => !prev);
   };
 
   const handleLogOut = () => {
@@ -30,68 +25,28 @@ const TopNav = () => {
   const [IdEmp, setIdEmp] = useState(localStorage.getItem("EmpId") || "ROFEX10");
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
-  // useEffect(() => {
-  //   // Function to send status to the backend
-  //   const sendStatusToBackend = async (status) => {
-  //     try {
-  //       const response = await axios.put(
-  //         `https://project-rof.vercel.app/api/attendants/status/${IdEmp}`,
-  //         {
-  //           StaffStatus: status ? "online" : "offline",
-  //         }
-  //       );
-  //       console.log("Status sent:", response.data);
-  //     } catch (error) {
-  //       console.error("Error sending status:", error);
-  //       // If offline status fails to send, store it in localStorage
-  //       if (!status) {
-  //         localStorage.setItem("pendingStatus", JSON.stringify({ IdEmp, status: "offline" }));
-  //       }
-  //     }
-  //   };
+  useEffect(() => {
+    // Function to handle click outside the popup
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setclick(false);
+      }
+    };
 
-  //   // Send initial online/offline status to the backend
-  //   sendStatusToBackend(isOnline);
+    // Add event listener to detect clicks outside the popup
+    document.addEventListener("mousedown", handleClickOutside);
 
-  //   // Function to handle online event
-  //   const handleOnline = async () => {
-  //     setIsOnline(true);
-  //     const pendingStatus = localStorage.getItem("pendingStatus");
-
-  //     if (pendingStatus) {
-  //       // First send the pending offline status
-  //       const { status } = JSON.parse(pendingStatus);
-  //       await sendStatusToBackend(status === "offline" ? false : true);
-  //       localStorage.removeItem("pendingStatus");
-  //     }
-
-  //     // Then send the current online status
-  //     sendStatusToBackend(true);
-  //   };
-
-  //   // Function to handle offline event
-  //   const handleOffline = () => {
-  //     setIsOnline(false);
-  //     sendStatusToBackend(false);
-  //   };
-
-  //   // Add event listeners for online and offline events
-  //   window.addEventListener("online", handleOnline);
-  //   window.addEventListener("offline", handleOffline);
-
-  //   // Cleanup event listeners on component unmount
-  //   return () => {
-  //     window.removeEventListener("online", handleOnline);
-  //     window.removeEventListener("offline", handleOffline);
-  //   };
-  // }, [IdEmp, isOnline]);
+    return () => {
+      // Cleanup event listener on component unmount
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [popupRef]);
 
   useEffect(() => {
-    // Function to send status to the backend
     const sendStatusToBackend = async (status) => {
       try {
         const response = await axios.put(
-          `https://project-rof.vercel.app/api/attendants/status/${IdEmp}`,
+         ` https://project-rof.vercel.app/api/attendants/status/${IdEmp}`,
           {
             StaffStatus: status ? "online" : "offline",
           }
@@ -99,23 +54,19 @@ const TopNav = () => {
         console.log("Status sent:", response.data);
       } catch (error) {
         console.error("Error sending status:", error);
-        // If offline status fails to send, store it in localStorage
         if (!status) {
           localStorage.setItem("pendingStatus", JSON.stringify({ IdEmp, status: "offline" }));
         }
       }
     };
 
-    // Send initial online/offline status to the backend
     sendStatusToBackend(isOnline);
 
-    // Function to handle online event
     const handleOnline = async () => {
       setIsOnline(true);
       const pendingStatus = localStorage.getItem("pendingStatus");
 
       if (pendingStatus) {
-        // First send the pending offline status
         const { status } = JSON.parse(pendingStatus);
         if (status === "offline") {
           await sendStatusToBackend(false);
@@ -123,28 +74,22 @@ const TopNav = () => {
         }
       }
 
-      // Then send the current online status
       sendStatusToBackend(true);
     };
 
-    // Function to handle offline event
     const handleOffline = () => {
       setIsOnline(false);
-      // Send offline status to backend immediately
       sendStatusToBackend(false);
     };
 
-    // Add event listeners for online and offline events
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
 
-    // Cleanup event listeners on component unmount
     return () => {
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
     };
   }, [IdEmp]);
-
 
   return (
     <div style={{
@@ -156,26 +101,22 @@ const TopNav = () => {
         fontSize: '20px',
         fontWeight: '500',
         lineHeight: '27.32px',
-
-
       }}>Welcome! {title} </div>
-      {/* bg-[#FFFFFF] */}
       <div>
         <img
           src={userImg}
           alt="Userimg"
           className="w-8 rounded-full mr-12 cursor-pointer"
-          onClick={() => clickfun()}
+          onClick={clickfun}
         />
       </div>
-      <div style={{ boxShadow: ' 0px 0px 4px 0px #00000040', padding: '6px 14px' }}
-        className={`absolute right-7 top-14 bg-white p-4 ${click === true ? "" : "hidden"
-          } `}>
+      <div ref={popupRef} style={{ boxShadow: '0px 0px 4px 0px #00000040', padding: '6px 14px' }}
+        className={`absolute right-7 top-14 bg-white p-4 ${click ? "" : "hidden"}`}>
         <ul className="flex flex-col gap-1 ">
           <Link to='/SalesExecutive/SettingEx'>
-          <li style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium  ">
-            Go to Settings
-          </li>
+            <li style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium">
+              Go to Settings
+            </li>
           </Link>
           <li style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium">Profile</li>
           <li onClick={handleLogOut} style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium text-[#F13737]">

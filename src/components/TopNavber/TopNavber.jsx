@@ -6,7 +6,7 @@ import axios from "axios";
 
 
 const TopNav = () => {
-  const [title, setTitle] = useState("Sales Executive");
+  const [title, setTitle] = useState("Super Admin");
   const [click, setclick] = useState(false);
   const navigate = useNavigate();
   const popupRef = useRef(null); // Create a ref for the popup
@@ -113,12 +113,14 @@ const TopNav = () => {
       <div ref={popupRef} style={{ boxShadow: '0px 0px 4px 0px #00000040', padding: '6px 14px' }}
         className={`absolute right-7 top-14 bg-white p-4 ${click ? "" : "hidden"}`}>
         <ul className="flex flex-col gap-1 ">
-          <Link to='/SalesExecutive/SettingEx'>
+          <Link to='SettingAdmin'>
             <li style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium">
               Go to Settings
             </li>
           </Link>
+          <Link to ="Profile">
           <li style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium">Profile</li>
+          </Link>
           <li onClick={handleLogOut} style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium text-[#F13737]">
             Logout
           </li>

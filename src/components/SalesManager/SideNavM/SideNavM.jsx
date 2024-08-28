@@ -37,26 +37,23 @@ const SideNavM = () => {
       navigate("/SalesManager/Client");
       setInitialLoad(false); // Disable initial load after the first load
     } else {
-      switch (locationPath) {
-        case "/SalesManager/Client":
+      if (locationPath.startsWith("/SalesManager/Client")) {
           setActiveItem("Client");
-          break;
-        case "/SalesManager/My_Team":
+      }else if (locationPath.startsWith("/SalesManager/My_Team")) {
           setActiveItem("My_Team");
-          break;
-        case "/SalesManager/Notes":
-          setActiveItem("Notes");
-          break;
-        case "/SalesManager/Setting":
-          setActiveItem("Setting");
-          break;
-        default:
-          setActiveItem("Client");
-          navigate("/SalesManager/Client");
-          break;
       }
+      else if(locationPath.startsWith("/SalesManager/ClientHistory"))
+       {
+          setActiveItem("My_Team");
+}
+else if(locationPath.startsWith("/SalesManager/IDMan"))
+  {
+     setActiveItem("Client");
+}
+
+      
     }
-  }, [locationPath, navigate, initialLoad]);
+  }, [locationPath, initialLoad]);
 
   return (
     <div
@@ -138,7 +135,7 @@ const SideNavM = () => {
             </li>
           </Link>
 
-          <Link to="/SalesManager/Notes">
+          {/* <Link to="/SalesManager/Notes">
             <li
               style={{
                 fontFamily: "Manrope",
@@ -160,7 +157,7 @@ const SideNavM = () => {
               )}
               Notes
             </li>
-          </Link>
+          </Link> */}
         </ul>
       </div>
       <div>

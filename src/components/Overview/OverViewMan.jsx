@@ -21,7 +21,9 @@ const OverviewMang = () => {
       case "/SalesManager/My_Team":
         setActiveItem("My_Team");
         break;
-     
+        case "/SalesManager/Client_History":
+          setActiveItem("Client_History");
+          break;
 
       default:
         setActiveItem("Overview");

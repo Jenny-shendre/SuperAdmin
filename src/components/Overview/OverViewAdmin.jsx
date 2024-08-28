@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Bar } from 'react-chartjs-2';
 import 'tailwindcss/tailwind.css';
 import { FiEye } from "react-icons/fi";
@@ -44,6 +44,9 @@ ChartJS.register(
 
 
 const OverViewAdmin = () => {
+
+  const [click, setclick] = useState(false);
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOpt, setSelectedOpt] = useState('Daily');
@@ -159,9 +162,33 @@ const OverViewAdmin = () => {
     },
   };
 
+  
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+    setclick((prev) => !prev);
+
   };
+  const popupRef = useRef(null); // Create a ref for the popup
+
+
+  useEffect(() => {
+    // Function to handle click outside the popup
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setclick(false);
+      }
+    };
+
+    // Add event listener to detect clicks outside the popup
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      // Cleanup event listener on component unmount
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [popupRef]);
+
 
   const handleOptionClick = async (opt) => {
     setSelectedOpt(opt);
@@ -192,38 +219,7 @@ const OverViewAdmin = () => {
   };
 
 
-  // const handleOptionClick = async (opt) => {
-  //   setSelectedOpt(opt.toLowerCase());
-  //   setIsOpen(false);
-  //   try {
-  //     const directData = await fetchDirectVisitors(opt.toLowerCase());
-  //     const channelData = await fetchChannelVisitors(opt.toLowerCase());
-  //     const meetingsData = await fetchTotalMeetings(opt.toLowerCase());
-  //     const dealsClosed = await dealsClosedResponse(opt.toLowerCase());
-  //     const stafOnline = await StaffOnline(opt.toLowerCase());
-  //     const graphData = await BargraphData(opt.toLowerCase());
-  //     const topExecutive = await TopExecutivePerformer(opt.toLowerCase());
-
-
-
-
-
-  //     setDirectVisitors(directData.numberOfDirectVisitors || 0);
-  //     setChannelVisitors(channelData.numberOfChannelVisitors || 0);
-  //     setTotalMeetings(meetingsData.totalMeetings || 0);
-  //     setDealClosed(dealsClosed.totalClientConversion || 0);
-  //     setStaffOnline(stafOnline.totalStatus || 0);
-  //     setBarData(graphData.data || 0);
-  //     setExecutiveData(topExecutive || 0);
-
-
-
-
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // };
-
+ 
   useEffect(() => {
     handleOptionClick(selectedOpt);
   }, [selectedOpt]);
@@ -234,42 +230,19 @@ const OverViewAdmin = () => {
   return (
 
 
-    <div className="min-h-screen p-6">
+    <div className=" p-6" style={{height:'900px', overflowY:'scroll'}}>
 
       <div
         style={{ paddingLeft: "0px" }}
         className="  overflow-x-auto flex flex-col gap- bg-custom-bg"
       >
 
-        <div className="flex flex-row items-center justify-center text-center ">
-          <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full">
-            <input
-              className="w-full py-2 px-12 rounded-full"
-              style={{
-                border: "1px solid #3D2314",
-                boxShadow: " 0px 0px 4px 0px #00000040",
-              }}
-              type="text"
-              value=""
-
-              placeholder="Search"
-            />
-            <img
-              style={{ top: "0.6rem" }}
-              src={Searchsvg}
-              alt="Search"
-              className="absolute left-4"
-            />
-          </div>
-
-
-        </div>
-
+     
         <div classNamename="dropdown-section relative inline-block text-left ">
           <div className="group flex justify-end mr-[25px]">
 
 
-            <button onClick={toggleDropdown} className="pointer dropdown-toggle inline-flex justify-between items-center w-[162px] h-[35px] px-4 py-2 text-sm  bg-[white] text-[black]">
+            <button onClick={toggleDropdown} style={{cursor:'pointer'}} className=" dropdown-toggle inline-flex justify-between items-center w-[162px] h-[35px] px-4 py-2 text-sm  bg-[white] text-[black]">
               <img src={filter} width='24px' height='24px' />
               {selectedOpt || 'Daily'}
 
@@ -278,22 +251,13 @@ const OverViewAdmin = () => {
               </svg>
             </button>
 
-            {/* <!-- Dropdown menu --> */}
-            {/* <div
-                className="absolute top-[260px] w-40 mt-1 origin-top-left item-center bg-white divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
-                <div className="py-1">
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Daily</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Weekly</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Monthly</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Yearly</a>
-                </div>
-              </div> */}
+          
           </div>
         </div>
       </div>
 
       {isOpen && (
-        <ul className="dropdown-menu top-[240px] w-40 mt-1 origin-top-left item-center bg-white" style={{ position: 'absolute', textAlign: 'center', right: '0' }}>
+        <ul  className="dropdown-menu top-[240px] w-40 mt-0 origin-top-left item-center bg-white" style={{ position: 'absolute', textAlign: 'center', right: '50px', cursor:'pointer', }}>
           {opts.map((opt, index) => (
             <li className="py-1" key={index} onClick={() => handleOptionClick(opt)}>
               {opt}
