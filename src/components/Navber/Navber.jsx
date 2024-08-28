@@ -29,7 +29,7 @@ const Navber = () => {
   const handleItemClick = (item) => {
     if (activeItem !== item) {
       setActiveItem(item); // Set the active item
-      navigate(/SuperAdmin/`${item}`); // Navigate to the selected item
+      navigate("/SuperAdmin/`${item}`"); // Navigate to the selected item
     }
   };
 
