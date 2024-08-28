@@ -355,21 +355,8 @@ const Table7 = () => {
                     }}>
                     {projectData.description}
                   </p>
-                  <br />
-                  <p
-                    style={{
-                      fontFamily: "Manrope",
-                      fontSize: "16px",
-                      fontWeight: "500",
-                      textAlign: "center",
-                    }}>
-                    ROF AALAYAS, a residential Affordable Housing Project,
-                    offers 1 and 2 BHK Apartments, promising a contemporary
-                    Indian lifestyle. You are bound to feel a mesmerizing sense
-                    of pleasure with all the desired modern facilities and a
-                    peaceful atmosphere amidst the vast stretch of green area
-                    opposite AALAYAS.
-                  </p>
+                 
+                 
                 </div>
               </div>
             </div>

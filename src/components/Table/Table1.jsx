@@ -376,7 +376,7 @@ const Table1 = () => {
 
                             </td>
 
-                            <td className="py-6 px-1 border-b flex gap-4" style={{height:"35px"}}>
+                            <td className="py-6 px-1 border-b flex gap-4" style={{height:"35px",     alignItems: 'center'}}>
                               <Link to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}>
                                 <PiNotePencilBold
                                   onClick={() => handleEdit(visitor._id)}
