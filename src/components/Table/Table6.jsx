@@ -47,6 +47,9 @@ const Table6 = () => {
   const id = location.state || 0;
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedSuggestion, setSelectedSuggestion] = useState("null");
+
   //vb
   const truncateText = (text, limit) => {
     if (text && text.length > limit) {
@@ -169,11 +172,55 @@ const Table6 = () => {
     };
   }, [showAddExecutivePopup2, showAssignManagerPopup2]);
 
-  const handleKeyDown = (e, input, setInput, setList) => {
+  // const handleKeyDown = (e, input, setInput, setList) => {
+  //   if (e.key === "Enter" && input.trim()) {
+  //     setList((prevList) => [...prevList, input.trim()]);
+  //     setInput("");
+  //   }
+  // };
+
+  const handleKeyDown = (e, input, setInput, setList, suggestions, setSuggestions, selectedSuggestion) => {
     if (e.key === "Enter" && input.trim()) {
-      setList((prevList) => [...prevList, input.trim()]);
+      if (selectedSuggestion) {
+        setList((prevList) => [...prevList, selectedSuggestion]);
+        setSuggestions([]);
+      } else if (!suggestions.includes(input.trim())) {
+        setList((prevList) => [...prevList, input.trim()]);
+      }
       setInput("");
     }
+  };
+
+  const handleInputChange = async (e, setInput, setSuggestions) => {
+    const inputValue = e.target.value.toLowerCase();
+    setInput(inputValue);
+
+    if (inputValue.trim()) {
+      try {
+        const res = await axios.get(
+          `https://project-rof.vercel.app/api/attendants/fetch-all?name=${inputValue.trim()}`
+        );
+
+        // Filter suggestions based on case-insensitive comparison
+        const filteredSuggestions = res.data.filter((suggestion) =>
+          suggestion.name.toLowerCase().includes(inputValue)
+        );
+        setSuggestions(filteredSuggestions); // Set filtered suggestions
+
+        // setSuggestions(res.data);
+      } catch (error) {
+        console.error("Error fetching executive members:", error);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+
+  const handleSuggestionClick = (suggestion, setInput, setList, setSuggestions) => {
+    setInput("");
+    setList((prevList) => [...prevList, suggestion.name]);
+    setSuggestions([]);
   };
 
 
@@ -407,7 +454,7 @@ const Table6 = () => {
                               <td className="px[10px] py-[6px] text-center "
                                 //id center
                                 style={{ fontWeight: '700' }}>
-                                <Link  to={`/SuperAdmin/teamName/${teamData?.teamName}/${member?.employeeId}`}>
+                                <Link to={`/SuperAdmin/teamName/${teamData?.teamName}/${member?.employeeId}`}>
                                   {member.employeeId?.length > 0
                                     ? member?.employeeId
                                     : "Not found"}
@@ -519,13 +566,30 @@ const Table6 = () => {
                     className="add-executive1 w-full h-full p-2 border-none focus:outline-none"
                     placeholder="Add reserve sales executive"
                     value={executiveInput}
-                    onChange={executiveHandle}
-                    // onChange={(e) => setExecutiveInput(e.target.value)}
-                    onKeyDown={(e) =>
-                      handleKeyDown(e, executiveInput, setExecutiveInput, setExecutives)
-                    }
+                    // onChange={executiveHandle}
+                    // // onChange={(e) => setExecutiveInput(e.target.value)}
+                    // onKeyDown={(e) =>
+                    //   handleKeyDown(e, executiveInput, setExecutiveInput, setExecutives)
+                    // }
+                    onChange={(e) => handleInputChange(e, setExecutiveInput, setSuggestions)}
+                    onKeyDown={(e) => handleKeyDown(e, executiveInput, setExecutiveInput, setExecutives, suggestions, setSuggestions, selectedSuggestion)}
+
 
                   />
+                  {suggestions.length > 0 && (
+                    <div className="suggestions">
+                      {suggestions.map((suggestion, index) => (
+                        <div
+                          key={index}
+                          className="suggestion-item"
+                          onClick={() => handleSuggestionClick(suggestion, setExecutiveInput, setExecutives, setSuggestions)}
+                        >
+                          {suggestion.name}
+
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
               <BtnTab

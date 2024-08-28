@@ -21,6 +21,8 @@ const Table5 = () => {
   const [data1, setdata1] = useState([]);
   const [executiveName, setExecutiveName] = useState("");
   const [data2, setdata2] = useState([]);
+  const [executiveMember, setExecutiveMember] = useState([]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
@@ -67,6 +69,9 @@ const Table5 = () => {
     const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
     setdata2(res2.data);
 
+    const res3 = await axios.get("https://project-rof.vercel.app/api/attendants/fetch-all");
+    setExecutiveMember(res3.data);
+
     setLoading(false);
   };
 
@@ -77,6 +82,8 @@ const Table5 = () => {
   // console.log("data", data);
   // console.log("data1", data1);
   // console.log("data2", data2)
+  console.log("executiveMember", executiveMember)
+
 
   // const DateupdatedAt = (DateupdatedAt) => {
   //   const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
@@ -159,6 +166,8 @@ const Table5 = () => {
   const [manager, setManager] = useState("");
   const [members, setMembers] = useState([]);
   const [newMember, setNewMember] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedSuggestion, setSelectedSuggestion] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const [createStatus, setCreateStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
@@ -173,10 +182,18 @@ const Table5 = () => {
     setErrorMessage("");
   };
 
-  const handleAddMember = () => {
-    if (newMember.trim() && !members.includes(newMember.trim())) {
-      setMembers([...members, newMember.trim()]);
+  // const handleAddMember = () => {
+  //   if (newMember.trim() && !members.includes(newMember.trim())) {
+  //     setMembers([...members, newMember.trim()]);
+  //     setNewMember("");
+  //   }
+  // };
+
+  const handleAddMember = (member) => {
+    if (member.trim() && !members.includes(member.trim())) {
+      setMembers([...members, member.trim()]);
       setNewMember("");
+      setSuggestions([]);
     }
   };
 
@@ -185,10 +202,51 @@ const Table5 = () => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleAddMember();
+    if (e.key === "Enter" && selectedSuggestion) {
+      handleAddMember(selectedSuggestion);
+      setSelectedSuggestion(null); // Clear the selected suggestion after adding
+
     }
   };
+
+  // const handleKeyDown = (e) => {
+  //   if (e.key === "Enter") {
+  //     handleAddMember();
+  //   }
+  // };
+
+  const handleInputChange = async (e) => {
+    const inputValue = e.target.value.toLowerCase();
+    setNewMember(inputValue);
+
+    if (inputValue.trim()) {
+      try {
+        const res = await axios.get(
+          `https://project-rof.vercel.app/api/attendants/fetch-all?name=${inputValue.trim()}`
+        );
+        // Filter suggestions based on case-insensitive comparison
+        const filteredSuggestions = res.data.filter((suggestion) =>
+          suggestion.name.toLowerCase().includes(inputValue)
+        );
+        setSuggestions(filteredSuggestions); // Set filtered suggestions
+
+        // setSuggestions(res.data); // Assuming res.data contains the array of suggestions
+
+
+      } catch (error) {
+        console.error("Error fetching executive members:", error);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSelectedSuggestion(suggestion);
+    handleAddMember(suggestion);
+    setNewMember(""); // Clear the input after selection
+  };
+
 
   const handleProjectChange = (projectName) => {
     setProject(projectName);
@@ -934,14 +992,28 @@ const Table5 = () => {
                       <input
                         type="text"
                         value={newMember}
-                        onChange={(e) => setNewMember(e.target.value)}
+                        // onChange={(e) => setNewMember(e.target.value)}
+                        // onKeyDown={handleKeyDown}
+                        onChange={handleInputChange}
                         onKeyDown={handleKeyDown}
                         className="add-member"
                         placeholder="Add Team Member"
                       />
+                      {suggestions.length > 0 && (
+                        <div className="suggestions">
+                          {suggestions.map((suggestion, index) => (
+                            <div
+                              key={index}
+                              className="suggestion-item"
+                              onClick={() => handleSuggestionClick(suggestion.name)}
+                            >
+                              {suggestion.name}
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
-
                   <br />
                   <button
                     onClick={handleSubmit}
@@ -960,6 +1032,7 @@ const Table5 = () => {
                   )}
                 </div>
               </div>
+
             </>
           )}
 
