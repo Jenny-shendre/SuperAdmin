@@ -5,6 +5,8 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
 import "../Home.css";
+import { Link } from "react-router-dom";
+
 
 const Table12 = () => {
   const [data, setdata] = useState([]);
@@ -52,9 +54,19 @@ const Table12 = () => {
       <div
         className="flex items-center [#000000]"
         style={{ fontFamily: "Poppins", fontSize: "24px", fontWeight: "500" }}>
-        <Link to="/SuperAdmin">
-          <span >Home</span>
-        </Link>
+           <Link to="/SuperAdmin">
+        <h1
+              className="font-bold flex items-center gap-1"
+              style={{
+                fontFamily: "Poppins",
+                fontSize: "24px",
+                fontWeight: "500",
+              }}>
+             
+                  <span >Home</span>
+                
+                </h1>
+                </Link>
         <IoIosArrowForward style={{ color: "#1C1B1F" }} />
 
         <span
