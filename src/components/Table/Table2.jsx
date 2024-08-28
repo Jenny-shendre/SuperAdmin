@@ -573,10 +573,10 @@ const Table2 = () => {
                 />
 
 <input
-                  type="text"
+                  type="email"
                   className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
                   placeholder="Channel Email ID"
-                  value={channelName}
+                  value={channelEmailID}
                   onChange={(e) => setChannelEmailID(e.target.value)}
                 />
                 <input
