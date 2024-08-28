@@ -44,9 +44,9 @@ const SideNavM = () => {
         case "/SalesManager/My_Team":
           setActiveItem("My_Team");
           break;
-        case "/SalesManager/Notes":
-          setActiveItem("Notes");
-          break;
+        // case "/SalesManager/Notes":
+        //   setActiveItem("Notes");
+        //   break;
         case "/SalesManager/Setting":
           setActiveItem("Setting");
           break;
@@ -106,7 +106,7 @@ const SideNavM = () => {
               Overview
             </li>
           </Link>
-          <Link to="/SalesManager/My_Team">
+           <Link to="/SalesManager/My_Team">
             <li
               style={{
                 fontFamily: "Manrope",
@@ -138,7 +138,7 @@ const SideNavM = () => {
             </li>
           </Link>
 
-          <Link to="/SalesManager/Notes">
+       {/*   <Link to="/SalesManager/Notes">
             <li
               style={{
                 fontFamily: "Manrope",
@@ -160,7 +160,7 @@ const SideNavM = () => {
               )}
               Notes
             </li>
-          </Link>
+          </Link> */}
         </ul>
       </div>
       <div>

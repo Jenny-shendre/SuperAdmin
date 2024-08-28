@@ -400,7 +400,7 @@ function ClientDetailsMang() {
                             color: "#5C5C5C", 
                           }}
                           title={item.customerId}> 
-                          <Link style={{color:"blue",textDecoration:"underline",fontFamily:"Manrope",fontWeight:"700"}}>
+                          <Link style={{color:"blue",textDecoration:"underline",fontFamily:"Manrope",fontWeight:"700"}} >
                           ROF001
                           </Link>                      
                         </td>

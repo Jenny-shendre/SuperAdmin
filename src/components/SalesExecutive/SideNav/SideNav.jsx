@@ -99,7 +99,7 @@ const SideNav = () => {
               Overview
             </li>
           </Link>
-          <Link to="/SalesExecutive/Notes">
+          {/* <Link to="/SalesExecutive/Notes">
             <li
               style={{
                 fontFamily: "Manrope",
@@ -121,7 +121,7 @@ const SideNav = () => {
               )}
               Notes
             </li>
-          </Link>
+          </Link> */}
 
         </ul>
       </div>
