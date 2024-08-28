@@ -66,45 +66,43 @@ const Table2 = () => {
       reader.readAsDataURL(file);
     }
   };
+  const [createStatus, setCreateStatus] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+  const resetForm = () => {
+    setChannelName('');
+    setChannelEmailID('');
+    setphone('');
+    setaddress('');
+    setCreateStatus('');
+    setErrorMessage('');
+  };
 
+  const handleSubmit = async () => {
+    if (channelName && channelEmailID && phone && address) {
+      setIsCreating(true);
+      setErrorMessage(""); // Clear any previous error messages
+      console.log("Come");
 
-  const handleAddProject = async () => {
-    if (!channelName) {
-      setValidationError("Channel Name is required.");
-      return;
+      const teamdata = {
+        channelName: channelName,
+        channelEmailID: channelEmailID,
+        phone: phone,
+        address:address
+      };
+
+      try {
+        setCreateStatus("Channel Successfully Added ✓");
+
+        console.log("Response send", teamdata);
+      } catch (error) {
+        console.error("Error Registering Channel:", error);
+        setCreateStatus("Error Registering Channel");
+      } finally {
+        setIsCreating(false);
+      }
+    } else {
+      setErrorMessage("Please fill in all fields.");
     }
-
-    if (!phone) {
-      setValidationError("Phone No are required.");
-      return;
-    }
-
-    const newProject = {
-      name: channelName,
-      phone: phone,
-      address: address,
-      channelEmailID : channelEmailID,
-    };
-
-    try {
-      const sendData = await axios.post("https://project-rof.vercel.app/api/projects", newProject)
-      console.log("Project added successfully", sendData);
-      setProjectData(prevData => [...prevData, sendData.data]);
-
-      // Reset form and close popup
-      setUploadedImage(null);
-      setChannelName("");
-      setphone("");
-      setaddress("");
-      setShowPopup(false);
-      setChannelEmailID('')
-      setValidationError("");
-
-    } catch (error) {
-      console.log("Error adding project:", error);
-    }
-
-    // console.log("Project added:", newProject);
   };
 
 
@@ -594,11 +592,16 @@ const Table2 = () => {
                   onChange={(e) => setaddress(e.target.value)}
                 />
                 <button
-                  className="add-project-button w-[170px] h-12 p-2 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white "
-                  onClick={handleAddProject}
-                >
-                  Register Channel
-                </button>
+                onClick={handleSubmit && resetForm}
+                className="`create-team-btn flex flex-wrap  h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
+                disabled={isCreating}
+              >
+                {createStatus || (
+                  <div className="flex flex-wrap ">
+                    <span> Register Channel </span>
+                  </div>
+                )}
+              </button>
                 {validationError && (
                   <p className="text-red-500 mt-2">{validationError}</p>
                 )}
