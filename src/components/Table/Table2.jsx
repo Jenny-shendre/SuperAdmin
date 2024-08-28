@@ -28,18 +28,18 @@ const Table2 = () => {
   const [channelName, setChannelName] = useState("");
   const [address, setaddress] = useState("");
   const [phone, setphone] = useState("");
-  const [validationError, setValidationError] = useState("");
   const [showPopupAdd, setShowPopupAdd] = useState(false);
   const [viewedItems, setViewedItems] = useState([]);
   const [channelEmailID, setChannelEmailID] = useState('');
   const [data, setdata] = useState([]);
-  //const [currentPage, setCurrentPage] = useState(1);
-  //const [recordsPerPage] = useState(10);
+
   const [loading, setLoading] = useState(false);
   const id = location.state || 0;
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(""); // state for error message
+
 
   const handleDeleteClick = (id) => {
     setDeleteId(id);
@@ -56,17 +56,8 @@ const Table2 = () => {
     }
   };
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setUploadedImage(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  const [createStatus, setCreateStatus] = useState("");
+ 
+  const [createStatus, setCreateStatus] = useState("Register Channel");
   const [isCreating, setIsCreating] = useState(false);
   const resetForm = () => {
     setChannelName('');
@@ -547,7 +538,7 @@ const Table2 = () => {
       )}
 
 
-{showPopupAdd && deleteId === null && (
+{showPopupAdd  && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="fixed inset-0 bg-black opacity-50"></div>
               <div
@@ -602,8 +593,8 @@ const Table2 = () => {
                   </div>
                 )}
               </button>
-                {validationError && (
-                  <p className="text-red-500 mt-2">{validationError}</p>
+                {errorMessage && (
+                  <p className="text-red-500 mt-2">{errorMessage}</p>
                 )}
               </div>
             </div>
