@@ -298,7 +298,7 @@ function ClientHistory() {
                           }}
                           title={item.project} >
 
-                          Aanand Jaiswal
+                          Aanand Jaiswal 
                           </td>
                         
                           <td className="px-4 py-2 max-w-[150px] overflow-hidden"
