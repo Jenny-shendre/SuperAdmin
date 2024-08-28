@@ -405,7 +405,7 @@ const Table6 = () => {
                               <td className="px[10px] py-[6px] text-center "
                                 //id center
                                 style={{ fontWeight: '700' }}>
-                                <Link to={`/SuperAdmin/TeamB/${member?.employeeId}`}>
+                                <Link  to={`/SuperAdmin/teamName/${teamData?.teamName}/${member?.employeeId}`}>
                                   {member.employeeId?.length > 0
                                     ? member?.employeeId
                                     : "Not found"}

@@ -164,20 +164,19 @@ const OverViewAdmin = () => {
   };
 
   const handleOptionClick = async (opt) => {
-    setSelectedOpt(opt.toLowerCase());
+    setSelectedOpt(opt);
     setIsOpen(false);
+
     try {
-      const directData = await fetchDirectVisitors(opt.toLowerCase());
-      const channelData = await fetchChannelVisitors(opt.toLowerCase());
-      const meetingsData = await fetchTotalMeetings(opt.toLowerCase());
-      const dealsClosed = await dealsClosedResponse(opt.toLowerCase());
-      const stafOnline = await StaffOnline(opt.toLowerCase());
-      const graphData = await BargraphData(opt.toLowerCase());
-      const topExecutive = await TopExecutivePerformer(opt.toLowerCase());
-
-
-
-
+      const [directData, channelData, meetingsData, dealsClosed, stafOnline, graphData, topExecutive] = await Promise.all([
+        fetchDirectVisitors(opt.toLowerCase()),
+        fetchChannelVisitors(opt.toLowerCase()),
+        fetchTotalMeetings(opt.toLowerCase()),
+        dealsClosedResponse(opt.toLowerCase()),
+        StaffOnline(opt.toLowerCase()),
+        BargraphData(opt.toLowerCase()),
+        TopExecutivePerformer(opt.toLowerCase())
+      ]);
 
       setDirectVisitors(directData.numberOfDirectVisitors || 0);
       setChannelVisitors(channelData.numberOfChannelVisitors || 0);
@@ -187,13 +186,43 @@ const OverViewAdmin = () => {
       setBarData(graphData.data || 0);
       setExecutiveData(topExecutive || 0);
 
-
-
-
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
+
+
+  // const handleOptionClick = async (opt) => {
+  //   setSelectedOpt(opt.toLowerCase());
+  //   setIsOpen(false);
+  //   try {
+  //     const directData = await fetchDirectVisitors(opt.toLowerCase());
+  //     const channelData = await fetchChannelVisitors(opt.toLowerCase());
+  //     const meetingsData = await fetchTotalMeetings(opt.toLowerCase());
+  //     const dealsClosed = await dealsClosedResponse(opt.toLowerCase());
+  //     const stafOnline = await StaffOnline(opt.toLowerCase());
+  //     const graphData = await BargraphData(opt.toLowerCase());
+  //     const topExecutive = await TopExecutivePerformer(opt.toLowerCase());
+
+
+
+
+
+  //     setDirectVisitors(directData.numberOfDirectVisitors || 0);
+  //     setChannelVisitors(channelData.numberOfChannelVisitors || 0);
+  //     setTotalMeetings(meetingsData.totalMeetings || 0);
+  //     setDealClosed(dealsClosed.totalClientConversion || 0);
+  //     setStaffOnline(stafOnline.totalStatus || 0);
+  //     setBarData(graphData.data || 0);
+  //     setExecutiveData(topExecutive || 0);
+
+
+
+
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // };
 
   useEffect(() => {
     handleOptionClick(selectedOpt);
