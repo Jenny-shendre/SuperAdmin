@@ -28,6 +28,7 @@ const Table4 = () => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [projectName, setProjectName] = useState("");
   const [projectAddress, setProjectAddress] = useState("");
+  const [projectLocation, setProjectLocation] = useState("");
   const [validationError, setValidationError] = useState("");
   const [projectData, setProjectData] = useState([]);
   const [valueinput, setvalueinput] = useState("");
@@ -60,7 +61,7 @@ const Table4 = () => {
   };
 
   const handleAddProject = () => {
-    if (!projectName || !projectAddress || !uploadedImage) {
+    if (!projectName || !projectAddress || !uploadedImage || !projectLocation) {
       setValidationError("All fields are required.");
       return;
     }
@@ -69,12 +70,14 @@ const Table4 = () => {
       name: projectName,
       address: projectAddress,
       image: uploadedImage,
+      location: projectLocation,
     };
 
 
     // Reset form and close popup
     setUploadedImage(null);
     setProjectName("");
+    setProjectLocation("");
     setProjectAddress("");
     setShowPopup(false);
     setValidationError("");
@@ -364,6 +367,13 @@ const Table4 = () => {
                   placeholder="Project Name"
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
+                />
+                <input
+                  type="text"
+                  className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg mt-6"
+                  placeholder="Location"
+                  value={projectLocation}
+                  onChange={(e) => setProjectLocation(e.target.value)}
                 />
                 <textarea
                   className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 mt-6"
