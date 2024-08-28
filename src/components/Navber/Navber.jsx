@@ -29,14 +29,14 @@ const Navber = () => {
   const handleItemClick = (item) => {
     if (activeItem !== item) {
       setActiveItem(item); // Set the active item
-      navigate(/SuperAdmin/`${item}`); // Navigate to the selected item
+      navigate("/SuperAdmin/`${item}`"); // Navigate to the selected item
     }
   };
 
   const handleLogOut = () => {
     logout();
     window.location.reload();
-    
+
     navigate("/");
     window.location.reload();
   };
@@ -44,7 +44,7 @@ const Navber = () => {
   useEffect(() => {
     if (initialLoad) {
       setActiveItem("OverViewAdmin");
-      navigate("/SuperAdmin");
+      // navigate("/SuperAdmin");
       setInitialLoad(false); // Disable initial load after the first load
     } else {
       if (locationPath.startsWith("/SuperAdmin/Direct_Visitors")) {
@@ -53,20 +53,15 @@ const Navber = () => {
         setActiveItem("ChannelVisitors");
       } else if (locationPath.startsWith("/SuperAdmin/Channel_Partners")) {
         setActiveItem("ChannelPartners");
-      }
-      else if (locationPath.startsWith("/SuperAdmin/Rainbow_overseas")) {
+      } else if (locationPath.startsWith("/SuperAdmin/Rainbow_overseas")) {
         setActiveItem("ChannelPartners");
-      }
-      else if (locationPath.startsWith("/SuperAdmin/EditForm2")) {
+      } else if (locationPath.startsWith("/SuperAdmin/EditForm2")) {
         setActiveItem("ChannelPartners");
-      }
-      else if (locationPath.startsWith("/SuperAdmin/Project")) {
+      } else if (locationPath.startsWith("/SuperAdmin/Project")) {
         setActiveItem("Projects");
-      }
-      else if (locationPath.startsWith("/SuperAdmin/Project/Project%")) {
+      } else if (locationPath.startsWith("/SuperAdmin/Project/Project%")) {
         setActiveItem("Projects");
-      }
-      else if (locationPath.startsWith("/SuperAdmin/Team")) {
+      } else if (locationPath.startsWith("/SuperAdmin/Team")) {
         setActiveItem("Team");
       } else if (locationPath.startsWith("/SuperAdmin/Note_Pages")) {
         setActiveItem("Note_Pages");
@@ -84,18 +79,15 @@ const Navber = () => {
         zIndex: "+1",
         boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
       }}
-      className="right-shadow border-0 bg-[#FFFFFF] h-screen text-white flex flex-col justify-between p-4 shadow-md  pt-0"
-    >
+      className="right-shadow border-0 bg-[#FFFFFF] h-screen text-white flex flex-col justify-between p-4 shadow-md  pt-0">
       <div
         className="flex flex-col  W-[70%] md::w-auto"
-        style={{ gap: "10px" }}
-      >
+        style={{ gap: "10px" }}>
         <Link
           to="/SuperAdmin"
           style={{
             textAlign: "-webkit-center",
-          }}
-        >
+          }}>
           <img
             src={rofImage}
             alt="ROF"
@@ -112,12 +104,12 @@ const Navber = () => {
                 lineHeight: "27.32px",
                 textAlign: "left",
               }}
-              className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${activeItem === "OverViewAdmin"
-                ? "bg-[#3D2314] text-[#FFFFFF]"
-                : ""
-                }`}
-              onClick={() => handleItemClick("OverViewAdmin")}
-            >
+              className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${
+                activeItem === "OverViewAdmin"
+                  ? "bg-[#3D2314] text-[#FFFFFF]"
+                  : ""
+              }`}
+              onClick={() => handleItemClick("OverViewAdmin")}>
               {activeItem === "OverViewAdmin" ? (
                 <img src={navicon2} alt="" className="w-4 lg:w-auto" />
               ) : (
@@ -135,12 +127,12 @@ const Navber = () => {
                 lineHeight: "27.32px",
                 textAlign: "left",
               }}
-              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Direct_Visitors"
-                ? "bg-[#3D2314] text-[#FFFFFF]"
-                : ""
-                }`}
-              onClick={() => handleItemClick("Direct_Visitors")}
-            >
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${
+                activeItem === "Direct_Visitors"
+                  ? "bg-[#3D2314] text-[#FFFFFF]"
+                  : ""
+              }`}
+              onClick={() => handleItemClick("Direct_Visitors")}>
               {activeItem === "Direct_Visitors" ? (
                 <img src={carbon_customer1} alt="" />
               ) : (
@@ -158,12 +150,12 @@ const Navber = () => {
                 lineHeight: "27.32px",
                 textAlign: "left",
               }}
-              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "ChannelVisitors"
-                ? "bg-[#3D2314] text-[#FFFFFF]"
-                : ""
-                }`}
-              onClick={() => handleItemClick("ChannelVisitors")}
-            >
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${
+                activeItem === "ChannelVisitors"
+                  ? "bg-[#3D2314] text-[#FFFFFF]"
+                  : ""
+              }`}
+              onClick={() => handleItemClick("ChannelVisitors")}>
               {activeItem === "ChannelVisitors" ? (
                 <img src={material1} alt="" />
               ) : (
@@ -181,12 +173,12 @@ const Navber = () => {
                 lineHeight: "27.32px",
                 textAlign: "left",
               }}
-              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "ChannelPartners"
-                ? "bg-[#3D2314] text-[#FFFFFF]"
-                : ""
-                }`}
-              onClick={() => handleItemClick("ChannelPartners")}
-            >
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${
+                activeItem === "ChannelPartners"
+                  ? "bg-[#3D2314] text-[#FFFFFF]"
+                  : ""
+              }`}
+              onClick={() => handleItemClick("ChannelPartners")}>
               {activeItem === "ChannelPartners" ? (
                 <img src={ChannelPartners1} alt="" />
               ) : (
@@ -204,12 +196,10 @@ const Navber = () => {
                 lineHeight: "27.32px",
                 textAlign: "left",
               }}
-              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Projects"
-                ? "bg-[#3D2314] text-[#FFFFFF]"
-                : ""
-                }`}
-              onClick={() => handleItemClick("Projects")}
-            >
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${
+                activeItem === "Projects" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
+              }`}
+              onClick={() => handleItemClick("Projects")}>
               {activeItem === "Projects" ? (
                 <img src={Projects1} alt="" />
               ) : (
@@ -229,10 +219,10 @@ const Navber = () => {
                 width: "217px",
                 height: "47px",
               }}
-              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Team" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
-                }`}
-              onClick={() => handleItemClick("Team")}
-            >
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${
+                activeItem === "Team" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
+              }`}
+              onClick={() => handleItemClick("Team")}>
               {activeItem === "Team" ? (
                 <img
                   src={Team1}
@@ -259,12 +249,10 @@ const Navber = () => {
                 lineHeight: "27.32px",
                 textAlign: "left",
               }}
-              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Note_Pages"
-                ? "bg-[#3D2314] text-[#FFFFFF]"
-                : ""
-                }`}
-              onClick={() => handleItemClick("Note_Pages")}
-            >
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${
+                activeItem === "Note_Pages" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
+              }`}
+              onClick={() => handleItemClick("Note_Pages")}>
               {activeItem === "Note_Pages" ? (
                 <img src={mat1} alt="" />
               ) : (
@@ -286,12 +274,12 @@ const Navber = () => {
                 lineHeight: "27.32px",
                 textAlign: "left",
               }}
-              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "SettingAdmin"
-                ? "bg-[#3D2314] text-[#FFFFFF]"
-                : ""
-                }`}
-              onClick={() => handleItemClick("SettingAdmin")}
-            >
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${
+                activeItem === "SettingAdmin"
+                  ? "bg-[#3D2314] text-[#FFFFFF]"
+                  : ""
+              }`}
+              onClick={() => handleItemClick("SettingAdmin")}>
               {activeItem === "SettingAdmin" ? (
                 <img src={Settings2} alt="" />
               ) : (
@@ -308,12 +296,12 @@ const Navber = () => {
               fontWeight: "500",
               lineHeight: "27.32px",
               textAlign: "left",
-              color:'#F13737',
-              
+              color: "#F13737",
             }}
-            className={"text-[#F13737] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-[s] lg:text-lg font-[Manrope]"}
-          >
-            <img src={Logout2} alt="Logout" style={{color:'#3D2314'}} />
+            className={
+              "text-[#F13737] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-[s] lg:text-lg font-[Manrope]"
+            }>
+            <img src={Logout2} alt="Logout" style={{ color: "#3D2314" }} />
             Logout
           </li>
         </ul>

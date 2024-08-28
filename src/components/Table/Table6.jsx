@@ -210,6 +210,7 @@ const Table6 = () => {
       const res = await axios.post("https://project-rof.vercel.app/api/teams/addOne", sendExecutiveData);
       console.log("res send", res);
       setShowAddExecutivePopup2(false);
+      fetchData(); // Refresh data after adding executive
     } catch (error) {
       console.log(error);
     }
@@ -225,6 +226,7 @@ const Table6 = () => {
       const res = await axios.put(`https://project-rof.vercel.app/api/teams/updateSalesManagerTeam/${objectId}`, sendManagersData);
       console.log("res send", res);
       setShowAssignManagerPopup2(false);
+      fetchData(); // Refresh data after adding executive
     } catch (error) {
       console.log(error);
     }
