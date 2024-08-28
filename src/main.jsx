@@ -37,6 +37,7 @@ import NotesDetailsMang from "./components/Table/NotesDetailsMang.jsx";
 import SettingEx from "./components/SettingExecutive/SettingEx.jsx";
 import NotePagesAdmin from "./components/Table/NotePagesAdmin.jsx";
 import SettingPageAdmin from "./components/SettingAdmin/SettingPageAdmin.jsx";
+import overviewID from "./components/Overview/NoteInput.jsx";
 
 const router = createBrowserRouter([
   //Login_Cred
@@ -171,13 +172,13 @@ const router = createBrowserRouter([
         element: <PrivateRoute element={MyTeam} />,
       },
       {
-        path: "/SalesManager/Notes",
-        element: <PrivateRoute element={NotesDetailsMang} />,
+        path: "/SalesManager/clientID",
+        element: <PrivateRoute element={overviewID} />,
       },
-      {
-        path: "/SalesManager/Setting",
-        element: <PrivateRoute element={Setting} />,
-      },
+      // {
+      //   path: "/SalesManager/Setting",
+      //   element: <PrivateRoute element={Setting} />,
+      // },
     ],
   },
 ]);

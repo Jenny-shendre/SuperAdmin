@@ -226,11 +226,7 @@ const Table5 = () => {
       } finally {
         setIsCreating(false);
       }
-    } else {
-      setErrorMessage(
-        "Please fill in all fields and add at least one team member."
-      );
-    }
+    } 
   };
 
   //  manager popup logic
