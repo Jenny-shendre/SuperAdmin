@@ -157,35 +157,30 @@ const FormEdit = () => {
               <List size={15} />
             </button>
           </div>
-        <div className="">
-          
-          
-          <div className='w-[507px] flex justify-between h-[30px]'>
-         
-         
-          <textarea
-          style={{flex:"0 0 30%" ,padding:"4px" ,fontFamily:"Manrope",fontSize:"14px",fontWeight:"400"}}
+        <div className="" >
+         <div className="flex justify-between">
+         <textarea
+          style={{ padding:"4px" ,fontFamily:"Manrope",fontSize:"14px",fontWeight:"400", height:'30px'}}
             ref={textareaRef} 
-            cols="140"
+            cols="70"
             placeholder="Add Note"
             value={note}
             onChange={(e) => setNote(e.target.value)}
             onKeyDown={handleKeyDown}
-            className={` bg-transparent outline-none text-[] placeholder-gray-400  ${
+            className={` bg-transparent outline-none text-[] placeholder-gray-400  resize-none${
               isBold ? 'font-extrabold' : ''
             } ${isItalic ? 'italic' : ''}`}
             
           />
-          
-          
-          <button className="bg-gray-200 ml-[360px] rounded-full p-1">
+            <button className="bg-gray-200  rounded-full p-1 flex">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
-            
-  </div>
-  
+         </div>
+       
+          
+       
         </div>
         <div  className="flex justify-between items-center">
           
@@ -552,7 +547,8 @@ const FormEdit = () => {
           borderRadius: "24px",
           boxShadow: "0px 0px 6.7px 0px #632E04",
         }}>
-          <h2 style={{fontFamily:"Manrope" , fontSize:"20px" , fontWeight:"700"}} className="mb-4 text-center">Notes Activity Log</h2>
+          <h2 style={{fontFamily:"Manrope" , fontSize:"20px" , fontWeight:"700", borderBottom:'1px solid black'}} className="mb-4 text-center">Notes Activity Log</h2>
+        
           <div className="space-y-4">
             <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
               <div className="flex items-center space-x-2 mb-2">
