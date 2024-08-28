@@ -6,7 +6,15 @@ import "../Home.css";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import Loding from "../Loding/Loding";
-import { ChevronRight, Bold, Italic, AlignJustify, List, Paperclip, Smile } from 'lucide-react';
+import {
+  ChevronRight,
+  Bold,
+  Italic,
+  AlignJustify,
+  List,
+  Paperclip,
+  Smile,
+} from "lucide-react";
 
 const FormEdit = () => {
   const [loading, setLoading] = useState(false);
@@ -22,8 +30,8 @@ const FormEdit = () => {
     responseTime: "",
     timeDuration: "",
     createdAt: "",
+    updatedAt: "",
   });
-  
 
   const toggleEdit = () => {
     setEdit((prevEdit) => !prevEdit);
@@ -70,6 +78,18 @@ const FormEdit = () => {
       return "Invalid Date";
     }
   };
+  const ResponseAt2 = (DateupdatedAt) => {
+    if (!DateupdatedAt) return "Invalid Date";
+    try {
+      const formattedDate = format(
+        new Date(DateupdatedAt),
+        "dd MMM yyyy hh:mm a"
+      );
+      return formattedDate;
+    } catch (error) {
+      return "Invalid Date";
+    }
+  };
 
   // Handler to update the state
   const handleChange = (e) => {
@@ -100,90 +120,108 @@ const FormEdit = () => {
   const emojis = ["😀", "😂", "😊", "😍", "🤔", "👍", "👎", "❤️", "🎉", "🔥"];
 
   const NoteInput = () => {
-    const [note, setNote] = useState('');
+    const [note, setNote] = useState("");
     const [isBold, setIsBold] = useState(false);
     const [isItalic, setIsItalic] = useState(false);
     const [isBullet, setIsBullet] = useState(false);
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const fileInputRef = useRef(null);
     const textareaRef = useRef(null);
-  
+
     const handleBold = () => setIsBold(!isBold);
     const handleItalic = () => setIsItalic(!isItalic);
-  
+
     const handleBullet = () => {
       setIsBullet(!isBullet);
       if (!isBullet) {
-        const newNote = note ? note + '\n• ' : '• ';
+        const newNote = note ? note + "\n• " : "• ";
         setNote(newNote);
         setTimeout(() => textareaRef.current.focus(), 0);
       }
     };
-  
+
     const handleKeyDown = (e) => {
-      if (e.key === 'Enter' && isBullet) {
+      if (e.key === "Enter" && isBullet) {
         e.preventDefault();
-        setNote(note + '\n• ');
+        setNote(note + "\n• ");
       }
     };
-  
+
     const handleFileUpload = () => fileInputRef.current.click();
-  
+
     const handleFileChange = (event) => {
       const file = event.target.files[0];
       if (file) {
-        console.log('File selected:', file.name);
+        console.log("File selected:", file.name);
       }
     };
-  
+
     const toggleEmojiPicker = () => setShowEmojiPicker(!showEmojiPicker);
-  
+
     const addEmoji = (emoji) => {
       setNote(note + emoji);
       setShowEmojiPicker(false);
     };
-  
+
     return (
       <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col justify-between relative">
-         <div style={{marginTop:"-8px"}} className="flex space-x-2">
-            <button onClick={handleBold} className={`${isBold ? 'text-blue-500' : 'text-[#565558]'}`}>
-              <Bold size={15} />
-            </button>
-            <button onClick={handleItalic} className={`${isItalic ? 'text-blue-500' : 'text-[#565558]'}`}>
-              <Italic size={15} />
-            </button>
-            <AlignJustify size={15} className="text-gray-400" />
-            <button onClick={handleBullet} className={`${isBullet ? 'text-blue-500' : 'text-[#565558]'}`}>
-              <List size={15} />
-            </button>
-          </div>
-        <div className="" >
-         <div className="flex justify-between">
-         <textarea
-          style={{ padding:"4px" ,fontFamily:"Manrope",fontSize:"14px",fontWeight:"400", height:'30px'}}
-            ref={textareaRef} 
-            cols="70"
-            placeholder="Add Note"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className={` bg-transparent outline-none text-[] placeholder-gray-400  resize-none${
-              isBold ? 'font-extrabold' : ''
-            } ${isItalic ? 'italic' : ''}`}
-            
-          />
+        <div style={{ marginTop: "-8px" }} className="flex space-x-2">
+          <button
+            onClick={handleBold}
+            className={`${isBold ? "text-blue-500" : "text-[#565558]"}`}>
+            <Bold size={15} />
+          </button>
+          <button
+            onClick={handleItalic}
+            className={`${isItalic ? "text-blue-500" : "text-[#565558]"}`}>
+            <Italic size={15} />
+          </button>
+          <AlignJustify size={15} className="text-gray-400" />
+          <button
+            onClick={handleBullet}
+            className={`${isBullet ? "text-blue-500" : "text-[#565558]"}`}>
+            <List size={15} />
+          </button>
+        </div>
+        <div className="">
+          <div className="flex justify-between">
+            <textarea
+              style={{
+                padding: "4px",
+                fontFamily: "Manrope",
+                fontSize: "14px",
+                fontWeight: "400",
+                height: "30px",
+              }}
+              ref={textareaRef}
+              cols="70"
+              placeholder="Add Note"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className={` bg-transparent outline-none text-[] placeholder-gray-400  resize-none${
+                isBold ? "font-extrabold" : ""
+              } ${isItalic ? "italic" : ""}`}
+            />
             <button className="bg-gray-200  rounded-full p-1 flex">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L12 19"
+                  stroke="#9CA3AF"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
-         </div>
-       
-          
-       
+          </div>
         </div>
-        <div  className="flex justify-between items-center">
-          
+        <div className="flex justify-between items-center">
           <div className="flex space-x-2">
             <button onClick={handleFileUpload} className="text-[#565558]">
               <Paperclip size={15} />
@@ -198,14 +236,16 @@ const FormEdit = () => {
             <button onClick={toggleEmojiPicker} className="text-[#565558]">
               <Smile size={15} />
             </button>
-           
           </div>
         </div>
         {showEmojiPicker && (
           <div className="absolute bottom-14 right-0 bg-white border border-gray-300 rounded-lg p-2 shadow-lg">
             <div className="grid grid-cols-5 gap-2">
               {emojis.map((emoji, index) => (
-                <button key={index} onClick={() => addEmoji(emoji)} className="text-2xl">
+                <button
+                  key={index}
+                  onClick={() => addEmoji(emoji)}
+                  className="text-2xl">
                   {emoji}
                 </button>
               ))}
@@ -216,8 +256,6 @@ const FormEdit = () => {
     );
   };
 
-    
-  
   return (
     <>
       {loading ? (
@@ -234,7 +272,7 @@ const FormEdit = () => {
                   fontWeight: "500",
                 }}>
                 <Link to="/SuperAdmin">
-                  <span >Home</span>
+                  <span>Home</span>
                 </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
                 <Link to="/SuperAdmin/Direct_Visitors">
@@ -260,10 +298,9 @@ const FormEdit = () => {
                 </span>
               </h1>
             </div>
-
           </div>
 
-          <div className="flex mr-[50px]" style={{ justifyContent: 'end' }}>
+          <div className="flex mr-[50px]" style={{ justifyContent: "end" }}>
             <button
               key={FormData._id}
               className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
@@ -296,15 +333,20 @@ const FormEdit = () => {
                         <label
                           htmlFor="first_name"
                           className="block text-[#000000] text-[16px] font-[Manrope]"
-                          style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                          style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                           Customer Name
                         </label>
                         <input
-
                           type="text"
                           id="first_name"
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                          style={{
+                            fontFamily: "Manrope",
+                            fontWeight: "600",
+                            fontSize: "20px",
+                            lineHeight: "27.32px",
+                            padding: "10px 18px 10px 18px",
+                          }}
                           placeholder="John Doe"
                           required
                           name="name"
@@ -317,15 +359,20 @@ const FormEdit = () => {
                         <label
                           htmlFor="phone"
                           className="block text-[#000000] text-[16px] font-[Manrope]"
-                          style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
-
+                          style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                           Mobile No
                         </label>
                         <input
                           type="tel"
                           id="phone"
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                          style={{
+                            fontFamily: "Manrope",
+                            fontWeight: "600",
+                            fontSize: "20px",
+                            lineHeight: "27.32px",
+                            padding: "10px 18px 10px 18px",
+                          }}
                           placeholder="9425846894"
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           required
@@ -340,14 +387,20 @@ const FormEdit = () => {
                       <label
                         htmlFor="email"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Email ID
                       </label>
                       <input
                         type="email"
                         id="email"
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         placeholder="johndoe@gmail.com"
                         required
                         name="email"
@@ -364,14 +417,20 @@ const FormEdit = () => {
                         <label
                           htmlFor="Project A"
                           className="block text-[#000000] text-[16px] font-[Manrope]"
-                          style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                          style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                           Project
                         </label>
                         <input
                           type="text"
                           id="Project A"
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                          style={{
+                            fontFamily: "Manrope",
+                            fontWeight: "600",
+                            fontSize: "20px",
+                            lineHeight: "27.32px",
+                            padding: "10px 18px 10px 18px",
+                          }}
                           placeholder="Project A"
                           name="projectName"
                           value={FormData.projectName}
@@ -383,14 +442,20 @@ const FormEdit = () => {
                         <label
                           htmlFor="Customer ID"
                           className="block text-[#000000] text-[16px] font-[Manrope]"
-                          style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                          style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                           Customer ID
                         </label>
                         <input
                           type="text"
                           id="Customer ID"
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                          style={{
+                            fontFamily: "Manrope",
+                            fontWeight: "600",
+                            fontSize: "20px",
+                            lineHeight: "27.32px",
+                            padding: "10px 18px 10px 18px",
+                          }}
                           placeholder="ROF0001"
                           required
                           name="customerId"
@@ -404,14 +469,20 @@ const FormEdit = () => {
                       <label
                         htmlFor="attendant"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Attendant
                       </label>
                       <input
                         type="text"
                         id="attendant"
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         placeholder="Samyak Gandhi"
                         required
                         name="attendantName"
@@ -426,13 +497,20 @@ const FormEdit = () => {
                     <div>
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Date
                       </label>
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ textAlign: 'center', fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          textAlign: "center",
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         name="createdAt"
                         value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
@@ -442,13 +520,20 @@ const FormEdit = () => {
                     <div>
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Response Time
                       </label>
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ textAlign: 'center', fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          textAlign: "center",
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         name="responseTime"
                         value={ResponseAt(FormData.createdAt)}
                         onChange={handleChange}
@@ -458,13 +543,20 @@ const FormEdit = () => {
                     <div>
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Meeting Duration
                       </label>
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ textAlign: 'center', fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          textAlign: "center",
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         name="timeDuration"
                         value={FormData.timeDuration}
                         onChange={handleChange}
@@ -477,15 +569,20 @@ const FormEdit = () => {
                     <div className="mt-1">
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
-                        Executive Notes
-                      </label
-                      >
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
+                        Important Remarks
+                      </label>
                       <textarea
                         className="lg:w-[647px] lg:h-[100px] border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         readOnly={!editMode}>
-                        {FormData.notes}
+                        {/* {FormData.notes} */}
                       </textarea>
                     </div>
                   </div>
@@ -509,60 +606,141 @@ const FormEdit = () => {
                   <table className="w-full h-[123px] text-leftm">
                     <thead className="">
                       <tr className="text-[#FFFFFF]">
-                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                        <th
+                          className="border-b p-2 bg-[#3D2314]"
+                          style={{ fontSize: "14px", fontWeight: "400" }}>
                           Serial No
                         </th>
-                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                        <th
+                          className="border-b p-2 bg-[#3D2314]"
+                          style={{ fontSize: "14px", fontWeight: "400" }}>
                           Date
                         </th>
-                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                        <th
+                          className="border-b p-2 bg-[#3D2314]"
+                          style={{ fontSize: "14px", fontWeight: "400" }}>
                           Timing
                         </th>
-                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                        <th
+                          className="border-b p-2 bg-[#3D2314]"
+                          style={{ fontSize: "14px", fontWeight: "400" }}>
                           Project
                         </th>
-                        <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
+                        <th
+                          className="border-b p-2 bg-[#3D2314]"
+                          style={{ fontSize: "14px", fontWeight: "400" }}>
                           Attendant
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="border-b p-2 text-[#000000] text-[16px] font-[Manrope]" style={{ fontWeight: "500" }}>
+                    <tbody
+                      className="border-b p-2 text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500" }}>
                       {FormData && FormData.log && FormData.log.length > 0
                         ? FormData.log.map((item, index) => (
-                          <tr key={item.id}>
-                            <td className="border-b p-2">{index + 1}</td>
-                            <td className="border-b p-2">{DateupdatedAt(item.createdAt)}</td>
-                            <td className="border-b p-2">{ResponseAt(item.createdAt)}</td>
-                            <td className="border-b p-2">{item.projectName}</td>
-                            <td className="border-b p-2">{item.attendantName}</td>
-                          </tr>
-                        ))
+                            <tr key={item.id}>
+                              <td className="border-b p-2">{index + 1}</td>
+                              <td className="border-b p-2">
+                                {DateupdatedAt(item.createdAt)}
+                              </td>
+                              <td className="border-b p-2">
+                                {ResponseAt(item.createdAt)}
+                              </td>
+                              <td className="border-b p-2">
+                                {item.projectName}
+                              </td>
+                              <td className="border-b p-2">
+                                {item.attendantName}
+                              </td>
+                            </tr>
+                          ))
                         : "No Data Found..."}
                     </tbody>
                   </table>
                 </div>
               </div>
-<br /><br />
-              <div className="mt-4 w-[555px] lg:h-[529px] bg-[#FFFFFF] p-[24px] rounded-2xl" style={{
-          borderRadius: "24px",
-          boxShadow: "0px 0px 6.7px 0px #632E04",
-        }}>
-          <h2 style={{fontFamily:"Manrope" , fontSize:"20px" , fontWeight:"700", borderBottom:'1px solid black'}} className="mb-4 text-center">Notes Activity Log</h2>
-        
-          <div className="space-y-4">
-            <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
-              <div className="flex items-center space-x-2 mb-2">
-                <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
-                <span style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"500"}} >Sales Executive</span>
-              </div>
-              <ul style={{marginTop:"-4px"}} className="list-disc pl-5 text-sm ">
-                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px" }}>Discussed potential scenario of the places and modifications.</li>
-                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px"}}>Client expressed interest in a Hybrid program of the terrace effectiveness.</li>
-                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px"}}>Next steps: Schedule a follow-up meeting to discuss pricing and contract terms.</li>
-              </ul>
-              <div style={{fontFamily:"Manrope" , fontSize:"8px" , fontWeight:"600"}} className=" text-right mt-2 text-[#4A4A4A]">24/07/2024, 05:00 PM</div>
-            </div>
-            <div className="bg-[#E9E9E9] w-[507px] h-[97px] p-3 rounded">
+              <br />
+              <br />
+              <div
+                className="mt-4 w-[555px] lg:h-[529px] bg-[#FFFFFF] p-[24px] rounded-2xl"
+                style={{
+                  borderRadius: "24px",
+                  boxShadow: "0px 0px 6.7px 0px #632E04",
+                }}>
+                <h2
+                  style={{
+                    fontFamily: "Manrope",
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    borderBottom: "1px solid black",
+                  }}
+                  className="mb-4 text-center">
+                  Notes Activity Log
+                </h2>
+
+                <div className="space-y-4">
+                  {FormData.notes && FormData.notes.length > 0 ? (
+                    <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
+                        <span
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "12px",
+                            fontWeight: "500",
+                          }}>
+                          Sales Executive
+                        </span>
+                      </div>
+                      {/* <ul
+                      style={{ marginTop: "-4px" }}
+                      className="list-disc pl-5 text-sm ">
+                      <li
+                        style={{
+                          fontFamily: "Manrope",
+                          fontSize: "12px",
+                          fontWeight: "600",
+                          lineHeight: "16.39px",
+                        }}>
+                        Discussed potential scenario of the places and
+                        modifications.
+                      </li>
+                      <li
+                        style={{
+                          fontFamily: "Manrope",
+                          fontSize: "12px",
+                          fontWeight: "600",
+                          lineHeight: "16.39px",
+                        }}>
+                        Client expressed interest in a Hybrid program of the
+                        terrace effectiveness.
+                      </li>
+                      <li
+                        style={{
+                          fontFamily: "Manrope",
+                          fontSize: "12px",
+                          fontWeight: "600",
+                          lineHeight: "16.39px",
+                        }}>
+                        Next steps: Schedule a follow-up meeting to discuss
+                        pricing and contract terms.
+                      </li>
+                    </ul> */}
+                      {FormData.notes}
+                      <div
+                        style={{
+                          fontFamily: "Manrope",
+                          fontSize: "8px",
+                          fontWeight: "600",
+                        }}
+                        className=" text-right mt-2 text-[#4A4A4A]">
+                        {ResponseAt2(FormData.updatedAt)}
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {/* <div className="bg-[#E9E9E9] w-[507px] h-[97px] p-3 rounded">
               <div className="flex items-center space-x-2 mb-2">
                 <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
                 <span style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"500"}}>Manager</span>
@@ -586,14 +764,12 @@ const FormEdit = () => {
                 
               </ul>
               <div style={{fontFamily:"Manrope" , fontSize:"8px" , fontWeight:"600"}} className=" text-right mt-2 text-[#4A4A4A]">25/07/2024, 02:00 PM</div>
-            </div>
-
-          </div>
-          <div className="mt-4 ">
-            <NoteInput  />
-          </div>
-        </div>
-
+            </div> */}
+                </div>
+                <div className="mt-4 ">
+                  <NoteInput />
+                </div>
+              </div>
             </div>
           </main>
         </div>
@@ -601,6 +777,5 @@ const FormEdit = () => {
     </>
   );
 };
-
 
 export default FormEdit;
