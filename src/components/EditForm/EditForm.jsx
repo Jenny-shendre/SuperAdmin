@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import { format } from "date-fns";
@@ -6,6 +6,8 @@ import "../Home.css";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import Loding from "../Loding/Loding";
+import { ChevronRight, Bold, Italic, AlignJustify, List, Paperclip, Smile } from 'lucide-react';
+
 const FormEdit = () => {
   const [loading, setLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -94,6 +96,133 @@ const FormEdit = () => {
       console.log(error);
     }
   };
+
+  const emojis = ["😀", "😂", "😊", "😍", "🤔", "👍", "👎", "❤️", "🎉", "🔥"];
+
+  const NoteInput = () => {
+    const [note, setNote] = useState('');
+    const [isBold, setIsBold] = useState(false);
+    const [isItalic, setIsItalic] = useState(false);
+    const [isBullet, setIsBullet] = useState(false);
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const fileInputRef = useRef(null);
+    const textareaRef = useRef(null);
+  
+    const handleBold = () => setIsBold(!isBold);
+    const handleItalic = () => setIsItalic(!isItalic);
+  
+    const handleBullet = () => {
+      setIsBullet(!isBullet);
+      if (!isBullet) {
+        const newNote = note ? note + '\n• ' : '• ';
+        setNote(newNote);
+        setTimeout(() => textareaRef.current.focus(), 0);
+      }
+    };
+  
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter' && isBullet) {
+        e.preventDefault();
+        setNote(note + '\n• ');
+      }
+    };
+  
+    const handleFileUpload = () => fileInputRef.current.click();
+  
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        console.log('File selected:', file.name);
+      }
+    };
+  
+    const toggleEmojiPicker = () => setShowEmojiPicker(!showEmojiPicker);
+  
+    const addEmoji = (emoji) => {
+      setNote(note + emoji);
+      setShowEmojiPicker(false);
+    };
+  
+    return (
+      <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col justify-between relative">
+         <div style={{marginTop:"-8px"}} className="flex space-x-2">
+            <button onClick={handleBold} className={`${isBold ? 'text-blue-500' : 'text-[#565558]'}`}>
+              <Bold size={15} />
+            </button>
+            <button onClick={handleItalic} className={`${isItalic ? 'text-blue-500' : 'text-[#565558]'}`}>
+              <Italic size={15} />
+            </button>
+            <AlignJustify size={15} className="text-gray-400" />
+            <button onClick={handleBullet} className={`${isBullet ? 'text-blue-500' : 'text-[#565558]'}`}>
+              <List size={15} />
+            </button>
+          </div>
+        <div className="">
+          
+          
+          <div className='w-[507px] flex justify-between h-[30px]'>
+         
+         
+          <textarea
+          style={{flex:"0 0 30%" ,padding:"4px" ,fontFamily:"Manrope",fontSize:"14px",fontWeight:"400"}}
+            ref={textareaRef} 
+            cols="140"
+            placeholder="Add Note"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className={` bg-transparent outline-none text-[] placeholder-gray-400  ${
+              isBold ? 'font-extrabold' : ''
+            } ${isItalic ? 'italic' : ''}`}
+            
+          />
+          
+          
+          <button className="bg-gray-200 ml-[360px] rounded-full p-1">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            
+  </div>
+  
+        </div>
+        <div  className="flex justify-between items-center">
+          
+          <div className="flex space-x-2">
+            <button onClick={handleFileUpload} className="text-[#565558]">
+              <Paperclip size={15} />
+            </button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className="hidden"
+              accept="image/*"
+            />
+            <button onClick={toggleEmojiPicker} className="text-[#565558]">
+              <Smile size={15} />
+            </button>
+           
+          </div>
+        </div>
+        {showEmojiPicker && (
+          <div className="absolute bottom-14 right-0 bg-white border border-gray-300 rounded-lg p-2 shadow-lg">
+            <div className="grid grid-cols-5 gap-2">
+              {emojis.map((emoji, index) => (
+                <button key={index} onClick={() => addEmoji(emoji)} className="text-2xl">
+                  {emoji}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+    
+  
   return (
     <>
       {loading ? (
@@ -372,7 +501,7 @@ const FormEdit = () => {
               style={{
                 boxShadow: " 0px 0px 6.7px 0px #632E04",
               }}
-              className="lg:w-[555px] lg:h-[683px] bg-[#FFFFFF] p-[8px] rounded-2xl">
+              className="lg:w-[555px] lg:h-[233px] bg-[#FFFFFF] p-[8px] rounded-2xl">
               <div className="mt-4">
                 <h2
                   className="text-center mb-4 text-[#000000] text-[20px] font-[Manrope]"
@@ -381,8 +510,8 @@ const FormEdit = () => {
                 </h2>
               </div>
               <div className="w-full overflow-x-auto">
-                <div className="w-full h-[87%] overflow-y-auto">
-                  <table className="w-full text-leftm">
+                <div className="w-full h-[123px] overflow-y-auto">
+                  <table className="w-full h-[123px] text-leftm">
                     <thead className="">
                       <tr className="text-[#FFFFFF]">
                         <th className="border-b p-2 bg-[#3D2314]" style={{ fontSize: "14px", fontWeight: "400" }}>
@@ -418,7 +547,56 @@ const FormEdit = () => {
                   </table>
                 </div>
               </div>
+<br /><br />
+              <div className="mt-4 w-[555px] lg:h-[529px] bg-[#FFFFFF] p-[24px] rounded-2xl" style={{
+          borderRadius: "24px",
+          boxShadow: "0px 0px 6.7px 0px #632E04",
+        }}>
+          <h2 style={{fontFamily:"Manrope" , fontSize:"20px" , fontWeight:"700"}} className="mb-4 text-center">Notes Activity Log</h2>
+          <div className="space-y-4">
+            <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
+              <div className="flex items-center space-x-2 mb-2">
+                <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
+                <span style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"500"}} >Sales Executive</span>
+              </div>
+              <ul style={{marginTop:"-4px"}} className="list-disc pl-5 text-sm ">
+                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px" }}>Discussed potential scenario of the places and modifications.</li>
+                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px"}}>Client expressed interest in a Hybrid program of the terrace effectiveness.</li>
+                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px"}}>Next steps: Schedule a follow-up meeting to discuss pricing and contract terms.</li>
+              </ul>
+              <div style={{fontFamily:"Manrope" , fontSize:"8px" , fontWeight:"600"}} className=" text-right mt-2 text-[#4A4A4A]">24/07/2024, 05:00 PM</div>
+            </div>
+            <div className="bg-[#E9E9E9] w-[507px] h-[97px] p-3 rounded">
+              <div className="flex items-center space-x-2 mb-2">
+                <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
+                <span style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"500"}}>Manager</span>
+              </div>
+              <ul style={{marginTop:"-4px"}} className="list-disc pl-5 text-sm ">
+                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px" }}>Great notes! I'd like to follow up with Clients [Contact Name] to discuss the Pricing program in more detail. Can you schedule a meeting with them?</li>
+               
+                
+              </ul>
+              <div style={{fontFamily:"Manrope" , fontSize:"8px" , fontWeight:"600"}} className=" text-right mt-2 text-[#4A4A4A]">25/07/2024, 02:00 PM</div>
+            </div>
+            
+            <div className="bg-[#E9E9E9] w-[507px] h-[97px] p-3 rounded">
+              <div className="flex items-center space-x-2 mb-2">
+                <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
+                <span style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"500"}}>Super Admin</span>
+              </div>
+              <ul style={{marginTop:"-4px"}} className="list-disc pl-5 text-sm ">
+                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px" }}>Great notes! I'd like to follow up with Clients [Contact Name] to discuss the Pricing program in more detail. Can you schedule a meeting with them?</li>
+               
+                
+              </ul>
+              <div style={{fontFamily:"Manrope" , fontSize:"8px" , fontWeight:"600"}} className=" text-right mt-2 text-[#4A4A4A]">25/07/2024, 02:00 PM</div>
+            </div>
 
+          </div>
+          <div className="mt-4 ">
+            <NoteInput  />
+          </div>
+        </div>
 
             </div>
           </main>
