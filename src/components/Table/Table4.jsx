@@ -35,6 +35,13 @@ const Table4 = () => {
   const [projectData, setProjectData] = useState([]);
   const [valueinput, setvalueinput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [editId, setEditId] = useState(null);
+  const [projectDetails, setProjectDetails] = useState({
+    name: "",
+    location: "",
+    description: "",
+    projectImage: "",
+  });
 
 
   //b
@@ -51,16 +58,35 @@ const Table4 = () => {
     }
   };
 
+  // const handleImageUpload = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       setUploadedImage(e.target.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setUploadedImage(e.target.result);
+        const imageBase64 = e.target.result;
+        
+        // Update both states
+        setUploadedImage(imageBase64); // If needed elsewhere in your app
+        setProjectDetails((prevState) => ({
+          ...prevState,
+          projectImage: imageBase64, // Save the image as a base64 string in projectDetails
+        }));
       };
       reader.readAsDataURL(file);
     }
   };
+  
 
 
   const handleAddProject = async () => {
@@ -77,7 +103,7 @@ const Table4 = () => {
     const newProject = {
       name: projectName,
       location: projectLocation,
-      image: uploadedImage,
+      projectImage: uploadedImage,
       description: projectDescription,
     };
 
@@ -168,6 +194,51 @@ const Table4 = () => {
 
   };
 
+  const handleChange=(e)=>{
+    setProjectDetails({...projectDetails,[e.target.name]:e.target.value});
+}
+
+  const getData = async () => {
+    if (editId) {
+      try {
+        const resposne = await axios.get(`https://project-rof.vercel.app/api/projects/project/${editId}`);
+        setProjectDetails(resposne.data);
+      } catch (error) {
+        console.error("Error fetching project details:", error);
+      }
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, [editId])
+
+
+  const handleUpdateProject = async() => {
+    setValidationError("");
+
+    try {
+      const updateProject = await axios.put(`https://project-rof.vercel.app/api/projects/update/${editId}`, projectDetails, {
+        headers: {
+          "Content-Type": "application/json",  // Assuming your backend expects JSON
+        },
+      });
+
+      console.log("Updated successfully", updateProject);
+
+      setProjectData((prevData) =>
+        prevData.map((project) => (project._id === editId ? updateProject.data : project))
+      );
+  
+
+      setShowPopup2(false);
+
+    } catch (error) {
+      console.error("Error updating project details:", error);
+      setValidationError("Failed to update project. Please try again.");
+    }
+
+  }
 
   return (
     <>
@@ -278,7 +349,11 @@ const Table4 = () => {
                       </h3>
                       <button className="text-gray-500 flex gap-3 mt-3">
                         <BiSolidEditAlt
-                          onClick={() => setShowPopup2(true)}
+                          // onClick={() => setShowPopup2(true)}
+                          onClick={() => {
+                            setShowPopup2(true);
+                            setEditId(project._id);
+                          }}
                           style={{
                             cursor: "pointer",
                             color: "#000000",
@@ -416,27 +491,28 @@ const Table4 = () => {
             </div>
           )}
 
-{showPopup2 && deleteId === null && (
+          {showPopup2 && deleteId === null && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="fixed inset-0 bg-black opacity-50"></div>
               <div
                 ref={popupRef}
                 className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
               >
-                  <button
-                className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                onClick={() => setShowPopup2(false)}
-              >
-                X
-              </button>
+                <button
+                  className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                  onClick={() => setShowPopup2(false)}
+                >
+                  X
+                </button>
                 <div
                   className="upload-box description flex w-[323px] h-[189px] border-dotted border-[5px] flex flex-col items-center justify-end gap-3 pb-2 cursor-pointer"
 
                   onClick={() => fileInputRef.current.click()}
                 >
-                  {uploadedImage ? (
+                  {projectDetails.projectImage ? (
                     <img
-                      src={uploadedImage}
+                      name="projectImage"
+                      src={projectDetails.projectImage}
                       alt="Uploaded"
                       className="w-full h-full object-cover"
                     />
@@ -447,10 +523,10 @@ const Table4 = () => {
                         alt="Upload"
                         className="w-12 h-12"
                       /> */}
-                      <p style={{ fontWeight: "400", fontFamily: "Manrope", fontSize: "16px", background:'#3D2314', color:'white', padding:'10px', borderRadius:'7px' }}>
+                      <p style={{ fontWeight: "400", fontFamily: "Manrope", fontSize: "16px", background: '#3D2314', color: 'white', padding: '10px', borderRadius: '7px' }}>
                         Change Image
                       </p>
-                     
+
                     </>
                   )}
                 </div>
@@ -460,87 +536,88 @@ const Table4 = () => {
                   style={{ display: "none" }}
                   onChange={handleImageUpload}
                 />
-               
-<div className="flex rounded-md border border-gray-300 text-center p-2 w-[533px] h-12 justify-between">
 
-                <input
-                  type="text"
-                  className="project-name-input w-full  font-manrope text-lg "
-                  placeholder="Project Name"
-                  
-                  value={projectName}
-                  onChange={(e) => setProjectName(e.target.value)}
-                />
-                <div style={{alignContent:'center'}}>
+                <div className="flex rounded-md border border-gray-300 text-center p-2 w-[533px] h-12 justify-between">
 
-<BiSolidEditAlt
-                          onClick={() => setShowPopup2(true)}
-                          style={{
-                            cursor: "pointer",
-                            color: "#000000",
-                            width: "20px",
-                            height: "20px",
-                            
-                            
-                          }}
-                        />
-                        </div>
-                        </div>
-                
+                  <input
+                    type="text"
+                    className="project-name-input w-full  font-manrope text-lg "
+                    placeholder="Project Name"
+                    name="name"
+                    value={projectDetails.name}
+                    onChange={handleChange}
+                  />
+                  <div style={{ alignContent: 'center' }}>
 
-                        <div className="flex rounded-md border border-gray-300 text-center p-2 w-[533px] h-12 justify-between">
-               
-                <input
-                  type="text"
-                  className="project-name-input w-full  font-manrope text-lg "
-                  
-                  placeholder="Location"
-                  value={projectLocation}
-                  onChange={(e) => setProjectLocation(e.target.value)}
-                />
-                <div style={{alignContent:'center'}}>
+                    <BiSolidEditAlt
+                      onClick={() => setShowPopup2(true)}
+                      style={{
+                        cursor: "pointer",
+                        color: "#000000",
+                        width: "20px",
+                        height: "20px",
 
-<BiSolidEditAlt
-                          onClick={() => setShowPopup2(true)}
-                          style={{
-                            cursor: "pointer",
-                            color: "#000000",
-                            width: "20px",
-                            height: "20px",
-                            
-                            
-                          }}
-                        />
-                        </div>
+
+                      }}
+                    />
+                  </div>
+                </div>
+
+
+                <div className="flex rounded-md border border-gray-300 text-center p-2 w-[533px] h-12 justify-between">
+
+                  <input
+                    type="text"
+                    className="project-name-input w-full  font-manrope text-lg "
+                    name="location"
+                    placeholder="Location"
+                    value={projectDetails.location}
+                    onChange={handleChange}
+                  />
+                  <div style={{ alignContent: 'center' }}>
+
+                    <BiSolidEditAlt
+                      onClick={() => setShowPopup2(true)}
+                      style={{
+                        cursor: "pointer",
+                        color: "#000000",
+                        width: "20px",
+                        height: "20px",
+
+
+                      }}
+                    />
+                  </div>
                 </div>
                 <div className="flex rounded-md border border-gray-300 text-center p-4 w-[533px]  min-h-[134px] justify-between">
 
-                <textarea
-                
-                  className="project-address-input w-full"
-                  style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
-                  placeholder="Project Description"
-                  value={projectDescription}
-                  onChange={(e) => setProjectDescription(e.target.value)}
-                />
-                      <div >
+                  <textarea
 
-<BiSolidEditAlt
-                          onClick={() => setShowPopup2(true)}
-                          style={{
-                            cursor: "pointer",
-                            color: "#000000",
-                            width: "20px",
-                            height: "20px",
-                            
-                            
-                          }}
-                        />
-                        </div>
+                    className="project-address-input w-full"
+                    style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
+                    placeholder="Project Description"
+                    name="description"
+                    value={projectDetails.description}
+                    onChange={handleChange}
+                  />
+                  <div >
+
+                    <BiSolidEditAlt
+                      onClick={() => setShowPopup2(true)}
+                      style={{
+                        cursor: "pointer",
+                        color: "#000000",
+                        width: "20px",
+                        height: "20px",
+
+
+                      }}
+                    />
+                  </div>
                 </div>
                 <button
                   className="add-project-button w-[170px] h-12 p-2 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
-                  onClick={handleAddProject}
+                  onClick={handleUpdateProject}
                 >
                   Submit
                 </button>
@@ -550,7 +627,7 @@ const Table4 = () => {
               </div>
             </div>
           )}
-          
+
         </div>)}
     </>
 
