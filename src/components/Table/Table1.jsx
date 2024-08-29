@@ -173,7 +173,7 @@ const Table1 = () => {
                             lineHeight: "16.39px",
                             textAlign: "center",
                           }}>
-                          Channel Partner ID
+                          Customer ID
                         </th>
                         <th
                           className="border-b text-center"
