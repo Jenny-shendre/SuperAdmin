@@ -2,6 +2,7 @@ import React from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useState } from "react";
 
 const ViewMembers = () => {
   const members = [
@@ -18,6 +19,23 @@ const ViewMembers = () => {
     { id: "ROFEX0055", name: "Prasad Tiwari", mobile: "9984485595", email: "Prasad@rofgroup.com", role: "Manager" },
     { id: "ROFEX0055", name: "Prasad Tiwari", mobile: "9984485595", email: "Prasad@rofgroup.com", role: "Sales Executive" },
   ];
+  const [showPopup, setShowPopup] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
+
+  const handleDelete = () => {
+    // Perform delete operation here.
+    setShowPopup(false);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setDeleteId(null);
+  };
+
+
+
+
 
   return (
     
@@ -246,7 +264,7 @@ const ViewMembers = () => {
               <RiDeleteBin6Line
                                 onClick={() => {
                                   setShowPopup(true);
-                                  setDeleteId(visitor._id);
+                                  setDeleteId();
                                   setDeletePartnerId(visitor.partnerId);
                                 }}
                                 style={{
@@ -264,7 +282,42 @@ const ViewMembers = () => {
       </table>
       </div>
       </div>
-      
+      {showPopup && (
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="fixed inset-0 bg-black opacity-50"></div>
+              <div className="Delete-popup w-[257px] h-[192px]  py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
+                <div className="text-center">
+                  <p className="font-manrope text-[20px] font-medium">
+                    Are you sure you want to delete this row?
+                  </p>
+                  <p className="font-manrope text-[12px] font-medium text-[#6A6A6A] mt-2">
+                    This action cannot be undone.
+                  </p>
+                  <div className="delete-cont flex justify-center items-center w-[197px] ml-1 h-[33px] gap-6 mt-4">
+                    <button
+                      className="w-[85px]  h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
+                     
+                      onClick={() => handleDelete(deleteId)}
+
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="w-[85px]  h-[33px] p-2.5 rounded-md border-black border flex items-center justify-center"
+                      // onClick={() => setShowPopup(false)}
+                      onClick={handleClosePopup}
+
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  <p className="font-manrope text-[12px] text-[#6A6A6A] font-medium text-center mt-2">
+                    Select "Delete" to confirm.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
     </div>
 
     
