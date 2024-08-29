@@ -136,6 +136,7 @@ const Table2 = () => {
       );
       setdata(res.data);
       setLoading(false);
+
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -427,7 +428,7 @@ const Table2 = () => {
                             {/* {ResponseAt(visitor.updatedAt)} */}
 
                             <Link
-                              onClick={() => navigate('/SuperAdmin/Rainbow_overseas', { state: { id: visitor._id } })}
+                              onClick={() => navigate(`/SuperAdmin/Rainbow_overseas/${visitor.channelID}`)}
                               style={{
                                 fontFamily: "Manrope",
                                 fontSize: "14px",

@@ -101,11 +101,11 @@ function EditForm2() {
               }}
             >
               <Link to="/SuperAdmin">
-              Home
+                Home
               </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <Link
-              to="/SuperAdmin/Channel_Partners"
+                to="/SuperAdmin/Channel_Partners"
                 style={{
                   fontFamily: "Poppins",
                   fontWeight: "400",
@@ -139,21 +139,21 @@ function EditForm2() {
               </span>
             </h1>
           </div>
-          </div>
-          
-          <div className="flex pr-[50px]" style={{justifyContent:'end'}}>
-            <button
-              className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
-              onClick={toggleEditMode}
-            >
-              <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-                <FaRegEdit />
-              </h4>
-              <p className="text-[16px]">
-                {editMode ? "Save" : "Edit Details"}
-              </p>
-            </button>
-          
+        </div>
+
+        <div className="flex pr-[50px]" style={{ justifyContent: 'end' }}>
+          <button
+            className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
+            onClick={toggleEditMode}
+          >
+            <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
+              <FaRegEdit />
+            </h4>
+            <p className="text-[16px]">
+              {editMode ? "Save" : "Edit Details"}
+            </p>
+          </button>
+
         </div>
         <main className="flex flex-wrap gap-5 pl-[50px]">
           <div

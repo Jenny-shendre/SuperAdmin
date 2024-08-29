@@ -86,7 +86,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute element={Channel_Partners} />,
       },
       {
-        path: "Rainbow_overseas",
+        path: "Rainbow_overseas/:channelID",
         element: <PrivateRoute element={Channel_Partners_Overseas} />,
       },
       {
@@ -133,10 +133,6 @@ const router = createBrowserRouter([
       {
         path: "SettingAdmin",
         element: <PrivateRoute element={SettingPageAdmin} />,
-      },
-      {
-        path: "View_Members",
-        element: <PrivateRoute element={ViewMembers} />,
       },
     ],
   },
