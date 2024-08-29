@@ -37,26 +37,16 @@ const SideNavM = () => {
       navigate("/SalesManager/Client");
       setInitialLoad(false); // Disable initial load after the first load
     } else {
-      switch (locationPath) {
-        case "/SalesManager/Client":
-          setActiveItem("Client");
-          break;
-        case "/SalesManager/My_Team":
-          setActiveItem("My_Team");
-          break;
-        // case "/SalesManager/Notes":
-        //   setActiveItem("Notes");
-        //   break;
-        case "/SalesManager/Setting":
-          setActiveItem("Setting");
-          break;
-        default:
-          setActiveItem("Client");
-          navigate("/SalesManager/Client");
-          break;
-      }
-    }
-  }, [locationPath, navigate, initialLoad]);
+      if (locationPath.startsWith("/SalesManager/Client")) {
+        setActiveItem("Client");
+      } else if (locationPath.startsWith("/SalesManager/My_Team")) {
+        setActiveItem("My_Team");
+      } else if (locationPath.startsWith("/SalesManager/ClientHistory")) {
+        setActiveItem("My_Team");
+      } else if (locationPath.startsWith("/SalesManager/IDMan")) {
+        setActiveItem("Client");
+      }}
+  }, [locationPath, initialLoad]);
 
   return (
     <div

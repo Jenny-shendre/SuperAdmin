@@ -13,7 +13,7 @@ import { TbEdit } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
 
-function ClientDetailsMang() {
+function ClientHistory() {
   
   const [data, setData] = useState([]);
   const [valueinput, setvalueinput] = useState("");
@@ -49,101 +49,6 @@ function ClientDetailsMang() {
 
   const [data2, setdata2] = useState([]);
 
-  /*const fetchData = async () => {
-    setLoading(true);
-
-    const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
-    setdata2(res2.data);
-
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);*/
-
-  //New
-
-  /*const handleOutsideClick = (event) => {
-    if (notePopupRef.current && !notePopupRef.current.contains(event.target)) {
-      setShowNotePopup(false);
-    }
-    if (
-      addNotePopupRef.current &&
-      !addNotePopupRef.current.contains(event.target)
-    ) {
-      setShowAddNotePopup(false);
-    }
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsDropdownOpen(false);
-    }
-    if (
-      projectDropdownRef.current &&
-      !projectDropdownRef.current.contains(event.target)
-    ) {
-      setIsProjectDropdownOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (
-      showNotePopup ||
-      showAddNotePopup ||
-      isDropdownOpen ||
-      isProjectDropdownOpen
-    ) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [showNotePopup, showAddNotePopup, isDropdownOpen, isProjectDropdownOpen]);*/
-
-  // Add team members popup logic
-
-  /*const [clientName, setclientName] = useState("");
-  const [project, setProject] = useState("");
-  const [briefing, setBriefing] = useState("");
-  const [isCreating, setIsCreating] = useState(false);
-  const [createStatus, setCreateStatus] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");*/ // state for error message
-
-
-
-  /*const handleProjectChange = (projectName) => {
-    setProject(projectName);
-    setIsProjectDropdownOpen(false);
-  };*/
-
-  /*const handleSubmit = async () => {
-    if (clientName && project && briefing) {
-      setIsCreating(true);
-      setErrorMessage(""); // Clear any previous error messages
-      console.log("Come");
-
-      const teamdata = {
-        clientName: clientName,
-        project: project,
-        briefing: briefing,
-      };
-
-      try {
-        // setCreateStatus("Note Successfully Added ✓");
-
-        console.log("Response send", teamdata);
-      } catch (error) {
-        console.error("Error creating Note:", error);
-        setCreateStatus("Error Creating Note");
-      } finally {
-        setIsCreating(false);
-      }
-    } else {
-      setErrorMessage("Please fill in all fields.");
-    }
-  };*/
 
   const handleOutsideClick = (event) => {
     if (addNotePopupRef.current && !addNotePopupRef.current.contains(event.target)) {
@@ -186,10 +91,7 @@ function ClientDetailsMang() {
 
   console.log("data", data);
 
-  // const DateupdatedAt = (DateupdatedAt) => {
-  //   const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
-  //   return formattedDate;
-  // };
+
 
   const DateupdatedAt = (date) => {
     const parsedDate = new Date(date);
@@ -231,6 +133,7 @@ function ClientDetailsMang() {
           >
             Home
             <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+            <Link to ='/SalesManager/My_Team'>
             <span
               style={{
                 fontFamily: "Poppins",
@@ -239,7 +142,21 @@ function ClientDetailsMang() {
               }}
               className="font-medium font-[Manrope]"
             >
-             Overview
+             My Team
+
+            </span>
+            </Link>
+            <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+
+            <span
+              style={{
+                fontFamily: "Poppins",
+                fontWeight: "500",
+                fontSize: "24px",
+              }}
+              className="font-medium font-[Manrope]"
+            >
+             Shahrukh
             </span>
           </h1>
         </div>
@@ -292,7 +209,7 @@ function ClientDetailsMang() {
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
                       width: '190px'
-                    }} className="px-4 py-2 ">Date</th>
+                    }} className="px-4 py-2 ">Name</th>
                     <th 
                     style={{
                       fontFamily: "Manrope",
@@ -301,7 +218,7 @@ function ClientDetailsMang() {
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
                       width:"171px",
-                       }} className="px-4 py-2">Project Name</th>
+                       }} className="px-4 py-2">Customer ID</th>
                     <th 
                     style={{
                       fontFamily: "Manrope",
@@ -311,7 +228,7 @@ function ClientDetailsMang() {
                       color: "#4B4B4B",
                       width:"109px",
                     }}
-                     className="px-4 py-2">Customer ID</th>
+                     className="px-4 py-2">Email</th>
                     <th style={{
                       fontFamily: "Manrope",
                       fontSize: "12px",
@@ -319,7 +236,7 @@ function ClientDetailsMang() {
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
                       width:"171px",
-                    }} className="px-4 py-2">Client Name</th>
+                    }} className="px-4 py-2">Phone No</th>
                     <th style={{
                       fontFamily: "Manrope",
                       fontSize: "12px",
@@ -327,7 +244,7 @@ function ClientDetailsMang() {
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
                       width:"130px",
-                    }} className="px-4 py-2">Duration</th>
+                    }} className="px-4 py-2">Property Intrest</th>
                      <th style={{
                       fontFamily: "Manrope",
                       fontSize: "12px",
@@ -335,7 +252,7 @@ function ClientDetailsMang() {
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
                       width:"115px",
-                    }} className="px-4 py-2">Executive</th>
+                    }} className="px-4 py-2">Meeting Date</th>
                         <th style={{
                       fontFamily: "Manrope",
                       fontSize: "12px",
@@ -343,16 +260,8 @@ function ClientDetailsMang() {
                       lineHeight: "16.39px",
                       color: "#4B4B4B",
                       width:"135px",
-                    }} className="px-4 py-2 ">Meeting Status</th>
-                    <th style={{                     
-                      fontFamily: "Manrope",
-                      fontSize: "12px",
-                      fontWeight: "500",
-                      lineHeight: "16.39px",
-                      color: "#4B4B4B",
-                     
-                    }} className="px-4 py-2">
-                     Notes</th>
+                    }} className="px-4 py-2 ">Status</th>
+                   
                    
                 
                   </tr>
@@ -379,7 +288,6 @@ function ClientDetailsMang() {
                       
                     
                       <tr className="text-[#5C5C5C] text-center border-b" key={item}>
-                        <td className="px-4 py-2 ">{item.date ? DateupdatedAt(item.date) : "Invalide date"}</td>
 
                          <td className="px-4 py-2 max-w-[150px] overflow-hidden"
                           style={{
@@ -390,8 +298,9 @@ function ClientDetailsMang() {
                           }}
                           title={item.project} >
 
-                          {truncateText(item.project?.length > 0 ? item?.project : "Not Assign")}
+                          Aanand Jaiswal 
                           </td>
+                        
                           <td className="px-4 py-2 max-w-[150px] overflow-hidden"
                            style={{
                             fontFamily: "Manrope",
@@ -400,7 +309,7 @@ function ClientDetailsMang() {
                             color: "#5C5C5C", 
                           }}
                           title={item.customerId}> 
-                          <Link to='/SalesManager/IDMan' style={{color:"blue",textDecoration:"underline",fontFamily:"Manrope",fontWeight:"700"}} >
+                          <Link to = "/SalesManager/IDMan" style={{color:"blue",textDecoration:"underline",fontFamily:"Manrope",fontWeight:"700"}}>
                           ROF001
                           </Link>                      
                         </td>
@@ -412,22 +321,22 @@ function ClientDetailsMang() {
                             lineHeight: "19px",
                             color: "#5C5C5C",
                           }}
-                          title={item.name}>
-                         {truncateText(item.name)}
+                          >
+                        anandjaiswal@gmail.com
                         </td>
 
 
-                        <td className="px-4 py-2 text-[#000000] " style={{ fontWeight: '800' }}>{item.duration?.length > 0 ? item?.duration : "Not Assign"}</td>
-                        <td className="px-4 py-2 r">
-                        <td className="px-4 py-2 max-w-[150px] overflow-hidden"
+                        <td className="px-4 py-2 text-[#000000] " style={{ fontWeight: '300' }}>  9854847511</td>
+                        <td className="px-2 py-2 max-w-[150px] overflow-hidden"
                           title={item.executiveName?.length > 0 ? item?.executiveName : "Not found"}>
-                            {truncateText(item.executiveName?.length > 0 ? item?.executiveName : "Not found")}
+                          ROFAalayas
                         </td>
+                        <td className="px-4 py-2 r">
+                       26 June | 5:33PM
                         </td>
 
-                        {/* <td className="px-4 py-2">{visitor.name?.length > 0 ? visitor?.name : "Not found"}</td> */}
-                        {/* cc */}
-                        <div className="flex justify-center items-center">
+                        
+                        <div className="flex justify-center items-center" style={{alignContent:'center'}}>
                           {item.action === 'Completed' ? (
                             <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31] mt-2" />
                           ) : item.action === 'In Progress' ?(
@@ -439,18 +348,7 @@ function ClientDetailsMang() {
 
                           )}
                         </div>
-                        <td className="p-2 text-center">
-                  <div className="flex items-center gap-[10px]  justify-center space-x-2">
-                    <button
-                    style={{color:"#3D2314",cursor: "pointer",fontSize: "18px",}}>
-                    <FiEye />
-                    </button>
-                    <button className=" hover:text-gray-800"
-                    style={{color:"#3D2314",width:"24px",height:"24px"}}>
-                    <TbEdit />
-                    </button>
-                  </div>
-                </td>
+                    
                       
                       </tr>
                     ))}
@@ -704,4 +602,4 @@ function ClientDetailsMang() {
   );
 }
 
-export default ClientDetailsMang;
+export default ClientHistory;

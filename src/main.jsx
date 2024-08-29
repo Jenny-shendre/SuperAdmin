@@ -39,6 +39,9 @@ import NotePagesAdmin from "./components/Table/NotePagesAdmin.jsx";
 import SettingPageAdmin from "./components/SettingAdmin/SettingPageAdmin.jsx";
 import overviewID from "./components/Overview/NoteInput.jsx";
 import ViewMembers from "./components/Table/ViewMembers.jsx";
+import ClientHistory from "./components/Table/MyTeamMan2.jsx";
+import { IoMdMan } from "react-icons/io";
+import IDMan from "./components/EditForm/IDMan.jsx";
 
 const router = createBrowserRouter([
   //Login_Cred
@@ -181,10 +184,14 @@ const router = createBrowserRouter([
         path: "/SalesManager/clientID",
         element: <PrivateRoute element={overviewID} />,
       },
-      // {
-      //   path: "/SalesManager/Setting",
-      //   element: <PrivateRoute element={Setting} />,
-      // },
+      {
+        path: "/SalesManager/ClientHistory",
+        element: <PrivateRoute element={ClientHistory} />,
+      },
+      {
+        path: "/SalesManager/IDMan",
+        element: <PrivateRoute element={IDMan} />,
+      },
     ],
   },
 ]);
