@@ -15,6 +15,7 @@ import PhoneIcon from "../../assets/phone.png";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link2 } from "lucide-react";
 
+
 const Table5 = () => {
   const [valueinput, setvalueinput] = useState("");
   const [viewedItems, setViewedItems] = useState([]);
@@ -571,7 +572,13 @@ const Table5 = () => {
                   width: "189px",
                   border: "1px solid #3D2314",
                   boxShadow: "0px 0px 4px 0px #00000040",
+                  gap:"12px",
+                  fontSize:"16px",
+                  fontFamily:"Manrope",
+                  fontWeight:"500",
                 }}>
+                  <span style={{width:"20px",height:"14px",top:"17px",left:"24px",gap:"12px"}}><LuEye /></span>
+                  
               View Members
               </button>
               </Link>
