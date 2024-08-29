@@ -210,9 +210,9 @@ function MyTeamMang() {
             fontSize: "24px",
             fontWeight: "500",
           }}>
-          <Link to="/SuperAdmin">
+       
             Home
-          </Link>
+         
           <IoIosArrowForward style={{ color: "#1C1B1F" }} />
           <span
             style={{
