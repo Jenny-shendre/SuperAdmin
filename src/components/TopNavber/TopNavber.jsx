@@ -113,12 +113,6 @@ const TopNav = () => {
       <div ref={popupRef} style={{ boxShadow: '0px 0px 4px 0px #00000040', padding: '6px 14px' }}
         className={`absolute right-7 top-14 bg-white p-4 ${click ? "" : "hidden"}`}>
         <ul className="flex flex-col gap-1 ">
-          <Link to='/SalesExecutive/SettingEx'>
-            <li style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium">
-              Go to Settings
-            </li>
-          </Link>
-          <li style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium">Profile</li>
           <li onClick={handleLogOut} style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium text-[#F13737]">
             Logout
           </li>

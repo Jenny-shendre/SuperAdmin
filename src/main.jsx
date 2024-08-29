@@ -134,6 +134,10 @@ const router = createBrowserRouter([
         path: "SettingAdmin",
         element: <PrivateRoute element={SettingPageAdmin} />,
       },
+      {
+        path: "View_Members",
+        element: <PrivateRoute element={ViewMembers} />,
+      },
     ],
   },
 

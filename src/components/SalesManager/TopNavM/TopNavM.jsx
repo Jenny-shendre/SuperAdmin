@@ -123,12 +123,7 @@ const TopNavM = () => {
         } `}
       >
         <ul className="flex flex-col gap-1 ">
-          <Link to="/SalesManager/Setting">
-            <li style={{ fontFamily: "Manrope", fontSize: "20px" }}className="font-[Manrope] cursor-pointer font-medium">
-              Go to Settings
-            </li>
-          </Link>
-          <li style={{ fontFamily: "Manrope", fontSize: "20px" }}className="font-[Manrope] cursor-pointer font-medium">Profile</li>
+          
           <li onClick={handleLogOut}style={{ fontFamily: "Manrope", fontSize: "20px" }}className="font-[Manrope] cursor-pointer font-medium text-[#F13737]">
             Logout
           </li>
