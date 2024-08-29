@@ -221,7 +221,7 @@ function MyTeamMang() {
               fontSize: "24px",
             }}
             className="font-medium font-[Manrope]">
-            Notes
+            My Team
           </span>
         </h1>
       </div>
@@ -351,16 +351,15 @@ function MyTeamMang() {
                       {note.status === "assigned" ? "in meet" : "available"}
                     </div>
                   </div>
+                  <Link to ="/SalesManager/ClientHistory">
                   <button
-                    className="font-[Manrope] w-full gap-2 text-[#3D2314] bg-white py-2 px-4 rounded-lg flex items-center justify-center"
+                    className="font-[Manrope] w-full gap-2 bg-[#3D2314] text-white py-2 px-4 rounded-lg flex items-center justify-center"
                     style={{ border: "1px solid #3D2314" }}
-                    onClick={() => {
-                      setShowNotePopup(false);
-                      setShowAddNotePopup(true);
-                    }}>
+                   >
                     <img src={noteImg} className="text-[24px]" />
-                    Add Note
+                    View Client History
                   </button>
+                  </Link>
                 </div>
               ))
             ) : (

@@ -6,7 +6,7 @@ import axios from "axios";
 
 
 const TopNav = () => {
-  const [title, setTitle] = useState("Sales Executive");
+  const [title, setTitle] = useState("Super Admin");
   const [click, setclick] = useState(false);
   const navigate = useNavigate();
   const popupRef = useRef(null); // Create a ref for the popup

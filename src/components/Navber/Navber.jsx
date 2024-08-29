@@ -59,7 +59,7 @@ const Navber = () => {
         setActiveItem("ChannelPartners");
       } else if (locationPath.startsWith("/SuperAdmin/Project")) {
         setActiveItem("Projects");
-      } else if (locationPath.startsWith("/SuperAdmin/Project/Project%")) {
+      } else if (locationPath.startsWith("/SuperAdmin/project/")) {
         setActiveItem("Projects");
       } else if (locationPath.startsWith("/SuperAdmin/Team")) {
         setActiveItem("Team");
@@ -240,27 +240,6 @@ const Navber = () => {
             </li>
           </Link>
 
-          <Link to="/SuperAdmin/Note_Pages">
-            <li
-              style={{
-                fontFamily: "Manrope",
-                fontSize: "20px",
-                fontWeight: "500",
-                lineHeight: "27.32px",
-                textAlign: "left",
-              }}
-              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${
-                activeItem === "Note_Pages" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
-              }`}
-              onClick={() => handleItemClick("Note_Pages")}>
-              {activeItem === "Note_Pages" ? (
-                <img src={mat1} alt="" />
-              ) : (
-                <img src={mat2} alt="" />
-              )}
-              Note
-            </li>
-          </Link>
         </ul>
       </div>
       <div>
