@@ -13,6 +13,7 @@ import DropIcon from "../../assets/DropIcon.png";
 import EmailIcon from "../../assets/email.png";
 import PhoneIcon from "../../assets/phone.png";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { Link2 } from "lucide-react";
 
 const Table5 = () => {
   const [valueinput, setvalueinput] = useState("");
@@ -561,6 +562,19 @@ const Table5 = () => {
                 </svg>
                 Add
               </button>
+              <Link to="/SuperAdmin/View_Members">
+              <button   
+              
+              className="add-team-button bg-[#3D2314]  text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] ml-10 mt-4 lg:mt-0"
+                style={{
+                  height: "48px",
+                  width: "189px",
+                  border: "1px solid #3D2314",
+                  boxShadow: "0px 0px 4px 0px #00000040",
+                }}>
+              View Members
+              </button>
+              </Link>
               {/* Add teams buttons */}
               {showTeamPopup && (
                 <>

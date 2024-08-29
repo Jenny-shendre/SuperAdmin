@@ -38,6 +38,7 @@ import SettingEx from "./components/SettingExecutive/SettingEx.jsx";
 import NotePagesAdmin from "./components/Table/NotePagesAdmin.jsx";
 import SettingPageAdmin from "./components/SettingAdmin/SettingPageAdmin.jsx";
 import overviewID from "./components/Overview/NoteInput.jsx";
+import ViewMembers from "./components/Table/ViewMembers.jsx";
 
 const router = createBrowserRouter([
   //Login_Cred
@@ -93,6 +94,11 @@ const router = createBrowserRouter([
         path: "Team",
         element: <PrivateRoute element={Team} />,
       },
+      {
+        path: "View_Members",
+        element: <PrivateRoute element={ViewMembers} />,
+      },
+
       {
         path: "Direct_Visitors/:id",
         element: <PrivateRoute element={FormEdit} />,
