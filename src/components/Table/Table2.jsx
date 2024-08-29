@@ -1,4 +1,4 @@
-import { useEffect, useState,useRef  } from "react";
+import { useEffect, useState, useRef } from "react";
 import { LuPencilLine } from "react-icons/lu";
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import { useNavigate } from 'react-router-dom';
@@ -41,9 +41,23 @@ const Table2 = () => {
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
 
 
-  const handleDeleteClick = (id) => {
-    setDeleteId(id);
-    setShowPopup(true);
+  const handleDeleteClick = async (deleteId) => {
+    try {
+      const res = await axios.delete(`https://project-rof.vercel.app/api/channels/${deleteId}`)
+      console.log("Channel deleted", res);
+      setdata(prevData => prevData.filter(item => item._id !== deleteId));
+      setShowPopup(false);
+
+    } catch (error) {
+      console.log(error);
+
+    }
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setDeleteId(null); // Clear the deleteId when the popup is closed
+
   };
 
   const popupRef = useRef();
@@ -56,9 +70,10 @@ const Table2 = () => {
     }
   };
 
- 
+
   const [createStatus, setCreateStatus] = useState("Register Channel");
   const [isCreating, setIsCreating] = useState(false);
+
   const resetForm = () => {
     setChannelName('');
     setChannelEmailID('');
@@ -69,64 +84,50 @@ const Table2 = () => {
   };
 
   const handleSubmit = async () => {
-    if (channelName && channelEmailID && phone && address) {
-      setIsCreating(true);
-      setErrorMessage(""); // Clear any previous error messages
-      console.log("Come");
+    setErrorMessage("");
 
-      const teamdata = {
-        channelName: channelName,
-        channelEmailID: channelEmailID,
-        phone: phone,
-        address:address
-      };
-
-      try {
-        setCreateStatus("Channel Successfully Added ✓");
-
-        console.log("Response send", teamdata);
-      } catch (error) {
-        console.error("Error Registering Channel:", error);
-        setCreateStatus("Error Registering Channel");
-      } finally {
-        setIsCreating(false);
-      }
-    } else {
+    if (!channelName || !channelEmailID || !phone || !address) {
       setErrorMessage("Please fill in all fields.");
+      return;
+    }
+
+    const teamdata = {
+      name: channelName,
+      email: channelEmailID,
+      phone: phone,
+      address: address
+    };
+
+    // console.log("Data to be sent:", teamdata);
+
+    setCreateStatus("Registering Channel....");
+    setIsCreating(true);
+
+    try {
+      const res = await axios.post("https://project-rof.vercel.app/api/channels", teamdata);
+
+      console.log("Successfully Added:", res.data);
+
+      setCreateStatus("Channel Successfully Added ✓");
+
+      resetForm();
+
+      getData1();
+
+    } catch (error) {
+      console.error("Error Registering Channel:", error);
+
+      setCreateStatus("Error Registering Channel");
+      setErrorMessage(error.response?.data?.message || "An unexpected error occurred.");
+
+    } finally {
+      setIsCreating(false);
     }
   };
 
 
-  const confirmDelete = async () => {
-    await axios.delete(
-      `https://prodictivity-management-tool2.vercel.app/api/record/deleteRecord/${deleteId}`
-    );
-    setShowPopup(false);
-    fetchData();
-  };
 
-  const handleView = (id) => {
-    if (viewedItems.includes(id)) {
-      // Item already viewed, remove it from viewedItems
-      setViewedItems((prevViewedItems) =>
-        prevViewedItems.filter((item) => item !== id)
-      );
-    } else {
-      // Item not viewed, add it to viewedItems
-      setViewedItems((prevViewedItems) => [...prevViewedItems, id]);
-    }
-  };
 
-  /*const deletedAt = async (id, customerId) => {
-    const confirmDelete = window.confirm(`Do you really want to delete the record with ID ${customerId}?`);
-
-    if (confirmDelete) {
-      await axios.delete(
-        `https://project-rof.vercel.app/api/customers/delete/${id}`
-      );
-      fetchData(); // Refresh data after deletion
-    }
-  };*/
   const getData1 = async () => {
     try {
       setLoading(true);
@@ -144,7 +145,7 @@ const Table2 = () => {
 
 
   const fetchRecordByChannelID = async (id) => {
-    console.log('id>>>>>>',id)
+    console.log('id>>>>>>', id)
     const res = await axios.get(
       `${API_URL}/api/channels/fetchChannelBy/`,
       {
@@ -156,19 +157,11 @@ const Table2 = () => {
     setdata(res.data);
   };
 
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     getData1();
   }, []);
 
-  /*const fetchData = async () => {
-    setLoading(true)
-    const res = await axios.get(
-      ` https://project-rof.vercel.app/api/customers/fetch-all`
-    );
-    setdata(res.data);
-    setLoading(false)
-  };*/
 
   // Data Time
   const DateupdatedAt = (DateupdatedAt) => {
@@ -180,13 +173,13 @@ const Table2 = () => {
     const formattedDate = format(new Date(DateupdatedAt), "hh:mm a");
     return formattedDate;
   };
- //vb
- const truncateText = (text, limit ) => {
-  if (text && text.length > limit) {
-    return text.slice(0, limit) + '...';
-  }
-  return text || '';
-};
+  //vb
+  const truncateText = (text, limit) => {
+    if (text && text.length > limit) {
+      return text.slice(0, limit) + '...';
+    }
+    return text || '';
+  };
 
   return (
     <div className="arrowss">
@@ -210,8 +203,8 @@ const Table2 = () => {
                 fontWeight: "500",
               }}>
               <Link to="/SuperAdmin">
-                  <span >Home</span>
-                </Link>
+                <span >Home</span>
+              </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
                 style={{
@@ -246,26 +239,26 @@ const Table2 = () => {
                 />
               </div>
               <div>
-                  <button
-                    onClick={() => setShowPopupAdd(true)}
-                    className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[250px] mt-[11px]"
-                    style={{ padding: "12px 24px 12px 24px", gap: "10px" }}
+                <button
+                  onClick={() => setShowPopupAdd(true)}
+                  className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[250px] mt-[11px]"
+                  style={{ padding: "12px 24px 12px 24px", gap: "10px" }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 mr-2"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 mr-2"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    Add Channel Partner
-                  </button>
-                </div>
+                    <path
+                      fillRule="evenodd"
+                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Add Channel Partner
+                </button>
+              </div>
             </div>
           </div>
           <div className="outer-wrapper text-center flex items-center justify-center">
@@ -287,7 +280,8 @@ const Table2 = () => {
                           //TC-181
                           width: "100px",
                           // padding: "6px, 10px, 6px, 10px",
-                          height: "28px",}} 
+                          height: "28px",
+                        }}
                         //TC-186
                         className="px-[10px] py-[6px]" >
                         {/* Date */}
@@ -305,7 +299,7 @@ const Table2 = () => {
                           padding: "7px",
                           width: "100px", //tc-3
                           height: "28px",
-                          
+
                         }}>
                         {/* Response Time */}
                         Channel ID
@@ -319,7 +313,7 @@ const Table2 = () => {
                           lineHeight: "16.39px",
                           //TC-213
                           textAlign: "center",
-                       
+
                           width: "253px",
                           height: "28px",
                         }}>
@@ -338,7 +332,7 @@ const Table2 = () => {
                           width: "253px",
                           height: "28px",
                           //TC-231
-                          padding:  "6px 10px 6px 10px",
+                          padding: "6px 10px 6px 10px",
                         }}>
                         {/* Customer Name */}Email
                       </th>
@@ -354,7 +348,7 @@ const Table2 = () => {
                           width: "109px",
                           height: "28px",
                           //TC-247
-                          padding:  "6px 10px 6px 10px",
+                          padding: "6px 10px 6px 10px",
                         }}>
                         Phone No
                       </th>
@@ -370,7 +364,7 @@ const Table2 = () => {
                           width: "139px",
                           height: "28px",
                           //TC-263
-                          padding:  "6px 10px 6px 10px",
+                          padding: "6px 10px 6px 10px",
                         }}>
                         Address
                       </th>
@@ -387,17 +381,17 @@ const Table2 = () => {
                           width: "139px",
                           height: "28px",
                           //TC-263
-                          padding:  "6px 10px 6px 10px",
+                          padding: "6px 10px 6px 10px",
                         }}>
                         Delete
                       </th>
-                   
+
                     </tr>
                   </thead>
 
                   <tbody>
                     {data
-                       .filter(
+                      .filter(
                         ({ name, channelID, email, phone, address }) =>
                           name
                             ?.toLowerCase()
@@ -416,7 +410,7 @@ const Table2 = () => {
                             .includes(valueinput.toLowerCase())
                       )
                       .map((visitor, index) => (
-                        
+
                         <tr
                           style={{ paddingLeft: "5px" }}
                           className="py-1 border-b text-[9px] lg:text-[14px]  "
@@ -431,7 +425,7 @@ const Table2 = () => {
 
                           <td className="py-3 border-b text-center">
                             {/* {ResponseAt(visitor.updatedAt)} */}
-                            
+
                             <Link
                               onClick={() => navigate('/SuperAdmin/Rainbow_overseas', { state: { id: visitor._id } })}
                               style={{
@@ -442,22 +436,22 @@ const Table2 = () => {
                                 textAlign: "left",
                                 color: "#000AFF",
                                 textDecoration: "underline",
-                                
-                                
+
+
                               }}>
-                              {visitor.channelID} 
+                              {visitor.channelID}
                             </Link>
                           </td>
 
-                        
-                            <td className="py-3  text-left flex items-center justify-center">
-                              <FaCircle  className="mr-2 ml-16 text-gray-500 " style={{width:"30px",height:"30px"}}/>
-                              <span className="truncate flex-grow ml-2 #000000" style={{fontSize:"16px"}}>{visitor.name} </span>
-                            </td>
-                       
-                            <td className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
-                            title= {visitor.email}>
-                            {truncateText(visitor.email, 17)} 
+
+                          <td className="py-3  text-left flex items-center justify-center">
+                            <FaCircle className="mr-2 ml-16 text-gray-500 " style={{ width: "30px", height: "30px" }} />
+                            <span className="truncate flex-grow ml-2 #000000" style={{ fontSize: "16px" }}>{visitor.name} </span>
+                          </td>
+
+                          <td className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
+                            title={visitor.email}>
+                            {truncateText(visitor.email, 17)}
                           </td>
 
                           <td className=" py-3 border-b text-center">
@@ -465,8 +459,8 @@ const Table2 = () => {
                           </td>
 
                           <td className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
-                           title= {visitor.address}>
-                             {truncateText(visitor.address, 13)} 
+                            title={visitor.address}>
+                            {truncateText(visitor.address, 13)}
 
                           </td>
                           <td className="py-1 px-3 border-b text-center">
@@ -478,7 +472,11 @@ const Table2 = () => {
                               }}
                             >
                               <RiDeleteBin6Line
-                                onClick={() => handleDeleteClick()}
+                                // onClick={() => handleDeleteClick(visitor._id)}
+                                onClick={() => {
+                                  setShowPopup(true);
+                                  setDeleteId(visitor._id);
+                                }}
                                 style={{
                                   cursor: "pointer",
                                   fontSize: "18px",
@@ -490,7 +488,7 @@ const Table2 = () => {
 
 
 
-                          
+
                         </tr>
                       ))}
                   </tbody>
@@ -503,11 +501,11 @@ const Table2 = () => {
         </div>
       )}
 
-{showPopup && (
+      {showPopup && deleteId !== null && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="fixed inset-0 bg-black opacity-50"></div>
           <div className="Delete-popup w-[257px] h-[192px] py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
-           
+
             <div className="text-center">
               <p className="font-manrope text-[20px] font-medium">
                 Are you sure you want to delete this row?
@@ -518,13 +516,17 @@ const Table2 = () => {
               <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
                 <button
                   className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-                  onClick={confirmDelete}
+                  // onClick={confirmDelete}
+                  onClick={() => handleDeleteClick(deleteId)} // Delete the project
+
                 >
                   Delete
                 </button>
                 <button
                   className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
-                  onClick={() => setShowPopup(false)}
+                  // onClick={() => setShowPopup(false)}
+                  onClick={handleClosePopup} // Close the popup
+
                 >
                   Cancel
                 </button>
@@ -538,67 +540,64 @@ const Table2 = () => {
       )}
 
 
-{showPopupAdd  && (
-            <div className="fixed inset-0 flex items-center justify-center z-50">
-              <div className="fixed inset-0 bg-black opacity-50"></div>
-              <div
-                ref={popupRef}
-                className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
-              >
-                  <button
-                className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                onClick={() => setShowPopupAdd(false)}
-              >
-                X
-              </button>
-               
-               
-                <input
-                  type="text"
-                  className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
-                  placeholder="Channel Name"
-                  value={channelName}
-                  onChange={(e) => setChannelName(e.target.value)}
-                />
+      {showPopupAdd && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div
+            ref={popupRef}
+            className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
+          >
+            <button
+              className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+              onClick={() => setShowPopupAdd(false)}
+            >
+              X
+            </button>
 
-<input
-                  type="email"
-                  className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
-                  placeholder="Channel Email ID"
-                  value={channelEmailID}
-                  onChange={(e) => setChannelEmailID(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
-                  placeholder="Phone No"
-                  value={phone}
-                  onChange={(e) => setphone(e.target.value)}
-                />
-                <textarea
-                  className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 "
-                  style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
-                  placeholder="Address"
-                  value={address}
-                  onChange={(e) => setaddress(e.target.value)}
-                />
-                <button
-                onClick={handleSubmit && resetForm}
-                className="`create-team-btn flex flex-wrap  h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
-                disabled={isCreating}
-              >
-                {createStatus || (
-                  <div className="flex flex-wrap ">
-                    <span> Register Channel </span>
-                  </div>
-                )}
-              </button>
-                {errorMessage && (
-                  <p className="text-red-500 mt-2">{errorMessage}</p>
-                )}
-              </div>
-            </div>
-          )}
+
+            <input
+              type="text"
+              className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
+              placeholder="Channel Name"
+              value={channelName}
+              onChange={(e) => setChannelName(e.target.value)}
+            />
+
+            <input
+              type="email"
+              className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
+              placeholder="Channel Email ID"
+              value={channelEmailID}
+              onChange={(e) => setChannelEmailID(e.target.value)}
+            />
+            <input
+              type="text"
+              className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
+              placeholder="Phone No"
+              value={phone}
+              onChange={(e) => setphone(e.target.value)}
+            />
+            <textarea
+              className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 "
+              style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
+              placeholder="Address"
+              value={address}
+              onChange={(e) => setaddress(e.target.value)}
+            />
+            <button
+              onClick={handleSubmit}
+              className="`create-team-btn flex flex-wrap  h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
+              disabled={isCreating}
+            >
+              {isCreating ? createStatus : "Register Channel"}
+            </button>
+            {errorMessage && (
+              <p className="text-red-500 mt-2">{errorMessage}</p>
+            )}
+
+          </div>
+        </div>
+      )}
     </div>
   );
 };
