@@ -3,6 +3,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const ViewMembers = () => {
   const members = [
@@ -46,9 +47,9 @@ const ViewMembers = () => {
                 fontSize: "24px",
                 fontWeight: "500",
               }}>
-              
+                 <Link to="/SuperAdmin">
                   <span >Home</span>
-             
+                  </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
                 <span
                 style={{
