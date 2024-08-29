@@ -4,13 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../utils/TokenUtils";
 import axios from "axios";
 
-
 const TopNav = () => {
   const [title, setTitle] = useState("Sales Executive");
   const [click, setclick] = useState(false);
   const navigate = useNavigate();
-
-  
 
   const clickfun = () => {
     if (click === true) {
@@ -25,9 +22,11 @@ const TopNav = () => {
     window.location.reload();
     navigate("/");
     window.location.reload();
-  }
+  };
 
-  const [IdEmp, setIdEmp] = useState(localStorage.getItem("EmpId") || "ROFEX10");
+  const [IdEmp, setIdEmp] = useState(
+    localStorage.getItem("EmpId") || "ROFEX10"
+  );
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   // useEffect(() => {
@@ -101,7 +100,10 @@ const TopNav = () => {
         console.error("Error sending status:", error);
         // If offline status fails to send, store it in localStorage
         if (!status) {
-          localStorage.setItem("pendingStatus", JSON.stringify({ IdEmp, status: "offline" }));
+          localStorage.setItem(
+            "pendingStatus",
+            JSON.stringify({ IdEmp, status: "offline" })
+          );
         }
       }
     };
@@ -145,20 +147,22 @@ const TopNav = () => {
     };
   }, [IdEmp]);
 
-
   return (
-    <div style={{
-      boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)', paddingRight: '0px'
-    }}
+    <div
+      style={{
+        boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+        paddingRight: "0px",
+      }}
       className={`TNav border-0 bottom-shadow w-full h-[3.688rem] lg:h-[50px] bg-white bg-opacity-50  flex flex-row justify-end px-5 gap-5 items-center font-[Manrope] font-medium relative shadow-b-lg shadow-Black-1000`}>
-      <div style={{
-        fontFamily: 'Manrope',
-        fontSize: '20px',
-        fontWeight: '500',
-        lineHeight: '27.32px',
-
-
-      }}>Welcome! {title} </div>
+      <div
+        style={{
+          fontFamily: "Manrope",
+          fontSize: "20px",
+          fontWeight: "500",
+          lineHeight: "27.32px",
+        }}>
+        Welcome! {title}{" "}
+      </div>
       {/* bg-[#FFFFFF] */}
       <div>
         <img
@@ -168,11 +172,16 @@ const TopNav = () => {
           onClick={() => clickfun()}
         />
       </div>
-      <div style={{ boxShadow: ' 0px 0px 4px 0px #00000040', padding: '6px 14px' }}
-        className={`absolute right-7 top-14 bg-white p-4 ${click === true ? "" : "hidden"
-          } `}>
+      <div
+        style={{ boxShadow: " 0px 0px 4px 0px #00000040", padding: "6px 14px" }}
+        className={`absolute right-7 top-14 bg-white p-4 ${
+          click === true ? "" : "hidden"
+        } `}>
         <ul className="flex flex-col gap-1 ">
-          <li onClick={handleLogOut} style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium text-[#F13737]">
+          <li
+            onClick={handleLogOut}
+            style={{ fontFamily: "Manrope", fontSize: "20px" }}
+            className="font-[Manrope] cursor-pointer font-medium text-[#F13737]">
             Logout
           </li>
         </ul>

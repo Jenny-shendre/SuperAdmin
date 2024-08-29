@@ -7,7 +7,7 @@ import Logo from "./assets/Logo.png";
 import Eye from "./assets/Eye.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 function LoginCred() {
   const [role, setRole] = useState("super admin");
   const [email, setEmail] = useState("");
@@ -18,6 +18,7 @@ function LoginCred() {
 
   const [isRadioChecked, setIsRadioChecked] = useState(false);
 
+  const navigate = useNavigate();
   const handleRadioChange = (e) => {
     // setIsRadioChecked(!isRadioChecked);
     setIsRadioChecked(true);
@@ -73,6 +74,7 @@ function LoginCred() {
       localStorage.setItem("EmpId", employeeId);
       setRole(userRole);
       setLoggedIn(true);
+      navigate("/SuperAdmin");
     } catch (error) {
       console.log(error);
       setErrorMessage(
