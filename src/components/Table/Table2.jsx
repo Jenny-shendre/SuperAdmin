@@ -24,12 +24,10 @@ const API_URL = import.meta.env.VITE_API_URL
 
 const Table2 = () => {
   const [valueinput, setvalueinput] = useState("");
-  const [uploadedImage, setUploadedImage] = useState(null);
   const [channelName, setChannelName] = useState("");
   const [address, setaddress] = useState("");
   const [phone, setphone] = useState("");
   const [showPopupAdd, setShowPopupAdd] = useState(false);
-  const [viewedItems, setViewedItems] = useState([]);
   const [channelEmailID, setChannelEmailID] = useState('');
   const [data, setdata] = useState([]);
 

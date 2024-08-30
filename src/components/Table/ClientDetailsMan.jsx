@@ -49,102 +49,7 @@ function ClientDetailsMang() {
 
   const [data2, setdata2] = useState([]);
 
-  /*const fetchData = async () => {
-    setLoading(true);
-
-    const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
-    setdata2(res2.data);
-
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);*/
-
-  //New
-
-  /*const handleOutsideClick = (event) => {
-    if (notePopupRef.current && !notePopupRef.current.contains(event.target)) {
-      setShowNotePopup(false);
-    }
-    if (
-      addNotePopupRef.current &&
-      !addNotePopupRef.current.contains(event.target)
-    ) {
-      setShowAddNotePopup(false);
-    }
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsDropdownOpen(false);
-    }
-    if (
-      projectDropdownRef.current &&
-      !projectDropdownRef.current.contains(event.target)
-    ) {
-      setIsProjectDropdownOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (
-      showNotePopup ||
-      showAddNotePopup ||
-      isDropdownOpen ||
-      isProjectDropdownOpen
-    ) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [showNotePopup, showAddNotePopup, isDropdownOpen, isProjectDropdownOpen]);*/
-
-  // Add team members popup logic
-
-  /*const [clientName, setclientName] = useState("");
-  const [project, setProject] = useState("");
-  const [briefing, setBriefing] = useState("");
-  const [isCreating, setIsCreating] = useState(false);
-  const [createStatus, setCreateStatus] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");*/ // state for error message
-
-
-
-  /*const handleProjectChange = (projectName) => {
-    setProject(projectName);
-    setIsProjectDropdownOpen(false);
-  };*/
-
-  /*const handleSubmit = async () => {
-    if (clientName && project && briefing) {
-      setIsCreating(true);
-      setErrorMessage(""); // Clear any previous error messages
-      console.log("Come");
-
-      const teamdata = {
-        clientName: clientName,
-        project: project,
-        briefing: briefing,
-      };
-
-      try {
-        // setCreateStatus("Note Successfully Added ✓");
-
-        console.log("Response send", teamdata);
-      } catch (error) {
-        console.error("Error creating Note:", error);
-        setCreateStatus("Error Creating Note");
-      } finally {
-        setIsCreating(false);
-      }
-    } else {
-      setErrorMessage("Please fill in all fields.");
-    }
-  };*/
-
+ 
   const handleOutsideClick = (event) => {
     if (addNotePopupRef.current && !addNotePopupRef.current.contains(event.target)) {
       setShowAddNotePopup(false);
@@ -344,7 +249,7 @@ function ClientDetailsMang() {
                       color: "#4B4B4B",
                       width:"135px",
                     }} className="px-4 py-2 ">Meeting Status</th>
-                    <th style={{                     
+                    {/* <th style={{                     
                       fontFamily: "Manrope",
                       fontSize: "12px",
                       fontWeight: "500",
@@ -352,7 +257,7 @@ function ClientDetailsMang() {
                       color: "#4B4B4B",
                      
                     }} className="px-4 py-2">
-                     Notes</th>
+                     Notes</th> */}
                    
                 
                   </tr>
@@ -439,7 +344,7 @@ function ClientDetailsMang() {
 
                           )}
                         </div>
-                        <td className="p-2 text-center">
+                        {/* <td className="p-2 text-center">
                   <div className="flex items-center gap-[10px]  justify-center space-x-2">
                     <button
                     style={{color:"#3D2314",cursor: "pointer",fontSize: "18px",}}>
@@ -450,7 +355,7 @@ function ClientDetailsMang() {
                     <TbEdit />
                     </button>
                   </div>
-                </td>
+                </td> */}
                       
                       </tr>
                     ))}
