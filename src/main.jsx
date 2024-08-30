@@ -20,9 +20,7 @@ import Table7 from "./components/Table/Table7.jsx";
 import OverviewPage from "./components/SalesExecutive/OverviewPage/OverviewPage.jsx";
 import Client from "./PagesSalesExecutive/Client.jsx";
 import Note from "./PagesSalesExecutive/Note.jsx";
-import OverviewEX from "./components/Overview/OverViewEX.jsx";
 import ClientM from "./PagesSalesManager/ClientM.jsx";
-import NotesM from "./PagesSalesManager/NoteM.jsx";
 import OverviewMang from "./components/Overview/OverViewMan.jsx";
 
 import LoginTwo from "./ForgotPass/LoginTwo.jsx";
@@ -31,16 +29,12 @@ import LoginFour from "./ForgotPass/LoginFour.jsx";
 import { PrivateRoute } from "./ForgotPass/PrivateRoute.jsx";
 import Table12 from "./components/Table/Team1.2.jsx";
 
-import Setting from "./components/SettingMang/Setting.jsx";
 import MyTeam from "./PagesSalesManager/MyTeam.jsx";
-import NotesDetailsMang from "./components/Table/NotesDetailsMang.jsx";
 import SettingEx from "./components/SettingExecutive/SettingEx.jsx";
-import NotePagesAdmin from "./components/Table/NotePagesAdmin.jsx";
 import SettingPageAdmin from "./components/SettingAdmin/SettingPageAdmin.jsx";
 import overviewID from "./components/Overview/NoteInput.jsx";
 import ViewMembers from "./components/Table/ViewMembers.jsx";
 import ClientHistory from "./components/Table/MyTeamMan2.jsx";
-import { IoMdMan } from "react-icons/io";
 import IDMan from "./components/EditForm/IDMan.jsx";
 
 const router = createBrowserRouter([

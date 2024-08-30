@@ -44,7 +44,7 @@ const Navber = () => {
   useEffect(() => {
     if (initialLoad) {
       setActiveItem("OverViewAdmin");
-      // navigate("/SuperAdmin");
+      navigate("/SuperAdmin");
       setInitialLoad(false); // Disable initial load after the first load
     } else {
       if (locationPath.startsWith("/SuperAdmin/Direct_Visitors")) {
@@ -67,9 +67,7 @@ const Navber = () => {
       else if (locationPath.startsWith("/SuperAdmin/View_Members")) {
         setActiveItem("Team");
       } 
-       else if (locationPath.startsWith("/SuperAdmin/Note_Pages")) {
-        setActiveItem("Note_Pages");
-      } else if (locationPath.startsWith("/SuperAdmin/SettingAdmin")) {
+       else if (locationPath.startsWith("/SuperAdmin/SettingAdmin")) {
         setActiveItem("SettingAdmin");
       } else {
         setActiveItem("OverViewAdmin");
@@ -99,7 +97,7 @@ const Navber = () => {
           />
         </Link>
         <ul className="flex flex-col " style={{ gap: "10px" }}>
-          <Link to="/SuperAdmin/">
+          <Link to="/SuperAdmin">
             <li
               style={{
                 fontFamily: "Manrope",
