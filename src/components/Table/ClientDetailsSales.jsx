@@ -31,7 +31,8 @@ function ClientDetails() {
 
 
   const [IdEmp, setIdEmp] = useState(
-    localStorage.getItem("EmpId") || "ROFEX10"
+    // localStorage.getItem("EmpId") || 
+    "ROFEX10"
   );
 
   const [showNotePopup, setShowNotePopup] = useState(false);
@@ -194,6 +195,23 @@ function ClientDetails() {
       );
     }
   };
+  const stopTime = () =>{
+    
+      setShowNotePopup(false);
+      setShowAddNotePopup(true);
+      setIsActive(false);
+      setEndCounter(formatTime(time));
+      const currentDate = new Date();
+      const formattedDate = format(currentDate, "dd MMM | hh:mm a");
+      setEndDateTime(formattedDate);
+      console.log(formattedDate);
+      meetingOvers(IdEmp);
+      console.log("StartTime", StartDateTime);
+      console.log("EndTime", formattedDate);
+  
+      TimeCal(StartDateTime, formattedDate);
+  
+  }
 
 
   const formatTime = (milliseconds) => {
@@ -483,6 +501,19 @@ function ClientDetails() {
                           fontWeight: "400",
                           lineHeight: "16.39px",
                           color: "#4B4B4B",
+                          textAlign: "center",
+                        }}
+                        className="py-2 px-4 "
+                      >
+                        Customer ID
+                      </th>
+                      <th
+                        style={{
+                          fontFamily: "Manrope",
+                          fontSize: "12px",
+                          fontWeight: "400",
+                          lineHeight: "16.39px",
+                          color: "#4B4B4B",
                           width: "180px",
                         }}
                         className="py-2 px-4 text-left"
@@ -540,19 +571,7 @@ function ClientDetails() {
                       >
                         End Time
                       </th>
-                      <th
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          lineHeight: "16.39px",
-                          color: "#4B4B4B",
-                          textAlign: "center",
-                        }}
-                        className="py-2 px-4 "
-                      >
-                        Notes
-                      </th>
+                     
                       <th
                         style={{
                           fontFamily: "Manrope",
@@ -582,6 +601,19 @@ function ClientDetails() {
                           className="py-2 px-2"
                         >
                           {DateupdatedAt(value.createdAt)}
+                        </td>
+                        <td style={{
+                            fontFamily: "Manrope",
+                            fontSize: "16px",
+                            fontWeight: "500",
+                            lineHeight: "21.86px",
+                            color: "#5C5C5C",
+                            borderBottom: "1px solid #E4E7EC",
+                            color:'#000AFF',
+                            textDecoration:'underline',
+                            textAlign:'center'
+                          }}>
+                          ROF001
                         </td>
                         <td
                           style={{
@@ -663,41 +695,7 @@ function ClientDetails() {
                         >
                           {EndCounter === 0 ? "00 : 00" : EndCounter}
                         </td>
-                        <td
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "16px",
-                            fontWeight: "500",
-                            lineHeight: "21.86px",
-                            color: "#5C5C5C",
-                            borderBottom: "1px solid #E4E7EC",
-                            textAlign: "-webkit-center",
-                          }}
-                          className="py-2 px-2"
-                        >
-                          {/* <img
-                            src={notify}
-                            onClick={
-                              (() =>
-                                togglePopup({
-                                  name: "Kapil Verma",
-                                  date: "26 June | 5:33 PM",
-                                  content:
-                                    "Discussed budget and preferred location. Client is interested in a 2-bedroom condo in a central area with easy access to public transportation. Suggested scheduling a property tour for next week.",
-                                }),
-                              endTimer())
-                            }
-                            style={{ cursor: "pointer" }}
-                          /> */}
-                          <img
-                            src={notify}
-                            onClick={() => {
-                              setShowNotePopup(false);
-                              setShowAddNotePopup(true);
-                            }}
-                            style={{ cursor: "pointer" }}
-                          />
-                        </td>
+                        
                         <td
                           style={{
                             fontFamily: "Manrope",
@@ -738,9 +736,10 @@ function ClientDetails() {
                               </span>
                             ) : (
                               <img
+                                
                                 src={stopButton}
                                 alt="Stop"
-                                onClick={() => endTimer()}
+                                onClick={ stopTime}
                               />
                             )}
                           </button>
@@ -932,7 +931,7 @@ function ClientDetails() {
 
         <br />
         <div style={{ textAlign: " -webkit-center" }}>
-          <div className="w-[1088px] ">
+          <div className="w-[1323px] ">
             <h2
               style={{
                 fontFamily: "Manrope",
@@ -966,6 +965,20 @@ function ClientDetails() {
                       className="py-2 px-4 text-left th1"
                     >
                       Name
+                    </th>
+                    <th
+                      style={{
+                        fontFamily: "Manrope",
+                        fontSize: "14px",
+                        fontWeight: "500",
+                        lineHeight: "19.12px",
+                        textAlign: "left",
+                        color: "#5C5C5C",
+                        textAlign: "center",
+                      }}
+                      className="py-2 px-4 text-left th1"
+                    >
+                      Customer ID
                     </th>
                     <th
                       style={{
@@ -1059,6 +1072,12 @@ function ClientDetails() {
                           className="py-4 px-4"
                         >
                           {visitor.ClientName}
+                        </td>
+                        <td
+                          style={{ borderBottom: "1px solid #E4E7EC", color:'#000AFF', textDecoration:'underline' }}
+                          className="py-4 px-4"
+                        >
+                          ROF001
                         </td>
                         <td
                           style={{ borderBottom: "1px solid #E4E7EC" }}
