@@ -206,8 +206,8 @@ const Table3 = () => {
               Rainbow Overseas
             </span>
           </h1>
-          <div className="flex flex-row items-center justify-start text-center flex items-center justify-center ml-80">
-            <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full mr-96">
+          <div className="flex flex-row">
+            <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full">
               <input
                 className=" w-[619px] h-[48px] py-2 px-12 rounded-full"
                 style={{

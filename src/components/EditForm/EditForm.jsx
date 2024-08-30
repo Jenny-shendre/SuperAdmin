@@ -164,7 +164,7 @@ const FormEdit = () => {
     };
 
     return (
-      <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col justify-between relative">
+      <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col relative" style={{alignSelf:'self-end'}}>
         <div style={{ marginTop: "-8px" }} className="flex space-x-2">
           <button
             onClick={handleBold}
@@ -677,7 +677,7 @@ const FormEdit = () => {
                   className="mb-4 text-center">
                   Notes Activity Log
                 </h2>
-
+                <div style={{height:'300px', overflowY:'scroll'}}>
                 <div className="space-y-4">
                   {FormData.notes && FormData.notes.length > 0 ? (
                     <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
@@ -692,40 +692,7 @@ const FormEdit = () => {
                           Sales Executive
                         </span>
                       </div>
-                      {/* <ul
-                      style={{ marginTop: "-4px" }}
-                      className="list-disc pl-5 text-sm ">
-                      <li
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "600",
-                          lineHeight: "16.39px",
-                        }}>
-                        Discussed potential scenario of the places and
-                        modifications.
-                      </li>
-                      <li
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "600",
-                          lineHeight: "16.39px",
-                        }}>
-                        Client expressed interest in a Hybrid program of the
-                        terrace effectiveness.
-                      </li>
-                      <li
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "600",
-                          lineHeight: "16.39px",
-                        }}>
-                        Next steps: Schedule a follow-up meeting to discuss
-                        pricing and contract terms.
-                      </li>
-                    </ul> */}
+                    
                       {FormData.notes}
                       <div
                         style={{
@@ -740,34 +707,15 @@ const FormEdit = () => {
                   ) : (
                     ""
                   )}
-                  {/* <div className="bg-[#E9E9E9] w-[507px] h-[97px] p-3 rounded">
-              <div className="flex items-center space-x-2 mb-2">
-                <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
-                <span style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"500"}}>Manager</span>
-              </div>
-              <ul style={{marginTop:"-4px"}} className="list-disc pl-5 text-sm ">
-                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px" }}>Great notes! I'd like to follow up with Clients [Contact Name] to discuss the Pricing program in more detail. Can you schedule a meeting with them?</li>
-               
-                
-              </ul>
-              <div style={{fontFamily:"Manrope" , fontSize:"8px" , fontWeight:"600"}} className=" text-right mt-2 text-[#4A4A4A]">25/07/2024, 02:00 PM</div>
-            </div>
-            
-            <div className="bg-[#E9E9E9] w-[507px] h-[97px] p-3 rounded">
-              <div className="flex items-center space-x-2 mb-2">
-                <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
-                <span style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"500"}}>Super Admin</span>
-              </div>
-              <ul style={{marginTop:"-4px"}} className="list-disc pl-5 text-sm ">
-                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px" }}>Great notes! I'd like to follow up with Clients [Contact Name] to discuss the Pricing program in more detail. Can you schedule a meeting with them?</li>
-               
-                
-              </ul>
-              <div style={{fontFamily:"Manrope" , fontSize:"8px" , fontWeight:"600"}} className=" text-right mt-2 text-[#4A4A4A]">25/07/2024, 02:00 PM</div>
-            </div> */}
+                 
                 </div>
-                <div className="mt-4 ">
+                </div>
+              
+                <div style={{display:'flex'}}>
+                  
                   <NoteInput />
+
+                  
                 </div>
               </div>
             </div>
