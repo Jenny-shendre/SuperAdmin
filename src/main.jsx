@@ -126,10 +126,7 @@ const router = createBrowserRouter([
         path: "teamName/:teamName/:employeeId",
         element: <PrivateRoute element={Table12} />,
       },
-      {
-        path: "Note_Pages",
-        element: <PrivateRoute element={NotePagesAdmin} />,
-      },
+      
       {
         path: "SettingAdmin",
         element: <PrivateRoute element={SettingPageAdmin} />,

@@ -696,11 +696,12 @@ function EditForm1() {
                             fontSize: "14px",
                             fontWeight: "400",
                             width: "92px",
+                            borderLeft:'1px solid grey'
                           }}>
                           Project
                         </th>
                         <th
-                          className="border-b p-2 bg-[#3D2314]"
+                          className="border-b bg-[#3D2314]"
                           style={{
                             fontSize: "14px",
                             fontWeight: "400",
@@ -723,7 +724,7 @@ function EditForm1() {
                               <td className="border-b p-2">
                                 {ResponseAt(item.createdAt)}
                               </td>
-                              <td className="border-b p-2">
+                              <td className="border-b p-2 text-[14px]">
                                 {item.projectName}
                               </td>
                               <td className="border-b p-2">
@@ -753,6 +754,7 @@ function EditForm1() {
                   className="mb-4 text-center">
                   Notes Activity Log
                 </h2>
+                <div style={{height:'300px', overflowY:'scroll'}}>
                 <div className="space-y-4">
                   {FormData.notes && FormData.notes.length > 0 ? (
                     <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
@@ -808,6 +810,7 @@ function EditForm1() {
               </ul>
               <div style={{fontFamily:"Manrope" , fontSize:"8px" , fontWeight:"600"}} className=" text-right mt-2 text-[#4A4A4A]">25/07/2024, 02:00 PM</div>
             </div> */}
+                </div>
                 </div>
                 <div className="mt-4 ">
                   <NoteInput />
