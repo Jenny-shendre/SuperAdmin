@@ -15,6 +15,7 @@ import { format } from "date-fns";
 import view from '../../assets/hugeicons_view (1).png';
 import edit from '../../assets/akar-icons_edit (2).png';
 import delt from '../../assets/material-symbols_delete-outline.png';
+import edit2 from '../../assets/akar-icons_edit (3).png';
 
 
 function ClientDetails() {
@@ -42,12 +43,14 @@ function ClientDetails() {
 
   const [showNotePopup, setShowNotePopup] = useState(false);
   const [showAddNotePopup, setShowAddNotePopup] = useState(false);
+  const [showEditNotePopup, setShowEditNotePopup] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
   const [loading, setLoading] = useState(false);
 
   const notePopupRef = useRef();
   const addNotePopupRef = useRef();
+  const EditNotePopupRef = useRef();
   const addManagerPopupRef = useRef();
   const addExecutivePopupRef = useRef(); //  ref for executive popup
   const dropdownRef = useRef();
@@ -73,6 +76,7 @@ function ClientDetails() {
   const handleOutsideClick = (event) => {
     if (notePopupRef.current && !notePopupRef.current.contains(event.target)) {
       setShowNotePopup(false);
+      setShowEditNotePopup(false)
     }
     if (
       addNotePopupRef.current &&
@@ -90,6 +94,7 @@ function ClientDetails() {
       setIsProjectDropdownOpen(false);
     }
   };
+
 
   useEffect(() => {
     if (
@@ -116,6 +121,8 @@ function ClientDetails() {
   const [isCreating, setIsCreating] = useState(false);
   const [createStatus, setCreateStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
+
+
 
   const handleProjectChange = (projectName) => {
     setProject(projectName);
@@ -436,6 +443,79 @@ function ClientDetails() {
   };
 
   // console.log("clientConversation", clientConversation);
+
+
+
+
+  //Delete PopUp
+  const [showDeletePopup, setDeleteShowPopup] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const handleDeleteClick = () => {
+    setDeleteId();
+    setDeleteShowPopup(true);
+  };
+  const confirmDelete =  () => {
+    // await axios.delete(
+    //   `https://project-rof.vercel.app/api/record/deleteRecord/${deleteId}`
+    // );
+    setDeleteShowPopup(false);
+    fetchData();
+  };
+
+
+
+  //Edir Note Popup
+
+  const [clientName2, setClientName2] = useState("");
+  const [briefing2, setBriefing2] = useState("");
+  const [projectName, setProjectName] = useState("");
+  const [showPopupEdit, setShowPopupEdit] = useState(false);
+
+  const [createStatus2, setCreateStatus2] = useState("close note");
+  const [isCreating2, setIsCreating2] = useState(false);
+  const popupRef = useRef();
+  const [errorMessage2, setErrorMessage2] = useState();
+
+  const handleSubmit2 = async () => {
+    setErrorMessage2("");
+
+    if (!clientName2 || !briefing2 || !projectName ) {
+   
+
+    const teamdata = {
+      name: clientName2,
+      briefing: briefing2,
+      project: projectName,
+     
+    };
+
+    console.log("Data to be sent:", teamdata);
+
+    setCreateStatus2("Registering Channel....");
+    setIsCreating2(true);
+
+    try {
+
+      console.log("Successfully Added:", res.data);
+
+      setCreateStatus2("Close note");
+
+      // resetForm();
+
+      // getData1();
+
+    } catch (error) {
+      console.error("Error editing note:", error);
+
+      setCreateStatus2("Error editing note");
+      errorMessage2(error.response?.data?.message || "An unexpected error occurred.");
+
+    } finally {
+      setIsCreating2(false);
+    }
+    }}
+
+
   return (
     <div>
       <div
@@ -751,153 +831,7 @@ function ClientDetails() {
                         </td>
                       </tr>
                     ))}
-                    {/* <tr>
-                      <td
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "16px",
-                          fontWeight: "500",
-                          lineHeight: "21.86px",
-                          color: "#5C5C5C",
-                          borderBottom: "1px solid #E4E7EC",
-                        }}
-                        className="py-2 px-2">
-                        26 June | 5:33 PM
-                      </td>
-                      <td
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "16px",
-                          fontWeight: "500",
-                          lineHeight: "21.86px",
-                          color: "#5C5C5C",
-                          borderBottom: "1px solid #E4E7EC",
-                          display: "flex",
-                          justifyContent: "space-between",
-                          textAlign: "center",
-                          alignContent: "center",
-                          alignItems: "center",
-                        }}>
-                        <span className="bg-[#EBEE5D] text-[#9E932A]  rounded px-[8px] py-[4px]">
-                          Existing
-                        </span>
-                        <span style={{ color: "#5C5C5C", fontSize: "18px" }}>
-                          Suraj Tiwari
-                        </span>
-                      </td>
-                      <td
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "16px",
-                          fontWeight: "500",
-                          lineHeight: "21.86px",
-                          color: "#5C5C5C",
-                          borderBottom: "1px solid #E4E7EC",
-                          textAlign: "center",
-                        }}
-                        className="py-2 px-2">
-                        Project Arisyas
-                      </td>
-                      <td
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "16px",
-                          fontWeight: "600",
-                          lineHeight: "21.86px",
-                          color: "#5C5C5C",
-                          borderBottom: "1px solid #E4E7EC",
-                          textAlign: "center",
-                        }}
-                        className="py-2 px-2">
-                        05 : 00
-                      </td>
-                      <td
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "16px",
-                          fontWeight: "500",
-                          lineHeight: "21.86px",
-                          color: "#5C5C5C",
-                          borderBottom: "1px solid #E4E7EC",
-                          textAlign: "center",
-                        }}
-                        className="py-2 px-2">
-                        -
-                      </td>
-                      <td
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "16px",
-                          fontWeight: "500",
-                          lineHeight: "21.86px",
-                          color: "#5C5C5C",
-                          borderBottom: "1px solid #E4E7EC",
-                          textAlign: "center",
-                        }}
-                        className="py-2 px-2">
-                        -
-                      </td>
-                      <td
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "16px",
-                          fontWeight: "500",
-                          lineHeight: "21.86px",
-                          color: "#5C5C5C",
-                          borderBottom: "1px solid #E4E7EC",
-                          textAlign: "-webkit-center",
-                        }}
-                        className="py-2 px-2">
-                        <img
-                          src={notify}
-                          onClick={() =>
-                            togglePopup({
-                              name: "Kapil Verma",
-                              date: "26 June | 5:33 PM",
-                              content:
-                                "Discussed budget and preferred location. Client is interested in a 2-bedroom condo in a central area with easy access to public transportation. Suggested scheduling a property tour for next week.",
-                            })
-                          }
-                          style={{ cursor: "pointer" }}
-                        />
-                      </td>
-                      <td
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "16px",
-                          fontWeight: "500",
-                          lineHeight: "21.86px",
-                          color: "#5C5C5C",
-                          borderBottom: "1px solid #E4E7EC",
-                          display: "flex",
-                          justifyContent: "space-around",
-                        }}
-                        className="py-2 px-2">
-                        <button
-                          className="text-green-500 mr-2 correct2"
-                          onClick={() =>
-                            handleCorrectClick("correct2", "cross2")
-                          }>
-                          {iconState.correct2 ? (
-                            "✓"
-                          ) : (
-                            <img src={backButtton} alt="Back" />
-                          )}
-                        </button>
-                        <button
-                          className="text-red-500 cross2"
-                          onClick={() =>
-                            iconState.correct2 === false &&
-                            handleCrossClick("correct2", "cross2")
-                          }>
-                          {iconState.cross2 ? (
-                            "✕"
-                          ) : (
-                            <img src={stopButton} alt="Stop" />
-                          )}
-                        </button>
-                      </td>
-                    </tr> */}
+
                   </tbody>
                 </table>
               </div>
@@ -1169,8 +1103,8 @@ function ClientDetails() {
                         >
                         <div className="flex justify-around">
                          <img src={view} />
-                         <img src={edit} />
-                         <img src={delt} />
+                         <img src={edit} style={{cursor:'pointer'}}  onClick={() => setShowPopupEdit(true)}/>
+                         <img src={delt} style={{cursor:'pointer'}} onClick={() => handleDeleteClick()}/>
                         
                         </div>
                          
@@ -1382,6 +1316,95 @@ function ClientDetails() {
             </div>
           </div>
         </>
+      )}
+      
+
+      {showDeletePopup && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div className="Delete-popup w-[257px] h-[192px] py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
+            <div className="text-center">
+              <p className="font-manrope text-[20px] font-medium">
+                Are you sure you want to delete this row?
+              </p>
+              <p className="font-manrope text-[12px] font-medium text-[#6A6A6A] mt-2">
+                This action cannot be undone.
+              </p>
+              <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
+                <button
+                  className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
+                  onClick={confirmDelete }
+                >
+                  Delete
+                </button>
+                <button
+                  className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
+                  onClick={() => setDeleteShowPopup(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+              <p className="font-manrope text-[12px] text-[#6A6A6A] font-medium text-center mt-2">
+                Select "Delete" to confirm.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+{showPopupEdit && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div
+            ref={popupRef}
+            className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
+          >
+            <button
+              className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+              onClick={() => setShowPopupEdit(false)}
+            >
+              X
+            </button>
+
+
+            <input
+              type="text"
+              className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
+              placeholder="Client Name"
+              value={clientName2}
+              onChange={(e) => setClientName2(e.target.value)}
+            />
+
+          
+            <input
+              type="text"
+              className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
+              placeholder="Choose Project"
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
+            />
+            <textarea
+              className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 "
+              style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
+              placeholder="Add your Briefing"
+              value={briefing2}
+              onChange={(e) => setBriefing2(e.target.value)}
+            />
+            <button
+              onClick={handleSubmit2}
+              className="`justify-between create-team-btn flex flex-wrap  h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
+              disabled={isCreating2}
+            > 
+            <img src={edit2} />
+              {isCreating ? createStatus2 : "Edit Note"}
+            </button>
+            {errorMessage && (
+              <p className="text-red-500 mt-2">{errorMessage}</p>
+            )}
+
+          </div>
+        </div>
       )}
     </div>
   );

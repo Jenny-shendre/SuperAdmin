@@ -92,9 +92,9 @@ const SideNav = () => {
               onClick={() => handleItemClick("Client")}
             >
               {activeItem === "Client" ? (
-                <img src={carbon_customer1} alt="" />
+                <img src={navicon2} alt="" />
               ) : (
-                <img src={carbon_customer2} alt="" />
+                <img src={navicon1} alt="" />
               )}
               Overview
             </li>
