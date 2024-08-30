@@ -12,6 +12,11 @@ import { BsThreeDots } from "react-icons/bs";
 import axios from "axios";
 import { format } from "date-fns";
 
+import view from '../../assets/hugeicons_view (1).png';
+import edit from '../../assets/akar-icons_edit (2).png';
+import delt from '../../assets/material-symbols_delete-outline.png';
+
+
 function ClientDetails() {
   const [showPopup, setShowPopup] = useState(false);
   const [currentNote, setCurrentNote] = useState(null);
@@ -605,13 +610,13 @@ function ClientDetails() {
                         <td style={{
                             fontFamily: "Manrope",
                             fontSize: "16px",
-                            fontWeight: "500",
+                            fontWeight: "700",
                             lineHeight: "21.86px",
                             color: "#5C5C5C",
                             borderBottom: "1px solid #E4E7EC",
                             color:'#000AFF',
                             textDecoration:'underline',
-                            textAlign:'center'
+                            textAlign:'center',
                           }}>
                           ROF001
                         </td>
@@ -961,6 +966,7 @@ function ClientDetails() {
                         textAlign: "left",
                         color: "#5C5C5C",
                         textAlign: "center",
+                        width:'126px'
                       }}
                       className="py-2 px-4 text-left th1"
                     >
@@ -1046,6 +1052,21 @@ function ClientDetails() {
                     >
                       Status
                     </th>
+                    <th
+                      style={{
+                        fontFamily: "Manrope",
+                        fontSize: "14px",
+                        fontWeight: "500",
+                        lineHeight: "19.12px",
+                        textAlign: "center",
+                        color: "#5C5C5C",
+                        width:'126px'
+                      }}
+                      className="py-2 px-4 text-left th1 flex justify-around"
+                    >
+                      <img src={notify} className=""/>
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody
@@ -1074,7 +1095,7 @@ function ClientDetails() {
                           {visitor.ClientName}
                         </td>
                         <td
-                          style={{ borderBottom: "1px solid #E4E7EC", color:'#000AFF', textDecoration:'underline' }}
+                          style={{ borderBottom: "1px solid #E4E7EC", color:'#000AFF', textDecoration:'underline',fontWeight:'700' }}
                           className="py-4 px-4"
                         >
                           ROF001
@@ -1142,6 +1163,21 @@ function ClientDetails() {
                             <button className="text-[#48A321] mr-2"></button>
                           </span> */}
                         </td>
+                        <td
+                          style={{ borderBottom: "1px solid #E4E7EC" }}
+                          className=" "
+                        >
+                        <div className="flex justify-around">
+                         <img src={view} />
+                         <img src={edit} />
+                         <img src={delt} />
+                        
+                        </div>
+                         
+                          
+                          
+                        </td>
+                        
                       </tr>
                     ))}
                 </tbody>
