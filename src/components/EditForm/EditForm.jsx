@@ -535,7 +535,7 @@ const FormEdit = () => {
                           padding: "10px 18px 10px 18px",
                         }}
                         name="responseTime"
-                        value={ResponseAt(FormData.createdAt)}
+                        value={FormData.timeResponse}
                         onChange={handleChange}
                         readOnly={true}
                       />

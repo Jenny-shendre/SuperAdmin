@@ -395,9 +395,9 @@ const Table3 = () => {
                         </td>
                         <td
                           className="py-1 border-b text-center max-w-[120px] overflow-hidden "
-                          title={item.channelPartnerCompanyName}
+                          title={item.channelPartnerName}
                         >
-                          {truncateText(item.channelPartnerCompanyName, 12)}
+                          {truncateText(item.channelPartnerName, 12)}
                         </td>
                         <td className="py-1 border-b text-center">
                           {item.agentPhoneNo || "9845443838"}
