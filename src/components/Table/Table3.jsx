@@ -423,7 +423,7 @@ const Table3 = () => {
                               alignItems: "center",
                             }}
                           >
-                            <Link to={`/SuperAdmin/EditForm2/${item._id}`}>
+                            <Link to={`/SuperAdmin/EditForm2/${item.partnerId}`}>
                               <PiNotePencilBold
                                 style={{
                                   cursor: "pointer",

@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 function ClientDetailsMang() {
   
   const [data, setData] = useState([]);
+  const [data1, setData1] = useState([]);
+
   const [valueinput, setvalueinput] = useState("");
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("All");
@@ -37,6 +39,12 @@ function ClientDetailsMang() {
   }
   return text || '';
 };
+
+const [email, setEmail] = useState(
+  localStorage.getItem("email")
+);
+
+console.log("Manager email", email);
 
 
 
@@ -73,9 +81,9 @@ function ClientDetailsMang() {
       const resData = res.data;
       // console.log("API Response Data:", responseData);
       const filteredData = resData.filter(item => item.role === "Client");
-      console.log("output", res.data);
-      setData(filteredData);
-      
+      // console.log("output", res.data);
+      setData(filteredData);     
+
       setLoading(false);
 
     } catch (error) {
