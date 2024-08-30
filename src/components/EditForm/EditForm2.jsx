@@ -1,89 +1,137 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
+import { format } from "date-fns";
 
 function EditForm2() {
   const [editMode, setEditMode] = useState(false);
-  const [data, setData] = useState({
+  const [FormData, setFormData] = useState({
     customerName: "",
-    customerMobileLastFour: "",
-    channelPartnerName: "",
     channelPartnerCompanyName: "",
-    _id: "",
+    channelPartnerName: "",
+    customerMobileLastFour: "",
+    partnerId: "",
     projectName: "",
-    attendantName: "",
+    createdAt: "",
+    responseTime: "",
+    timeDuration: "",
     createdAt: "",
     updatedAt: "",
-    __v: "",
-    executiveNotes: ""
   });
+  const [data, setData] = useState({});
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const params = useParams();
 
-  const fetchDataById = async () => {
+  const location = useLocation();
+  const pathname = location.pathname;
+  const id = pathname.substring(pathname.lastIndexOf("/") + 1);
+  console.log("location", id);
+
+
+
+
+
+  const getData = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(
-        `https://prodictivity-management-tool2.vercel.app/api/record/getRecordBy/${params.id}`
+        `https://project-rof.vercel.app/api/partners/fetch/${id}`
       );
-      setData(res.data);
-    } catch (err) {
-      console.error("Error fetching data:", err);
+      setFormData(res.data);
+      console.log("res.data", res.data);
+
+      const res1 = await axios.post(
+        `https://project-rof.vercel.app/api/partners/fetchByName`,
+        { channelPartnerName: res.data.channelPartnerName }
+      );
+
+      setData(res1.data);
+
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+  console.log("FormData", FormData);
+  console.log("Data", data);
+
+  useEffect(() => {
+    getData();
+  }, [id]);
+
+  //  ! time
+  const DateupdatedAt = (DateupdatedAt) => {
+    if (!DateupdatedAt) return "Invalid Date";
+    try {
+      const formattedDate = format(new Date(DateupdatedAt), "dd MMM yyyy");
+      return formattedDate;
+    } catch (error) {
+      return "Invalid Date";
     }
   };
 
-  useEffect(() => {
-    fetchDataById();
-  }, [params.id]);
+  const ResponseAt = (DateupdatedAt) => {
+    if (!DateupdatedAt) return "Invalid Date";
+    try {
+      const formattedDate = format(new Date(DateupdatedAt), "hh:mm a");
+      return formattedDate;
+    } catch (error) {
+      return "Invalid Date";
+    }
+  };
 
-  const [error, setError] = useState("")
+  const ResponseAtData = (DateupdatedAt) => {
+    if (!DateupdatedAt) return "Invalid Date";
+    try {
+      // Convert the ISO string to a Date object
+      const date = new Date(DateupdatedAt);
 
+      // Format the date into the desired format
+      const formattedDate = format(date, "dd MMM yyyy hh:mm a");
+
+      return formattedDate;
+    } catch (error) {
+      return "Invalid Date";
+    }
+  };
+
+  // Handler to update the state
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'customerMobileLastFour') {
-      if (/^\d*$/.test(value) && value.length <= 4) {
-        setData((prevData) => ({
-          ...prevData,
-          [name]: value,
-        }));
-        if (value.length === 4) {
-          setError("");
-        } else {
-          setError("Please enter exactly 4 digits.");
-        }
-      }
+
+    // If the input field is 'customerMobileLastFour', restrict to 4 digits
+    if (name === "customerMobileLastFour") {
+      // Only allow digits and restrict length to 4
+      const newValue = value.replace(/\D/g, "").slice(0, 4);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: newValue,
+      }));
     } else {
-      setData((prevData) => ({
-        ...prevData,
+      setFormData((prevFormData) => ({
+        ...prevFormData,
         [name]: value,
       }));
     }
   };
 
-  const handleSubmit = async () => {
-    if (error) {
-      alert("Please correct the errors before submitting.");
-      return;
-    }
-    try {
-      await axios.put(
-        `https://prodictivity-management-tool2.vercel.app/api/record/updateRecord/${params.id}`,
-        data
-      );
-      alert("Data updated successfully!");
-      setEditMode(!editMode);
-    } catch (err) {
-      console.error("Error updating data:", err);
-      alert("Error updating data.");
-    }
-  };
+  const toggleEditMode = async (id) => {
+    setEditMode(!editMode);
 
-  const toggleEditMode = () => {
-    if (editMode) {
-      handleSubmit()
-    } else {
-      setEditMode(true);
+    try {
+      const res = await axios.put(
+        `https://project-rof.vercel.app/api/partners/update/${id}`,
+        {
+          ...FormData,
+        }
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -98,11 +146,8 @@ function EditForm2() {
                 fontFamily: "Poppins",
                 fontSize: "24px",
                 fontWeight: "500",
-              }}
-            >
-              <Link to="/SuperAdmin">
-                Home
-              </Link>
+              }}>
+              <Link to="/SuperAdmin">Home</Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <Link
                 to="/SuperAdmin/Channel_Partners"
@@ -111,19 +156,18 @@ function EditForm2() {
                   fontWeight: "400",
                   fontSize: "24px",
                 }}
-                className="font-medium"
-              >
+                className="font-medium">
                 Channel Partners
               </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-              <Link to="/SuperAdmin/Rainbow_overseas"
+              <Link
+                to="/SuperAdmin/Rainbow_overseas"
                 style={{
                   fontFamily: "Poppins",
                   fontWeight: "400",
                   fontSize: "24px",
                 }}
-                className="font-medium"
-              >
+                className="font-medium">
                 Rainbow Overseas
               </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
@@ -133,104 +177,121 @@ function EditForm2() {
                   fontWeight: "400",
                   fontSize: "24px",
                 }}
-                className="font-medium"
-              >
+                className="font-medium">
                 Edit
               </span>
             </h1>
           </div>
         </div>
 
-        <div className="flex pr-[50px]" style={{ justifyContent: 'end' }}>
+        <div className="flex pr-[50px]" style={{ justifyContent: "end" }}>
           <button
             className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
-            onClick={toggleEditMode}
-          >
+            onClick={() => toggleEditMode(FormData._id)}>
             <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
               <FaRegEdit />
             </h4>
-            <p className="text-[16px]">
-              {editMode ? "Save" : "Edit Details"}
-            </p>
+            <p className="text-[16px]">{editMode ? "Save" : "Edit Details"}</p>
           </button>
-
         </div>
         <main className="flex flex-wrap gap-5 pl-[50px]">
           <div
             className="lg:w-[695px] lg:h-[792px] bg-[#FFFFFF] p-[24px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 lg:mr-4"
-            style={{ borderRadius: "24px" }}
-          >
+            style={{ borderRadius: "24px" }}>
             <h2
               className="text-[20px] text-center font-[Manrope] mb-4"
-              style={{ fontWeight: "700" }}
-            >
+              style={{ fontWeight: "700" }}>
               Customer and Channel Partner Detail
             </h2>
-            <form id="editForm" onSubmit={handleSubmit}>
+            <form>
               <div>
                 <div>
                   <div className="flex flex-wrap gap-[40px]">
                     <div>
                       <label
-                        htmlFor="customerName"
+                        htmlFor="first_name"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500" }}
-                      >
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Customer Name
                       </label>
                       <input
-                        disabled={!editMode}
                         type="text"
-                        id="customerName"
+                        pattern="[a-zA-Z]+"
+                        class="form-control"
+                        id="first_name"
                         name="customerName"
-                        className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ padding: "10px 18px" }} //tc-1
+                        value={FormData.customerName}
+                        className="lg:w-[393px] lg:h-[47px] border-[2px] border-[#3D2314] rounded-lg mt-1 text-[Manrope] p-2"
                         placeholder="Anand Jaiswal"
-                        value={data.customerName}
-                        onChange={handleChange}
                         required
+                        readOnly={!editMode}
+                        onChange={handleChange}
+                        style={{
+                          fontFamily: "Manrope",
+                          padding: "10px 18px",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                       />
                     </div>
                     <div>
                       <label
-                        htmlFor="customerMobileLastFour"
+                        htmlFor="phone"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                      >
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Last 4 Digit
                       </label>
                       <input
-                        disabled={!editMode}
                         type="text"
-                        id="customerMobileLastFour"
+                        id="phone"
                         name="customerMobileLastFour"
+                        value={FormData.customerMobileLastFour}
                         className="lg:w-[214px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ padding: "10px 18px" }}
+                        maxLength="4"
                         placeholder="1 4 6 5"
-                        value={data.customerMobileLastFour}
-                        onChange={handleChange}
+                        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                         required
+                        readOnly={!editMode}
+                        onChange={handleChange}
+                        style={{
+                          textAlign: "center",
+                          padding: "10px 18px",
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                       />
-                      {error && <p style={{ color: 'red' }}>{error}</p>}
                     </div>
                   </div>
                   <div className="lg:mt-1">
                     <label
-                      htmlFor="channelPartnerName"
-                      className="block text-[#000000] text-[16px] font-[Manrope] w-[393px] h-[22px]"
-                    >
+                      htmlFor=" Channel Name"
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                       Channel Name
                     </label>
                     <input
-                      disabled
                       type="text"
-                      id="channelPartnerName"
-                      name="channelPartnerName"
+                      id=" Channel Name"
+                      name="channelPartnerCompanyName"
+                      value={FormData.channelPartnerCompanyName}
                       className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      style={{ padding: "10px 18px" }}
+                      style={{
+                        fontFamily: "Manrope",
+                        padding: "10px 18px",
+                        fontWeight: "600",
+                        fontSize: "20px",
+                        lineHeight: "27.32px",
+                        padding: "10px 18px 10px 18px",
+                      }}
                       placeholder="Rainbow Overseas Pvt Ltd"
-                      value={data.channelPartnerName}
-                      onChange={handleChange}
                       required
+                      readOnly={true}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -239,40 +300,55 @@ function EditForm2() {
                   <div className="flex flex-wrap gap-[40px]">
                     <div>
                       <label
-                        htmlFor="channelPartnerCompanyName"
+                        htmlFor="  Channel Partner Name"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                      >
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Channel Partner Name
                       </label>
                       <input
-                        disabled={!editMode}
                         type="text"
-                        id="channelPartnerCompanyName"
-                        name="channelPartnerCompanyName"
+                        id="  Channel Partner Name"
+                        name="channelPartnerName"
+                        value={FormData.channelPartnerName}
                         className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ padding: "10px 18px" }}
+                        style={{
+                          fontFamily: "Manrope",
+                          padding: "10px 18px",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         placeholder="Sameer Chowdhary"
-                        value={data.channelPartnerCompanyName}
-                        onChange={handleChange}
                         required
+                        readOnly={true}
+                        onChange={handleChange}
                       />
                     </div>
                     <div>
                       <label
-                        htmlFor="channelPartnerID"
+                        htmlFor="Channel Partner ID"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                      >
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Channel Partner ID
                       </label>
                       <input
-                        disabled
+                        readOnly={true}
                         type="text"
-                        id="channelPartnerID"
-                        name="channelPartnerID"
+                        name="partnerId"
+                        id="Channel Partner ID"
+                        value={FormData.partnerId}
+                        onChange={handleChange}
                         className="lg:w-[214px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ padding: "10px 18px" }}
+                        style={{
+                          fontFamily: "Manrope",
+                          padding: "10px 18px",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         placeholder="CHROF0001"
-                        value={data.partnerId}
                         required
                       />
                     </div>
@@ -280,45 +356,57 @@ function EditForm2() {
 
                   <div className="lg:mt-1">
                     <label
-                      htmlFor="projectName"
-                      className="block text-[#000000] text-[16px] font-[Manrope] w-[393px] h-[22px]"
-                      style={{ fontWeight: "500" }}
-                    >
+                      htmlFor="Project "
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                       Project
                     </label>
                     <input
-                      disabled
                       type="text"
-                      id="projectName"
+                      id="Project"
                       name="projectName"
-                      className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      style={{ padding: "10px 18px" }}
-                      placeholder="Project A"
-                      value={data.projectName}
+                      value={FormData.projectName}
                       onChange={handleChange}
+                      className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      style={{
+                        fontFamily: "Manrope",
+                        padding: "10px 18px",
+                        fontWeight: "600",
+                        fontSize: "20px",
+                        lineHeight: "27.32px",
+                        padding: "10px 18px 10px 18px",
+                      }}
+                      placeholder="Project A"
                       required
+                      readOnly={true}
                     />
                   </div>
 
                   <div className="lg:mt-1">
                     <label
-                      htmlFor="attendantName"
-                      className="block text-[#000000] text-[16px] font-[Manrope] w-[393px] h-[22px]"
-                      style={{ fontWeight: "500" }}
-                    >
+                      htmlFor="attendant"
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                       Attendant
                     </label>
                     <input
-                      disabled
                       type="text"
-                      id="attendantName"
+                      id="attendant"
                       name="attendantName"
-                      className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1 "
-                      style={{ padding: "10px 18px" }}
-                      placeholder="Samyak Gandhi"
-                      value={data.attendantName}
+                      value={FormData.attendantName}
                       onChange={handleChange}
+                      className="lg:w-[393px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      style={{
+                        fontFamily: "Manrope",
+                        padding: "10px 18px",
+                        fontWeight: "600",
+                        fontSize: "20px",
+                        lineHeight: "27.32px",
+                        padding: "10px 18px 10px 18px",
+                      }}
+                      placeholder="Samyak Gandhi"
                       required
+                      readOnly={true}
                     />
                   </div>
                 </div>
@@ -327,49 +415,73 @@ function EditForm2() {
                   <div>
                     <label
                       className="block text-[#000000] text-[16px] font-[Manrope]"
-                      style={{ fontWeight: "500" }}
-                    >
+                      style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                       Date
                     </label>
                     <input
-                      disabled
-                      type="date"
+                      type="text"
                       name="createdAt"
-                      className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      value={data.createdAt}
+                      readOnly={true}
+                      value={DateupdatedAt(FormData.createdAt)}
                       onChange={handleChange}
+                      className="lg:w-[149px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      style={{
+                        textAlign: "center",
+                        padding: "10px 18px",
+                        fontFamily: "Manrope",
+                        fontWeight: "600",
+                        fontSize: "20px",
+                        lineHeight: "27.32px",
+                        padding: "10px 18px 10px 18px",
+                      }}
                     />
                   </div>
                   <div>
                     <label
                       className="block text-[#000000] text-[16px] font-[Manrope]"
-                      style={{ fontWeight: "500" }}
-                    >
+                      style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                       Response Time
                     </label>
                     <input
-                      disabled
-                      type="time"
-                      name="updatedAt"
-                      className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      value={data.updatedAt}
+                      type="text"
+                      readOnly={true}
+                      value={FormData.timeResponse}
                       onChange={handleChange}
+                      name="responseTime"
+                      className="lg:w-[149px] lg:h-[47px] border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      style={{
+                        textAlign: "center",
+                        padding: "10px 18px",
+                        fontFamily: "Manrope",
+                        fontWeight: "600",
+                        fontSize: "20px",
+                        lineHeight: "27.32px",
+                        padding: "10px 18px 10px 18px",
+                      }}
                     />
                   </div>
                   <div>
                     <label
                       className="block text-[#000000] text-[16px] font-[Manrope]"
-                      style={{ fontWeight: "500" }}
-                    >
+                      style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                       Meeting Duration
                     </label>
                     <input
-                      disabled
-                      type="time"
-                      name="__v"
-                      className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                      value={data.__v}
+                      type="text"
+                      readOnly={true}
+                      name="timeDuration"
+                      value={FormData.timeDuration}
                       onChange={handleChange}
+                      className="lg:w-[149px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      style={{
+                        textAlign: "center",
+                        padding: "10px 18px",
+                        fontFamily: "Manrope",
+                        fontWeight: "600",
+                        fontSize: "20px",
+                        lineHeight: "27.32px",
+                        padding: "10px 18px 10px 18px",
+                      }}
                     />
                   </div>
                 </div>
@@ -377,18 +489,24 @@ function EditForm2() {
                 <div className="textarear-comp">
                   <div className="mt-1">
                     <label
-                      className="block text-[#000000] text-[16px] font-[Manrope] "
-                      style={{ fontWeight: "500" }}
-                    >
-                      Executive Notes
+                      className="block text-[#000000] text-[16px] font-[Manrope]"
+                      style={{ fontWeight: "500", fontFamily: "Manrope" }}>
+                      Important Remarks
                     </label>
                     <textarea
-                      disabled={!editMode}
-                      name="executiveNotes"
-                      className="lg:w-[641px] lg:h-[173px] border-[2px] border-[#3D2314] rounded-lg mt-1 px-[18px] py-[10px]"
-                      value={data.executiveNotes}
+                      className="lg:w-[641px] lg:h-[153px] border-[2px] border-[#3D2314] rounded-lg mt-1 "
+                      style={{
+                        fontFamily: "Manrope",
+                        fontWeight: "600",
+                        fontSize: "20px",
+                        lineHeight: "27.32px",
+                        padding: "10px 18px 10px 18px",
+                      }}
+                      name="notes"
                       onChange={handleChange}
-                    ></textarea>
+                      readOnly={!editMode}>
+                      {FormData.notes}
+                    </textarea>
                   </div>
                 </div>
               </div>

@@ -72,6 +72,8 @@ function LoginCred() {
       const { token, role: userRole, employeeId } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("EmpId", employeeId);
+      localStorage.setItem("email", email);
+
       setRole(userRole);
       setLoggedIn(true);
       navigate("/SuperAdmin");

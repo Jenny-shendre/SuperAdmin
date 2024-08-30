@@ -27,7 +27,6 @@ import {
 import { data } from "autoprefixer";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import { BargraphData, dealsClosedResponse, fetchChannelVisitors, fetchDirectVisitors, fetchTotalMeetings, StaffOnline } from '../../Services/OverviewAPIs';
 
 ChartJS.register(
   CategoryScale,
@@ -176,8 +175,16 @@ const OverViewAdmin = () => {
     setIsOpen(!isOpen);
   };
 
+  // useEffect(() => {
+
+  //   handleOptionClick(selectedOpt);
+  // }, [selectedOpt]);
+
+
+
   const handleOptionClick = async (opt) => {
-    console.log(opt, "OPTINIOIN");
+    console.log(`Option selected: ${opt}`); 
+
     setSelectedOpt(opt);
     setIsOpen(false);
     try {
@@ -198,8 +205,11 @@ const OverViewAdmin = () => {
         BargraphData(opt.toLowerCase()),
         TopExecutivePerformer(opt.toLowerCase()),
       ]);
-      console.log(directData, "VIsittore=sakfjhdsfjk");
 
+      console.log('Direct Data:', directData);  // Log API responses
+      console.log('Channel Data:', channelData);
+      console.log('Meetings Data:', meetingsData);
+  
       setDirectVisitors(directData?.numberOfDirectVisitors || 23);
       setChannelVisitors(channelData.numberOfChannelVisitors || 0);
       setTotalMeetings(meetingsData.totalMeetings || 0);
@@ -212,9 +222,12 @@ const OverViewAdmin = () => {
     }
   };
 
+
   useEffect(() => {
     handleOptionClick(selectedOpt);
-  }, [selectedOpt]);
+}, [selectedOpt]); 
+
+
 
   return (
     <div className=" h-[1024px] p-6 overview" >
@@ -473,7 +486,7 @@ const OverViewAdmin = () => {
 
         {/* 2nd table */}
 
-       
+
 
         <div className="w-[417px] h-[47px]  ">
           <div>
@@ -1134,50 +1147,50 @@ Notes */}
         </Link>
 
         {/* Graph */}
-<div className=" mt-1">
-<div
-          className="graph-div bg-white shadow rounded-lg p-[24px]  w-[874px] h-[380px] "
-          style={{ marginTop: "-400px" }}>
+        <div className=" mt-1">
           <div
-            style={{
-              marginTop: "-15px",
-              fontfamily: "Manrope",
-              fontsize: "14px",
-              fontweight: " 600",
-              lineheight: " 19.12px",
-              textalign: "left",
-            }}>
-            Most Meeting Hour
-          </div>
-          <div
-            style={{
-              marginTop: "-6px",
-              borderBottom: "3px dashed #3D2314",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-            className="mt-2  text-[#632E04] ">
-            <span
+            className="graph-div bg-white shadow rounded-lg p-[24px]  w-[874px] h-[380px] "
+            style={{ marginTop: "-400px" }}>
+            <div
               style={{
-                fontFamily: "Poppins",
-                fontWeight: "500",
-                fontSize: "44px",
+                marginTop: "-15px",
+                fontfamily: "Manrope",
+                fontsize: "14px",
+                fontweight: " 600",
+                lineheight: " 19.12px",
+                textalign: "left",
               }}>
-              01-02 PM
-            </span>
-            <span style={{ fontSize: "18px", color: "black" }}>Today</span>
-          </div>
-          <div className="graphBar h-[260px]">
-            <Bar
-              style={{ borderRadius: "4px" }}
-              data={data}
-              options={options}
-            />
+              Most Meeting Hour
+            </div>
+            <div
+              style={{
+                marginTop: "-6px",
+                borderBottom: "3px dashed #3D2314",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+              className="mt-2  text-[#632E04] ">
+              <span
+                style={{
+                  fontFamily: "Poppins",
+                  fontWeight: "500",
+                  fontSize: "44px",
+                }}>
+                01-02 PM
+              </span>
+              <span style={{ fontSize: "18px", color: "black" }}>Today</span>
+            </div>
+            <div className="graphBar h-[260px]">
+              <Bar
+                style={{ borderRadius: "4px" }}
+                data={data}
+                options={options}
+              />
+            </div>
           </div>
         </div>
-</div>
 
-      
+
       </div>
     </div>
   );
