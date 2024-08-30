@@ -11,6 +11,8 @@ import PhoneIcon from "../../assets/phone.png";
 
 const ViewMembers = () => {
   const [data, setData] = useState([]);
+  const [managerData, setManagerdata] = useState([]);
+
   // const [deleteData, setDeleteData] = useState(null);
   const [executiveName, setExecutiveName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,6 +25,7 @@ const ViewMembers = () => {
   const [showAddExecutivePopup, setShowAddExecutivePopup] = useState(false); // state for executive popup
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
+  const [data2, setdata2] = useState([]);
 
   const teamPopupRef = useRef();
   const addTeamMemberPopupRef = useRef();
@@ -32,6 +35,7 @@ const ViewMembers = () => {
   const projectDropdownRef = useRef(); // ref for project dropdown
 
 
+
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -39,6 +43,16 @@ const ViewMembers = () => {
         `https://project-rof.vercel.app/api/ViewMembers/ViewMembers`
       );
       setData(res.data);
+
+      const res1 = await axios.get(
+        "https://project-rof.vercel.app/api/salesManager/fetch-all"
+      );
+      setManagerdata(res1.data);
+
+
+      const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
+      setdata2(res2.data);
+
       setLoading(false);
     } catch (error) {
       console.log(error.massage);
@@ -223,7 +237,6 @@ const ViewMembers = () => {
           teamdata
         );
         console.log("res", res);
-        setdata1((prevData) => [...prevData, res.data]); // Update state with new team data
         setCreateStatus("Team Created Successfully ✓");
         resetTeamForm();
         console.log("Response send", teamdata);
@@ -308,13 +321,18 @@ const ViewMembers = () => {
         setManagerCreateStatus("Manager Created Successfully ✓");
         console.log("Response send", res);
 
-        // Fetch the updated list of managers after successful creation
         const updatedManagers = await axios.get(
           "https://project-rof.vercel.app/api/salesManager/fetch-all"
         );
-        setdata(updatedManagers.data); // Assuming setdata is used for storing managers data
+        setManagerdata(updatedManagers.data);
 
-        console.log("Updated Managers:", updatedManagers.data);
+        // Fetch and update member data
+        const updatedMembers = await axios.get(
+          "https://project-rof.vercel.app/api/ViewMembers/ViewMembers"
+        );
+        setData(updatedMembers.data);
+
+
 
       } catch (error) {
         console.error("Error creating manager:", error);
@@ -385,6 +403,13 @@ const ViewMembers = () => {
         console.log("res", res);
         setExecutiveCreateStatus("Executive Created Successfully ✓");
         console.log("Response send", res);
+
+        // Fetch and update member data
+        const updatedMembers = await axios.get(
+          "https://project-rof.vercel.app/api/ViewMembers/ViewMembers"
+        );
+        setData(updatedMembers.data);
+
       } catch (error) {
         console.error("Error creating executive:", error);
         setExecutiveCreateStatus("Error Creating Executive");
@@ -404,7 +429,7 @@ const ViewMembers = () => {
     return text || "";
   };
 
- 
+
 
   const handleDelete = async (deleteId) => {
     try {
@@ -478,7 +503,7 @@ const ViewMembers = () => {
               />
             </div>
             <button
-             onClick={() => setShowTeamPopup(!showTeamPopup)}
+              onClick={() => setShowTeamPopup(!showTeamPopup)}
               className="add-team-button bg-[#3D2314] text-white flex  rounded-full items-center justify-center ml-10 mt-4 lg:mt-0"
               style={{
                 height: "48px",
@@ -500,49 +525,49 @@ const ViewMembers = () => {
               </svg>
               Add
             </button>
-             {/* Add teams buttons */}
-          {showTeamPopup && (
-                <>
-                  <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
-                  <div
-                    ref={teamPopupRef}
-                    className="ml-[620px] mt-[220px] team-creation-popup w-[125px] h-[147px] rounded-[4px] bg-white absolute z-50 flex flex-col justify-between"
+            {/* Add teams buttons */}
+            {showTeamPopup && (
+              <>
+                <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+                <div
+                  ref={teamPopupRef}
+                  className="ml-[620px] mt-[220px] team-creation-popup w-[125px] h-[147px] rounded-[4px] bg-white absolute z-50 flex flex-col justify-between"
+                >
+                  <button
+                    className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
+                    onClick={() => {
+                      setShowTeamPopup(false);
+                      setShowAddTeamMemberPopup(true);
+                      resetTeamForm();
+                    }}
                   >
-                    <button
-                      className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
-                      onClick={() => {
-                        setShowTeamPopup(false);
-                        setShowAddTeamMemberPopup(true);
-                        resetTeamForm();
-                      }}
-                    >
-                      Add Team
-                    </button>
-                    <button
-                      className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
-                      onClick={() => {
-                        setShowTeamPopup(false);
-                        setShowAddManagerPopup(true);
-                        resetManagerForm();
-                      }}
-                    >
-                      Add Manager
-                    </button>
-                    <button
-                      className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
-                      onClick={() => {
-                        setShowTeamPopup(false);
-                        setShowAddExecutivePopup(true);
-                        resetExecutiveForm();
-                      }}
-                    >
-                      Add Executive
-                    </button>
-                  </div>
-                </>
-              )}
+                    Add Team
+                  </button>
+                  <button
+                    className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
+                    onClick={() => {
+                      setShowTeamPopup(false);
+                      setShowAddManagerPopup(true);
+                      resetManagerForm();
+                    }}
+                  >
+                    Add Manager
+                  </button>
+                  <button
+                    className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
+                    onClick={() => {
+                      setShowTeamPopup(false);
+                      setShowAddExecutivePopup(true);
+                      resetExecutiveForm();
+                    }}
+                  >
+                    Add Executive
+                  </button>
+                </div>
+              </>
+            )}
           </div>
-         
+
           <div className="outer-wrapper text-center flex items-center justify-center mt-[20px]">
             <div className="table-wrapper" style={{ width: "1013px" }}>
               <table
@@ -683,8 +708,8 @@ const ViewMembers = () => {
                               lineHeight: "21.86px",
                             }}>
                             {member &&
-                            member.employeeId &&
-                            member.employeeId.length > 0
+                              member.employeeId &&
+                              member.employeeId.length > 0
                               ? member.employeeId
                               : "not found"}
                           </div>
@@ -802,7 +827,7 @@ const ViewMembers = () => {
                   <div className="delete-cont flex justify-center items-center w-[197px] ml-1 h-[33px] gap-6 mt-4">
                     <button
                       className="w-[85px]  h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-                     
+
                       onClick={() => handleDelete(deleteId)}
 
                     >
@@ -824,8 +849,8 @@ const ViewMembers = () => {
               </div>
             </div>
           )}
-               {/* Add team member screen */}
-               {showAddTeamMemberPopup && (
+          {/* Add team member screen */}
+          {showAddTeamMemberPopup && (
             <>
               <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
               <div
@@ -890,7 +915,7 @@ const ViewMembers = () => {
                       </div>
                       {isDropdownOpen && (
                         <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
-                          {data.map((sales) => (
+                          {managerData.map((sales) => (
                             <div
                               key={sales.name}
                               className="p-2 cursor-pointer hover:bg-gray-200"
