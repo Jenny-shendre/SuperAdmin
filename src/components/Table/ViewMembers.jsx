@@ -1,17 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import axios from "axios";
 import Loading from "../Loding/Loding";
+import DropIcon from "../../assets/DropIcon.png";
+import EmailIcon from "../../assets/email.png";
+import PhoneIcon from "../../assets/phone.png";
+
 
 const ViewMembers = () => {
   const [data, setData] = useState([]);
   // const [deleteData, setDeleteData] = useState(null);
+  const [executiveName, setExecutiveName] = useState("");
   const [loading, setLoading] = useState(false);
   const [valueinput, setvalueinput] = useState("");
   const [deleteId, setDeleteId] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [showTeamPopup, setShowTeamPopup] = useState(false);
+  const [showAddTeamMemberPopup, setShowAddTeamMemberPopup] = useState(false);
+  const [showAddManagerPopup, setShowAddManagerPopup] = useState(false);
+  const [showAddExecutivePopup, setShowAddExecutivePopup] = useState(false); // state for executive popup
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
+
+  const teamPopupRef = useRef();
+  const addTeamMemberPopupRef = useRef();
+  const addManagerPopupRef = useRef();
+  const addExecutivePopupRef = useRef(); //  ref for executive popup
+  const dropdownRef = useRef();
+  const projectDropdownRef = useRef(); // ref for project dropdown
 
 
   const fetchData = async () => {
@@ -28,6 +46,365 @@ const ViewMembers = () => {
 
     }
   };
+
+  const handleOutsideClick = (event) => {
+    if (teamPopupRef.current && !teamPopupRef.current.contains(event.target)) {
+      setShowTeamPopup(false);
+    }
+    if (
+      addTeamMemberPopupRef.current &&
+      !addTeamMemberPopupRef.current.contains(event.target)
+    ) {
+      setShowAddTeamMemberPopup(false);
+    }
+    if (
+      addManagerPopupRef.current &&
+      !addManagerPopupRef.current.contains(event.target)
+    ) {
+      setShowAddManagerPopup(false);
+    }
+    if (
+      addExecutivePopupRef.current &&
+      !addExecutivePopupRef.current.contains(event.target)
+    ) {
+      setShowAddExecutivePopup(false);
+    }
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+    if (
+      projectDropdownRef.current &&
+      !projectDropdownRef.current.contains(event.target)
+    ) {
+      setIsProjectDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (
+      showTeamPopup ||
+      showAddTeamMemberPopup ||
+      showAddManagerPopup ||
+      showAddExecutivePopup ||
+      isDropdownOpen ||
+      isProjectDropdownOpen
+    ) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [
+    showTeamPopup,
+    showAddTeamMemberPopup,
+    showAddManagerPopup,
+    showAddExecutivePopup,
+    isDropdownOpen,
+    isProjectDropdownOpen,
+  ]);
+
+  // Add team members popup logic
+
+  const [teamName, setTeamName] = useState("");
+  const [project, setProject] = useState("");
+  const [manager, setManager] = useState("");
+  const [members, setMembers] = useState([]);
+  const [newMember, setNewMember] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedSuggestion, setSelectedSuggestion] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+  const [createStatus, setCreateStatus] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // state for error message
+
+  const resetTeamForm = () => {
+    setTeamName("");
+    setProject("");
+    setManager("");
+    setMembers([]);
+    setNewMember("");
+    setCreateStatus("");
+    setErrorMessage("");
+  };
+
+  // const handleAddMember = () => {
+  //   if (newMember.trim() && !members.includes(newMember.trim())) {
+  //     setMembers([...members, newMember.trim()]);
+  //     setNewMember("");
+  //   }
+  // };
+
+  const handleAddMember = (member) => {
+    if (member.trim() && !members.includes(member.trim())) {
+      setMembers([...members, member.trim()]);
+      setNewMember("");
+      setSuggestions([]);
+    }
+  };
+
+  const handleRemoveMember = (member) => {
+    setMembers(members.filter((m) => m !== member));
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && selectedSuggestion) {
+      handleAddMember(selectedSuggestion);
+      setSelectedSuggestion(null); // Clear the selected suggestion after adding
+
+    }
+  };
+
+  // const handleKeyDown = (e) => {
+  //   if (e.key === "Enter") {
+  //     handleAddMember();
+  //   }
+  // };
+
+  const handleInputChange = async (e) => {
+    const inputValue = e.target.value.toLowerCase();
+    setNewMember(inputValue);
+
+    if (inputValue.trim()) {
+      try {
+        const res = await axios.get(
+          `https://project-rof.vercel.app/api/attendants/fetch-all?name=${inputValue.trim()}`
+        );
+        // Filter suggestions based on case-insensitive comparison
+        const filteredSuggestions = res.data.filter((suggestion) =>
+          suggestion.name.toLowerCase().includes(inputValue)
+        );
+        setSuggestions(filteredSuggestions); // Set filtered suggestions
+
+        // setSuggestions(res.data); // Assuming res.data contains the array of suggestions
+
+
+      } catch (error) {
+        console.error("Error fetching executive members:", error);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSelectedSuggestion(suggestion);
+    handleAddMember(suggestion);
+    setNewMember(""); // Clear the input after selection
+  };
+
+
+  const handleProjectChange = (projectName) => {
+    setProject(projectName);
+    setIsProjectDropdownOpen(false);
+  };
+
+  const handleManagerChange = (managerName) => {
+    setManager(managerName);
+    setIsDropdownOpen(false);
+  };
+
+  const handleSubmit = async () => {
+    if (teamName && project && manager && members) {
+      setIsCreating(true);
+      setErrorMessage(""); // Clear any previous error messages
+
+      const teamdata = {
+        teamName: teamName,
+        projectName: project,
+        managerName: manager,
+        teamMemberName: members,
+      };
+
+      try {
+        const res = await axios.post(
+          "https://project-rof.vercel.app/api/teams/save",
+          teamdata
+        );
+        console.log("res", res);
+        setdata1((prevData) => [...prevData, res.data]); // Update state with new team data
+        setCreateStatus("Team Created Successfully ✓");
+        resetTeamForm();
+        console.log("Response send", teamdata);
+      } catch (error) {
+        console.error("Error creating team:", error);
+        setCreateStatus("Error Creating Team");
+      } finally {
+        setIsCreating(false);
+      }
+    } else {
+      setErrorMessage(
+        "Please fill in all fields and add at least one team member."
+      );
+    }
+  };
+
+  //  manager popup logic
+
+  const [managerName, setManagerName] = useState("");
+  const [managerEmail, setManagerEmail] = useState("");
+  const [managerPhone, setManagerPhone] = useState(""); // state for phone number
+  const [isManagerCreating, setIsManagerCreating] = useState(false);
+  const [managerCreateStatus, setManagerCreateStatus] = useState("");
+  const [managerErrorMessage, setManagerErrorMessage] = useState(""); // state for error message
+
+  const resetManagerForm = () => {
+    setManagerName("");
+    setManagerEmail("");
+    setManagerPhone("");
+    setManagerCreateStatus("");
+    setManagerErrorMessage("");
+  };
+
+  const validateManagerName = (name) => {
+    return /^[A-Z][a-zA-Z ]*$/.test(name);
+  };
+
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validatePhoneNumber = (phone) => {
+    return /^\d{10,15}$/.test(phone);
+  };
+
+  const handleManagerPhoneChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+    if (value.length <= 15) {
+      setManagerPhone(value);
+    }
+  };
+
+  const handleManagerSubmit = async () => {
+    if (managerName && managerEmail && managerPhone) {
+      // Check for phone number
+      if (!validateManagerName(managerName)) {
+        setManagerErrorMessage("The first letter of the name must be capital.");
+        return;
+      }
+      if (!validateEmail(managerEmail)) {
+        setManagerErrorMessage("Please enter a valid email address.");
+        return;
+      }
+      if (!validatePhoneNumber(managerPhone)) {
+        setManagerErrorMessage("Phone number must be exactly 10 digits.");
+        return;
+      }
+      setIsManagerCreating(true);
+      setManagerErrorMessage(""); // Clear any previous error messages
+
+      const managerData = {
+        name: managerName,
+        email: managerEmail,
+        phone: managerPhone,
+      };
+      try {
+        const res = await axios.post(
+          "https://project-rof.vercel.app/api/salesManager/save",
+          managerData
+        );
+        console.log("res", res);
+        setManagerCreateStatus("Manager Created Successfully ✓");
+        console.log("Response send", res);
+
+        // Fetch the updated list of managers after successful creation
+        const updatedManagers = await axios.get(
+          "https://project-rof.vercel.app/api/salesManager/fetch-all"
+        );
+        setdata(updatedManagers.data); // Assuming setdata is used for storing managers data
+
+        console.log("Updated Managers:", updatedManagers.data);
+
+      } catch (error) {
+        console.error("Error creating manager:", error);
+        setManagerCreateStatus("Error Creating Manager");
+        console.log(error);
+      } finally {
+        setIsManagerCreating(false);
+      }
+    } else {
+      setManagerErrorMessage("Please fill in all fields.");
+    }
+  };
+
+  //  executive popup logic
+
+  const [executiveEmail, setExecutiveEmail] = useState("");
+  const [executivePhone, setExecutivePhone] = useState(""); // state for phone number
+  const [isExecutiveCreating, setIsExecutiveCreating] = useState(false);
+  const [executiveCreateStatus, setExecutiveCreateStatus] = useState("");
+  const [executiveErrorMessage, setExecutiveErrorMessage] = useState(""); //  state for error message
+
+  const resetExecutiveForm = () => {
+    setExecutiveName("");
+    setExecutiveEmail("");
+    setExecutivePhone("");
+    setExecutiveCreateStatus("");
+    setExecutiveErrorMessage("");
+  };
+
+  const handleExecutivePhoneChange = (e) => {
+    const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+    if (value.length <= 15) {
+      setExecutivePhone(value);
+    }
+  };
+
+  const handleExecutiveSubmit = async () => {
+    if (executiveName && executiveEmail && executivePhone) {
+      // Check for phone number
+      if (!validateManagerName(executiveName)) {
+        setExecutiveErrorMessage(
+          "The first letter of the name must be capital."
+        );
+        return;
+      }
+      if (!validateEmail(executiveEmail)) {
+        setExecutiveErrorMessage("Please enter a valid email address.");
+        return;
+      }
+      if (!validatePhoneNumber(executivePhone)) {
+        setExecutiveErrorMessage("Phone number must be exactly 10 digits.");
+        return;
+      }
+      setIsExecutiveCreating(true);
+      setExecutiveErrorMessage(""); // Clear any previous error messages
+
+      const executiveData = {
+        name: executiveName,
+        email: executiveEmail,
+        phone: executivePhone,
+      };
+
+      try {
+        const res = await axios.post(
+          "https://project-rof.vercel.app/api/attendants/save",
+          executiveData
+        );
+        console.log("res", res);
+        setExecutiveCreateStatus("Executive Created Successfully ✓");
+        console.log("Response send", res);
+      } catch (error) {
+        console.error("Error creating executive:", error);
+        setExecutiveCreateStatus("Error Creating Executive");
+      } finally {
+        setIsExecutiveCreating(false);
+      }
+    } else {
+      setExecutiveErrorMessage("Please fill in all fields.");
+    }
+  };
+
+  //vb
+  const truncateText = (text, limit) => {
+    if (text && text.length > limit) {
+      return text.slice(0, limit) + "...";
+    }
+    return text || "";
+  };
+
+ 
 
   const handleDelete = async (deleteId) => {
     try {
@@ -101,6 +478,7 @@ const ViewMembers = () => {
               />
             </div>
             <button
+             onClick={() => setShowTeamPopup(!showTeamPopup)}
               className="add-team-button bg-[#3D2314] text-white flex  rounded-full items-center justify-center ml-10 mt-4 lg:mt-0"
               style={{
                 height: "48px",
@@ -122,7 +500,49 @@ const ViewMembers = () => {
               </svg>
               Add
             </button>
+             {/* Add teams buttons */}
+          {showTeamPopup && (
+                <>
+                  <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+                  <div
+                    ref={teamPopupRef}
+                    className="ml-[620px] mt-[220px] team-creation-popup w-[125px] h-[147px] rounded-[4px] bg-white absolute z-50 flex flex-col justify-between"
+                  >
+                    <button
+                      className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
+                      onClick={() => {
+                        setShowTeamPopup(false);
+                        setShowAddTeamMemberPopup(true);
+                        resetTeamForm();
+                      }}
+                    >
+                      Add Team
+                    </button>
+                    <button
+                      className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
+                      onClick={() => {
+                        setShowTeamPopup(false);
+                        setShowAddManagerPopup(true);
+                        resetManagerForm();
+                      }}
+                    >
+                      Add Manager
+                    </button>
+                    <button
+                      className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
+                      onClick={() => {
+                        setShowTeamPopup(false);
+                        setShowAddExecutivePopup(true);
+                        resetExecutiveForm();
+                      }}
+                    >
+                      Add Executive
+                    </button>
+                  </div>
+                </>
+              )}
           </div>
+         
           <div className="outer-wrapper text-center flex items-center justify-center mt-[20px]">
             <div className="table-wrapper" style={{ width: "1013px" }}>
               <table
@@ -366,6 +786,8 @@ const ViewMembers = () => {
             </div>
           </div>
 
+
+
           {showPopup && deleteId !== null && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="fixed inset-0 bg-black opacity-50"></div>
@@ -401,6 +823,325 @@ const ViewMembers = () => {
                 </div>
               </div>
             </div>
+          )}
+               {/* Add team member screen */}
+               {showAddTeamMemberPopup && (
+            <>
+              <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+              <div
+                ref={addTeamMemberPopupRef}
+                className="fixed inset-0 flex items-center justify-center z-50"
+              >
+                <div className="add-team-members w-[488px] h-auto p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
+                  <button
+                    className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                    onClick={() => setShowAddTeamMemberPopup(false)}
+                  >
+                    X
+                  </button>
+                  <div style={{ width: "440px", height: "319px" }}>
+                    <input
+                      type="text"
+                      value={teamName}
+                      onChange={(e) => setTeamName(e.target.value)}
+                      className="w-[440px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4"
+                      placeholder="Team Name"
+                    />
+                    <div
+                      className="relative w-[440px] h-12 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 block shadow-sm focus:border-brown-500 focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                      onClick={() =>
+                        setIsProjectDropdownOpen(!isProjectDropdownOpen)
+                      }
+                      ref={projectDropdownRef}
+                    >
+                      <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
+                        {project || "Assign Project"}
+                        <img
+                          className="ml-2 h-2 w-3 "
+                          src={DropIcon}
+                          alt="Dropdown Icon"
+                        />
+                      </div>
+                      {isProjectDropdownOpen && (
+                        <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
+                          {data2.map((projects) => (
+                            <div
+                              key={projects.name}
+                              className="p-2 cursor-pointer hover:bg-gray-200"
+                              onClick={() => handleProjectChange(projects.name)}
+                            >
+                              {projects.name}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <div
+                      className="relative w-[440px] h-12 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 block shadow-sm focus:border-brown-500 focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    >
+                      <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
+                        {manager || "Assign Manager"}
+                        <img
+                          className="ml-2 h-2 w-3 "
+                          src={DropIcon}
+                          alt="Dropdown Icon"
+                        />
+                      </div>
+                      {isDropdownOpen && (
+                        <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
+                          {data.map((sales) => (
+                            <div
+                              key={sales.name}
+                              className="p-2 cursor-pointer hover:bg-gray-200"
+                              onClick={() => handleManagerChange(sales.name)}
+                            >
+                              {sales.name}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="add-members w-[440px] h-[127px] px-[24px] py-[12px] rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 overflow-y-auto">
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        {members.map((member, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center bg-white px-2 py-1 rounded-md border border-gray-300"
+                          >
+                            <button
+                              onClick={() => handleRemoveMember(member)}
+                              className="text-black text-[22px]"
+                            >
+                              &times;
+                            </button>
+                            <span className="ml-2 ">{member}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <input
+                        type="text"
+                        value={newMember}
+                        // onChange={(e) => setNewMember(e.target.value)}
+                        // onKeyDown={handleKeyDown}
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}
+                        className="add-member"
+                        placeholder="Add Team Member"
+                      />
+                      {suggestions.length > 0 && (
+                        <div className="suggestions">
+                          {suggestions.map((suggestion, index) => (
+                            <div
+                              key={index}
+                              className="suggestion-item"
+                              onClick={() => handleSuggestionClick(suggestion.name)}
+                            >
+                              {suggestion.name}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <br />
+                  <button
+                    onClick={handleSubmit}
+                    className="w-[192px] h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope  text-white"
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "16px",
+                      lineHeight: "19.2px",
+                    }}
+                    disabled={isCreating}
+                  >
+                    {createStatus || "Create Team"}
+                  </button>
+                  {errorMessage && (
+                    <p className="text-red-500 mt-2">{errorMessage}</p>
+                  )}
+                </div>
+              </div>
+
+            </>
+          )}
+
+          {/* Add manager screen */}
+          {showAddManagerPopup && (
+            <>
+              <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+              <div
+                ref={addManagerPopupRef}
+                className="fixed inset-0 flex items-center justify-center z-50"
+              >
+                <div className="add-manager w-[488px] h-auto p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
+                  <button
+                    className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                    onClick={() => setShowAddManagerPopup(false)}
+                  >
+                    X
+                  </button>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="text"
+                      value={managerName}
+                      onChange={(e) => setManagerName(e.target.value)}
+                      className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Sales Manager Name"
+                    />
+                    {!validateManagerName(managerName) &&
+                      managerName.length > 0 && (
+                        <p className="text-red-500 text-left text-xs">
+                          The first letter of the name must be capital.
+                        </p>
+                      )}
+                  </div>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="email"
+                      value={managerEmail}
+                      onChange={(e) => setManagerEmail(e.target.value)}
+                      className="w-full h-full p-4  rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Email ID"
+                    />
+                    <img
+                      src={EmailIcon}
+                      alt="Email"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                    />
+
+                    {!validateEmail(managerEmail) && managerEmail.length > 0 && (
+                      <p className="text-red-500 text-left text-xs">
+                        Please enter a valid email address.
+                      </p>
+                    )}
+
+
+                  </div>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="text"
+                      value={managerPhone}
+                      onChange={handleManagerPhoneChange}
+                      className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Phone No"
+                      maxLength={15} // Ensures no more than 10 characters
+                    />
+                    <img
+                      src={PhoneIcon}
+                      alt="Phone"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                    />
+                    {!validatePhoneNumber(managerPhone) &&
+                      managerPhone.length > 0 && (
+                        <p className="text-red-500 text-left text-xs">
+                          {/* Phone number must be exactly 10 digits. */}
+                        </p>
+                      )}
+                  </div>
+                  <button
+                    onClick={handleManagerSubmit}
+                    className="w-fit create-manager-btn h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
+                    disabled={isManagerCreating}
+                  >
+                    {managerCreateStatus || "Add"}
+                  </button>
+                  {managerErrorMessage && (
+                    <p className="text-red-500 mt-2">{managerErrorMessage}</p>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Add executive screen */}
+          {showAddExecutivePopup && (
+            <>
+              <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
+              <div
+                ref={addExecutivePopupRef}
+                className="fixed inset-0 flex items-center justify-center z-50"
+              >
+                <div className="add-executive w-[488px] h-auto p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
+                  <button
+                    className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                    onClick={() => setShowAddExecutivePopup(false)}
+                  >
+                    X
+                  </button>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="text"
+                      value={executiveName}
+                      onChange={(e) => setExecutiveName(e.target.value)}
+                      className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Name"
+                    />
+                    {!validateManagerName(executiveName) &&
+                      executiveName.length > 0 && (
+                        <p className="text-red-500 text-left text-xs">
+                          The first letter of the name must be capital.
+                        </p>
+                      )}
+                  </div>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="email"
+                      value={executiveEmail}
+                      onChange={(e) => setExecutiveEmail(e.target.value)}
+                      className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Executive Email ID"
+                    />
+                    <img
+                      src={EmailIcon}
+                      alt="Email"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                    />
+
+                    {!validateEmail(executiveEmail) &&
+                      executiveEmail.length > 0 && (
+                        <p className="text-red-500 text-left text-xs">
+                          Please enter a valid email address.
+                        </p>
+                      )}
+
+
+                  </div>
+                  <div className="relative w-[440px] h-12 mb-4">
+                    <input
+                      type="text"
+                      value={executivePhone}
+                      onChange={handleExecutivePhoneChange}
+                      className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
+                      placeholder="Phone No"
+                      maxLength={15} // Ensures no more than 10 characters
+                    />
+                    <img
+                      src={PhoneIcon}
+                      alt="Phone"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                    />
+                    {!validatePhoneNumber(executivePhone) &&
+                      executivePhone.length > 0 && (
+                        <p className="text-red-500 text-left text-xs">
+                          {/* Phone number must be exactly 10 digits. */}
+                        </p>
+                      )}
+                  </div>
+                  <button
+                    onClick={handleExecutiveSubmit}
+                    className="w-fit create-executive-btn h-12 py-3 px-6 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
+                    disabled={isExecutiveCreating}
+                  >
+                    {executiveCreateStatus || "Add"}
+                  </button>
+                  {executiveErrorMessage && (
+                    <p className="text-red-500 mt-2">{executiveErrorMessage}</p>
+                  )}
+                </div>
+              </div>
+            </>
           )}
         </div>
       )}

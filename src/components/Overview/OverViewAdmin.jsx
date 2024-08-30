@@ -217,7 +217,7 @@ const OverViewAdmin = () => {
   }, [selectedOpt]);
 
   return (
-    <div className="min-h-screen p-6">
+    <div className=" h-[1024px] p-6 overview" >
       <div
         style={{ paddingLeft: "0px" }}
         className="  overflow-x-auto flex flex-col gap- bg-custom-bg">
@@ -460,10 +460,10 @@ const OverViewAdmin = () => {
                 }}>
                 {executiveData.map((visitor, index) => (
                   <tr className="divide-x-2 divide-gray-200">
-                    <td className="px-4 py-2">{index + 1}</td>
-                    <td className="px-4 py-2">{visitor.name}</td>
-                    <td className="px-4 py-2">{visitor.totalMeetings}</td>
-                    <td className="px-4 py-2">{visitor.clientConversion}</td>
+                    <td className="px-4 py-2 text-[12px]">{index + 1}</td>
+                    <td className="px-2 py-2 text-[12px]">{visitor.name}</td>
+                    <td className="px-4 py-2 text-[12px]">{visitor.totalMeetings}</td>
+                    <td className="px-4 py-2 text-[12px]">{visitor.clientConversion}</td>
                   </tr>
                 ))}
               </tbody>
@@ -472,6 +472,8 @@ const OverViewAdmin = () => {
         </div>
 
         {/* 2nd table */}
+
+       
 
         <div className="w-[417px] h-[47px]  ">
           <div>
@@ -1132,9 +1134,9 @@ Notes */}
         </Link>
 
         {/* Graph */}
-
-        <div
-          className="bg-white shadow rounded-lg p-[24px]  w-[874px] h-[380px] "
+<div className=" mt-1">
+<div
+          className="graph-div bg-white shadow rounded-lg p-[24px]  w-[874px] h-[380px] "
           style={{ marginTop: "-400px" }}>
           <div
             style={{
@@ -1165,7 +1167,7 @@ Notes */}
             </span>
             <span style={{ fontSize: "18px", color: "black" }}>Today</span>
           </div>
-          <div className="  h-[275px] ">
+          <div className="graphBar h-[260px]">
             <Bar
               style={{ borderRadius: "4px" }}
               data={data}
@@ -1173,6 +1175,9 @@ Notes */}
             />
           </div>
         </div>
+</div>
+
+      
       </div>
     </div>
   );

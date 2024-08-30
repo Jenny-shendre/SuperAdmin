@@ -219,8 +219,10 @@ const Table2 = () => {
               </span>
             </h1>
 
-            <div className="flex flex-row items-center justify-start text-center flex items-center justify-center  ml-80">
-              <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full  mr-96 ">
+            <div className="flex flex-row items-center justify-start text-center flex items-center w-[100%] justify-between" >
+              <div style={{width:'70%', textAlign:'-webkit-center'}}>
+
+              <div className="flex justify-center items-center w-[70%] lg:block relative lg:w-[36rem] rounded-full" >
                 <input
                   className="w-[619px] h-[48px] py-2 px-12 rounded-full "
                   style={{
@@ -239,10 +241,11 @@ const Table2 = () => {
                   className="absolute  left-4"
                 />
               </div>
-              <div>
+              </div>
+              <div className="w-[30%]">
                 <button
                   onClick={() => setShowPopupAdd(true)}
-                  className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[250px] mt-[11px]"
+                  className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[250px]"
                   style={{ padding: "12px 24px 12px 24px", gap: "10px" }}
                 >
                   <svg

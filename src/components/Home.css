@@ -10,6 +10,22 @@
   }
 }
 
+@media only screen and (min-width :1024px) and (max-width: 1610px){
+
+  .overview{
+     height: 650px !important;
+     overflow-y: scroll !important;
+  }
+
+  .graph-div{
+      width: 750px !important;
+  }
+
+  canvas{
+      width: 700px !important;
+  }
+}
+
 @media only screen and (max-width: 1024px) {
 
 
