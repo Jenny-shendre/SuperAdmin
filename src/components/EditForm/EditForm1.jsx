@@ -583,7 +583,7 @@ function EditForm1() {
                       <input
                         type="text"
                         readOnly={true}
-                        value={ResponseAt(FormData.createdAt)}
+                        value={FormData.timeResponse}
                         onChange={handleChange}
                         name="responseTime"
                         className="lg:w-[149px] lg:h-[47px] border-[2px] border-[#3D2314] rounded-lg mt-1"

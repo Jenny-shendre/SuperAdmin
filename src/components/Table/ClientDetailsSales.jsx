@@ -28,6 +28,9 @@ function ClientDetails() {
   const [EndDateTime, setEndDateTime] = useState(0);
   const [CalRes, setCalRes] = useState([]);
   const [ClientID, setClientID] = useState();
+  const [resstart, setRes] = useState();
+  const [resEndDateTime, setresEndDateTime] = useState();
+
 
 
   const [IdEmp, setIdEmp] = useState(
@@ -110,6 +113,8 @@ function ClientDetails() {
   const [isCreating, setIsCreating] = useState(false);
   const [createStatus, setCreateStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
+  const [timeResponseStart, settimeResponseStart] = useState(""); // state for error message
+
 
   const handleProjectChange = (projectName) => {
     setProject(projectName);
@@ -302,6 +307,7 @@ function ClientDetails() {
       console.log(error);
     }
   };
+
   const upcoming = async (employeeId) => {
     try {
       const res = await axios.get(
@@ -309,6 +315,9 @@ function ClientDetails() {
       );
       setupcoming(res.data);
       console.log("setupcoming", res.data);
+      const currentDate = new Date();
+      const formattedDate = format(currentDate, "mm:ss");
+      setRes(formattedDate);
     } catch (error) {
       console.log(error);
     }
@@ -366,6 +375,25 @@ function ClientDetails() {
     }
   };
 
+  const timeResponse = async () => {
+    const currentDate = new Date();
+    const formattedDate = format(currentDate, "mm:ss");
+    try {
+      const res = await axios.put(
+        `https://project-rof.vercel.app/api/timeSheet/timeResponse/${ClientID}`,
+        {
+          StartTime: resstart,
+          EndTime: formattedDate,
+        }
+      );
+      setCalRes("response", res);
+      console.log("response", ClientID);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
 
 
   const DateupdatedAt = (DateupdatedAt) => {
@@ -386,15 +414,31 @@ function ClientDetails() {
 
     TimeCal(StartDateTime, formattedDate);
   };
+
+
   const rejectMeetingfun = () => {
     rejectMeeting(IdEmp);
+    const currentDate = new Date();
+    const formattedDate = format(currentDate, "dd MMM | hh:mm a");
+    formattedDate;
+    timeResponse(timeResponseStart, formattedDate);
+    console.log(formattedDate);
+    timeResponse(IdEmp);
+    setresEndDateTime(formattedDate);
     console.log("rejectMeeting");
   };
+  
   const handleClick = () => {
     stopTimer();
     startTimer();
+    const currentDate = new Date();
+    const formattedDate = format(currentDate, "dd MMM | hh:mm a");
+    console.log(timeResponseStart, formattedDate);
+    timeResponse(timeResponseStart, formattedDate);
+    timeResponse(IdEmp);
     acceptMeeting(IdEmp);
   };
+
   useEffect(() => {
     historyData(IdEmp);
     upcoming(IdEmp);

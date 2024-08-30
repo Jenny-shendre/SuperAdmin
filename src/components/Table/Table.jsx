@@ -31,7 +31,7 @@ const Table = () => {
       await axios.delete(
         `https://project-rof.vercel.app/api/customers/delete/${deleteId}`
       );
-      fetchData(); // Refresh data after deletion
+      setdata((prevData) => prevData.filter(item => item._id !== deleteId)); 
       setShowPopup(false); // Hide popup after deletion
     }
   };
@@ -298,7 +298,7 @@ const Table = () => {
                             {DateupdatedAt(visitor.updatedAt)}
                           </td>
                           <td className="py-1 border-b text-center">
-                            {ResponseAt(visitor.updatedAt)}
+                            {visitor.timeResponse}
                           </td>
                           <td className="py-1 border-b text-center">
                             {visitor.timeDuration}
