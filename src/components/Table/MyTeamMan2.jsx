@@ -120,7 +120,7 @@ function ClientHistory() {
       <div>
         <div
           style={{ gap: "20px", paddingTop: "30px", fontFamily: 'Manrope' }}
-          className="p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
+          className="headLn p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
         "
         >
           <h1
@@ -161,9 +161,9 @@ function ClientHistory() {
           </h1>
         </div>
         <div className="flex flex-row items-center justify-center font-[Manrope]">
-          <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full">
+          <div className="mt-6 flex justify-start items-center lg:block relative lg:w-[36rem] rounded-full">
             <input
-              className="w-full rounded-full "
+              className="searchBox w-full rounded-full "
               style={{
                 width: "619px",
                 height: "48px",
@@ -193,7 +193,7 @@ function ClientHistory() {
 
         <main className=" overflow-x-hidden overflow-y-auto p-6 font-[Manrope]">
 
-          <div style={{ textAlign: '-webkit-center' }} className="outer-wrapperB">
+          <div style={{ textAlign: '-webkit-center' }} className="outer-wrapperB tableDiv">
 
             <table className="w-[1060px] h-[740px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
             <div className="outer-wrapper">

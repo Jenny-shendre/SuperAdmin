@@ -131,11 +131,11 @@ console.log("Manager email", email);
       <div>
         <div
           style={{ gap: "20px", paddingTop: "30px", fontFamily: 'Manrope' }}
-          className=" p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
+          className="headLn  p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
         "
         >
           <h1
-            className="headLn font-bold flex items-center gap-1 font-[Manrope]"
+            className=" font-bold flex items-center gap-1 font-[Manrope]"
             style={{
               fontFamily: "Poppins",
               fontSize: "24px",
@@ -157,7 +157,7 @@ console.log("Manager email", email);
           </h1>
         </div>
         <div className="flex flex-row items-center justify-center font-[Manrope]">
-          <div className="flex justify-start items-center  lg:block relative lg:w-[36rem] rounded-full">
+          <div className="mt-6 flex justify-start items-center  lg:block relative lg:w-[36rem] rounded-full">
             <input
               className="w-full rounded-full searchBox"
               style={{

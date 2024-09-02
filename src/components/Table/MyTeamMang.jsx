@@ -201,10 +201,10 @@ function MyTeamMang() {
     <div className="p-4 pt-0">
       <div
         style={{ gap: "20px", paddingTop: "30px", fontFamily: "Manrope" }}
-        className="p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
+        className="headLn p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
         ">
         <h1
-          className="font-bold flex items-center gap-1 font-[Manrope]"
+          className=" font-bold flex items-center gap-1 font-[Manrope]"
           style={{
             fontFamily: "Poppins",
             fontSize: "24px",
@@ -227,9 +227,9 @@ function MyTeamMang() {
       </div>
       <br />
       <div className="flex flex-row items-center justify-center">
-        <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full">
+        <div className="flex justify-start items-center  lg:block relative lg:w-[36rem] rounded-full">
           <input
-            className="w-full py-2 px-12 rounded-full"
+            className="searchBox w-full py-2 px-12 rounded-full"
             style={{
               boxShadow: "0px 0px 4px 0px #00000040",
             }}
@@ -247,9 +247,9 @@ function MyTeamMang() {
         </div>
       </div>
 
-      <br />
+      
 
-      <div className="flex justify-center">
+      <div className="flex justify-center headLn mt-4">
         <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
       <br />
