@@ -10,7 +10,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 function LoginCred() {
   const [role, setRole] = useState("super admin");
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,19 +32,19 @@ function LoginCred() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Email & Password validation
+    // phone & Password validation
 
-    if (!email || !password) {
-      setErrorMessage("Please fill in both email and password.");
+    if (!phone || !password) {
+      setErrorMessage("Please fill in both phone and password.");
       return;
     }
 
-    // Email validation
+    // phone validation
 
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      setErrorMessage("Please enter a valid email address.");
-      return;
-    }
+    // if (!/\S+@\S+\.\S+/.test(phone)) {
+    //   setErrorMessage("Please enter a valid phone address.");
+    //   return;
+    // }
     // Password validation
 
     if (
@@ -58,7 +58,7 @@ function LoginCred() {
     setErrorMessage(""); // Clear any previous error messages
 
     const loginData = {
-      email: email,
+      phone: phone,
       password: password,
       role: role,
     };
@@ -72,6 +72,7 @@ function LoginCred() {
       const { token, role: userRole, employeeId } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("EmpId", employeeId);
+      localStorage.setItem("phone", phone);
       localStorage.setItem("email", email);
 
       setRole(userRole);
@@ -127,7 +128,7 @@ function LoginCred() {
             textAlign: "center",
           }}
           className="text-[#747474] mb-6">
-          Use your work email to log in your team workspace
+          Use your work phone to log in your team workspace
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -190,17 +191,17 @@ function LoginCred() {
                   fontWeight: "500",
                 }}
                 className="block text-[#353535] text-start text-sm font-bold mb-2"
-                htmlFor="email">
-                Email ID
+                htmlFor="phone">
+                Phone number
               </label>
               <input
                 className="shadow appearance-none  rounded w-full h-[49px] text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="email"
-                type="email"
+                id="phone"
+                type="phone"
                 disabled={!isRadioChecked}
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your phone number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 style={{
                   width: "426px",
                   borderWidth: "1.5px",
