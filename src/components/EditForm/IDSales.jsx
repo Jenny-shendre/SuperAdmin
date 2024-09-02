@@ -8,7 +8,7 @@ import axios from "axios";
 import Loding from "../Loding/Loding";
 import { ChevronRight, Bold, Italic, AlignJustify, List, Paperclip, Smile } from 'lucide-react';
 
-const IDMan = () => {
+const IDSales = () => {
   const [loading, setLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [FormData, setFormData] = useState({
@@ -526,4 +526,4 @@ const IDMan = () => {
 };
 
 
-export default IDMan;
+export default IDSales;

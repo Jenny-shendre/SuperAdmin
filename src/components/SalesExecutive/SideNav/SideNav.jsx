@@ -35,21 +35,34 @@ const SideNav = () => {
       navigate("/SalesExecutive/Client");
       setInitialLoad(false); // Disable initial load after the first load
     } else {
-      switch (locationPath) {
-        case "/SalesExecutive/Client":
-          setActiveItem("Client");
-          break;
-        case "/SalesExecutive/Notes":
-          setActiveItem("Notes");
-          break;
-        case "/SalesExecutive/SettingEx":
-          setActiveItem("SettingEx");
-          break;
-        default:
-          setActiveItem("Client");
-          navigate("/SalesExecutive/Client");
-          break;
+      if(locationPath.startsWith("/SalesExecutive/Client")){
+        setActiveItem("Client");
       }
+      else if(locationPath.startsWith("/SalesExecutive/Notes")){
+        setActiveItem("Notes");
+      }
+      else if(locationPath.startsWith("/SalesExecutive/Notes/IDHistory")){
+        setActiveItem("IDSales");
+      }
+      else if(locationPath.startsWith("/SalesExecutive/SettingEx")){
+        setActiveItem("SettingEx");
+
+      }
+      // switch (locationPath) {
+      //   case "/SalesExecutive/Client":
+      //     setActiveItem("Client");
+      //     break;
+      //   case "/SalesExecutive/Notes":
+      //     setActiveItem("Notes");
+      //     break;
+      //   case "/SalesExecutive/SettingEx":
+      //     setActiveItem("SettingEx");
+      //     break;
+      //   default:
+      //     setActiveItem("Client");
+      //     navigate("/SalesExecutive/Client");
+      //     break;
+      // }
     }
   }, [locationPath, navigate, initialLoad]);
 

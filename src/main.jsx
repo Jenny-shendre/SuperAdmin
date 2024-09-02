@@ -36,6 +36,7 @@ import overviewID from "./components/Overview/NoteInput.jsx";
 import ViewMembers from "./components/Table/ViewMembers.jsx";
 import ClientHistory from "./components/Table/MyTeamMan2.jsx";
 import IDMan from "./components/EditForm/IDMan.jsx";
+import IDSales from "./components/EditForm/IDSales.jsx";
 
 const router = createBrowserRouter([
   //Login_Cred
@@ -145,6 +146,10 @@ const router = createBrowserRouter([
       {
         path: "/SalesExecutive/Notes",
         element: <PrivateRoute element={Note} />,
+      },
+      {
+        path: "/SalesExecutive/Notes/IDHistory",
+        element: <PrivateRoute element={IDSales} />,
       },
       {
         path: "/SalesExecutive/SettingEx",
