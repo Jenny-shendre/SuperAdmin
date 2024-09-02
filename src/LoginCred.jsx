@@ -69,7 +69,7 @@ function LoginCred() {
         loginData
       );
       console.log("Response rend", res);
-      const { token, role: userRole, employeeId } = res.data;
+      const { token, role: userRole, employeeId, email } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("EmpId", employeeId);
       localStorage.setItem("phone", phone);
