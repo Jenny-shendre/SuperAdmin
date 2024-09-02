@@ -26,6 +26,30 @@
   }
 }
 
+@media only screen and (max-width: 400px) {
+
+
+  .headLn{
+    display: none !important;
+  }
+
+  .searchBox{
+    width: 324px !important;
+    /* height: 39px !important; */
+
+  }
+
+  .tableDiv{
+    width: 324px !important;
+    overflow-x: scroll !important;
+  }
+
+  .headingHis{
+    display: block !important;
+  }
+
+}
+
 @media only screen and (max-width: 1024px) {
 
 

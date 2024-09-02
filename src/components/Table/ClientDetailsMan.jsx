@@ -131,11 +131,11 @@ console.log("Manager email", email);
       <div>
         <div
           style={{ gap: "20px", paddingTop: "30px", fontFamily: 'Manrope' }}
-          className="p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
+          className=" p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
         "
         >
           <h1
-            className="font-bold flex items-center gap-1 font-[Manrope]"
+            className="headLn font-bold flex items-center gap-1 font-[Manrope]"
             style={{
               fontFamily: "Poppins",
               fontSize: "24px",
@@ -157,9 +157,9 @@ console.log("Manager email", email);
           </h1>
         </div>
         <div className="flex flex-row items-center justify-center font-[Manrope]">
-          <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full">
+          <div className="flex justify-start items-center  lg:block relative lg:w-[36rem] rounded-full">
             <input
-              className="w-full rounded-full "
+              className="w-full rounded-full searchBox"
               style={{
                 width: "619px",
                 height: "48px",
@@ -189,9 +189,19 @@ console.log("Manager email", email);
 
         <main className=" overflow-x-hidden overflow-y-auto p-6 font-[Manrope]">
 
-          <div style={{ textAlign: '-webkit-center' }} className="outer-wrapperB">
+          <div className="headingHis p-2" style={{display:'none'}}>
+            <h1 style={{
+              fontFamily:'Manrope',
+              fontWeight:'600',
+              fontSize:'18px',
+              lineHeight:'24.59px',
+              color:'black'
+            }}> Meeting History </h1>
+          </div>
 
-            <table className="w-[1060px] h-[740px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
+          <div style={{ textAlign: '-webkit-center' }} className="outer-wrapperB tableDiv">
+
+            <table className=" w-[1060px] h-[740px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
             <div className="outer-wrapper">
             <div className="table-wrapper">
               {/* <div className="table-wrapperB"> */}
