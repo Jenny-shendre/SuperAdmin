@@ -102,7 +102,7 @@ const TopNav = () => {
     {/* logo */}
      <img src={ROFIMAGE}
       alt="ROF Logo"
-      className="w-[71px] h-[50px] lg-hidden" />
+      className="w-[71px] h-[50px] lg:hidden" />
 
 {/* bell icon */}
 

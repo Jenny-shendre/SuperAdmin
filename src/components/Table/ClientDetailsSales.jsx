@@ -16,6 +16,7 @@ import view from '../../assets/hugeicons_view (1).png';
 import edit from '../../assets/akar-icons_edit (2).png';
 import delt from '../../assets/material-symbols_delete-outline.png';
 import edit2 from '../../assets/akar-icons_edit (3).png';
+import { Link } from "react-router-dom";
 
 
 function ClientDetails() {
@@ -41,7 +42,7 @@ function ClientDetails() {
 
   const [IdEmp, setIdEmp] = useState(
     // localStorage.getItem("EmpId") || 
-    "ROFEX10"
+    "ROFEX103"
   );
 
   const [showNotePopup, setShowNotePopup] = useState(false);
@@ -1072,12 +1073,15 @@ function ClientDetails() {
                         >
                           {visitor.ClientName}
                         </td>
+                        <Link to="/SalesExecutive/Notes/IDHistory">
                         <td
-                          style={{ borderBottom: "1px solid #E4E7EC", color:'#000AFF', textDecoration:'underline',fontWeight:'700' }}
+                          style={{ borderBottom: "1px solid #E4E7EC",cursor:'pointer', color:'#000AFF', textDecoration:'underline',fontWeight:'700' }}
                           className="py-4 px-4"
+
                         >
                           ROF001
                         </td>
+                        </Link>
                         <td
                           style={{ borderBottom: "1px solid #E4E7EC" }}
                           className="py-4 px-4"
