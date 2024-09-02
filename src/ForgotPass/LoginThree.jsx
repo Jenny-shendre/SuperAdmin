@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import Logo from "../assets/Logo.png";
 import Eye from "../assets/Eye.png";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import '../index.css';
-import axios from 'axios';
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import "../index.css";
+import axios from "axios";
 
 function LoginThree() {
   const location = useLocation();
-  const email = location.state?.email || '';
+  const phone = location.state?.phone || "";
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -16,7 +15,6 @@ function LoginThree() {
   const [showGuidelines, setShowGuidelines] = useState(false);
   const navigate = useNavigate();
   const guidelinesRef = useRef(null);
-
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -61,31 +59,35 @@ function LoginThree() {
     }
     setErrorMessage("");
     try {
-      const res = await axios.post("https://project-rof.vercel.app/api/admin/set-password", { email, newPassword, confirmPassword });
+      const res = await axios.post(
+        "https://project-rof.vercel.app/api/admin/set-password",
+        { phone, newPassword, confirmPassword }
+      );
       console.log("response send", res);
-      navigate('/login-four');
+      navigate("/login-four");
     } catch (error) {
       console.log(error);
-
     }
-
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (guidelinesRef.current && !guidelinesRef.current.contains(event.target)) {
+      if (
+        guidelinesRef.current &&
+        !guidelinesRef.current.contains(event.target)
+      ) {
         setShowGuidelines(false);
       }
     };
 
     if (showGuidelines) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showGuidelines]);
 
@@ -104,33 +106,36 @@ function LoginThree() {
             fontWeight: "400",
             lineHeight: "36px",
             textAlign: "center",
-            width:"475px",
-            height:"72px",
+            width: "475px",
+            height: "72px",
           }}
-          className="text-[#353535] mb-8"
-        >
+          className="text-[#353535] mb-8">
           Enter details below to get access to your account
         </p>
         <form onSubmit={handleSubmit}>
-          <div className="text-left mb-4 mx-auto relative" style={{ maxWidth: '426px', }}>
+          <div
+            className="text-left mb-4 mx-auto relative"
+            style={{ maxWidth: "426px" }}>
             <div className="flex justify-between items-center mb-2">
               <label
                 style={{
                   fontFamily: "Manrope",
                   fontSize: "18px",
                   fontWeight: "500",
-                  lineHeight:"24.59px",
+                  lineHeight: "24.59px",
                 }}
                 className="text-[#353535] text-sm font-bold"
-                htmlFor="new-password"
-              >
+                htmlFor="new-password">
                 Enter New Password
               </label>
               <span
                 className="text-sm font-medium text-[#632E04] cursor-pointer"
-                style={{ fontFamily: "Manrope", fontSize: "14px", fontWeight: "500", }}
-                onClick={() => setShowGuidelines(true)}
-              >
+                style={{
+                  fontFamily: "Manrope",
+                  fontSize: "14px",
+                  fontWeight: "500",
+                }}
+                onClick={() => setShowGuidelines(true)}>
                 Password Guidelines ?
               </span>
             </div>
@@ -144,15 +149,14 @@ function LoginThree() {
                 onChange={(e) => setNewPassword(e.target.value)}
                 maxLength={15} // Set maxLength to 10
                 style={{
-                  width: '426px',
-                  borderWidth: '1.5px',
-                  borderColor: '#353535',
+                  width: "426px",
+                  borderWidth: "1.5px",
+                  borderColor: "#353535",
                   fontFamily: "Manrope",
-                  fontSize: '18px',
-                  fontWeight: '500',
-                  borderRadius: '8px',
-                  padding:"12px 24px 12px 24px",
-                  
+                  fontSize: "18px",
+                  fontWeight: "500",
+                  borderRadius: "8px",
+                  padding: "12px 24px 12px 24px",
                 }}
               />
             </div>
@@ -160,27 +164,41 @@ function LoginThree() {
           {showGuidelines && (
             <div
               ref={guidelinesRef}
-              className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
-            >
+              className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
               <div
                 className="relative bg-[#F7F3E8] text-black  p-4 rounded-lg shadow-md guidelines-label"
-                style={{ fontFamily: "Manrope", fontSize: "16px", fontWeight: "500", width: '426px' }}
-                onClick={(e) => e.stopPropagation()}
-              >
+                style={{
+                  fontFamily: "Manrope",
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  width: "426px",
+                }}
+                onClick={(e) => e.stopPropagation()}>
                 <img
                   src={Logo}
                   alt="ROF Logo"
                   className="mx-auto mb-4 w-[188px] h-[131px] max-w-xs"
                 />
-                <hr className='mt-3 border-[#632E04]' />
-                <p className='text-[25px] font-bold mt-2 text-[#632E04]'>Password Guidelines:</p>
+                <hr className="mt-3 border-[#632E04]" />
+                <p className="text-[25px] font-bold mt-2 text-[#632E04]">
+                  Password Guidelines:
+                </p>
                 <ul className=" text-left">
-                  <p className='text-center mt-3'>Password length should be a minimum of 8 characters and a maximum of 10 characters.</p>
-                  <hr className='mt-3 border-[#632E04]' />
-                  <li className='mt-4 text-center'> <span className='text-[18px] font-bold text-[#632E04]'>Your password must include:</span>
+                  <p className="text-center mt-3">
+                    Password length should be a minimum of 8 characters and a
+                    maximum of 10 characters.
+                  </p>
+                  <hr className="mt-3 border-[#632E04]" />
+                  <li className="mt-4 text-center">
+                    {" "}
+                    <span className="text-[18px] font-bold text-[#632E04]">
+                      Your password must include:
+                    </span>
                     <ul className=" mt-6">
                       <li>At least one special character (e.g., @, #, $, %)</li>
-                      <li className='mt-1'>At least one uppercase letter (A-Z)</li>
+                      <li className="mt-1">
+                        At least one uppercase letter (A-Z)
+                      </li>
                       <li>At least one lowercase letter (a-z)</li>
 
                       <li>At least one number (0-9)</li>
@@ -188,28 +206,31 @@ function LoginThree() {
                   </li>
                 </ul>
                 <span
-                  className='absolute right-2 text-[#632E04] cursor-pointer'
+                  className="absolute right-2 text-[#632E04] cursor-pointer"
                   onClick={() => setShowGuidelines(false)}
-                  style={{ fontFamily: "Manrope", fontSize: "60px", fontWeight: "500", marginTop: "-471px" }}
-                >
+                  style={{
+                    fontFamily: "Manrope",
+                    fontSize: "60px",
+                    fontWeight: "500",
+                    marginTop: "-471px",
+                  }}>
                   &times;
                 </span>
               </div>
             </div>
           )}
-          <div className="text-left mb-6 mx-auto" style={{ maxWidth: '426px' }}>
+          <div className="text-left mb-6 mx-auto" style={{ maxWidth: "426px" }}>
             <label
               style={{
                 fontFamily: "Manrope",
                 fontSize: "18px",
                 fontWeight: "500",
-                width:"194px",
-                height:"25px",
-                lineHeight:"24.59px"
+                width: "194px",
+                height: "25px",
+                lineHeight: "24.59px",
               }}
               className="block text-[#353535] text-sm font-bold mb-2"
-              htmlFor="confirm-password"
-            >
+              htmlFor="confirm-password">
               Confirm New Password
             </label>
             <div className="relative">
@@ -222,15 +243,15 @@ function LoginThree() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 maxLength={15} // Set maxLength to 10
                 style={{
-                  width: '426px',
-                  borderWidth: '1.5px',
-                  borderColor: '#353535',
+                  width: "426px",
+                  borderWidth: "1.5px",
+                  borderColor: "#353535",
                   fontFamily: "Manrope",
-                  fontSize: '18px',
-                  fontWeight: '500',
-                  borderRadius: '8px',
-                  padding:"12px 24px 12px 24px",
-                  lineHeight:"24.59px",
+                  fontSize: "18px",
+                  fontWeight: "500",
+                  borderRadius: "8px",
+                  padding: "12px 24px 12px 24px",
+                  lineHeight: "24.59px",
                 }}
               />
               <img
@@ -242,11 +263,28 @@ function LoginThree() {
             </div>
           </div>
           {errorMessage && (
-            <p className="text-red-500 mb-4" style={{ fontFamily: "Manrope", fontSize: "14px", fontWeight: "500" }}>
+            <p
+              className="text-red-500 mb-4"
+              style={{
+                fontFamily: "Manrope",
+                fontSize: "14px",
+                fontWeight: "500",
+              }}>
               {errorMessage}
             </p>
           )}
-          <button type="submit" className="bg-[#632E04] shadow-xl text-white font-bold rounded w-full h-[45px] mx-auto" style={{ maxWidth: '426px', fontFamily: 'Manrope', fontSize: '18px', fontWeight: '500', borderRadius: '8px', padding:"10px",lineHeight:"27px" }}>
+          <button
+            type="submit"
+            className="bg-[#632E04] shadow-xl text-white font-bold rounded w-full h-[45px] mx-auto"
+            style={{
+              maxWidth: "426px",
+              fontFamily: "Manrope",
+              fontSize: "18px",
+              fontWeight: "500",
+              borderRadius: "8px",
+              padding: "10px",
+              lineHeight: "27px",
+            }}>
             Submit
           </button>
         </form>

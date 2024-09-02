@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import Logo from "../assets/Logo.png";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function LoginFour() {
   return (
@@ -19,13 +19,20 @@ function LoginFour() {
             lineHeight: "36px",
             textAlign: "center",
           }}
-          className="text-[#353535] mb-8"
-        >
+          className="text-[#353535] mb-8">
           Your Password has been successfully changed
         </p>
         <div className="mb-[70px]">
           <Link to="/">
-            <button className="bg-[#632E04] text-white font-bold py-2 px-4 rounded w-full h-12 shadow-xl" style={{ maxWidth: '426px', fontFamily: 'Manrope', fontSize: '18px', fontWeight: '500', borderRadius: '8px' }}>
+            <button
+              className="bg-[#632E04] text-white font-bold py-2 px-4 rounded w-full h-12 shadow-xl"
+              style={{
+                maxWidth: "426px",
+                fontFamily: "Manrope",
+                fontSize: "18px",
+                fontWeight: "500",
+                borderRadius: "8px",
+              }}>
               Go back to Login
             </button>
           </Link>
