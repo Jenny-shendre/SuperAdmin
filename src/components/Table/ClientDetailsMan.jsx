@@ -361,7 +361,7 @@ console.log("Manager email", email);
 
                           <img src={close} alt="In Progress" className="w-[24px] h-[24px] mt-2 " />
                           ) : executive.lastClientName?.accepted === "rejected"? (
-                          <img src={cross} alt="In Progress" className="w-[24px] h-[24px] mt-2 " />
+                          <img src={cross} alt="rejected" className="w-[24px] h-[24px] mt-2 " />
                         ) : (
                           <span className="text-[#000000] mt-2">No Action</span> 
 
