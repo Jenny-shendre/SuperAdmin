@@ -1,0 +1,214 @@
+@media only screen and (max-width: 1180px) {
+
+
+  .TNav {
+    width: 939px !important;
+  }
+
+  .Tab3 {
+    width: 935px !important;
+  }
+}
+
+@media only screen and (min-width :1024px) and (max-width: 1610px){
+
+  .overview{
+     height: 650px !important;
+     overflow-y: scroll !important;
+  }
+
+  .graph-div{
+      width: 750px !important;
+  }
+
+  canvas{
+      width: 700px !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+
+
+  .TNav {
+    width: 782px !important;
+  }
+
+  .Tab3 {
+    width: 785px !important;
+  }
+}
+
+th {
+  position: sticky;
+  top: -2px;
+  background: #E8E8E8;
+}
+
+.table-wrapper {
+  max-height: 726px !important;
+  overflow-y: scroll;
+}
+
+div input::placeholder {
+  color: #3D2314;
+  font-weight: 500;
+  font-size: 16px;
+  font-family: Manrope;
+}
+
+
+.wrapperT{
+  max-height: 419px !important;
+  overflow-y: scroll;
+}
+
+th{
+  position: sticky;
+}
+
+.relative textarea::placeholder{
+  color: black;
+}
+
+
+.cardT{
+  max-height: 700px !important;
+  overflow-y: scroll;
+}
+
+.wrapperD{
+  max-height: 110px !important;
+  overflow-y: scroll;
+}
+
+.wrapperF{
+  max-height: 956px !important;
+  overflow-y: scroll;
+}
+
+.wrapperT{
+  max-height: 514px !important;
+  overflow-y: scroll;
+}
+
+.Cards{
+  max-height: 726px !important;
+  overflow-y: scroll;
+}
+
+.div2 textarea::placeholder{
+  color:rgba(0,0,0,0.68) ;
+  font-weight: 400;
+  font-family: Manrope;
+  font-size: 16px;
+  line-height: 19.2px;
+
+}
+
+.div3 textarea::placeholder{
+  font-weight: 500;
+  font-family: Manrope;
+  font-size: 16px;
+  line-height: 21.86px;
+
+}
+
+.add-team-members input::placeholder{
+  color: rgba(0, 0, 0, 0.68);
+}
+
+
+.dumbo input::placeholder{
+  color:  #5B5B5B;
+  font-family: Manrope;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.jumbo input::placeholder{
+  color: rgba(53, 53, 53, 0.5);
+}
+
+
+
+.team1{
+  position: sticky;
+  top: -3px;
+  background: #E8E8E8;
+}
+
+.teamName{
+  position: sticky;
+  /* top: -2px;
+  background: #E8E8E8; */
+}
+
+th {
+  position: sticky;
+  top: -2px;
+  background: #E8E8E8;
+}
+
+.table-wrapperT {
+  max-height: 591px !important;
+  overflow-y: scroll;
+}
+
+.table-wrapperK {
+  max-height: 419px !important;
+  overflow-y: scroll;
+  
+}
+
+.NotesT{
+  max-height: 547px !important;
+  overflow-y: scroll;
+}
+
+.table-wrapperT .team1 {
+  position: sticky;
+  top: -2px;
+  background: #E8E8E8;
+}
+
+.table-wrapperB  {
+  max-height: 747px !important;
+  width: 850px !important;
+  overflow-y: scroll;
+}
+
+thead{
+  position: sticky;
+  top: -2px;
+  background: #E8E8E8;
+}
+
+.role-switch-button {
+  display: flex;
+  width: 600px;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: #3D2314;
+  border: 1px solid lightgray;
+  border-radius: 24px;
+
+ 
+}
+
+.role-switch-button button {
+  /* background-color: white;
+  color: #3D2314; */
+
+  cursor: pointer;
+  flex: 1;
+}
+
+.role-switch-button button.active {
+  background-color: #3D2314;
+  color: white;
+}
+
+.description textarea::placeholder{
+  color: #3D2314;
+}
