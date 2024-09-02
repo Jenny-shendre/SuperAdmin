@@ -11,7 +11,7 @@ import { FaCheck } from "react-icons/fa6";
 import { BsThreeDots } from "react-icons/bs";
 import axios from "axios";
 import { format } from "date-fns";
-
+import eyes from "../../assets/eyes.png";
 import view from '../../assets/hugeicons_view (1).png';
 import edit from '../../assets/akar-icons_edit (2).png';
 import delt from '../../assets/material-symbols_delete-outline.png';
@@ -74,6 +74,15 @@ function ClientDetails() {
   useEffect(() => {
     fetchData();
   }, []);
+//Mobile View
+
+const [activeSection, setActiveSection] = useState("appointments");
+
+  const handleSectionChange = (section) => {
+    setActiveSection(section);
+  };
+
+
 
   //New
 
@@ -565,7 +574,7 @@ function ClientDetails() {
     <div>
       <div
         style={{ gap: "20px", paddingTop: "30px" }}
-        className="p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg"
+        className="headLn p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg"
       >
         <h1
           className="font-bold flex items-center gap-1"
@@ -593,7 +602,33 @@ function ClientDetails() {
       </div>
 
       <main className="flex-1 overflow-x-hidden overflow-y-auto p-6 bg-[#F7F3E8]">
-        <div style={{ textAlign: "-webkit-center" }}>
+        
+            {/* Buttons for Mobile View */}
+            <div className="flex justify-center mb-6 lg:hidden">
+          <button
+            className={`py-2 px-4 rounded-l-full ${activeSection === "appointments"
+              ? "bg-[#3D2314] text-white"
+              : "bg-white text-[#3D2314]"
+              }`}
+            onClick={() => handleSectionChange("appointments")}
+          >
+            Appointments
+          </button>
+          <button
+            className={`py-2 px-4 rounded-r-full ${activeSection === "history"
+              ? "bg-[#3D2314] text-white"
+              : "bg-white text-[#3D2314]"
+              }`}
+            onClick={() => handleSectionChange("history")}
+          >
+            Client History
+          </button>
+        </div>
+        
+        {/* Tables for Large Devices */}
+        <div className="hidden lg:block">
+          {/* Upcoming Appointments */}
+        <div style={{ textAlign: "-webkit-center " }}>
           <div className="mb-6 w-[964px]">
             <h2
               style={{
@@ -883,10 +918,12 @@ function ClientDetails() {
             </div>
           </div>
         </div>
+        </div>
 
         <br />
 
-        <div className="flex flex-row items-center justify-center ml-96">
+{/* Search Bar */}
+        <div className="flex flex-row items-center justify-center ml-96 headLn">
           <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full  mr-96 ">
             <input
               className="w-full py-2 px-12 rounded-full h-[48px]"
@@ -914,7 +951,9 @@ function ClientDetails() {
         </div>
 
         <br />
-        <div style={{ textAlign: " -webkit-center" }}>
+
+        {/* Client History */}
+        <div style={{ textAlign: " -webkit-center" }} className="headLn">
           <div className="w-[1323px] ">
             <h2
               style={{
@@ -1167,6 +1206,386 @@ function ClientDetails() {
             </div>
           </div>
         </div>
+      
+      
+{/* Tables for Mobile Devices */}
+{activeSection === "appointments" && (
+          <div className="lg:hidden h-full appointmenttable">
+            {/* Upcoming Appointments */}
+            <div className="tab4 h-full" style={{ textAlign: "-webkit-center" }}>
+              <div className="mb-6  w-full h-full">
+                <div className=" rounded-[12px]">
+                  <div className="">
+                    <div className="upcomingtb rounded-[12px]">
+                      {upcomings.map((value, i) => (
+                        <div key={i} className="mb-4">
+                          {/* Timer Section */}
+                          <div className="mb-4 p-4 bg-white px-[40px] py-[18px] rounded-lg shadow-sm">
+                            <div className="header text-center mb-2">
+                              <h3 className="text-[14px] text-[#888888] font-semibold">
+                                Upcoming Client
+                              </h3>
+                            </div>
+                            <div className="Timer w-[232px] h-[115px] bg-[#D7D7D7] flex justify-center items-center text-center mb-2 rounded-lg">
+                              <span className="text-[53px] text-[#888888] font-bold">
+                                {formatTime(timeLeft)}
+                              </span>
+                            </div>
+                            <div className="flex justify-around mt-4">
+                              <button
+                                className="correct1 w-[102px] h-[44px] bg-[#CFF3C9] text-[#3A972B] rounded-lg font-semibold"
+                                onClick={() =>
+                                  handleCorrectClick("correct1", "cross1")
+                                }
+                              >
+                                ✓ Accept
+                              </button>
+                              <button
+                                className="cross1 w-[102px] h-[44px] text-[#ED1111] bg-[#eecfcf] rounded-lg font-semibold"
+                                onClick={stopTime
+
+                                }
+                              >
+                                ✕ Decline
+                              </button>
+                            </div>
+                          </div>
+                          {/* Client Info Section */}
+                          <div className="p-4 mt-4 bg-white rounded-lg shadow-sm">
+                            <div className="flex justify-center items-center text-[14px] text-[#888888] mb-4 font-semibold">
+                              Client Info
+                            </div>
+                            <table className="w-full border-collapse">
+                              <tbody>
+                                <tr>
+                                  <th className="text-[#595757] bg-white p-[7px] text-[14px] border-[1px] border-[#E9E9E9] text-left whitespace-nowrap">
+                                    Date
+                                  </th>
+                                  <td className="text-[#595757] p-[7px] text-[16px] border-[1px] border-[#E9E9E9] font-semibold text-left whitespace-nowrap">
+                                    {DateupdatedAt(value.createdAt)}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th className="text-[#595757] bg-white p-[7px] text-[14px] border-[1px] border-[#E9E9E9] text-left whitespace-nowrap">
+                                    Name
+                                  </th>
+                                  <td className="text-[#595757] p-[7px] text-[16px] border-[1px] border-[#E9E9E9] font-semibold text-left whitespace-nowrap">
+                                    {value.ClientName}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th className="text-[#595757] bg-white p-[10px] text-[14px] border-[1px] border-[#E9E9E9] text-left whitespace-nowrap">
+                                    Project
+                                  </th>
+                                  <td className="text-[#595757] p-[10px] text-[16px] border-[1px] border-[#E9E9E9] font-semibold text-left whitespace-nowrap">
+                                    {value.ClientProject}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th className="text-[#595757] bg-white p-[10px] text-[14px] border-[1px] border-[#E9E9E9] text-left whitespace-nowrap">
+                                    Start Time
+                                  </th>
+                                  <td className="text-[#595757] p-[10px] text-[16px] border-[1px] border-[#E9E9E9] font-semibold text-left whitespace-nowrap">
+                                  {time === 0 ? "00 : 00" : formatTime(time)}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th className="text-[#595757] bg-white p-[10px] text-[14px] border-[1px] border-[#E9E9E9] text-left whitespace-nowrap">
+                                    End Time
+                                  </th>
+                                  <td className="text-[#595757] p-[10px] text-[16px] border-[1px] border-[#E9E9E9] font-semibold text-left whitespace-nowrap">
+                                    {EndCounter === 0 ? "00:00" : EndCounter}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  {/* <th className="text-[#595757] bg-white p-[10px] text-[14px] border-[1px] border-[#E9E9E9] text-left whitespace-nowrap">
+                                    Notes
+                                  </th> */}
+                                  {/* <td className="text-[#595757] flex gap-4  p-[10px] text-[16px] border-[1px] border-[#E9E9E9] font-semibold text-left whitespace-nowrap">
+                                    <img
+                                      src={notify}
+                                      onClick={() => {
+                                        setShowNotePopup(false);
+                                        setShowAddNotePopup(true);
+                                      }}
+                                      style={{ cursor: "pointer" }}
+                                      alt="notify"
+                                    />
+                                    Note
+                                  </td> */}
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+{activeSection === "history" && (
+          <div className="lg:hidden">
+            {/* Search Bar */}
+            <div className="flex flex-row items-center justify-center">
+              <div className="flex justify-center place-self-center items-center w-[100%] lg:w-[36rem] relative rounded-full">
+                <input
+                  className="w-full py-2 px-12 rounded-full h-[48px] lg:h-[48px] lg:w-[619px]"
+                  style={{
+                    boxShadow: "0px 0px 4px 0px #00000040",
+                    padding: "12px 24px 12px 45px",
+                    borderRadius: "27px",
+                  }}
+                  type="text"
+                  value={valueinput}
+                  onChange={(e) => setvalueinput(e.target.value)}
+                  placeholder="Search"
+                />
+                <img
+                  style={{ top: "0.9rem" }}
+                  src={Searchsvg}
+                  alt="Search"
+                  className="absolute left-3"
+                />
+              </div>
+            </div>
+
+            {/* Client's History */}
+            <div style={{ textAlign: " -webkit-center" }}>
+              <div className="w-auto mt-4">
+                <h2
+                  style={{
+                    fontFamily: "Manrope",
+                    fontSize: "18px",
+                    fontWeight: "600",
+                    lineHeight: "24.59px",
+                    color: "#2B2B2B",
+                  }}
+                  className="text-lg font-semibold mb-2 text-justify"
+                >
+                  Client's History
+                </h2>
+                <div className="wrapperT h-[460px] overflow-x-auto">
+                  <table className="w-[1323px]  bg-white shadow-sm rounded-lg">
+                    <thead
+                      style={{
+                        background: "#E8E8E8E8",
+                      }}
+                    >
+                      <tr>
+                        <th
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            lineHeight: "19.12px",
+                            textAlign: "left",
+                            color: "#5C5C5C",
+                            textAlign: "center",
+                          }}
+                          className="py-2 px-4 text-left th1"
+                        >
+                          Name
+                        </th>
+                        <th
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            lineHeight: "19.12px",
+                            textAlign: "left",
+                            color: "#5C5C5C",
+                            textAlign: "center",
+                          }}
+                          className="py-2 px-4 text-left th1"
+                        >
+                          Email
+                        </th>
+                        <th
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            lineHeight: "19.12px",
+                            color: "#5C5C5C",
+                            textAlign: "center",
+                          }}
+                          className="py-2 px-4 text-left th1"
+                        >
+                          Phone No.
+                        </th>
+                        <th
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            lineHeight: "19.12px",
+                            textAlign: "center",
+                            color: "#5C5C5C",
+                          }}
+                          className="py-2 px-4 text-left th1"
+                        >
+                          Property Interest
+                        </th>
+                        <th
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            lineHeight: "19.12px",
+                            textAlign: "center",
+                            color: "#5C5C5C",
+                          }}
+                          className="py-2 px-4 text-left th1"
+                        >
+                          Schedule Meeting
+                        </th>
+                        <th
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            lineHeight: "19.12px",
+                            textAlign: "center",
+                            color: "#5C5C5C",
+                          }}
+                          className="py-2 px-4 text-left th1"
+                        >
+                          Status
+                        </th>
+
+                        <th
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            lineHeight: "19.12px",
+                            textAlign: "center",
+                            color: "#5C5C5C",
+                          }}
+                          className="py-2 px-4 text-left th1"
+                        >
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      style={{
+                        fontFamily: "Manrope",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                        lineHeight: "21.86px",
+                        color: "#2B2B2B",
+                        textAlign: "center",
+                        padding: "10px",
+                      }}
+                    >
+                      {data
+                        .filter(({ ClientName }) =>
+                          ClientName.toLowerCase().includes(
+                            valueinput.toLowerCase()
+                          )
+                        )
+                        .map((visitor, index) => (
+                          <tr key={index} style={{ height: "48px" }}>
+                            <td
+                              style={{ borderBottom: "1px solid #E4E7EC" }}
+                              className="py-4 px-4"
+                            >
+                              {visitor.ClientName}
+                            </td>
+                            <td
+                              style={{ borderBottom: "1px solid #E4E7EC" }}
+                              className="py-4 px-4"
+                            >
+                              {visitor.ClientEmail}
+                            </td>
+                            <td
+                              style={{ borderBottom: "1px solid #E4E7EC" }}
+                              className="py-4 px-4"
+                            >
+                              {visitor.ClientMobile}
+                            </td>
+                            <td
+                              style={{ borderBottom: "1px solid #E4E7EC" }}
+                              className="py-4 px-4"
+                            >
+                              {visitor.ClientProject}
+                            </td>
+                            <td
+                              style={{ borderBottom: "1px solid #E4E7EC" }}
+                              className="py-4 px-4"
+                            >
+                              {DateupdatedAt(visitor.createdAt)}
+                            </td>
+                            <td
+                              style={{ borderBottom: "1px solid #E4E7EC" }}
+                              className="py-4 px-4 flex flex-wrap justify-between"
+                            >
+                              <span
+                                style={{ borderBottom: "1px solid #E4E7EC" }}
+                                className={`rounded ${visitor.completed === "completed"
+                                  ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
+                                  : visitor.completed === "notCompleted"
+                                    ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded"
+                                    : visitor.completed === "progress"
+                                      ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
+                                      : ""
+                                  }`}
+                              >
+                                {visitor.completed === "notCompleted"
+                                  ? "Not completed"
+                                  : visitor.completed === "completed"
+                                    ? "Completed"
+                                    : visitor.completed === "progress"
+                                      ? "In Progress"
+                                      : ""}
+                              </span>
+                              <span style={{ alignContent: "center" }}>
+                                {visitor.completed === "completed" ? (
+                                  <FaCheck style={{ color: "#48A321" }} />
+                                ) : visitor.completed === "notCompleted" ? (
+                                  <RxCross2 style={{ color: "#A32121" }} />
+                                ) : visitor.completed === "progress" ? (
+                                  <BsThreeDots
+                                    style={{ color: "yellowgreen" }}
+                                  />
+                                ) : (
+                                  ""
+                                )}
+                              </span>
+                            </td>
+
+                            <td
+                              style={{ borderBottom: "1px solid #E4E7EC" }}
+                              className="py-4 px-4"
+                            >
+                              <button className="text-green-500 mr-4 correct1">
+                                <img src={eyes} alt="View" />
+                              </button>
+                              <button className="text-blue-500 mr-4">
+                                <img src={edit} alt="Edit" />
+                              </button>
+                              <button className="text-red-500">
+                                <img src={delt} alt="Delete" />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      
+      
+      
+      
       </main>
 
       {showAddNotePopup && (
@@ -1454,6 +1873,9 @@ function ClientDetails() {
           </div>
         </div>
       )}
+
+
+
     </div>
   );
 }

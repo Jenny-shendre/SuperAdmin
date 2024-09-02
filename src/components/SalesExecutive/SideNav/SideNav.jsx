@@ -69,7 +69,7 @@ const SideNav = () => {
   return (
     <div
       style={{ zIndex: "+1", boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)" }}
-      className="right-shadow border-0 bg-[#FFFFFF] h-screen text-white flex flex-col justify-between p-4 shadow-md  pt-0"
+      className="Sales right-shadow border-0 bg-[#FFFFFF] h-screen text-white flex flex-col justify-between p-4 shadow-md  pt-0"
     >
       <div
         className="flex flex-col  W-[70%] md::w-auto"
