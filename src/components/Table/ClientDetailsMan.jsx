@@ -5,6 +5,7 @@ import Searchsvg from "../../assets/material-symbols_search.svg";
 import { CgNotes } from "react-icons/cg";
 import { IoCheckmarkOutline } from "react-icons/io5";
 import close from '../../assets/close.png';
+import cross from '../../assets/cross.png';
 import axios from "axios";
 import { format, isValid } from "date-fns";
 import Loading from "../Loding/Loding";
@@ -355,12 +356,21 @@ console.log("Manager email", email);
                             <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31] mt-2" />
                           ) : item.action === 'In Progress' ?(
 
-                            <img src={close} alt="In Progress" className="w-[24px] h-[24px] mt-2 " />
+                          <img src={close} alt="In Progress" className="w-[24px] h-[24px] mt-2 " />
                           ) : (
-                            <span className="text-[#000000] mt-2">No Action</span>
+                            <span className="text-[#000000] mt-2">No Action</span> 
 
 
-                          )}
+                          ) ?(
+                          <img src={cross} alt="In Progress" className="w-[24px] h-[24px] mt-2 " />
+                        ) : (
+                          <span className="text-[#000000] mt-2">No Action</span> 
+
+
+                        )
+                          
+                          
+                          }
                         </div>
                         {/* <td className="p-2 text-center">
                   <div className="flex items-center gap-[10px]  justify-center space-x-2">
