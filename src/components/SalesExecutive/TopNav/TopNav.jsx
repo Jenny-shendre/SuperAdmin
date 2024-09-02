@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import userImg from  "../../../assets/A2.png";
+import BellImage from "../../../assets/BellImage.png";
+import ROFIMAGE from "../../../assets/ROFIMAGE.png"; // Imported the logo
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../utils/TokenUtils";
 import axios from "axios";
@@ -93,23 +95,51 @@ const TopNav = () => {
 
   return (
     <div style={{
-      boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)', paddingRight: '0px'
-    }}
-      className={`TNav border-0 bottom-shadow w-full h-[3.688rem] lg:h-[50px] bg-white bg-opacity-50  flex flex-row justify-end px-5 gap-5 items-center font-[Manrope] font-medium relative shadow-b-lg shadow-Black-1000`}>
-      <div style={{
-        fontFamily: 'Manrope',
-        fontSize: '20px',
-        fontWeight: '500',
-        lineHeight: '27.32px',
-      }}>Welcome! {title} </div>
-      <div>
+      boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)',
+      paddingLeft:'0px',
+      width:'100%'
+    }} className={`border-0 bottom-shadow h-[66px] bg-white bg-opacity-50 flex items-center justify-between px-4 font-[Manrope] font-medium relative shadow-b-lg shadow-Black-1000`}>
+    {/* logo */}
+     <img src={ROFIMAGE}
+      alt="ROF Logo"
+      className="w-[71px] h-[50px] lg:hidden" />
+
+{/* bell icon */}
+
+<div className="flex items-center mr-2 gap-4 lg:hidden">
+        <img
+          src={BellImage}
+          alt="Notifications"
+          className="w-6 h-6"
+        />
         <img
           src={userImg}
-          alt="Userimg"
-          className="w-8 rounded-full mr-12 cursor-pointer"
+          alt="User"
+          className="w-8 h-8 rounded-full cursor-pointer"
           onClick={clickfun}
         />
       </div>
+
+{/* Welcome text and User Profile for large screens */}
+<div className="hidden mr-4 lg:flex lg:flex-grow lg:justify-end lg:items-center lg:gap-4 ">
+<div style={{
+  fontFamily:'Manrope',
+  fontSize:'20px',
+  fontWeight:'500',
+  lineHeight:'27.32px'
+}}>
+
+  Welcome! {title}
+
+  </div>
+
+  <img src={userImg} alt="User" className="w-8 h-8 rounded-full cursor-pointer" onClick={clickfun} />
+  </div>
+
+
+ {/* DropDown for profile */}
+
+    
       <div ref={popupRef} style={{ boxShadow: '0px 0px 4px 0px #00000040', padding: '6px 14px' }}
         className={`absolute right-7 top-14 bg-white p-4 ${click ? "" : "hidden"}`}>
         <ul className="flex flex-col gap-1 ">

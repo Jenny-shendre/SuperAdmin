@@ -39,6 +39,12 @@
 
   }
 
+  .tab4{
+    height: 600px !important;
+    overflow-y: scroll !important;
+  }
+
+
   .tableDiv{
     width: 324px !important;
     overflow-x: scroll !important;
