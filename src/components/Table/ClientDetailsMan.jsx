@@ -78,14 +78,20 @@ console.log("Manager email", email);
   const getData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`https://prodictivity-management-tool2.vercel.app/api/notes`);
-      const resData = res.data;
+      //const res = await axios.get(`https://prodictivity-management-tool2.vercel.app/api/notes`);
+      //const resData = res.data;
       // console.log("API Response Data:", responseData);
-      const filteredData = resData.filter(item => item.role === "Client");
+      //const filteredData = resData.filter(item => item.role === "Client");
       // console.log("output", res.data);
-      setData(filteredData);     
+      //setData(filteredData);     
+
+      const res1 = await axios.get(`https://project-rof.vercel.app/api/salesManager/findSalesManagerlastTeamData/${email}`);
+      //console.log("ManagerData aya kya", res1.data);
+      setData(res1.data)
 
       setLoading(false);
+
+      
 
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -284,84 +290,77 @@ console.log("Manager email", email);
 
                 <tbody className="font-[Manrope] ">
                   
-                  {data
-                  .filter(
-                    ({name,executiveName,project}) =>
-                      name
-                    ?.toLowerCase()
-                    .includes(valueinput.toLowerCase()) ||
-                    executiveName
-                    ?.toLowerCase()
-                    .includes(valueinput.toLowerCase()) ||
-                    project
-                    ?.toLowerCase()
-                    .includes(valueinput.toLowerCase()) 
+                {data
+                      .filter((executive) => {
+                        const clientName = executive.lastClientName?.ClientName?.toLowerCase() || "";
+                        const projectName = executive.lastClientName?.ClientProject?.toLowerCase() || "";
+                        const executiveName = executive.name?.toLowerCase() || "";
 
-                  )
-                  .map((item, index) => (
-                    
-                      
-                    
-                      <tr className="text-[#5C5C5C] text-center border-b" key={item}>
-                        <td className="px-4 py-2 ">{item.date ? DateupdatedAt(item.date) : "Invalide date"}</td>
+                        return (
+                          clientName.includes(valueinput.toLowerCase()) ||
+                          projectName.includes(valueinput.toLowerCase()) ||
+                          executiveName.includes(valueinput.toLowerCase())
+                        );
+                      })
+                      .map((executive, index) => (
 
-                         <td className="px-4 py-2 max-w-[150px] overflow-hidden"
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "14px",
-                            lineHeight: "19px",
-                            color: "#5C5C5C", 
-                          }}
-                          title={item.project} >
 
-                          {truncateText(item.project?.length > 0 ? item?.project : "Not Assign")}
+
+                        <tr className="text-[#5C5C5C] text-center border-b" key={index}>
+                          <td className="px-4 py-2 ">{executive.lastClientName?.createdAt ? DateupdatedAt(executive.lastClientName.createdAt) : "Not Found"}</td>
+
+                          <td className="px-4 py-2 max-w-[150px] overflow-hidden"
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "14px",
+                              lineHeight: "19px",
+                              color: "#5C5C5C",
+                            }}
+                            title={executive.lastClientName?.ClientProject}>
+                            {truncateText(executive.lastClientName?.ClientProject || "Not Assigned")}
                           </td>
                           <td className="px-4 py-2 max-w-[150px] overflow-hidden"
-                           style={{
-                            fontFamily: "Manrope",
-                            fontSize: "14px",
-                            lineHeight: "19px",
-                            color: "#5C5C5C", 
-                          }}
-                          title={item.customerId}> 
-                          <Link to='/SalesManager/IDMan' style={{color:"blue",textDecoration:"underline",fontFamily:"Manrope",fontWeight:"700"}} >
-                          ROF001
-                          </Link>                      
-                        </td>
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "14px",
+                              lineHeight: "19px",
+                              color: "#5C5C5C",
+                            }}
+                            title={executive.lastClientName?.ClientId}>
+                            <Link to='/SalesManager/IDMan' style={{ color: "blue", textDecoration: "underline", fontFamily: "Manrope", fontWeight: "700" }} >
+                            {executive.lastClientName?.ClientId || "Not Found"}
+                            </Link>
+                          </td>
 
-                        <td className="px-4 py-2 max-w-[150px] overflow-hidden "
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "14px",
-                            lineHeight: "19px",
-                            color: "#5C5C5C",
-                          }}
-                          title={item.name}>
-                         {truncateText(item.name)}
-                        </td>
+                          <td className="px-4 py-2 max-w-[150px] overflow-hidden "
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "14px",
+                              lineHeight: "19px",
+                              color: "#5C5C5C",
+                            }}
+                            ttitle={executive.lastClientName?.ClientName}>
+                             {truncateText(executive.lastClientName?.ClientName || "No Last Client")}
+                          </td>
 
 
-                        <td className="px-4 py-2 text-[#000000] " style={{ fontWeight: '800' }}>{item.duration?.length > 0 ? item?.duration : "Not Assign"}</td>
-                        <td className="px-4 py-2 r">
-                        <td className="px-4 py-2 max-w-[150px] overflow-hidden"
-                          title={item.executiveName?.length > 0 ? item?.executiveName : "Not found"}>
-                            {truncateText(item.executiveName?.length > 0 ? item?.executiveName : "Not found")}
-                        </td>
-                        </td>
-
+                          <td className="px-4 py-2 text-[#000000] " style={{ fontWeight: '800' }}>{executive.lastClientName?.timeDuration || "Not Assigned"}</td>
+                          <td className="px-4 py-2 r">
+                            <td className="px-4 py-2 max-w-[150px] overflow-hidden"
+                              title={executive.name}>
+                              {truncateText(executive.name || "Not Found")}
+                            </td>
+                          </td>
+                  
                         {/* <td className="px-4 py-2">{visitor.name?.length > 0 ? visitor?.name : "Not found"}</td> */}
                         {/* cc */}
-                        <div className="flex justify-center items-center">
-                          {item.action === 'Completed' ? (
+                        <div className="flex justify-center items-center"> 
+                          {executive.lastClientName?.completed === "completed" ?  (
                             <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31] mt-2" />
-                          ) : item.action === 'In Progress' ?(
+                          ) : executive.lastClientName?.completed === "progress" ?(
 
                           <img src={close} alt="In Progress" className="w-[24px] h-[24px] mt-2 " />
-                          ) : (
-                            <span className="text-[#000000] mt-2">No Action</span> 
-
-
-                          ) ?(
+                          ) : executive.lastClientName?.accepted === "rejected"? (
                           <img src={cross} alt="In Progress" className="w-[24px] h-[24px] mt-2 " />
                         ) : (
                           <span className="text-[#000000] mt-2">No Action</span> 
