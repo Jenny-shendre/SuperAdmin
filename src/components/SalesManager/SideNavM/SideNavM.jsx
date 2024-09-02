@@ -10,7 +10,7 @@ import team2 from '../../../assets/Vector (4).png';
 import material3 from "../../../assets/add_notes.png";
 import Settings2 from "../../../assets/Settings.svg";
 import Logout2 from "../../../assets/logout.svg";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../../utils/TokenUtils";
 
 const SideNavM = () => {
@@ -46,15 +46,17 @@ const SideNavM = () => {
       } else if (locationPath.startsWith("/SalesManager/IDMan")) {
         setActiveItem("Client");
       }}
-  }, [locationPath, initialLoad]);
+  }, [locationPath,Navigate, initialLoad]);
 
   return (
+    <div>
+      {/* Desktop Screen */}
     <div
       style={{
         zIndex: "+1",
         boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
       }}
-      className="right-shadow border-0 bg-[#FFFFFF] h-screen text-white flex flex-col justify-between p-4 shadow-md  pt-0"
+      className="hidden lg:flex right-shadow border-0 bg-[#FFFFFF] h-screen text-white flex flex-col justify-between p-4 shadow-md  pt-0"
     >
       <div
         className="flex flex-col  W-[70%] md::w-auto"
@@ -194,7 +196,51 @@ const SideNavM = () => {
           </li>
         </ul>
       </div>
+      </div>
+
+    {/* Mobile Devices */}
+    <div
+        className="lg:hidden flex justify-between items-center fixed bottom-0 w-full bg-white"
+        style={{
+          height: "71px",
+          boxShadow: "0px -2px 10px rgba(0, 0, 0, 0.1)",
+          zIndex: "1000",
+        }}
+      >
+        <Link
+          to="/SalesManager/Client"
+          className={`w-1/2 text-center py-3 ${activeItem === "Client" ? "bg-[#3D2314] text-white" : "text-[#3D2314]"
+            }`}
+          onClick={() => handleItemClick("Client")}
+        >
+          <img
+            src={
+              activeItem === "Client" ? navicon2 : navicon1
+            }
+            alt="Client"
+            className="mx-auto"
+          />
+          Overview
+        </Link>
+        <Link
+          to="/SalesManager/My_Team"
+          className={`w-1/2 text-center py-3 ${activeItem === "My_Team" ? "bg-[#3D2314] text-white" : "text-[#3D2314]"
+            }`}
+          onClick={() => handleItemClick("My_Team")}
+        >
+          <img
+            src={activeItem === "My_Team" ? team2 : material2}
+            alt="My Team"
+            className="mx-auto"
+          />
+          My Team
+        </Link>
+        
+      </div>
+    
     </div>
+
+
   );
 };
 
