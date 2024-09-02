@@ -83,7 +83,8 @@ console.log("Manager email", email);
       // console.log("API Response Data:", responseData);
       //const filteredData = resData.filter(item => item.role === "Client");
       // console.log("output", res.data);
-      //setData(filteredData);     
+      //setData(filteredData); 
+      console.log("email",email); 
 
       const res1 = await axios.get(`https://project-rof.vercel.app/api/salesManager/findSalesManagerlastTeamData/${email}`);
       //console.log("ManagerData aya kya", res1.data);
