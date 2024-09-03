@@ -51,8 +51,6 @@ const OverViewAdmin = () => {
   const [teamData, setTeamData] = useState([]);
   const [notesData, setNotesData] = useState([]);
 
-
-
   //APIs
 
   const fetchDirectVisitors = async (interval) => {
@@ -126,7 +124,6 @@ const OverViewAdmin = () => {
     return response.data;
   };
 
-
   const TopTeamPerformer = async (interval) => {
     const response = await axios.get(
       "https://project-rof.vercel.app/api/overview/TOP3Team",
@@ -136,8 +133,6 @@ const OverViewAdmin = () => {
     );
     return response.data;
   };
-
-
 
   const opts = ["Daily", "Weekly", "Monthly", "Yearly"];
 
@@ -220,18 +215,11 @@ const OverViewAdmin = () => {
         BargraphData(opt.toLowerCase()),
         TopExecutivePerformer(opt.toLowerCase()),
         TopTeamPerformer(opt.toLowerCase()),
-
       ]);
 
-<<<<<<< HEAD
       console.log("Direct Data:", directData); // Log API responses
       console.log("Channel Data:", channelData);
-      console.log("Meetings Data:", meetingsData);
-=======
-      console.log('Direct Data:', directData);  // Log API responses
-      console.log('Channel Data:', channelData);
-      console.log('topTeam Data:', topTeam);
->>>>>>> 36a1f88f6132bc89daaa4f196ffcafb33fbfd7e1
+      console.log("topTeam Data:", topTeam);
 
       setDirectVisitors(directData?.numberOfDirectVisitors || 23);
       setChannelVisitors(channelData.numberOfChannelVisitors || 0);
@@ -241,7 +229,6 @@ const OverViewAdmin = () => {
       setBarData(graphData.data || 0);
       setExecutiveData(topExecutive || 0);
       setTeamData(topTeam || 0);
-
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -250,26 +237,24 @@ const OverViewAdmin = () => {
   useEffect(() => {
     handleOptionClick(selectedOpt);
   }, [selectedOpt]);
-<<<<<<< HEAD
-=======
 
   const getNotes = async () => {
-    const res = await axios.get("https://project-rof.vercel.app/api/overview/Note");
+    const res = await axios.get(
+      "https://project-rof.vercel.app/api/overview/Note"
+    );
     setNotesData(res.data);
-  }
+  };
 
   useEffect(() => {
     getNotes();
   }, []);
 
-  console.log("notesData", notesData)
+  console.log("notesData", notesData);
 
   const DateupdatedAt = (DateupdatedAt) => {
     const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
     return formattedDate;
   };
-
->>>>>>> 36a1f88f6132bc89daaa4f196ffcafb33fbfd7e1
 
   return (
     <div className=" h-[1024px] p-6 overview">
@@ -592,7 +577,6 @@ const OverViewAdmin = () => {
                   fontFamily: "Manrope",
                 }}>
                 {teamData.map((visitor, index) => (
-
                   <tr className="divide-x-2 divide-gray-200">
                     <td className="px-4 py-2 text-[12px]">{index + 1}</td>
                     <td className="px-4 py-2">{visitor.teamName}</td>
@@ -600,7 +584,6 @@ const OverViewAdmin = () => {
                     <td className="px-4 py-2">{visitor.conversionCount}</td>
                   </tr>
                 ))}
-
               </tbody>
             </table>
           </div>
@@ -638,50 +621,48 @@ Notes */}
               </div>
 
               <div style={{ height: "547px" }} className="NotesT">
-              {notesData.map((note, index) => (
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
+                {notesData.map((note, index) => (
+                  <div className="flex justify-around">
+                    <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
+                      <div
+                        className="items-center justify-center"
+                        style={{
+                          width: "36px",
+                          height: "36px",
+                          borderRadius: "50%",
+                          padding: "8px",
+                          background: "rgba(99, 46, 4, 0.5)",
+                          color: "rgba(61, 35, 20, 1)",
+                          fontSize: "14px",
+                          fontFamily: "Manrope",
+                          fontWeight: "600px",
+                        }}>
+                        SB
+                      </div>
 
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
+                      <div className="flex flex-wrap ">
+                        <div>
                           {" "}
-                          {DateupdatedAt(note.date)}
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          {note.note}
-
-                        </marquee>
+                          <h3
+                            style={{ fontWeight: "500" }}
+                            className="  text-[16px] font-[Manrope] text-[#383838] text-left">
+                            {" "}
+                            {DateupdatedAt(note.date)}
+                          </h3>
+                          <marquee
+                            style={{ fontWeight: "500", width: "192px" }}
+                            className="text-[10px] font-[Manrope] text-[black] text-left border-b">
+                            {note.note}
+                          </marquee>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
+                    <div style={{ alignContent: "center" }}>
+                      <FiEye />
+                    </div>
                   </div>
-                </div>
-              ))}
-
+                ))}
               </div>
             </div>
           </div>
