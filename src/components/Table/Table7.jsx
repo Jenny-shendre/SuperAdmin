@@ -333,7 +333,7 @@ const Table7 = () => {
                 <img
                   src={projectData?.projectImage ?? one}
                   alt="ROF Aalayas"
-                  className="w-1/3 object-cover h-[290px] w-[445px]"
+                  className=" object-cover h-[290px] w-[445px]"
                 />
                 <div className="p-4">
                   <h2
