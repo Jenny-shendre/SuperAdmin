@@ -354,7 +354,7 @@ function ClientDetailsMang() {
                               }}
                               title={executive.lastClientName?.ClientId}>
                               <Link
-                                to="/SalesManager/IDMan"
+                                 to={`/SalesManager/IDMan/${executive.lastClientName?.ClientId}`}
                                 style={{
                                   color: "blue",
                                   textDecoration: "underline",
