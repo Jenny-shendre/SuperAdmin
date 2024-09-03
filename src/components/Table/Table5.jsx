@@ -353,7 +353,7 @@ const Table5 = () => {
         setManagerErrorMessage("Phone number must be exactly 10 digits.");
         return;
       }
-      if(password === ''){
+      if (password === '') {
         setManagerErrorMessage("Please enter Password to set.");
         return;
       }
@@ -364,7 +364,7 @@ const Table5 = () => {
         name: managerName,
         email: managerEmail,
         phone: managerPhone,
-        pass: password,
+        password: password,
       };
       try {
         const res = await axios.post(
@@ -412,7 +412,8 @@ const Table5 = () => {
     setExecutivePhone("");
     setExecutiveCreateStatus("");
     setExecutiveErrorMessage("");
-    setPassword2("");  };
+    setPassword2("");
+  };
 
   const handleExecutivePhoneChange = (e) => {
     const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
@@ -442,7 +443,7 @@ const Table5 = () => {
         setExecutiveErrorMessage("Phone number must be exactly 10 digits.");
         return;
       }
-      if(salePass === ''){
+      if (salePass === '') {
         setExecutiveErrorMessage("Enter password to set.");
         return;
       }
@@ -453,7 +454,7 @@ const Table5 = () => {
         name: executiveName,
         email: executiveEmail,
         phone: executivePhone,
-        pass:salePass,
+        password: password2,
       };
 
       try {
@@ -588,23 +589,23 @@ const Table5 = () => {
                 Add
               </button>
               <Link to="/SuperAdmin/View_Members">
-              <button   
-              
-              className="add-team-button bg-[#3D2314]  text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] ml-10 mt-4 lg:mt-0"
-                style={{
-                  height: "48px",
-                  width: "189px",
-                  border: "1px solid #3D2314",
-                  boxShadow: "0px 0px 4px 0px #00000040",
-                  gap:"12px",
-                  fontSize:"16px",
-                  fontFamily:"Manrope",
-                  fontWeight:"500",
-                }}>
-                  <span style={{width:"20px",height:"14px",top:"17px",left:"24px",gap:"12px"}}><LuEye /></span>
-                  
-              View Members
-              </button>
+                <button
+
+                  className="add-team-button bg-[#3D2314]  text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] ml-10 mt-4 lg:mt-0"
+                  style={{
+                    height: "48px",
+                    width: "189px",
+                    border: "1px solid #3D2314",
+                    boxShadow: "0px 0px 4px 0px #00000040",
+                    gap: "12px",
+                    fontSize: "16px",
+                    fontFamily: "Manrope",
+                    fontWeight: "500",
+                  }}>
+                  <span style={{ width: "20px", height: "14px", top: "17px", left: "24px", gap: "12px" }}><LuEye /></span>
+
+                  View Members
+                </button>
               </Link>
               {/* Add teams buttons */}
               {showTeamPopup && (
@@ -1155,18 +1156,18 @@ const Table5 = () => {
                       )}
                   </div>
                   <div className="relative w-[440px] h-12 mb-4 flex rounded-md border border-gray-300">
-      <input
-       className="w-full h-full p-4  font-manrope text-lg font-normal"
+                    <input
+                      className="w-full h-full p-4  font-manrope text-lg font-normal"
 
-        type={showPassword ? 'text' : 'password'}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter your password"
-      />
-      <button onClick={handleTogglePassword} className="pr-4">
-        {showPassword ? <FaEyeSlash /> : <FaEye />}
-      </button>
-    </div>
+                      type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Enter your password"
+                    />
+                    <button onClick={handleTogglePassword} className="pr-4">
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
 
                   <button
                     onClick={handleManagerSubmit}
@@ -1259,18 +1260,18 @@ const Table5 = () => {
                   </div>
 
                   <div className="relative w-[440px] h-12 mb-4 flex rounded-md border border-gray-300">
-      <input
-       className="w-full h-full p-4  font-manrope text-lg font-normal"
+                    <input
+                      className="w-full h-full p-4  font-manrope text-lg font-normal"
 
-        type={showPassword2 ? 'text' : 'password'}
-        value={password2}
-        onChange={(e) => setPassword2(e.target.value)}
-        placeholder="Enter your password"
-      />
-      <button onClick={handleTogglePassword2} className="pr-4">
-        {showPassword2 ? <FaEyeSlash /> : <FaEye />}
-      </button>
-    </div>
+                      type={showPassword2 ? 'text' : 'password'}
+                      value={password2}
+                      onChange={(e) => setPassword2(e.target.value)}
+                      placeholder="Enter your password"
+                    />
+                    <button onClick={handleTogglePassword2} className="pr-4">
+                      {showPassword2 ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
 
                   <button
                     onClick={handleExecutiveSubmit}

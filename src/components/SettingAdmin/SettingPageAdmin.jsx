@@ -224,7 +224,7 @@ const SettingPageAdmin = () => {
 
           <div>
             {activeItem === 'MyProfileAdmin' && <MyProfileAdmin />}
-            {activeItem === 'PasswordAdmin' && <PasswordAdmin email={adminData.email} />}
+            {activeItem === 'PasswordAdmin' && <PasswordAdmin phone={adminData.phone} />}
 
 
           </div>
