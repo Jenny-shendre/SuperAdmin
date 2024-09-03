@@ -66,8 +66,10 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorComp />,
     children: [
-      { 
-        path: "", element: <PrivateRoute element={Overview} /> },
+      {
+        path: "",
+        element: <PrivateRoute element={Overview} />,
+      },
       {
         path: "Direct_Visitors",
         element: <PrivateRoute element={Direct_Visitors} />,
@@ -121,7 +123,7 @@ const router = createBrowserRouter([
         path: "teamName/:teamName/:employeeId",
         element: <PrivateRoute element={Table12} />,
       },
-      
+
       {
         path: "SettingAdmin",
         element: <PrivateRoute element={SettingPageAdmin} />,
@@ -181,11 +183,11 @@ const router = createBrowserRouter([
         element: <PrivateRoute element={overviewID} />,
       },
       {
-        path: "/SalesManager/ClientHistory",
+        path: "/SalesManager/ClientHistory/:employeeId",
         element: <PrivateRoute element={ClientHistory} />,
       },
       {
-        path: "/SalesManager/IDMan",
+        path: "/SalesManager/IDMan/:clientid",
         element: <PrivateRoute element={IDMan} />,
       },
     ],

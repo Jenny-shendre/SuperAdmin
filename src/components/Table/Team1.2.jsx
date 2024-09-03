@@ -237,7 +237,7 @@ const Table12 = () => {
                               width: "87px",
                               height: "24px",
                             }}>
-                            {item.completed}
+                            {item.accepted}
                           </span>
                           <span
                             className="ml-2"
