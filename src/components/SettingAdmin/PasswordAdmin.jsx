@@ -5,22 +5,22 @@ import edit from "../../assets/Group.png";
 import axios from 'axios';
 
 
-const PasswordAdmin = ({ email }) => {
+const PasswordAdmin = ({ phone }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const [userEmail, setUserEmail] = useState([]);
+  const [userPhone, setUserPhone] = useState([]);
 
   useEffect(() => {
-    setUserEmail(email);
-  }, [email]);
+    setUserPhone(phone);
+  }, [phone]);
 
 
 
 
   const handleEditClick = async () => {
     const data = {
-      email: userEmail,
+      phone: userPhone,
       oldPassword: oldPassword,
       newPassword: newPassword,
       confirmPassword: confirmNewPassword,

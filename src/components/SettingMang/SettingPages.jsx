@@ -180,7 +180,7 @@ const SettingPages = () => {
         </div>
         <div>
           {activeItem === 'MyProfilePage' && <MyProfilePage />}
-          {activeItem === 'PasswordPage' && <PasswordPage email={managerData.email} />}
+          {activeItem === 'PasswordPage' && <PasswordPage phone={managerData.phone} />}
 
         </div>
       </div>
