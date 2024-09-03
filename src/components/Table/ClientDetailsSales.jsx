@@ -38,7 +38,8 @@ function ClientDetails() {
   const [resEndDateTime, setresEndDateTime] = useState();
 
   const [IdEmp, setIdEmp] = useState(
-    localStorage.getItem("EmpId") || "ROFEX103"
+    localStorage.getItem("EmpId")
+    // || "ROFEX103"
   );
 
   const [showNotePopup, setShowNotePopup] = useState(false);
