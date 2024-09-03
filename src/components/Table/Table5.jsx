@@ -7,13 +7,13 @@ import { format } from "date-fns";
 import Loding from "../Loding/Loding";
 import "../Home.css";
 import { Link } from "react-router-dom";
-import { FaEyeSlash, FaCircle } from "react-icons/fa";
 import { IoOpenOutline } from "react-icons/io5";
 import DropIcon from "../../assets/DropIcon.png";
 import EmailIcon from "../../assets/email.png";
 import PhoneIcon from "../../assets/phone.png";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link2 } from "lucide-react";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Table5 = () => {
   const [valueinput, setvalueinput] = useState("");
@@ -299,6 +299,12 @@ const Table5 = () => {
   const [isManagerCreating, setIsManagerCreating] = useState(false);
   const [managerCreateStatus, setManagerCreateStatus] = useState("");
   const [managerErrorMessage, setManagerErrorMessage] = useState(""); // state for error message
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
 
   const resetManagerForm = () => {
     setManagerName("");
@@ -306,6 +312,7 @@ const Table5 = () => {
     setManagerPhone("");
     setManagerCreateStatus("");
     setManagerErrorMessage("");
+    setPassword("");
   };
 
   const validateManagerName = (name) => {
@@ -328,7 +335,7 @@ const Table5 = () => {
   };
 
   const handleManagerSubmit = async () => {
-    if (managerName && managerEmail && managerPhone) {
+    if (managerName && managerEmail && managerPhone && password) {
       // Check for phone number
       if (!validateManagerName(managerName)) {
         setManagerErrorMessage("The first letter of the name must be capital.");
@@ -342,6 +349,10 @@ const Table5 = () => {
         setManagerErrorMessage("Phone number must be exactly 10 digits.");
         return;
       }
+      if(password === ''){
+        setManagerErrorMessage("Please enter Password to set.");
+        return;
+      }
       setIsManagerCreating(true);
       setManagerErrorMessage(""); // Clear any previous error messages
 
@@ -349,6 +360,7 @@ const Table5 = () => {
         name: managerName,
         email: managerEmail,
         phone: managerPhone,
+        pass: password,
       };
       try {
         const res = await axios.post(
@@ -385,6 +397,9 @@ const Table5 = () => {
   const [isExecutiveCreating, setIsExecutiveCreating] = useState(false);
   const [executiveCreateStatus, setExecutiveCreateStatus] = useState("");
   const [executiveErrorMessage, setExecutiveErrorMessage] = useState(""); //  state for error message
+  const [password2, setPassword2] = useState('');
+  const [showPassword2, setShowPassword2] = useState(false);
+
 
   const resetExecutiveForm = () => {
     setExecutiveName("");
@@ -392,7 +407,7 @@ const Table5 = () => {
     setExecutivePhone("");
     setExecutiveCreateStatus("");
     setExecutiveErrorMessage("");
-  };
+    setPassword2("");  };
 
   const handleExecutivePhoneChange = (e) => {
     const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
@@ -401,8 +416,12 @@ const Table5 = () => {
     }
   };
 
+  const handleTogglePassword2 = () => {
+    setShowPassword2(!showPassword2);
+  };
+
   const handleExecutiveSubmit = async () => {
-    if (executiveName && executiveEmail && executivePhone) {
+    if (executiveName && executiveEmail && executivePhone && salePass) {
       // Check for phone number
       if (!validateManagerName(executiveName)) {
         setExecutiveErrorMessage(
@@ -418,6 +437,10 @@ const Table5 = () => {
         setExecutiveErrorMessage("Phone number must be exactly 10 digits.");
         return;
       }
+      if(salePass === ''){
+        setExecutiveErrorMessage("Enter password to set.");
+        return;
+      }
       setIsExecutiveCreating(true);
       setExecutiveErrorMessage(""); // Clear any previous error messages
 
@@ -425,6 +448,7 @@ const Table5 = () => {
         name: executiveName,
         email: executiveEmail,
         phone: executivePhone,
+        pass:salePass,
       };
 
       try {
@@ -1080,7 +1104,7 @@ const Table5 = () => {
                       value={managerPhone}
                       onChange={handleManagerPhoneChange}
                       className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
-                      placeholder="Phone No"
+                      placeholder="Mobile No"
                       maxLength={15} // Ensures no more than 10 characters
                     />
                     <img
@@ -1095,6 +1119,20 @@ const Table5 = () => {
                         </p>
                       )}
                   </div>
+                  <div className="relative w-[440px] h-12 mb-4 flex rounded-md border border-gray-300">
+      <input
+       className="w-full h-full p-4  font-manrope text-lg font-normal"
+
+        type={showPassword ? 'text' : 'password'}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Enter your password"
+      />
+      <button onClick={handleTogglePassword} className="pr-4">
+        {showPassword ? <FaEyeSlash /> : <FaEye />}
+      </button>
+    </div>
+
                   <button
                     onClick={handleManagerSubmit}
                     className="w-fit create-manager-btn h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
@@ -1164,7 +1202,7 @@ const Table5 = () => {
                       value={executivePhone}
                       onChange={handleExecutivePhoneChange}
                       className="w-full h-full p-4 rounded-md border border-gray-300 font-manrope text-lg font-normal"
-                      placeholder="Phone No"
+                      placeholder="Mobile No"
                       maxLength={15} // Ensures no more than 10 characters
                     />
                     <img
@@ -1179,6 +1217,21 @@ const Table5 = () => {
                         </p>
                       )}
                   </div>
+
+                  <div className="relative w-[440px] h-12 mb-4 flex rounded-md border border-gray-300">
+      <input
+       className="w-full h-full p-4  font-manrope text-lg font-normal"
+
+        type={showPassword2 ? 'text' : 'password'}
+        value={password2}
+        onChange={(e) => setPassword2(e.target.value)}
+        placeholder="Enter your password"
+      />
+      <button onClick={handleTogglePassword2} className="pr-4">
+        {showPassword2 ? <FaEyeSlash /> : <FaEye />}
+      </button>
+    </div>
+
                   <button
                     onClick={handleExecutiveSubmit}
                     className="w-fit create-executive-btn h-12 py-3 px-6 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
