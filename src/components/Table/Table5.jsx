@@ -190,7 +190,7 @@ const Table5 = () => {
   // };
 
   const handleAddMember = (member) => {
-    if (member.trim() && !members.includes(member.trim())) {
+    if (member.trim() && !members?.includes(member.trim())) {
       setMembers([...members, member.trim()]);
       setNewMember("");
       setSuggestions([]);
@@ -198,7 +198,7 @@ const Table5 = () => {
   };
 
   const handleRemoveMember = (member) => {
-    setMembers(members.filter((m) => m !== member));
+    setMembers(members?.filter((m) => m !== member));
   };
 
   const handleKeyDown = (e) => {
@@ -226,7 +226,7 @@ const Table5 = () => {
           }/api/attendants/fetch-all?name=${inputValue.trim()}`
         );
         // Filter suggestions based on case-insensitive comparison
-        const filteredSuggestions = res.data.filter((suggestion) =>
+        const filteredSuggestions = res.data?.filter((suggestion) =>
           suggestion.name.toLowerCase().includes(inputValue)
         );
         setSuggestions(filteredSuggestions); // Set filtered suggestions
@@ -732,7 +732,7 @@ const Table5 = () => {
 
                   <tbody>
                     {data1
-                      .filter(
+                      ?.filter(
                         ({
                           teamName,
                           managerName,
