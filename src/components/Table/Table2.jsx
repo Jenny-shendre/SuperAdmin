@@ -202,7 +202,7 @@ const Table2 = () => {
               </span>
             </h1>
 
-            <div className="flex flex-row items-center justify-start text-center flex items-center w-[100%] justify-between">
+            <div className="flex flex-row  text-center  items-center w-[100%] justify-between">
               <div style={{ width: "70%", textAlign: "-webkit-center" }}>
                 <div className="flex justify-center items-center w-[70%] lg:block relative lg:w-[36rem] rounded-full">
                   <input

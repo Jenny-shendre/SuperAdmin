@@ -508,7 +508,7 @@ const Table4 = () => {
                   X
                 </button>
                 <div
-                  className="upload-box description flex w-[323px] h-[189px] border-dotted border-[5px] flex flex-col items-center justify-end gap-3 pb-2 cursor-pointer"
+                  className="upload-box description  w-[323px] h-[189px] border-dotted border-[5px] flex flex-col items-center justify-end gap-3 pb-2 cursor-pointer"
                   onClick={() => fileInputRef.current.click()}>
                   {projectDetails.projectImage ? (
                     <img
