@@ -21,7 +21,7 @@ const PasswordPageEx = () => {
 
   const gitAPiData = async (employeeId) => {
     const res = await axios.get(
-      `${process.env.VITE_BACKEND}/api/settingsExecutive/${employeeId}`
+      `${import.meta.env.VITE_BACKEND}/api/settingsExecutive/${employeeId}`
     );
     // console.log("response", res);
     setUserPhone(res.data.phone);
@@ -43,7 +43,7 @@ const PasswordPageEx = () => {
 
     try {
       const res = await axios.post(
-        `${process.env.VITE_BACKEND}/api/admin/change-password`,
+        `${import.meta.env.VITE_BACKEND}/api/admin/change-password`,
         data
       );
       console.log("Password Change Successfully", res);

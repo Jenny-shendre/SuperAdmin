@@ -55,7 +55,7 @@ const OverViewAdmin = () => {
 
   const fetchDirectVisitors = async (interval) => {
     const response = await axios.get(
-      `${process.env.VITE_BACKEND}/api/overview/direct-visitors`,
+      `${import.meta.env.VITE_BACKEND}/api/overview/direct-visitors`,
       {
         params: { interval },
       }
@@ -66,7 +66,7 @@ const OverViewAdmin = () => {
 
   const fetchChannelVisitors = async (interval) => {
     const response = await axios.get(
-      `${process.env.VITE_BACKEND}/api/overview/channel-visitors`,
+      `${import.meta.env.VITE_BACKEND}/api/overview/channel-visitors`,
       {
         params: { interval },
       }
@@ -76,7 +76,7 @@ const OverViewAdmin = () => {
 
   const dealsClosedResponse = async (interval) => {
     const response = await axios.get(
-      `${process.env.VITE_BACKEND}/api/overview/total-DealsClosed`,
+      `${import.meta.env.VITE_BACKEND}/api/overview/total-DealsClosed`,
       {
         params: { interval },
       }
@@ -86,7 +86,7 @@ const OverViewAdmin = () => {
 
   const fetchTotalMeetings = async (interval) => {
     const response = await axios.get(
-      `${process.env.VITE_BACKEND}/api/overview/total-meetings`,
+      `${import.meta.env.VITE_BACKEND}/api/overview/total-meetings`,
       {
         params: { interval },
       }
@@ -96,7 +96,7 @@ const OverViewAdmin = () => {
 
   const StaffOnline = async (interval) => {
     const response = await axios.get(
-      `${process.env.VITE_BACKEND}api/overview/total-status`,
+      `${import.meta.env.VITE_BACKEND}api/overview/total-status`,
       {
         params: { interval },
       }
@@ -106,7 +106,7 @@ const OverViewAdmin = () => {
 
   const BargraphData = async (interval) => {
     const response = await axios.get(
-      `${process.env.VITE_BACKEND}api/overview/Bar`,
+      `${import.meta.env.VITE_BACKEND}api/overview/Bar`,
       {
         params: { interval },
       }
@@ -116,7 +116,7 @@ const OverViewAdmin = () => {
 
   const TopExecutivePerformer = async (interval) => {
     const response = await axios.get(
-      `${process.env.VITE_BACKEND}api/overview/Top_Executive`,
+      `${import.meta.env.VITE_BACKEND}api/overview/Top_Executive`,
       {
         params: { interval },
       }

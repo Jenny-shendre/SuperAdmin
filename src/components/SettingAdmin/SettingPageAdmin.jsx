@@ -50,7 +50,7 @@ const SettingPageAdmin = () => {
 
     try {
       const res = await axios.put(
-        `${process.env.VITE_BACKEND}/api/settingsAdmin/CoverImage/${IdEmp}`,
+        `${import.meta.env.VITE_BACKEND}/api/settingsAdmin/CoverImage/${IdEmp}`,
         formData,
         {
           headers: {
@@ -114,7 +114,7 @@ const SettingPageAdmin = () => {
 
   const gitAPiData = async (employeeId) => {
     const res = await axios.get(
-      `${process.env.VITE_BACKEND}/api/settingsAdmin/${employeeId}`
+      `${import.meta.env.VITE_BACKEND}/api/settingsAdmin/${employeeId}`
     );
     setAdminData(res.data);
   };

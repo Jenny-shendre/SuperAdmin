@@ -27,7 +27,9 @@ const Table12 = () => {
   const callApi = async (employeeId) => {
     try {
       const res = await axios.get(
-        `${process.env.VITE_BACKEND}/api/clientManagement/history/${employeeId}`
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/clientManagement/history/${employeeId}`
       );
 
       setdata(res.data);

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchDirectVisitors = async (interval) => {
   const response = await axios.get(
-    `${process.env.VITE_BACKEND}/api/overview/direct-visitors`,
+    `${import.meta.env.VITE_BACKEND}/api/overview/direct-visitors`,
 
     {
       params: { interval },
@@ -13,7 +13,7 @@ export const fetchDirectVisitors = async (interval) => {
 
 // export const fetchChannelVisitors = async (interval) => {
 //   // const response = await axios.get(
-//   //   "${process.env.VITE_BACKEND}/api/overview/channel-visitors",
+//   //   "${import.meta.env.VITE_BACKEND}/api/overview/channel-visitors",
 //     {
 //       params: { interval },
 //     }
@@ -23,7 +23,7 @@ export const fetchDirectVisitors = async (interval) => {
 
 export const dealsClosedResponse = async (interval) => {
   const response = await axios.get(
-    `${process.env.VITE_BACKEND}/api/overview/total-DealsClosed`,
+    `${import.meta.env.VITE_BACKEND}/api/overview/total-DealsClosed`,
     {
       params: { interval },
     }
@@ -33,7 +33,7 @@ export const dealsClosedResponse = async (interval) => {
 
 export const fetchTotalMeetings = async (interval) => {
   const response = await axios.get(
-    `${process.env.VITE_BACKEND}/api/overview/total-meetings`,
+    `${import.meta.env.VITE_BACKEND}/api/overview/total-meetings`,
     {
       params: { interval },
     }
@@ -43,7 +43,7 @@ export const fetchTotalMeetings = async (interval) => {
 
 export const StaffOnline = async (interval) => {
   const response = await axios.get(
-    `${process.env.VITE_BACKEND}/api/overview/total-status`,
+    `${import.meta.env.VITE_BACKEND}/api/overview/total-status`,
     {
       params: { interval },
     }
@@ -53,7 +53,7 @@ export const StaffOnline = async (interval) => {
 
 export const BargraphData = async (interval) => {
   const response = await axios.get(
-    `${process.env.VITE_BACKEND}/api/overview/Bar`,
+    `${import.meta.env.VITE_BACKEND}/api/overview/Bar`,
     {
       params: { interval },
     }

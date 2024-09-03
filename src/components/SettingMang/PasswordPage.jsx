@@ -28,7 +28,7 @@ const PasswordPage = ({ email }) => {
 
     try {
       const res = await axios.post(
-        `${process.env.VITE_BACKEND}/api/admin/change-password`,
+        `${import.meta.env.VITE_BACKEND}/api/admin/change-password`,
         data
       );
       console.log("Password Change Successfully", res);

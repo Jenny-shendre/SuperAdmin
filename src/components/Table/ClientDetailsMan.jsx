@@ -78,7 +78,9 @@ function ClientDetailsMang() {
       console.log("email", email);
 
       const res1 = await axios.get(
-        `${process.env.VITE_BACKEND}/api/salesManager/findSalesManagerlastTeamData/${email}`
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/salesManager/findSalesManagerlastTeamData/${email}`
       );
       //console.log("ManagerData aya kya", res1.data);
       setData(res1.data);

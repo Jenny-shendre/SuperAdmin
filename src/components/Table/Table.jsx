@@ -29,7 +29,7 @@ const Table = () => {
   const deletedAt = async () => {
     if (deleteId) {
       await axios.delete(
-        `${process.env.VITE_BACKEND}/api/customers/delete/${deleteId}`
+        `${import.meta.env.VITE_BACKEND}/api/customers/delete/${deleteId}`
       );
       setdata((prevData) => prevData.filter((item) => item._id !== deleteId));
       setShowPopup(false); // Hide popup after deletion
@@ -40,7 +40,7 @@ const Table = () => {
   const fetchData = async () => {
     setLoading(true);
     const res = await axios.get(
-      `${process.env.VITE_BACKEND}/api/customers/fetch-all`
+      `${import.meta.env.VITE_BACKEND}/api/customers/fetch-all`
     );
     setdata(res.data);
     setLoading(false);

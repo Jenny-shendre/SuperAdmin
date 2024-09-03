@@ -43,7 +43,7 @@ const Table3 = () => {
 
   const confirmDelete = async () => {
     await axios.delete(
-      `${process.env.VITE_BACKEND}/api/record/deleteRecord/${deleteId}`
+      `${import.meta.env.VITE_BACKEND}/api/record/deleteRecord/${deleteId}`
     );
     setShowPopup(false);
     fetchData();
@@ -54,7 +54,7 @@ const Table3 = () => {
       setLoading(true);
 
       const res = await axios.get(
-        `${process.env.VITE_BACKEND}/api/partners/filterchannel/${channel}`
+        `${import.meta.env.VITE_BACKEND}/api/partners/filterchannel/${channel}`
       );
       setdata(res.data);
       setFilteredData(res.data); // Initialize filtered data

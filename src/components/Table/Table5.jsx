@@ -56,20 +56,22 @@ const Table5 = () => {
   const fetchData = async () => {
     setLoading(true);
     const res = await axios.get(
-      `${process.env.VITE_BACKEND}/api/salesManager/fetch-all`
+      `${import.meta.env.VITE_BACKEND}/api/salesManager/fetch-all`
     );
     setdata(res.data);
 
     const res1 = await axios.get(
-      `${process.env.VITE_BACKEND}/api/teams/fetch-all`
+      `${import.meta.env.VITE_BACKEND}/api/teams/fetch-all`
     );
     setdata1(res1.data);
 
-    const res2 = await axios.get(`${process.env.VITE_BACKEND}/api/projects`);
+    const res2 = await axios.get(
+      `${import.meta.env.VITE_BACKEND}/api/projects`
+    );
     setdata2(res2.data);
 
     const res3 = await axios.get(
-      `${process.env.VITE_BACKEND}/api/attendants/fetch-all`
+      `${import.meta.env.VITE_BACKEND}/api/attendants/fetch-all`
     );
     setExecutiveMember(res3.data);
 
@@ -222,7 +224,7 @@ const Table5 = () => {
       try {
         const res = await axios.get(
           `${
-            process.env.VITE_BACKEND
+            import.meta.env.VITE_BACKEND
           }/api/attendants/fetch-all?name=${inputValue.trim()}`
         );
         // Filter suggestions based on case-insensitive comparison
@@ -270,7 +272,7 @@ const Table5 = () => {
 
       try {
         const res = await axios.post(
-          `${process.env.VITE_BACKEND}/api/teams/save`,
+          `${import.meta.env.VITE_BACKEND}/api/teams/save`,
           teamdata
         );
         console.log("res", res);
@@ -363,7 +365,7 @@ const Table5 = () => {
       };
       try {
         const res = await axios.post(
-          `${process.env.VITE_BACKEND}/api/salesManager/save`,
+          `${import.meta.env.VITE_BACKEND}/api/salesManager/save`,
           managerData
         );
         console.log("res", res);
@@ -372,7 +374,7 @@ const Table5 = () => {
 
         // Fetch the updated list of managers after successful creation
         const updatedManagers = await axios.get(
-          `${process.env.VITE_BACKEND}/api/salesManager/fetch-all`
+          `${import.meta.env.VITE_BACKEND}/api/salesManager/fetch-all`
         );
         setdata(updatedManagers.data); // Assuming setdata is used for storing managers data
 
@@ -452,7 +454,7 @@ const Table5 = () => {
 
       try {
         const res = await axios.post(
-          `${process.env.VITE_BACKEND}/api/attendants/save`,
+          `${import.meta.env.VITE_BACKEND}/api/attendants/save`,
           executiveData
         );
         console.log("res", res);
@@ -485,7 +487,7 @@ const Table5 = () => {
   const handleDeleteConfirm = async () => {
     try {
       const res = await axios.delete(
-        `${process.env.VITE_BACKEND}/api/teams/${deleteId}`
+        `${import.meta.env.VITE_BACKEND}/api/teams/${deleteId}`
       );
       console.log("Team deleted", res);
       setdata1((prevData) => prevData.filter((item) => item._id !== deleteId)); // Update state to remove deleted item

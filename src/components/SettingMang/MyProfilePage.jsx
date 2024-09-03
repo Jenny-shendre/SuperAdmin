@@ -33,7 +33,7 @@ const MyProfilePage = () => {
   const [editMode1, setEditMode1] = useState(false);
   const gitAPiData = async (employeeId) => {
     const res = await axios.get(
-      `${process.env.VITE_BACKEND}/api/settingsManager/${employeeId}`
+      `${import.meta.env.VITE_BACKEND}/api/settingsManager/${employeeId}`
     );
     setProfile(res.data);
   };
@@ -46,7 +46,7 @@ const MyProfilePage = () => {
   const toggleEditMode = async (employeeId) => {
     try {
       const res = await axios.put(
-        `${process.env.VITE_BACKEND}/api/settingsManager/${employeeId}`,
+        `${import.meta.env.VITE_BACKEND}/api/settingsManager/${employeeId}`,
         {
           ...profile,
         }
