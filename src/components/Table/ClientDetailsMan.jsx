@@ -300,7 +300,9 @@ function ClientDetailsMang() {
 
                     <tbody className="font-[Manrope] ">
                       {data
+                        
                         .filter((executive) => {
+                          if (!executive.lastClientName) return false;
                           const clientName =
                             executive.lastClientName?.ClientName?.toLowerCase() ||
                             "";
