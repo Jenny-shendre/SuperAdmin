@@ -7,7 +7,6 @@ import { format } from "date-fns";
 import "../Home.css";
 import { Link } from "react-router-dom";
 
-
 const Table12 = () => {
   const [data, setdata] = useState([]);
   const [valueinput, setvalueinput] = useState("");
@@ -18,18 +17,17 @@ const Table12 = () => {
   // );
   // console.log(employeeId);
 
-  const pathSegments = pathname.split('/');
+  const pathSegments = pathname.split("/");
   const teamName = decodeURIComponent(pathSegments[3]); // Assuming 'teamName' is at index 3
   const employeeId = decodeURIComponent(pathSegments[4]); // Assuming 'employeeId' is at index 4
 
   console.log("teamName", teamName);
   console.log("employeeId", employeeId);
 
-
   const callApi = async (employeeId) => {
     try {
       const res = await axios.get(
-        `https://project-rof.vercel.app/api/clientManagement/history/${employeeId}`
+        `${process.env.VITE_BACKEND}/api/clientManagement/history/${employeeId}`
       );
 
       setdata(res.data);
@@ -51,9 +49,9 @@ const Table12 = () => {
   //vb
   const truncateText = (text, limit) => {
     if (text && text.length > limit) {
-      return text.slice(0, limit) + '...';
+      return text.slice(0, limit) + "...";
     }
-    return text || '';
+    return text || "";
   };
 
   return (
@@ -69,9 +67,7 @@ const Table12 = () => {
               fontSize: "24px",
               fontWeight: "500",
             }}>
-
-            <span >Home</span>
-
+            <span>Home</span>
           </h1>
         </Link>
         <IoIosArrowForward style={{ color: "#1C1B1F" }} />
@@ -99,7 +95,8 @@ const Table12 = () => {
           onChange={(e) => setvalueinput(e.target.value)}
           value={valueinput}
           placeholder="Search"
-          className=" w-[619px] h-[48px]  rounded-full border border-[#3D2314] " style={{ padding: '12px 24px 12px 50px' }}
+          className=" w-[619px] h-[48px]  rounded-full border border-[#3D2314] "
+          style={{ padding: "12px 24px 12px 50px" }}
         />
         <img
           style={{ marginLeft: "15px", marginTop: "12px" }}
@@ -132,9 +129,9 @@ const Table12 = () => {
           </p>
 
           <table className="w-full ">
-            <div className="outer-wrapperK" >
+            <div className="outer-wrapperK">
               <div className="table-wrapperK">
-                <thead className="team1" >
+                <thead className="team1">
                   <tr
                     className="text-center text-sm font-medium [#5C5C5C] bg-[#E8E8E8] h-[28px]"
                     style={{
@@ -172,81 +169,86 @@ const Table12 = () => {
                     fontWeight: "500",
                     fontFamily: "Manrope",
                   }}>
-                  {data.filter(
-                    ({
-                      ClientName,
-                      ClientEmail,
-                      ClientMobile,
-                      ClientProject,
-                      createdAt,
-                    }) =>
-                      ClientEmail?.toLowerCase().includes(
-                        valueinput.toLowerCase()
-                      ) ||
-                      ClientMobile?.toLowerCase().includes(
-                        valueinput.toLowerCase()
-                      ) ||
-                      DateupdatedAt(createdAt)
-                        ?.toLowerCase()
-                        .includes(valueinput.toLowerCase()) ||
-                      ClientProject?.toLowerCase().includes(
-                        valueinput.toLowerCase()
-                      ) ||
-                      ClientName?.toLowerCase().includes(
-                        valueinput.toLowerCase()
-                      )
-                  ).map((item, index) => (
-                    <tr key={index}>
+                  {data
+                    .filter(
+                      ({
+                        ClientName,
+                        ClientEmail,
+                        ClientMobile,
+                        ClientProject,
+                        createdAt,
+                      }) =>
+                        ClientEmail?.toLowerCase().includes(
+                          valueinput.toLowerCase()
+                        ) ||
+                        ClientMobile?.toLowerCase().includes(
+                          valueinput.toLowerCase()
+                        ) ||
+                        DateupdatedAt(createdAt)
+                          ?.toLowerCase()
+                          .includes(valueinput.toLowerCase()) ||
+                        ClientProject?.toLowerCase().includes(
+                          valueinput.toLowerCase()
+                        ) ||
+                        ClientName?.toLowerCase().includes(
+                          valueinput.toLowerCase()
+                        )
+                    )
+                    .map((item, index) => (
+                      <tr key={index}>
+                        <td
+                          className="px-4 py-2 max-w-[150px] overflow-hidden"
+                          style={{ height: "64px" }}
+                          title={item.ClientName}>
+                          {truncateText(item.ClientName, 14)}
+                        </td>
 
+                        <td
+                          className="px-4 py-2  max-w-[150px] overflow-hidden"
+                          title={item.ClientEmail}>
+                          {truncateText(item.ClientEmail, 17)}
+                        </td>
 
-                      <td className="px-4 py-2 max-w-[150px] overflow-hidden"
-                        style={{ height: "64px" }}
-                        title={item.ClientName}>
-                        {truncateText(item.ClientName, 14)}
-                      </td>
+                        <td
+                          className="px-4 py-2   max-w-[150px] overflow-hidden"
+                          title={item.ClientMobile}>
+                          {truncateText(item.ClientMobile, 10)}
+                        </td>
 
-                      <td className="px-4 py-2  max-w-[150px] overflow-hidden"
-                        title={item.ClientEmail}>
-                        {truncateText(item.ClientEmail, 17)}
-                      </td>
+                        <td
+                          className="px-4 py-2 max-w-[150px] overflow-hidden"
+                          title={item.ClientProject}>
+                          {truncateText(item.ClientProject, 14)}
+                        </td>
 
-                      <td className="px-4 py-2   max-w-[150px] overflow-hidden"
-                        title={item.ClientMobile}>
-                        {truncateText(item.ClientMobile, 10)}
-                      </td>
-
-                      <td className="px-4 py-2 max-w-[150px] overflow-hidden"
-                        title={item.ClientProject}>
-                        {truncateText(item.ClientProject, 14)}
-                      </td>
-
-
-                      <td className="px-4 py-2">{DateupdatedAt(item.createdAt)}</td>
-                      <td className="px-4 py-2">
-                        <span
-                          className="py-1 px-2 rounded"
-                          style={{
-                            color: "#48A321",
-                            background: "#E1F8D7",
-                            fontSize: "12px",
-                            fontWeight: "600",
-                            width: "87px",
-                            height: "24px",
-                          }}>
-                          {item.completed}
-                        </span>
-                        <span
-                          className="ml-2"
-                          style={{
-                            color: "#48A321",
-                            width: "24px",
-                            height: "24px",
-                          }}>
-                          &#10003;
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                        <td className="px-4 py-2">
+                          {DateupdatedAt(item.createdAt)}
+                        </td>
+                        <td className="px-4 py-2">
+                          <span
+                            className="py-1 px-2 rounded"
+                            style={{
+                              color: "#48A321",
+                              background: "#E1F8D7",
+                              fontSize: "12px",
+                              fontWeight: "600",
+                              width: "87px",
+                              height: "24px",
+                            }}>
+                            {item.completed}
+                          </span>
+                          <span
+                            className="ml-2"
+                            style={{
+                              color: "#48A321",
+                              width: "24px",
+                              height: "24px",
+                            }}>
+                            &#10003;
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </div>
             </div>

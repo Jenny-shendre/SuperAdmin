@@ -9,7 +9,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import "../Home.css";
 
-
 const Table1 = () => {
   const [valueinput, setvalueinput] = useState("");
   const [data, setdata] = useState([]);
@@ -19,30 +18,28 @@ const Table1 = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [deletePartnerId, setDeletePartnerId] = useState(null);
-    //vb
-    const truncateText = (text, limit ) => {
-      if (text && text.length > limit) {
-        return text.slice(0, limit) + '...';
-      }
-      return text || '';
-    };
-   
+  //vb
+  const truncateText = (text, limit) => {
+    if (text && text.length > limit) {
+      return text.slice(0, limit) + "...";
+    }
+    return text || "";
+  };
 
   const deletedAt = async () => {
     if (deleteId) {
       await axios.delete(
-        `https://project-rof.vercel.app/api/partners/delete/${deleteId}`
+        `${process.env.VITE_BACKEND}/api/partners/delete/${deleteId}`
       );
-      setdata((prevData) => prevData.filter(item => item._id !== deleteId));
+      setdata((prevData) => prevData.filter((item) => item._id !== deleteId));
       setShowPopup(false); // Hide popup after deletion
     }
   };
 
-
   const fetchData = async () => {
     setLoading(true);
     const res = await axios.get(
-      `https://project-rof.vercel.app/api/partners/fetch-all`
+      `${process.env.VITE_BACKEND}/api/partners/fetch-all`
     );
     setdata(res.data);
     setLoading(false);
@@ -84,8 +81,8 @@ const Table1 = () => {
                 fontWeight: "500",
               }}>
               <Link to="/SuperAdmin">
-                  <span >Home</span>
-                </Link>
+                <span>Home</span>
+              </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
                 style={{
@@ -127,7 +124,8 @@ const Table1 = () => {
                     style={{ boxShadow: " 0px 0px 4px 0px #00000040" }}>
                     <thead>
                       <tr className="text-[9px] lg:text-[15px] text-left  bg-[#E8E8E8]">
-                        <th className="border-b"
+                        <th
+                          className="border-b"
                           style={{
                             fontFamily: "Manrope",
                             fontSize: "12px",
@@ -191,7 +189,7 @@ const Table1 = () => {
                           className="border-b"
                           style={{
                             fontFamily: "Manrope",
-                            width:"144px",
+                            width: "144px",
                             fontSize: "12px",
                             fontWeight: "500",
                             lineHeight: "16.39px",
@@ -245,7 +243,7 @@ const Table1 = () => {
                             fontWeight: "500",
                             lineHeight: "16.39px",
                             textAlign: "center",
-                           
+
                             padding: "5px",
                           }}>
                           Attendant
@@ -259,7 +257,6 @@ const Table1 = () => {
                             lineHeight: "16.39px",
                             textAlign: "left",
                             padding: "5px",
-                           
                           }}>
                           Actions
                         </th>
@@ -311,9 +308,12 @@ const Table1 = () => {
                               {DateupdatedAt(visitor.updatedAt)}
                             </td>
                             <td className="py-1 border-b text-center">
-                            {visitor.timeResponse}
+                              {visitor.timeResponse}
                             </td>
-                            <td className="py-1 border-b text-center"> {visitor.timeDuration}</td>
+                            <td className="py-1 border-b text-center">
+                              {" "}
+                              {visitor.timeDuration}
+                            </td>
                             <td className="py-1 border-b text-center">
                               <Link
                                 to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}
@@ -331,61 +331,65 @@ const Table1 = () => {
                               </Link>
                             </td>
 
-                            <td className="py-1 border-b text-center max-w-[150px] overflow-hidden"
-                            title= {visitor.channelPartnerCompanyName}>
-                            {truncateText(visitor.channelPartnerCompanyName, 12)} 
+                            <td
+                              className="py-1 border-b text-center max-w-[150px] overflow-hidden"
+                              title={visitor.channelPartnerCompanyName}>
+                              {truncateText(
+                                visitor.channelPartnerCompanyName,
+                                12
+                              )}
                             </td>
 
-                            <td className= "px-4 py-2 max-w-[144px] overflow-hidden "
+                            <td
+                              className="px-4 py-2 max-w-[144px] overflow-hidden "
                               style={{
                                 borderBottom: "1px solid #E8E8E8",
-                                textAlign:"center",
+                                textAlign: "center",
                                 textOverflow: "ellipsis",
                               }}
-                              title={visitor.channelPartnerName}
-                            >
-                             {truncateText (visitor.channelPartnerName, 12 )}
-
+                              title={visitor.channelPartnerName}>
+                              {truncateText(visitor.channelPartnerName, 12)}
                             </td>
 
-
-                            <td className="px-4 py-2 max-w-[112px] overflow-hidden "
-                             style={{
-                              borderBottom: "1px solid #E8E8E8",
-                              textAlign:"center",
-                              textOverflow: "ellipsis",
-                            }}
-                            title={visitor.customerName}
-                            >
-                               {truncateText (visitor.customerName, 12)}
-
+                            <td
+                              className="px-4 py-2 max-w-[112px] overflow-hidden "
+                              style={{
+                                borderBottom: "1px solid #E8E8E8",
+                                textAlign: "center",
+                                textOverflow: "ellipsis",
+                              }}
+                              title={visitor.customerName}>
+                              {truncateText(visitor.customerName, 12)}
                             </td>
 
                             <td className="py-1 border-b text-center">
                               {visitor.customerMobileLastFour}
                             </td>
 
-                            <td className="py-1 border-b text-center max-w-[150px] overflow-hidden "
-                            title={visitor.projectName}>
-                            {truncateText(visitor.projectName, 13)}  
+                            <td
+                              className="py-1 border-b text-center max-w-[150px] overflow-hidden "
+                              title={visitor.projectName}>
+                              {truncateText(visitor.projectName, 13)}
                             </td>
 
-                            <td className="py-1 border-b text-center max-w-[150px] overflow-hidden "
-                            title={visitor.attendantName}>
-                            {truncateText(visitor.attendantName, 12)}  
-
+                            <td
+                              className="py-1 border-b text-center max-w-[150px] overflow-hidden "
+                              title={visitor.attendantName}>
+                              {truncateText(visitor.attendantName, 12)}
                             </td>
 
-                            <td className="py-6 px-1 border-b flex gap-4" style={{height:"35px",  alignItems: 'center'}}>
-                              <Link to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}>
+                            <td
+                              className="py-6 px-1 border-b flex gap-4"
+                              style={{ height: "35px", alignItems: "center" }}>
+                              <Link
+                                to={`/SuperAdmin/Channel_Visitors/${visitor.partnerId}`}>
                                 <PiNotePencilBold
                                   onClick={() => handleEdit(visitor._id)}
                                   style={{
                                     cursor: "pointer",
                                     fontSize: "18px",
                                     color: "#632E04",
-                                   
-                                  }} 
+                                  }}
                                 />
                               </Link>
 
@@ -426,14 +430,12 @@ const Table1 = () => {
                   <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
                     <button
                       className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-                      onClick={deletedAt}
-                    >
+                      onClick={deletedAt}>
                       Delete
                     </button>
                     <button
                       className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
-                      onClick={() => setShowPopup(false)}
-                    >
+                      onClick={() => setShowPopup(false)}>
                       Cancel
                     </button>
                   </div>

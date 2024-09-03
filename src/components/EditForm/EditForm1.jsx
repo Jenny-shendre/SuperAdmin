@@ -41,12 +41,12 @@ function EditForm1() {
     try {
       setLoading(true);
       const res = await axios.get(
-        `https://project-rof.vercel.app/api/partners/fetch/${id}`
+        `${process.env.VITE_BACKEND}/api/partners/fetch/${id}`
       );
       setFormData(res.data);
 
       const res1 = await axios.post(
-        `https://project-rof.vercel.app/api/partners/fetchByName`,
+        `${process.env.VITE_BACKEND}/api/partners/fetchByName`,
         { channelPartnerName: res.data.channelPartnerName }
       );
 
@@ -127,7 +127,7 @@ function EditForm1() {
 
     try {
       const res = await axios.put(
-        `https://project-rof.vercel.app/api/partners/update/${id}`,
+        `${process.env.VITE_BACKEND}/api/partners/update/${id}`,
         {
           ...FormData,
         }
@@ -696,7 +696,7 @@ function EditForm1() {
                             fontSize: "14px",
                             fontWeight: "400",
                             width: "92px",
-                            borderLeft:'1px solid grey'
+                            borderLeft: "1px solid grey",
                           }}>
                           Project
                         </th>
@@ -754,38 +754,38 @@ function EditForm1() {
                   className="mb-4 text-center">
                   Notes Activity Log
                 </h2>
-                <div style={{height:'300px', overflowY:'scroll'}}>
-                <div className="space-y-4">
-                  {FormData.notes && FormData.notes.length > 0 ? (
-                    <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
-                        <span
+                <div style={{ height: "300px", overflowY: "scroll" }}>
+                  <div className="space-y-4">
+                    {FormData.notes && FormData.notes.length > 0 ? (
+                      <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
+                          <span
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "12px",
+                              fontWeight: "500",
+                            }}>
+                            Sales Executive
+                          </span>
+                        </div>
+                        {FormData.notes}
+
+                        <div
                           style={{
                             fontFamily: "Manrope",
-                            fontSize: "12px",
-                            fontWeight: "500",
-                          }}>
-                          Sales Executive
-                        </span>
+                            fontSize: "8px",
+                            fontWeight: "600",
+                          }}
+                          className=" text-right mt-2 text-[#4A4A4A]">
+                          {ResponseAtData(FormData.updatedAt)}
+                        </div>
                       </div>
-                      {FormData.notes}
+                    ) : (
+                      ""
+                    )}
 
-                      <div
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "8px",
-                          fontWeight: "600",
-                        }}
-                        className=" text-right mt-2 text-[#4A4A4A]">
-                        {ResponseAtData(FormData.updatedAt)}
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-
-                  {/* <div className="bg-[#E9E9E9] w-[507px] h-[97px] p-3 rounded">
+                    {/* <div className="bg-[#E9E9E9] w-[507px] h-[97px] p-3 rounded">
               <div className="flex items-center space-x-2 mb-2">
                 <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
                 <span style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"500"}}>Manager</span>
@@ -810,7 +810,7 @@ function EditForm1() {
               </ul>
               <div style={{fontFamily:"Manrope" , fontSize:"8px" , fontWeight:"600"}} className=" text-right mt-2 text-[#4A4A4A]">25/07/2024, 02:00 PM</div>
             </div> */}
-                </div>
+                  </div>
                 </div>
                 <div className="mt-4 ">
                   <NoteInput />

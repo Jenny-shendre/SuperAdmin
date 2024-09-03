@@ -24,27 +24,22 @@ function EditForm2() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-
   const location = useLocation();
   const pathname = location.pathname;
   const id = pathname.substring(pathname.lastIndexOf("/") + 1);
   console.log("location", id);
 
-
-
-
-
   const getData = async () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `https://project-rof.vercel.app/api/partners/fetch/${id}`
+        `${process.env.VITE_BACKEND}/api/partners/fetch/${id}`
       );
       setFormData(res.data);
       console.log("res.data", res.data);
 
       const res1 = await axios.post(
-        `https://project-rof.vercel.app/api/partners/fetchByName`,
+        `${process.env.VITE_BACKEND}/api/partners/fetchByName`,
         { channelPartnerName: res.data.channelPartnerName }
       );
 
@@ -124,7 +119,7 @@ function EditForm2() {
 
     try {
       const res = await axios.put(
-        `https://project-rof.vercel.app/api/partners/update/${id}`,
+        `${process.env.VITE_BACKEND}/api/partners/update/${id}`,
         {
           ...FormData,
         }

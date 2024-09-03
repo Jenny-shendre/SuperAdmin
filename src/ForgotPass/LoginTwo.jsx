@@ -23,7 +23,7 @@ function LoginTwo() {
 
     try {
       const res = await axios.post(
-        "https://project-rof.vercel.app/api/admin/forget-pass",
+        `${process.env.VITE_BACKEND}/api/admin/forget-pass`,
         { phone }
       );
       console.log("response send", res.data);
@@ -54,7 +54,7 @@ function LoginTwo() {
 
     try {
       const res = await axios.post(
-        "https://project-rof.vercel.app/api/admin/verify-otp",
+        "${process.env.VITE_BACKEND}/api/admin/verify-otp",
         { phone, otp }
       );
       if (res.data.success) {

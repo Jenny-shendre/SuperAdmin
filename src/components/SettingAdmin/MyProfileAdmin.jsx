@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import edit from "../../assets/Group.png";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "../Home.css";
-import axios from 'axios';
-
+import axios from "axios";
 
 const MyProfileAdmin = () => {
   const [profile, setProfile] = useState({
@@ -34,7 +33,7 @@ const MyProfileAdmin = () => {
   }, []);
   const gitAPiData = async (employeeId) => {
     const res = await axios.get(
-      `https://project-rof.vercel.app/api/settingsAdmin/${employeeId}`
+      `${process.env.VITE_BACKEND}/api/settingsAdmin/${employeeId}`
     );
     setProfile(res.data);
   };
@@ -45,7 +44,7 @@ const MyProfileAdmin = () => {
   const toggleEditMode = async (employeeId) => {
     try {
       const res = await axios.put(
-        `https://project-rof.vercel.app/api/settingsAdmin/${employeeId}`,
+        `${process.env.VITE_BACKEND}/api/settingsAdmin/${employeeId}`,
         {
           ...profile,
         }
@@ -55,8 +54,6 @@ const MyProfileAdmin = () => {
       console.log(error);
     }
   };
-
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -78,7 +75,7 @@ const MyProfileAdmin = () => {
     toggleEditMode(profile.employeeId);
   };
 
-  console.log("profile",profile);
+  console.log("profile", profile);
   return (
     <div className="px-[24px] py-[8px]">
       <hr className="mb-6" />
@@ -88,14 +85,12 @@ const MyProfileAdmin = () => {
         <div className="flex justify-between items-center mb-4">
           <h2
             style={{ fontWeight: "700", fontFamily: "Manrope" }}
-            className="text-[#3C3C3C] text-[Manrope] text-[20px]"
-          >
+            className="text-[#3C3C3C] text-[Manrope] text-[20px]">
             Personal Information
           </h2>
           <button
             className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px] "
-            onClick={handleEditClick}
-          >
+            onClick={handleEditClick}>
             <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
               <img src={edit} />
             </h4>
@@ -107,7 +102,13 @@ const MyProfileAdmin = () => {
 
         <div className="flex flex-wrap dumbo mb-2 ">
           <div className="mr-24 mb-4  ">
-            <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+            <label
+              style={{
+                fontWeight: "400",
+                lineHeight: "19.12px",
+                fontFamily: "Manrope",
+              }}
+              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               First Name
             </label>
             <input
@@ -133,8 +134,14 @@ const MyProfileAdmin = () => {
               placeholder="Enter last name"
             />
           </div> */}
-               <div className="mb-4">
-            <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+          <div className="mb-4">
+            <label
+              style={{
+                fontWeight: "400",
+                lineHeight: "19.12px",
+                fontFamily: "Manrope",
+              }}
+              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               Phone Number
             </label>
             <input
@@ -150,7 +157,13 @@ const MyProfileAdmin = () => {
         </div>
         <div className="flex flex-wrap dumbo mb-2">
           <div className="mr-24 mb-4">
-            <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+            <label
+              style={{
+                fontWeight: "400",
+                lineHeight: "19.12px",
+                fontFamily: "Manrope",
+              }}
+              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               Email Address
             </label>
             <input
@@ -177,8 +190,14 @@ const MyProfileAdmin = () => {
               readOnly={!editMode}
             />
           </div> */}
-             <div>
-            <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+          <div>
+            <label
+              style={{
+                fontWeight: "400",
+                lineHeight: "19.12px",
+                fontFamily: "Manrope",
+              }}
+              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               Employee ID
             </label>
             <input
@@ -194,7 +213,13 @@ const MyProfileAdmin = () => {
         </div>
         <div className="flex flex-wrap dumbo">
           <div className="mr-24 mb-4">
-            <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+            <label
+              style={{
+                fontWeight: "400",
+                lineHeight: "19.12px",
+                fontFamily: "Manrope",
+              }}
+              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               Designation
             </label>
             <input
@@ -231,14 +256,12 @@ const MyProfileAdmin = () => {
         <div className="flex justify-between items-center ">
           <h2
             style={{ fontWeight: "700", fontFamily: "Manrope" }}
-            className="text-[#3C3C3C] text-[Manrope] text-[20px]"
-          >
+            className="text-[#3C3C3C] text-[Manrope] text-[20px]">
             Address
           </h2>
           <button
             className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px] "
-            onClick={handleEditClick2}
-          >
+            onClick={handleEditClick2}>
             <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
               <img src={edit} />
             </h4>
@@ -250,7 +273,13 @@ const MyProfileAdmin = () => {
 
         <div className="flex flex-wrap dumbo mt-6">
           <div className="mr-24 mb-4">
-            <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+            <label
+              style={{
+                fontWeight: "400",
+                lineHeight: "19.12px",
+                fontFamily: "Manrope",
+              }}
+              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               Country
             </label>
             <input
@@ -264,7 +293,13 @@ const MyProfileAdmin = () => {
             />
           </div>
           <div className="mb-4">
-            <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+            <label
+              style={{
+                fontWeight: "400",
+                lineHeight: "19.12px",
+                fontFamily: "Manrope",
+              }}
+              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               City/State
             </label>
             <input
@@ -280,7 +315,13 @@ const MyProfileAdmin = () => {
         </div>
         <div className="flex flex-wrap dumbo">
           <div className="mr-24 mb-4">
-            <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+            <label
+              style={{
+                fontWeight: "400",
+                lineHeight: "19.12px",
+                fontFamily: "Manrope",
+              }}
+              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               Postal Code
             </label>
             <input
@@ -294,7 +335,13 @@ const MyProfileAdmin = () => {
             />
           </div>
           <div className="mb-4">
-            <label style={{ fontWeight: "400", lineHeight: "19.12px", fontFamily: "Manrope" }} className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
+            <label
+              style={{
+                fontWeight: "400",
+                lineHeight: "19.12px",
+                fontFamily: "Manrope",
+              }}
+              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
               Adhaar Card
             </label>
             <input
@@ -309,9 +356,8 @@ const MyProfileAdmin = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
-}
+};
 
 export default MyProfileAdmin;

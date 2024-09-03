@@ -65,7 +65,7 @@ function LoginCred() {
     //  send the data to backend
     try {
       const res = await axios.post(
-        "https://project-rof.vercel.app/api/admin/login",
+        `${process.env.VITE_BACKEND}/api/admin/login`,
         loginData
       );
       console.log("Response rend", res);

@@ -43,11 +43,8 @@ const Table4 = () => {
     projectImage: "",
   });
 
-
   //b
   const [deleteId, setDeleteId] = useState(null);
-
-
 
   const popupRef = useRef();
   const fileInputRef = useRef();
@@ -75,7 +72,7 @@ const Table4 = () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const imageBase64 = e.target.result;
-        
+
         // Update both states
         setUploadedImage(imageBase64); // If needed elsewhere in your app
         setProjectDetails((prevState) => ({
@@ -86,8 +83,6 @@ const Table4 = () => {
       reader.readAsDataURL(file);
     }
   };
-  
-
 
   const handleAddProject = async () => {
     if (!projectName) {
@@ -108,9 +103,12 @@ const Table4 = () => {
     };
 
     try {
-      const sendData = await axios.post("https://project-rof.vercel.app/api/projects", newProject)
+      const sendData = await axios.post(
+        `${process.env.VITE_BACKEND}/api/projects`,
+        newProject
+      );
       console.log("Project added successfully", sendData);
-      setProjectData(prevData => [...prevData, sendData.data]);
+      setProjectData((prevData) => [...prevData, sendData.data]);
 
       // Reset form and close popup
       setUploadedImage(null);
@@ -119,7 +117,6 @@ const Table4 = () => {
       setProjectDescription("");
       setShowPopup(false);
       setValidationError("");
-
     } catch (error) {
       console.log("Error adding project:", error);
     }
@@ -129,23 +126,22 @@ const Table4 = () => {
 
   const fetchData = async () => {
     try {
-      setLoading(true)
-      const res = await axios.get("https://project-rof.vercel.app/api/projects");
+      setLoading(true);
+      const res = await axios.get(`${process.env.VITE_BACKEND}/api/projects`);
       console.log("res", res.data);
       setProjectData(res.data);
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
       console.log(error);
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchData();
   }, []);
 
   // console.log("projectData", projectData);
-
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -157,16 +153,18 @@ const Table4 = () => {
   // Delete and Edit logic
   const handleDelete = async (deleteId) => {
     try {
-      const res = await axios.delete(`https://project-rof.vercel.app/api/projects/delete/${deleteId}`)
+      const res = await axios.delete(
+        `${process.env.VITE_BACKEND}/api/projects/delete/${deleteId}`
+      );
       console.log("Project deleted", res);
 
-      // Update projectData state by removing the deleted project
-      setProjectData(prevData => prevData.filter(project => project._id !== deleteId));
+      setProjectData((prevData) =>
+        prevData.filter((project) => project._id !== deleteId)
+      );
 
       setShowPopup(false); // Close the popup after successful deletion
     } catch (error) {
       console.log(error);
-
     }
   };
 
@@ -191,54 +189,57 @@ const Table4 = () => {
   const handleClosePopup = () => {
     setShowPopup(false);
     setDeleteId(null); // Clear the deleteId when the popup is closed
-
   };
 
-  const handleChange=(e)=>{
-    setProjectDetails({...projectDetails,[e.target.name]:e.target.value});
-}
+  const handleChange = (e) => {
+    setProjectDetails({ ...projectDetails, [e.target.name]: e.target.value });
+  };
 
   const getData = async () => {
     if (editId) {
       try {
-        const resposne = await axios.get(`https://project-rof.vercel.app/api/projects/project/${editId}`);
+        const resposne = await axios.get(
+          `${process.env.VITE_BACKEND}/api/projects/project/${editId}`
+        );
         setProjectDetails(resposne.data);
       } catch (error) {
         console.error("Error fetching project details:", error);
       }
     }
-  }
+  };
 
   useEffect(() => {
     getData();
-  }, [editId])
+  }, [editId]);
 
-
-  const handleUpdateProject = async() => {
+  const handleUpdateProject = async () => {
     setValidationError("");
 
     try {
-      const updateProject = await axios.put(`https://project-rof.vercel.app/api/projects/update/${editId}`, projectDetails, {
-        headers: {
-          "Content-Type": "application/json",  // Assuming your backend expects JSON
-        },
-      });
+      const updateProject = await axios.put(
+        `${process.env.VITE_BACKEND}/api/projects/update/${editId}`,
+        projectDetails,
+        {
+          headers: {
+            "Content-Type": "application/json", // Assuming your backend expects JSON
+          },
+        }
+      );
 
       console.log("Updated successfully", updateProject);
 
       setProjectData((prevData) =>
-        prevData.map((project) => (project._id === editId ? updateProject.data : project))
+        prevData.map((project) =>
+          project._id === editId ? updateProject.data : project
+        )
       );
-  
 
       setShowPopup2(false);
-
     } catch (error) {
       console.error("Error updating project details:", error);
       setValidationError("Failed to update project. Please try again.");
     }
-
-  }
+  };
 
   return (
     <>
@@ -255,10 +256,9 @@ const Table4 = () => {
                     fontFamily: "Poppins",
                     fontSize: "24px",
                     fontWeight: "500",
-                  }}
-                >
+                  }}>
                   <Link to="/SuperAdmin">
-                    <span >Home</span>
+                    <span>Home</span>
                   </Link>
                   <IoIosArrowForward style={{ color: "#1C1B1F" }} />
                   <span
@@ -267,8 +267,7 @@ const Table4 = () => {
                       fontWeight: "400",
                       fontSize: "24px",
                     }}
-                    className="font-medium"
-                  >
+                    className="font-medium">
                     Projects
                   </span>
                 </h1>
@@ -280,7 +279,10 @@ const Table4 = () => {
                     type="text"
                     placeholder="Search"
                     className="w-full rounded-full h-[48px]"
-                    style={{ padding: "12px 24px 12px 60px", border: "1px solid #3D2314" }}
+                    style={{
+                      padding: "12px 24px 12px 60px",
+                      border: "1px solid #3D2314",
+                    }}
                     value={valueinput}
                     onChange={(e) => setvalueinput(e.target.value)}
                   />
@@ -288,8 +290,7 @@ const Table4 = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5 absolute left-6 top-3.5 text-[#3D2314]"
                     viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
+                    fill="currentColor">
                     <path
                       fillRule="evenodd"
                       d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
@@ -301,14 +302,12 @@ const Table4 = () => {
                   <button
                     onClick={() => setShowPopup(true)}
                     className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[206px] mt-[11px]"
-                    style={{ padding: "12px 24px 12px 24px", gap: "10px" }}
-                  >
+                    style={{ padding: "12px 24px 12px 24px", gap: "10px" }}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 mr-2"
                       viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
+                      fill="currentColor">
                       <path
                         fillRule="evenodd"
                         d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
@@ -318,68 +317,68 @@ const Table4 = () => {
                     Add new Project
                   </button>
                 </div>
-
               </div>
 
-              <div className="cardT  pr-[12px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-              >
-
-                {projectData.filter(({ name }) =>
-                  name.toLowerCase().includes(valueinput.toLowerCase())
-                ).map((project, index) => (
-                  <div
-                    key={index}
-                    className="bg-white pb-[12px] rounded-lg overflow-hidden shadow w-[297px]"
-                  >
-                    <Link to={`/SuperAdmin/project/${project.name}`}>
-                      <img
-                        src={project?.projectImage ?? one}
-                        alt={project.name}
-                        className="w-[408px] h-[178px] object-cover"
-                      />
-                    </Link>
-
-
-                    <div className=" w-[288px] h-[24px] flex justify-between items-center">
-                      <h3
-                        className="font-[16px]"
-                        style={{ fontWeight: 500, fontFamily: "Manrope", paddingLeft: "12px", paddingTop: "12px", gap: "16px" }}
-                      >
-                        {project.name}
-                      </h3>
-                      <button className="text-gray-500 flex gap-3 mt-3">
-                        <BiSolidEditAlt
-                          // onClick={() => setShowPopup2(true)}
-                          onClick={() => {
-                            setShowPopup2(true);
-                            setEditId(project._id);
-                          }}
-                          style={{
-                            cursor: "pointer",
-                            color: "#000000",
-                            width: "20px",
-                            height: "20px",
-                          }}
+              <div className="cardT  pr-[12px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {projectData
+                  .filter(({ name }) =>
+                    name.toLowerCase().includes(valueinput.toLowerCase())
+                  )
+                  .map((project, index) => (
+                    <div
+                      key={index}
+                      className="bg-white pb-[12px] rounded-lg overflow-hidden shadow w-[297px]">
+                      <Link to={`/SuperAdmin/project/${project.name}`}>
+                        <img
+                          src={project?.projectImage ?? one}
+                          alt={project.name}
+                          className="w-[408px] h-[178px] object-cover"
                         />
-                        <RiDeleteBin6Line
-                          //  onClick={() => handleDelete(project.id)}
-                          onClick={() => {
-                            setShowPopup(true);
-                            setDeleteId(project._id);
-                          }}
-                          style={{
-                            cursor: "pointer",
-                            color: "#930000",
-                            width: "20px",
-                            height: "20px",
+                      </Link>
 
-                          }}
-                        />
-                      </button>
+                      <div className=" w-[288px] h-[24px] flex justify-between items-center">
+                        <h3
+                          className="font-[16px]"
+                          style={{
+                            fontWeight: 500,
+                            fontFamily: "Manrope",
+                            paddingLeft: "12px",
+                            paddingTop: "12px",
+                            gap: "16px",
+                          }}>
+                          {project.name}
+                        </h3>
+                        <button className="text-gray-500 flex gap-3 mt-3">
+                          <BiSolidEditAlt
+                            // onClick={() => setShowPopup2(true)}
+                            onClick={() => {
+                              setShowPopup2(true);
+                              setEditId(project._id);
+                            }}
+                            style={{
+                              cursor: "pointer",
+                              color: "#000000",
+                              width: "20px",
+                              height: "20px",
+                            }}
+                          />
+                          <RiDeleteBin6Line
+                            //  onClick={() => handleDelete(project.id)}
+                            onClick={() => {
+                              setShowPopup(true);
+                              setDeleteId(project._id);
+                            }}
+                            style={{
+                              cursor: "pointer",
+                              color: "#930000",
+                              width: "20px",
+                              height: "20px",
+                            }}
+                          />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-
-                ))}
+                  ))}
               </div>
             </div>
           </main>
@@ -425,13 +424,10 @@ const Table4 = () => {
               <div className="fixed inset-0 bg-black opacity-50"></div>
               <div
                 ref={popupRef}
-                className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
-              >
+                className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50">
                 <div
                   className="upload-box description w-[323px] h-[189px] border-dotted border-[5px] flex flex-col items-center justify-center gap-3 cursor-pointer"
-
-                  onClick={() => fileInputRef.current.click()}
-                >
+                  onClick={() => fileInputRef.current.click()}>
                   {uploadedImage ? (
                     <img
                       src={uploadedImage}
@@ -445,7 +441,12 @@ const Table4 = () => {
                         alt="Upload"
                         className="w-12 h-12"
                       />
-                      <p style={{ fontWeight: "400", fontFamily: "Manrope", fontSize: "16px" }}>
+                      <p
+                        style={{
+                          fontWeight: "400",
+                          fontFamily: "Manrope",
+                          fontSize: "16px",
+                        }}>
                         Upload Image
                       </p>
                     </>
@@ -473,15 +474,19 @@ const Table4 = () => {
                 />
                 <textarea
                   className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300"
-                  style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
+                  style={{
+                    fontFamily: "Manrope",
+                    fontWeight: "400",
+                    fontSize: "16px",
+                    color: "#000000",
+                  }}
                   placeholder="Project Description"
                   value={projectDescription}
                   onChange={(e) => setProjectDescription(e.target.value)}
                 />
                 <button
                   className="add-project-button w-[170px] h-12 p-2 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
-                  onClick={handleAddProject}
-                >
+                  onClick={handleAddProject}>
                   Add new Project
                 </button>
                 {validationError && (
@@ -496,19 +501,15 @@ const Table4 = () => {
               <div className="fixed inset-0 bg-black opacity-50"></div>
               <div
                 ref={popupRef}
-                className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
-              >
+                className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50">
                 <button
                   className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                  onClick={() => setShowPopup2(false)}
-                >
+                  onClick={() => setShowPopup2(false)}>
                   X
                 </button>
                 <div
                   className="upload-box description flex w-[323px] h-[189px] border-dotted border-[5px] flex flex-col items-center justify-end gap-3 pb-2 cursor-pointer"
-
-                  onClick={() => fileInputRef.current.click()}
-                >
+                  onClick={() => fileInputRef.current.click()}>
                   {projectDetails.projectImage ? (
                     <img
                       name="projectImage"
@@ -523,10 +524,18 @@ const Table4 = () => {
                         alt="Upload"
                         className="w-12 h-12"
                       /> */}
-                      <p style={{ fontWeight: "400", fontFamily: "Manrope", fontSize: "16px", background: '#3D2314', color: 'white', padding: '10px', borderRadius: '7px' }}>
+                      <p
+                        style={{
+                          fontWeight: "400",
+                          fontFamily: "Manrope",
+                          fontSize: "16px",
+                          background: "#3D2314",
+                          color: "white",
+                          padding: "10px",
+                          borderRadius: "7px",
+                        }}>
                         Change Image
                       </p>
-
                     </>
                   )}
                 </div>
@@ -538,7 +547,6 @@ const Table4 = () => {
                 />
 
                 <div className="flex rounded-md border border-gray-300 text-center p-2 w-[533px] h-12 justify-between">
-
                   <input
                     type="text"
                     className="project-name-input w-full  font-manrope text-lg "
@@ -547,8 +555,7 @@ const Table4 = () => {
                     value={projectDetails.name}
                     onChange={handleChange}
                   />
-                  <div style={{ alignContent: 'center' }}>
-
+                  <div style={{ alignContent: "center" }}>
                     <BiSolidEditAlt
                       onClick={() => setShowPopup2(true)}
                       style={{
@@ -556,16 +563,12 @@ const Table4 = () => {
                         color: "#000000",
                         width: "20px",
                         height: "20px",
-
-
                       }}
                     />
                   </div>
                 </div>
 
-
                 <div className="flex rounded-md border border-gray-300 text-center p-2 w-[533px] h-12 justify-between">
-
                   <input
                     type="text"
                     className="project-name-input w-full  font-manrope text-lg "
@@ -574,8 +577,7 @@ const Table4 = () => {
                     value={projectDetails.location}
                     onChange={handleChange}
                   />
-                  <div style={{ alignContent: 'center' }}>
-
+                  <div style={{ alignContent: "center" }}>
                     <BiSolidEditAlt
                       onClick={() => setShowPopup2(true)}
                       style={{
@@ -583,25 +585,25 @@ const Table4 = () => {
                         color: "#000000",
                         width: "20px",
                         height: "20px",
-
-
                       }}
                     />
                   </div>
                 </div>
                 <div className="flex rounded-md border border-gray-300 text-center p-4 w-[533px]  min-h-[134px] justify-between">
-
                   <textarea
-
                     className="project-address-input w-full"
-                    style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
+                    style={{
+                      fontFamily: "Manrope",
+                      fontWeight: "400",
+                      fontSize: "16px",
+                      color: "#000000",
+                    }}
                     placeholder="Project Description"
                     name="description"
                     value={projectDetails.description}
                     onChange={handleChange}
                   />
-                  <div >
-
+                  <div>
                     <BiSolidEditAlt
                       onClick={() => setShowPopup2(true)}
                       style={{
@@ -609,16 +611,13 @@ const Table4 = () => {
                         color: "#000000",
                         width: "20px",
                         height: "20px",
-
-
                       }}
                     />
                   </div>
                 </div>
                 <button
                   className="add-project-button w-[170px] h-12 p-2 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
-                  onClick={handleUpdateProject}
-                >
+                  onClick={handleUpdateProject}>
                   Submit
                 </button>
                 {validationError && (
@@ -627,15 +626,10 @@ const Table4 = () => {
               </div>
             </div>
           )}
-
-        </div>)}
+        </div>
+      )}
     </>
-
   );
-
 };
 
 export default Table4;
-
-
-

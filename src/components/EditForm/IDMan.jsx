@@ -6,7 +6,15 @@ import "../Home.css";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import Loding from "../Loding/Loding";
-import { ChevronRight, Bold, Italic, AlignJustify, List, Paperclip, Smile } from 'lucide-react';
+import {
+  ChevronRight,
+  Bold,
+  Italic,
+  AlignJustify,
+  List,
+  Paperclip,
+  Smile,
+} from "lucide-react";
 
 const IDMan = () => {
   const [loading, setLoading] = useState(false);
@@ -23,7 +31,6 @@ const IDMan = () => {
     timeDuration: "",
     createdAt: "",
   });
-  
 
   const toggleEdit = () => {
     setEdit((prevEdit) => !prevEdit);
@@ -36,7 +43,7 @@ const IDMan = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `https://project-rof.vercel.app/api/customers/fetch/${id}`
+        `${process.env.VITE_BACKEND}/api/customers/fetch/${id}`
       );
       setFormData(res.data[0]);
       setLoading(false);
@@ -86,7 +93,7 @@ const IDMan = () => {
 
     try {
       const res = await axios.put(
-        `https://project-rof.vercel.app/api/customers/update/${id}`,
+        `${process.env.VITE_BACKEND}/api/customers/update/${id}`,
         {
           ...FormData,
         }
@@ -100,98 +107,110 @@ const IDMan = () => {
   const emojis = ["😀", "😂", "😊", "😍", "🤔", "👍", "👎", "❤️", "🎉", "🔥"];
 
   const NoteInput = () => {
-    const [note, setNote] = useState('');
+    const [note, setNote] = useState("");
     const [isBold, setIsBold] = useState(false);
     const [isItalic, setIsItalic] = useState(false);
     const [isBullet, setIsBullet] = useState(false);
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const fileInputRef = useRef(null);
     const textareaRef = useRef(null);
-  
+
     const handleBold = () => setIsBold(!isBold);
     const handleItalic = () => setIsItalic(!isItalic);
-  
+
     const handleBullet = () => {
       setIsBullet(!isBullet);
       if (!isBullet) {
-        const newNote = note ? note + '\n• ' : '• ';
+        const newNote = note ? note + "\n• " : "• ";
         setNote(newNote);
         setTimeout(() => textareaRef.current.focus(), 0);
       }
     };
-  
+
     const handleKeyDown = (e) => {
-      if (e.key === 'Enter' && isBullet) {
+      if (e.key === "Enter" && isBullet) {
         e.preventDefault();
-        setNote(note + '\n• ');
+        setNote(note + "\n• ");
       }
     };
-  
+
     const handleFileUpload = () => fileInputRef.current.click();
-  
+
     const handleFileChange = (event) => {
       const file = event.target.files[0];
       if (file) {
-        console.log('File selected:', file.name);
+        console.log("File selected:", file.name);
       }
     };
-  
+
     const toggleEmojiPicker = () => setShowEmojiPicker(!showEmojiPicker);
-  
+
     const addEmoji = (emoji) => {
       setNote(note + emoji);
       setShowEmojiPicker(false);
     };
-  
+
     return (
       <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col justify-between relative">
-         <div style={{marginTop:"-8px"}} className="flex space-x-2">
-            <button onClick={handleBold} className={`${isBold ? 'text-blue-500' : 'text-[#565558]'}`}>
-              <Bold size={15} />
-            </button>
-            <button onClick={handleItalic} className={`${isItalic ? 'text-blue-500' : 'text-[#565558]'}`}>
-              <Italic size={15} />
-            </button>
-            <AlignJustify size={15} className="text-gray-400" />
-            <button onClick={handleBullet} className={`${isBullet ? 'text-blue-500' : 'text-[#565558]'}`}>
-              <List size={15} />
-            </button>
-          </div>
-       
-          
-          
-          <div className="">
-          
-          
-          <div className='w-full flex justify-between h-[30px]'>
-         
-         
-          <textarea
-          style={{flex:"0 0 80%" ,padding:"4px" ,fontFamily:"Manrope",fontSize:"14px",fontWeight:"400"}}
-            ref={textareaRef} 
-            cols="140"
-            placeholder="Add Note"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className={` bg-transparent outline-none text-[] placeholder-gray-400  ${
-              isBold ? 'font-extrabold' : ''
-            } ${isItalic ? 'italic' : ''}`}
-            
-          />
-          
-          
-          <button className="bg-gray-200 ml-[360px] rounded-full p-1">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <div style={{ marginTop: "-8px" }} className="flex space-x-2">
+          <button
+            onClick={handleBold}
+            className={`${isBold ? "text-blue-500" : "text-[#565558]"}`}>
+            <Bold size={15} />
+          </button>
+          <button
+            onClick={handleItalic}
+            className={`${isItalic ? "text-blue-500" : "text-[#565558]"}`}>
+            <Italic size={15} />
+          </button>
+          <AlignJustify size={15} className="text-gray-400" />
+          <button
+            onClick={handleBullet}
+            className={`${isBullet ? "text-blue-500" : "text-[#565558]"}`}>
+            <List size={15} />
+          </button>
+        </div>
+
+        <div className="">
+          <div className="w-full flex justify-between h-[30px]">
+            <textarea
+              style={{
+                flex: "0 0 80%",
+                padding: "4px",
+                fontFamily: "Manrope",
+                fontSize: "14px",
+                fontWeight: "400",
+              }}
+              ref={textareaRef}
+              cols="140"
+              placeholder="Add Note"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className={` bg-transparent outline-none text-[] placeholder-gray-400  ${
+                isBold ? "font-extrabold" : ""
+              } ${isItalic ? "italic" : ""}`}
+            />
+
+            <button className="bg-gray-200 ml-[360px] rounded-full p-1">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M5 12H19M19 12L12 5M19 12L12 19"
+                  stroke="#9CA3AF"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
-            
-  </div>
-  
+          </div>
         </div>
-        <div  className="flex justify-between items-center">
-          
+        <div className="flex justify-between items-center">
           <div className="flex space-x-2">
             <button onClick={handleFileUpload} className="text-[#565558]">
               <Paperclip size={15} />
@@ -206,14 +225,16 @@ const IDMan = () => {
             <button onClick={toggleEmojiPicker} className="text-[#565558]">
               <Smile size={15} />
             </button>
-           
           </div>
         </div>
         {showEmojiPicker && (
           <div className="absolute bottom-14 right-0 bg-white border border-gray-300 rounded-lg p-2 shadow-lg">
             <div className="grid grid-cols-5 gap-2">
               {emojis.map((emoji, index) => (
-                <button key={index} onClick={() => addEmoji(emoji)} className="text-2xl">
+                <button
+                  key={index}
+                  onClick={() => addEmoji(emoji)}
+                  className="text-2xl">
                   {emoji}
                 </button>
               ))}
@@ -224,8 +245,6 @@ const IDMan = () => {
     );
   };
 
-    
-  
   return (
     <>
       {loading ? (
@@ -242,7 +261,7 @@ const IDMan = () => {
                   fontWeight: "500",
                 }}>
                 <Link to="/SuperAdmin">
-                  <span >Home</span>
+                  <span>Home</span>
                 </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
                 <Link to="/SuperAdmin/Direct_Visitors">
@@ -268,10 +287,11 @@ const IDMan = () => {
                 </span>
               </h1>
             </div>
-
           </div>
 
-          <div className="flex mr-[50px] mt-5 mb-5" style={{ justifyContent: 'end' }}>
+          <div
+            className="flex mr-[50px] mt-5 mb-5"
+            style={{ justifyContent: "end" }}>
             <div
               key={FormData}
               style={{}}
@@ -279,8 +299,7 @@ const IDMan = () => {
               onClick={() => toggleEditMode(FormData._id)}>
               <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
                 <div className="pt-1 pr-4">
-                <FaRegEdit />
-
+                  <FaRegEdit />
                 </div>
               </h4>
               <p className="text-[16px]">
@@ -308,15 +327,20 @@ const IDMan = () => {
                         <label
                           htmlFor="first_name"
                           className="block text-[#000000] text-[16px] font-[Manrope]"
-                          style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                          style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                           Customer Name
                         </label>
                         <input
-
                           type="text"
                           id="first_name"
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                          style={{
+                            fontFamily: "Manrope",
+                            fontWeight: "600",
+                            fontSize: "20px",
+                            lineHeight: "27.32px",
+                            padding: "10px 18px 10px 18px",
+                          }}
                           placeholder="John Doe"
                           required
                           name="name"
@@ -329,15 +353,20 @@ const IDMan = () => {
                         <label
                           htmlFor="phone"
                           className="block text-[#000000] text-[16px] font-[Manrope]"
-                          style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
-
+                          style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                           Mobile No
                         </label>
                         <input
                           type="tel"
                           id="phone"
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                          style={{
+                            fontFamily: "Manrope",
+                            fontWeight: "600",
+                            fontSize: "20px",
+                            lineHeight: "27.32px",
+                            padding: "10px 18px 10px 18px",
+                          }}
                           placeholder="9425846894"
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           required
@@ -352,14 +381,20 @@ const IDMan = () => {
                       <label
                         htmlFor="email"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Email ID
                       </label>
                       <input
                         type="email"
                         id="email"
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         placeholder="johndoe@gmail.com"
                         required
                         name="email"
@@ -376,14 +411,20 @@ const IDMan = () => {
                         <label
                           htmlFor="Project A"
                           className="block text-[#000000] text-[16px] font-[Manrope]"
-                          style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                          style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                           Project
                         </label>
                         <input
                           type="text"
                           id="Project A"
                           className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                          style={{
+                            fontFamily: "Manrope",
+                            fontWeight: "600",
+                            fontSize: "20px",
+                            lineHeight: "27.32px",
+                            padding: "10px 18px 10px 18px",
+                          }}
                           placeholder="Project A"
                           name="projectName"
                           value={FormData}
@@ -395,14 +436,20 @@ const IDMan = () => {
                         <label
                           htmlFor="Customer ID"
                           className="block text-[#000000] text-[16px] font-[Manrope]"
-                          style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                          style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                           Customer ID
                         </label>
                         <input
                           type="text"
                           id="Customer ID"
                           className="lg:w-[214px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                          style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                          style={{
+                            fontFamily: "Manrope",
+                            fontWeight: "600",
+                            fontSize: "20px",
+                            lineHeight: "27.32px",
+                            padding: "10px 18px 10px 18px",
+                          }}
                           placeholder="ROF0001"
                           required
                           name="customerId"
@@ -416,14 +463,20 @@ const IDMan = () => {
                       <label
                         htmlFor="attendant"
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Attendant
                       </label>
                       <input
                         type="text"
                         id="attendant"
                         className="lg:w-[393px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         placeholder="Samyak Gandhi"
                         required
                         name="attendantName"
@@ -438,13 +491,20 @@ const IDMan = () => {
                     <div>
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Date
                       </label>
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ textAlign: 'center', fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          textAlign: "center",
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         name="createdAt"
                         // value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
@@ -454,13 +514,20 @@ const IDMan = () => {
                     <div>
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Response Time
                       </label>
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ textAlign: 'center', fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          textAlign: "center",
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         name="responseTime"
                         // value={ResponseAt(FormData.createdAt)}
                         onChange={handleChange}
@@ -470,13 +537,20 @@ const IDMan = () => {
                     <div>
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Meeting Duration
                       </label>
                       <input
                         type="text"
                         className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ textAlign: 'center', fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          textAlign: "center",
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         name="timeDuration"
                         // value={FormData.timeDuration}
                         onChange={handleChange}
@@ -489,13 +563,18 @@ const IDMan = () => {
                     <div className="mt-1">
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
-                        style={{ fontWeight: "500", fontFamily: 'Manrope' }}>
+                        style={{ fontWeight: "500", fontFamily: "Manrope" }}>
                         Executive Notes
-                      </label
-                      >
+                      </label>
                       <textarea
                         className="lg:w-[647px] lg:h-[100px] border-[2px] border-[#3D2314] rounded-lg mt-1"
-                        style={{ fontFamily: 'Manrope', fontWeight: '600', fontSize: '20px', lineHeight: '27.32px', padding: '10px 18px 10px 18px' }}
+                        style={{
+                          fontFamily: "Manrope",
+                          fontWeight: "600",
+                          fontSize: "20px",
+                          lineHeight: "27.32px",
+                          padding: "10px 18px 10px 18px",
+                        }}
                         readOnly={!editMode}>
                         {/* {FormData.notes} */}
                       </textarea>
@@ -504,19 +583,26 @@ const IDMan = () => {
                 </div>
               </form>
             </div>
-           
-        
-              <div className="mt-4 w-[555px] lg:h-[529px] bg-[#FFFFFF] p-[24px] rounded-2xl" style={{
-          borderRadius: "24px",
-          boxShadow: "0px 0px 6.7px 0px #632E04",
-        }}>
-          <h2 style={{fontFamily:"Manrope" , fontSize:"20px" , fontWeight:"700"}} className="mb-4 text-center">Notes Activity Log</h2>
-         
-          <div className="mt-4 ">
-            <NoteInput  />
-          </div>
-        
 
+            <div
+              className="mt-4 w-[555px] lg:h-[529px] bg-[#FFFFFF] p-[24px] rounded-2xl"
+              style={{
+                borderRadius: "24px",
+                boxShadow: "0px 0px 6.7px 0px #632E04",
+              }}>
+              <h2
+                style={{
+                  fontFamily: "Manrope",
+                  fontSize: "20px",
+                  fontWeight: "700",
+                }}
+                className="mb-4 text-center">
+                Notes Activity Log
+              </h2>
+
+              <div className="mt-4 ">
+                <NoteInput />
+              </div>
             </div>
           </main>
         </div>
@@ -524,6 +610,5 @@ const IDMan = () => {
     </>
   );
 };
-
 
 export default IDMan;

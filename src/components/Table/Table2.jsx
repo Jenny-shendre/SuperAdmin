@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { LuPencilLine } from "react-icons/lu";
 import Searchsvg from "../../assets/material-symbols_search.svg";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import { IoIosArrowForward } from "react-icons/io";
 import axios from "axios";
@@ -16,11 +16,9 @@ import { FaEyeSlash } from "react-icons/fa";
 import { FaCircle } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-
 // const navigate=useNavigate()
 
-const API_URL = import.meta.env.VITE_API_URL
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Table2 = () => {
   const [valueinput, setvalueinput] = useState("");
@@ -28,7 +26,7 @@ const Table2 = () => {
   const [address, setaddress] = useState("");
   const [phone, setphone] = useState("");
   const [showPopupAdd, setShowPopupAdd] = useState(false);
-  const [channelEmailID, setChannelEmailID] = useState('');
+  const [channelEmailID, setChannelEmailID] = useState("");
   const [data, setdata] = useState([]);
 
   const [loading, setLoading] = useState(false);
@@ -38,29 +36,26 @@ const Table2 = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
 
-
   const handleDeleteClick = async (deleteId) => {
     try {
-      const res = await axios.delete(`https://project-rof.vercel.app/api/channels/${deleteId}`)
+      const res = await axios.delete(
+        `${process.env.VITE_BACKEND}/api/channels/${deleteId}`
+      );
       console.log("Channel deleted", res);
-      setdata(prevData => prevData.filter(item => item._id !== deleteId));
+      setdata((prevData) => prevData.filter((item) => item._id !== deleteId));
       setShowPopup(false);
-
     } catch (error) {
       console.log(error);
-
     }
   };
 
   const handleClosePopup = () => {
     setShowPopup(false);
     setDeleteId(null); // Clear the deleteId when the popup is closed
-
   };
 
   const popupRef = useRef();
   const fileInputRef = useRef();
-
 
   const handleClickOutside = (event) => {
     if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -68,17 +63,16 @@ const Table2 = () => {
     }
   };
 
-
   const [createStatus, setCreateStatus] = useState("Register Channel");
   const [isCreating, setIsCreating] = useState(false);
 
   const resetForm = () => {
-    setChannelName('');
-    setChannelEmailID('');
-    setphone('');
-    setaddress('');
-    setCreateStatus('');
-    setErrorMessage('');
+    setChannelName("");
+    setChannelEmailID("");
+    setphone("");
+    setaddress("");
+    setCreateStatus("");
+    setErrorMessage("");
   };
 
   const handleSubmit = async () => {
@@ -93,7 +87,7 @@ const Table2 = () => {
       name: channelName,
       email: channelEmailID,
       phone: phone,
-      address: address
+      address: address,
     };
 
     // console.log("Data to be sent:", teamdata);
@@ -102,7 +96,10 @@ const Table2 = () => {
     setIsCreating(true);
 
     try {
-      const res = await axios.post("https://project-rof.vercel.app/api/channels", teamdata);
+      const res = await axios.post(
+        `${process.env.VITE_BACKEND}/api/channels`,
+        teamdata
+      );
 
       console.log("Successfully Added:", res.data);
 
@@ -111,48 +108,37 @@ const Table2 = () => {
       resetForm();
 
       getData1();
-
     } catch (error) {
       console.error("Error Registering Channel:", error);
 
       setCreateStatus("Error Registering Channel");
-      setErrorMessage(error.response?.data?.message || "An unexpected error occurred.");
-
+      setErrorMessage(
+        error.response?.data?.message || "An unexpected error occurred."
+      );
     } finally {
       setIsCreating(false);
     }
   };
 
-
-
-
   const getData1 = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(
-        `https://project-rof.vercel.app/api/channels`
-      );
+      const res = await axios.get(`${process.env.VITE_BACKEND}/api/channels`);
       setdata(res.data);
       setLoading(false);
-
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
   };
 
-
-
   const fetchRecordByChannelID = async (id) => {
-    console.log('id>>>>>>', id)
-    const res = await axios.get(
-      `${API_URL}/api/channels/fetchChannelBy/`,
-      {
-        params: {
-          id: id
-        },
-      }
-    );
+    console.log("id>>>>>>", id);
+    const res = await axios.get(`${API_URL}/api/channels/fetchChannelBy/`, {
+      params: {
+        id: id,
+      },
+    });
     setdata(res.data);
   };
 
@@ -160,7 +146,6 @@ const Table2 = () => {
   useEffect(() => {
     getData1();
   }, []);
-
 
   // Data Time
   const DateupdatedAt = (DateupdatedAt) => {
@@ -175,9 +160,9 @@ const Table2 = () => {
   //vb
   const truncateText = (text, limit) => {
     if (text && text.length > limit) {
-      return text.slice(0, limit) + '...';
+      return text.slice(0, limit) + "...";
     }
-    return text || '';
+    return text || "";
   };
 
   return (
@@ -202,7 +187,7 @@ const Table2 = () => {
                 fontWeight: "500",
               }}>
               <Link to="/SuperAdmin">
-                <span >Home</span>
+                <span>Home</span>
               </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
@@ -217,41 +202,38 @@ const Table2 = () => {
               </span>
             </h1>
 
-            <div className="flex flex-row items-center justify-start text-center flex items-center w-[100%] justify-between" >
-              <div style={{width:'70%', textAlign:'-webkit-center'}}>
-
-              <div className="flex justify-center items-center w-[70%] lg:block relative lg:w-[36rem] rounded-full" >
-                <input
-                  className="w-[619px] h-[48px] py-2 px-12 rounded-full "
-                  style={{
-                    border: "1px solid #3D2314",
-                    boxShadow: " 0px 0px 4px 0px #00000040",
-                  }}
-                  type="text"
-                  value={valueinput}
-                  onChange={(e) => setvalueinput(e.target.value)}
-                  placeholder="Search"
-                />
-                <img
-                  style={{ top: "0.8rem" }}
-                  src={Searchsvg}
-                  alt="Search"
-                  className="absolute  left-4"
-                />
-              </div>
+            <div className="flex flex-row items-center justify-start text-center flex items-center w-[100%] justify-between">
+              <div style={{ width: "70%", textAlign: "-webkit-center" }}>
+                <div className="flex justify-center items-center w-[70%] lg:block relative lg:w-[36rem] rounded-full">
+                  <input
+                    className="w-[619px] h-[48px] py-2 px-12 rounded-full "
+                    style={{
+                      border: "1px solid #3D2314",
+                      boxShadow: " 0px 0px 4px 0px #00000040",
+                    }}
+                    type="text"
+                    value={valueinput}
+                    onChange={(e) => setvalueinput(e.target.value)}
+                    placeholder="Search"
+                  />
+                  <img
+                    style={{ top: "0.8rem" }}
+                    src={Searchsvg}
+                    alt="Search"
+                    className="absolute  left-4"
+                  />
+                </div>
               </div>
               <div className="w-[30%]">
                 <button
                   onClick={() => setShowPopupAdd(true)}
                   className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[250px]"
-                  style={{ padding: "12px 24px 12px 24px", gap: "10px" }}
-                >
+                  style={{ padding: "12px 24px 12px 24px", gap: "10px" }}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5 mr-2"
                     viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
+                    fill="currentColor">
                     <path
                       fillRule="evenodd"
                       d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
@@ -285,7 +267,7 @@ const Table2 = () => {
                           height: "28px",
                         }}
                         //TC-186
-                        className="px-[10px] py-[6px]" >
+                        className="px-[10px] py-[6px]">
                         {/* Date */}
                         Serial No
                       </th>
@@ -301,7 +283,6 @@ const Table2 = () => {
                           padding: "7px",
                           width: "100px", //tc-3
                           height: "28px",
-
                         }}>
                         {/* Response Time */}
                         Channel ID
@@ -387,7 +368,6 @@ const Table2 = () => {
                         }}>
                         Delete
                       </th>
-
                     </tr>
                   </thead>
 
@@ -412,7 +392,6 @@ const Table2 = () => {
                             .includes(valueinput.toLowerCase())
                       )
                       .map((visitor, index) => (
-
                         <tr
                           style={{ paddingLeft: "5px" }}
                           className="py-1 border-b text-[9px] lg:text-[14px]  "
@@ -429,7 +408,11 @@ const Table2 = () => {
                             {/* {ResponseAt(visitor.updatedAt)} */}
 
                             <Link
-                              onClick={() => navigate(`/SuperAdmin/Rainbow_overseas/${visitor.channelID}`)}
+                              onClick={() =>
+                                navigate(
+                                  `/SuperAdmin/Rainbow_overseas/${visitor.channelID}`
+                                )
+                              }
                               style={{
                                 fontFamily: "Manrope",
                                 fontSize: "14px",
@@ -438,20 +421,25 @@ const Table2 = () => {
                                 textAlign: "left",
                                 color: "#000AFF",
                                 textDecoration: "underline",
-
-
                               }}>
                               {visitor.channelID}
                             </Link>
                           </td>
 
-
                           <td className="py-3  text-left flex items-center justify-center">
-                            <FaCircle className="mr-2 ml-16 text-gray-500 " style={{ width: "30px", height: "30px" }} />
-                            <span className="truncate flex-grow ml-2 #000000" style={{ fontSize: "16px" }}>{visitor.name} </span>
+                            <FaCircle
+                              className="mr-2 ml-16 text-gray-500 "
+                              style={{ width: "30px", height: "30px" }}
+                            />
+                            <span
+                              className="truncate flex-grow ml-2 #000000"
+                              style={{ fontSize: "16px" }}>
+                              {visitor.name}{" "}
+                            </span>
                           </td>
 
-                          <td className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
+                          <td
+                            className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
                             title={visitor.email}>
                             {truncateText(visitor.email, 17)}
                           </td>
@@ -460,10 +448,10 @@ const Table2 = () => {
                             {visitor.phone}
                           </td>
 
-                          <td className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
+                          <td
+                            className="  py-3 border-b text-center max-w-[150px] overflow-hidden"
                             title={visitor.address}>
                             {truncateText(visitor.address, 13)}
-
                           </td>
                           <td className="py-1 px-3 border-b text-center">
                             <div
@@ -471,8 +459,7 @@ const Table2 = () => {
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
-                              }}
-                            >
+                              }}>
                               <RiDeleteBin6Line
                                 // onClick={() => handleDeleteClick(visitor._id)}
                                 onClick={() => {
@@ -487,10 +474,6 @@ const Table2 = () => {
                               />
                             </div>
                           </td>
-
-
-
-
                         </tr>
                       ))}
                   </tbody>
@@ -507,7 +490,6 @@ const Table2 = () => {
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="fixed inset-0 bg-black opacity-50"></div>
           <div className="Delete-popup w-[257px] h-[192px] py-[12px] px-[24px] rounded-md bg-white shadow-md z-50 flex items-center justify-center">
-
             <div className="text-center">
               <p className="font-manrope text-[20px] font-medium">
                 Are you sure you want to delete this row?
@@ -520,7 +502,6 @@ const Table2 = () => {
                   className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
                   // onClick={confirmDelete}
                   onClick={() => handleDeleteClick(deleteId)} // Delete the project
-
                 >
                   Delete
                 </button>
@@ -528,7 +509,6 @@ const Table2 = () => {
                   className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
                   // onClick={() => setShowPopup(false)}
                   onClick={handleClosePopup} // Close the popup
-
                 >
                   Cancel
                 </button>
@@ -541,21 +521,17 @@ const Table2 = () => {
         </div>
       )}
 
-
       {showPopupAdd && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="fixed inset-0 bg-black opacity-50"></div>
           <div
             ref={popupRef}
-            className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
-          >
+            className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50">
             <button
               className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-              onClick={() => setShowPopupAdd(false)}
-            >
+              onClick={() => setShowPopupAdd(false)}>
               X
             </button>
-
 
             <input
               type="text"
@@ -581,7 +557,12 @@ const Table2 = () => {
             />
             <textarea
               className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 "
-              style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
+              style={{
+                fontFamily: "Manrope",
+                fontWeight: "400",
+                fontSize: "16px",
+                color: "#000000",
+              }}
               placeholder="Address"
               value={address}
               onChange={(e) => setaddress(e.target.value)}
@@ -589,14 +570,12 @@ const Table2 = () => {
             <button
               onClick={handleSubmit}
               className="`create-team-btn flex flex-wrap  h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
-              disabled={isCreating}
-            >
+              disabled={isCreating}>
               {isCreating ? createStatus : "Register Channel"}
             </button>
             {errorMessage && (
               <p className="text-red-500 mt-2">{errorMessage}</p>
             )}
-
           </div>
         </div>
       )}

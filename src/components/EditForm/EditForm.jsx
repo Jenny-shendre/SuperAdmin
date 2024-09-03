@@ -44,7 +44,7 @@ const FormEdit = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `https://project-rof.vercel.app/api/customers/fetch/${id}`
+        `${process.env.VITE_BACKEND}/api/customers/fetch/${id}`
       );
       setFormData(res.data[0]);
       setLoading(false);
@@ -106,7 +106,7 @@ const FormEdit = () => {
 
     try {
       const res = await axios.put(
-        `https://project-rof.vercel.app/api/customers/update/${id}`,
+        `${process.env.VITE_BACKEND}/api/customers/update/${id}`,
         {
           ...FormData,
         }
@@ -164,7 +164,9 @@ const FormEdit = () => {
     };
 
     return (
-      <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col relative" style={{alignSelf:'self-end'}}>
+      <div
+        className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col relative"
+        style={{ alignSelf: "self-end" }}>
         <div style={{ marginTop: "-8px" }} className="flex space-x-2">
           <button
             onClick={handleBold}
@@ -677,45 +679,41 @@ const FormEdit = () => {
                   className="mb-4 text-center">
                   Notes Activity Log
                 </h2>
-                <div style={{height:'300px', overflowY:'scroll'}}>
-                <div className="space-y-4">
-                  {FormData.notes && FormData.notes.length > 0 ? (
-                    <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
-                        <span
+                <div style={{ height: "300px", overflowY: "scroll" }}>
+                  <div className="space-y-4">
+                    {FormData.notes && FormData.notes.length > 0 ? (
+                      <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
+                          <span
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "12px",
+                              fontWeight: "500",
+                            }}>
+                            Sales Executive
+                          </span>
+                        </div>
+
+                        {FormData.notes}
+                        <div
                           style={{
                             fontFamily: "Manrope",
-                            fontSize: "12px",
-                            fontWeight: "500",
-                          }}>
-                          Sales Executive
-                        </span>
+                            fontSize: "8px",
+                            fontWeight: "600",
+                          }}
+                          className=" text-right mt-2 text-[#4A4A4A]">
+                          {ResponseAt2(FormData.updatedAt)}
+                        </div>
                       </div>
-                    
-                      {FormData.notes}
-                      <div
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "8px",
-                          fontWeight: "600",
-                        }}
-                        className=" text-right mt-2 text-[#4A4A4A]">
-                        {ResponseAt2(FormData.updatedAt)}
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                 
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
-                </div>
-              
-                <div style={{display:'flex'}}>
-                  
-                  <NoteInput />
 
-                  
+                <div style={{ display: "flex" }}>
+                  <NoteInput />
                 </div>
               </div>
             </div>

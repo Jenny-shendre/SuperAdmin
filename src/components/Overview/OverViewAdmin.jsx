@@ -52,7 +52,7 @@ const OverViewAdmin = () => {
 
   const fetchDirectVisitors = async (interval) => {
     const response = await axios.get(
-      "https://project-rof.vercel.app/api/overview/direct-visitors",
+      `${process.env.VITE_BACKEND}/api/overview/direct-visitors`,
       {
         params: { interval },
       }
@@ -63,7 +63,7 @@ const OverViewAdmin = () => {
 
   const fetchChannelVisitors = async (interval) => {
     const response = await axios.get(
-      "https://project-rof.vercel.app/api/overview/channel-visitors",
+      `${process.env.VITE_BACKEND}/api/overview/channel-visitors`,
       {
         params: { interval },
       }
@@ -73,7 +73,7 @@ const OverViewAdmin = () => {
 
   const dealsClosedResponse = async (interval) => {
     const response = await axios.get(
-      "https://project-rof.vercel.app/api/overview/total-DealsClosed",
+      `${process.env.VITE_BACKEND}/api/overview/total-DealsClosed`,
       {
         params: { interval },
       }
@@ -83,7 +83,7 @@ const OverViewAdmin = () => {
 
   const fetchTotalMeetings = async (interval) => {
     const response = await axios.get(
-      "https://project-rof.vercel.app/api/overview/total-meetings",
+      `${process.env.VITE_BACKEND}/api/overview/total-meetings`,
       {
         params: { interval },
       }
@@ -93,7 +93,7 @@ const OverViewAdmin = () => {
 
   const StaffOnline = async (interval) => {
     const response = await axios.get(
-      "https://project-rof.vercel.app/api/overview/total-status",
+      `${process.env.VITE_BACKEND}api/overview/total-status`,
       {
         params: { interval },
       }
@@ -103,7 +103,7 @@ const OverViewAdmin = () => {
 
   const BargraphData = async (interval) => {
     const response = await axios.get(
-      "https://project-rof.vercel.app/api/overview/Bar",
+      `${process.env.VITE_BACKEND}api/overview/Bar`,
       {
         params: { interval },
       }
@@ -113,7 +113,7 @@ const OverViewAdmin = () => {
 
   const TopExecutivePerformer = async (interval) => {
     const response = await axios.get(
-      "https://project-rof.vercel.app/api/overview/Top_Executive",
+      `${process.env.VITE_BACKEND}api/overview/Top_Executive`,
       {
         params: { interval },
       }
@@ -180,10 +180,8 @@ const OverViewAdmin = () => {
   //   handleOptionClick(selectedOpt);
   // }, [selectedOpt]);
 
-
-
   const handleOptionClick = async (opt) => {
-    console.log(`Option selected: ${opt}`); 
+    console.log(`Option selected: ${opt}`);
 
     setSelectedOpt(opt);
     setIsOpen(false);
@@ -206,10 +204,10 @@ const OverViewAdmin = () => {
         TopExecutivePerformer(opt.toLowerCase()),
       ]);
 
-      console.log('Direct Data:', directData);  // Log API responses
-      console.log('Channel Data:', channelData);
-      console.log('Meetings Data:', meetingsData);
-  
+      console.log("Direct Data:", directData); // Log API responses
+      console.log("Channel Data:", channelData);
+      console.log("Meetings Data:", meetingsData);
+
       setDirectVisitors(directData?.numberOfDirectVisitors || 23);
       setChannelVisitors(channelData.numberOfChannelVisitors || 0);
       setTotalMeetings(meetingsData.totalMeetings || 0);
@@ -222,15 +220,12 @@ const OverViewAdmin = () => {
     }
   };
 
-
   useEffect(() => {
     handleOptionClick(selectedOpt);
-}, [selectedOpt]); 
-
-
+  }, [selectedOpt]);
 
   return (
-    <div className=" h-[1024px] p-6 overview" >
+    <div className=" h-[1024px] p-6 overview">
       <div
         style={{ paddingLeft: "0px" }}
         className="  overflow-x-auto flex flex-col gap- bg-custom-bg">
@@ -475,8 +470,12 @@ const OverViewAdmin = () => {
                   <tr className="divide-x-2 divide-gray-200">
                     <td className="px-4 py-2 text-[12px]">{index + 1}</td>
                     <td className="px-2 py-2 text-[12px]">{visitor.name}</td>
-                    <td className="px-4 py-2 text-[12px]">{visitor.totalMeetings}</td>
-                    <td className="px-4 py-2 text-[12px]">{visitor.clientConversion}</td>
+                    <td className="px-4 py-2 text-[12px]">
+                      {visitor.totalMeetings}
+                    </td>
+                    <td className="px-4 py-2 text-[12px]">
+                      {visitor.clientConversion}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -485,8 +484,6 @@ const OverViewAdmin = () => {
         </div>
 
         {/* 2nd table */}
-
-
 
         <div className="w-[417px] h-[47px]  ">
           <div>
@@ -1189,8 +1186,6 @@ Notes */}
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   );

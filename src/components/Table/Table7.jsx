@@ -85,21 +85,21 @@ const Table7 = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        "https://project-rof.vercel.app/api/seviceRequest/ProjectFilter",
+        `${process.env.VITE_BACKEND}/api/seviceRequest/ProjectFilter`,
         sendData
       );
       setServicedata(res.data);
       // console.log(res.data);
 
       const res1 = await axios.post(
-        "https://project-rof.vercel.app/api/projects/ProjectFilter",
+        `${process.env.VITE_BACKEND}/api/projects/ProjectFilter`,
         sendData
       );
       setProjectData(res1.data);
       // console.log(res1.data);
 
       const res2 = await axios.post(
-        "https://project-rof.vercel.app/api/chequeImage/entries-with-cheque-image",
+        `${process.env.VITE_BACKEND}/api/chequeImage/entries-with-cheque-image`,
         sendData
       );
       setChequeData(res2.data);
@@ -283,8 +283,8 @@ const Table7 = () => {
                 fontWeight: "500",
               }}>
               <Link to="/SuperAdmin">
-                  <span >Home</span>
-                </Link>
+                <span>Home</span>
+              </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <Link to="/SuperAdmin/Project">
                 <span
@@ -355,8 +355,6 @@ const Table7 = () => {
                     }}>
                     {projectData.description}
                   </p>
-                 
-                 
                 </div>
               </div>
             </div>
@@ -432,7 +430,7 @@ const Table7 = () => {
                         overflowY: "auto",
                       }}>
                       {serviceData
-                         .filter(
+                        .filter(
                           ({
                             name,
                             servicePersonName,
@@ -463,8 +461,8 @@ const Table7 = () => {
                               .includes(valueinput.toLowerCase()) ||
                             servicePersonName
                               ?.toLowerCase()
-                              .includes(valueinput.toLowerCase())||
-                              mobileNo
+                              .includes(valueinput.toLowerCase()) ||
+                            mobileNo
                               ?.toLowerCase()
                               .includes(valueinput.toLowerCase())
                         )

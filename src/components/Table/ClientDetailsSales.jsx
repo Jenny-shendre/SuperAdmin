@@ -12,12 +12,11 @@ import { BsThreeDots } from "react-icons/bs";
 import axios from "axios";
 import { format } from "date-fns";
 import eyes from "../../assets/eyes.png";
-import view from '../../assets/hugeicons_view (1).png';
-import edit from '../../assets/akar-icons_edit (2).png';
-import delt from '../../assets/material-symbols_delete-outline.png';
-import edit2 from '../../assets/akar-icons_edit (3).png';
+import view from "../../assets/hugeicons_view (1).png";
+import edit from "../../assets/akar-icons_edit (2).png";
+import delt from "../../assets/material-symbols_delete-outline.png";
+import edit2 from "../../assets/akar-icons_edit (3).png";
 import { Link } from "react-router-dom";
-
 
 function ClientDetails() {
   const [showPopup, setShowPopup] = useState(false);
@@ -38,10 +37,9 @@ function ClientDetails() {
   const [resstart, setRes] = useState();
   const [resEndDateTime, setresEndDateTime] = useState();
 
-
-
   const [IdEmp, setIdEmp] = useState(
-    localStorage.getItem("EmpId") ||  "ROFEX103"
+    // localStorage.getItem("EmpId") ||
+    "ROFEX103"
   );
 
   const [showNotePopup, setShowNotePopup] = useState(false);
@@ -64,7 +62,7 @@ function ClientDetails() {
   const fetchData = async () => {
     setLoading(true);
 
-    const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
+    const res2 = await axios.get("${process.env.VITE_BACKEND}/api/projects");
     setdata2(res2.data);
 
     setLoading(false);
@@ -73,22 +71,20 @@ function ClientDetails() {
   useEffect(() => {
     fetchData();
   }, []);
-//Mobile View
+  //Mobile View
 
-const [activeSection, setActiveSection] = useState("appointments");
+  const [activeSection, setActiveSection] = useState("appointments");
 
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
-
-
 
   //New
 
   const handleOutsideClick = (event) => {
     if (notePopupRef.current && !notePopupRef.current.contains(event.target)) {
       setShowNotePopup(false);
-      setShowEditNotePopup(false)
+      setShowEditNotePopup(false);
     }
     if (
       addNotePopupRef.current &&
@@ -106,7 +102,6 @@ const [activeSection, setActiveSection] = useState("appointments");
       setIsProjectDropdownOpen(false);
     }
   };
-
 
   useEffect(() => {
     if (
@@ -135,9 +130,6 @@ const [activeSection, setActiveSection] = useState("appointments");
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
   const [timeResponseStart, settimeResponseStart] = useState(""); // state for error message
 
-
-
-
   const handleProjectChange = (projectName) => {
     setProject(projectName);
     setIsProjectDropdownOpen(false);
@@ -152,7 +144,9 @@ const [activeSection, setActiveSection] = useState("appointments");
 
       try {
         if (clientConversation === "Yes") {
-          const res = await axios.put(`https://project-rof.vercel.app/api/attendants/clientConversion/${IdEmp}`)
+          const res = await axios.put(
+            `${process.env.VITE_BACKEND}/api/attendants/clientConversion/${IdEmp}`
+          );
           console.log("count the client converted", res);
         }
       } catch (error) {
@@ -167,7 +161,6 @@ const [activeSection, setActiveSection] = useState("appointments");
       };
 
       try {
-
         setCreateStatus("Note Successfully Added ✓");
         console.log("Response send", notedata);
       } catch (error) {
@@ -190,7 +183,7 @@ const [activeSection, setActiveSection] = useState("appointments");
     console.log("Client", id);
     try {
       const client = await axios.put(
-        `https://project-rof.vercel.app/api/customers/NoteUpdate/${id}`,
+        `${process.env.VITE_BACKEND}/api/customers/NoteUpdate/${id}`,
         {
           notes: briefing,
         }
@@ -204,7 +197,7 @@ const [activeSection, setActiveSection] = useState("appointments");
     }
     try {
       const dataNote = await axios.post(
-        `https://project-rof.vercel.app/api/notes`,
+        `${process.env.VITE_BACKEND}/api/notes`,
         {
           name: clientName,
           note: briefing,
@@ -221,24 +214,21 @@ const [activeSection, setActiveSection] = useState("appointments");
       );
     }
   };
-  const stopTime = () =>{
-    
-      setShowNotePopup(false);
-      setShowAddNotePopup(true);
-      setIsActive(false);
-      setEndCounter(formatTime(time));
-      const currentDate = new Date();
-      const formattedDate = format(currentDate, "dd MMM | hh:mm a");
-      setEndDateTime(formattedDate);
-      console.log(formattedDate);
-      meetingOvers(IdEmp);
-      console.log("StartTime", StartDateTime);
-      console.log("EndTime", formattedDate);
-  
-      TimeCal(StartDateTime, formattedDate);
-  
-  }
+  const stopTime = () => {
+    setShowNotePopup(false);
+    setShowAddNotePopup(true);
+    setIsActive(false);
+    setEndCounter(formatTime(time));
+    const currentDate = new Date();
+    const formattedDate = format(currentDate, "dd MMM | hh:mm a");
+    setEndDateTime(formattedDate);
+    console.log(formattedDate);
+    meetingOvers(IdEmp);
+    console.log("StartTime", StartDateTime);
+    console.log("EndTime", formattedDate);
 
+    TimeCal(StartDateTime, formattedDate);
+  };
 
   const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
@@ -304,8 +294,7 @@ const [activeSection, setActiveSection] = useState("appointments");
         <p className="mb-4">{note.content}</p>
         <button
           onClick={onClose}
-          className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300"
-        >
+          className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">
           Close
         </button>
       </div>
@@ -339,7 +328,7 @@ const [activeSection, setActiveSection] = useState("appointments");
   const historyData = async (employeeId) => {
     try {
       const res = await axios.get(
-        `https://project-rof.vercel.app/api/clientManagement/history/${employeeId}`
+        `${process.env.VITE_BACKEND}/api/clientManagement/history/${employeeId}`
       );
       setdata(res.data);
     } catch (error) {
@@ -350,7 +339,7 @@ const [activeSection, setActiveSection] = useState("appointments");
   const upcoming = async (employeeId) => {
     try {
       const res = await axios.get(
-        `https://project-rof.vercel.app/api/clientManagement/upcoming/${employeeId}`
+        `${process.env.VITE_BACKEND}/api/clientManagement/upcoming/${employeeId}`
       );
       setupcoming(res.data);
       console.log("setupcoming", res.data);
@@ -365,7 +354,7 @@ const [activeSection, setActiveSection] = useState("appointments");
   const rejectMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        ` https://project-rof.vercel.app/api/clientManagement/reject/${employeeId}`
+        ` ${process.env.VITE_BACKEND}/api/clientManagement/reject/${employeeId}`
       );
       console.log("reject", res);
     } catch (error) {
@@ -375,8 +364,7 @@ const [activeSection, setActiveSection] = useState("appointments");
   const acceptMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        `        https://project-rof.vercel.app/api/clientManagement/accept/${employeeId}
-`
+        `${process.env.VITE_BACKEND}/api/clientManagement/accept/${employeeId}`
       );
       console.log(res.data);
     } catch (error) {
@@ -387,8 +375,7 @@ const [activeSection, setActiveSection] = useState("appointments");
   const meetingOvers = async (employeeId) => {
     try {
       const res = await axios.put(
-        `        https://project-rof.vercel.app/api/clientManagement/meetingOver/${employeeId}
-`
+        `${process.env.VITE_BACKEND}/api/clientManagement/meetingOver/${employeeId}`
       );
       console.log(res.data);
     } catch (error) {
@@ -401,7 +388,7 @@ const [activeSection, setActiveSection] = useState("appointments");
     console.log("EndDateTime.......", EndDateTime);
     try {
       const res = await axios.put(
-        `https://project-rof.vercel.app/api/timeSheet/timeline/${ClientID}`,
+        `${process.env.VITE_BACKEND}/api/timeSheet/timeline/${ClientID}`,
         {
           StartTime: StartDateTime,
           EndTime: EndDateTime,
@@ -419,7 +406,7 @@ const [activeSection, setActiveSection] = useState("appointments");
     const formattedDate = format(currentDate, "mm:ss");
     try {
       const res = await axios.put(
-        `https://project-rof.vercel.app/api/timeSheet/timeResponse/${ClientID}`,
+        `${process.env.VITE_BACKEND}/api/timeSheet/timeResponse/${ClientID}`,
         {
           StartTime: resstart,
           EndTime: formattedDate,
@@ -431,9 +418,6 @@ const [activeSection, setActiveSection] = useState("appointments");
       console.log(error);
     }
   };
-
-
-
 
   const DateupdatedAt = (DateupdatedAt) => {
     const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
@@ -454,7 +438,6 @@ const [activeSection, setActiveSection] = useState("appointments");
     TimeCal(StartDateTime, formattedDate);
   };
 
-
   const rejectMeetingfun = () => {
     rejectMeeting(IdEmp);
     const currentDate = new Date();
@@ -466,7 +449,7 @@ const [activeSection, setActiveSection] = useState("appointments");
     setresEndDateTime(formattedDate);
     console.log("rejectMeeting");
   };
-  
+
   const handleClick = () => {
     stopTimer();
     startTimer();
@@ -497,9 +480,6 @@ const [activeSection, setActiveSection] = useState("appointments");
 
   // console.log("clientConversation", clientConversation);
 
-
-
-
   //Delete PopUp
   const [showDeletePopup, setDeleteShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
@@ -507,15 +487,13 @@ const [activeSection, setActiveSection] = useState("appointments");
     setDeleteId();
     setDeleteShowPopup(true);
   };
-  const confirmDelete =  () => {
+  const confirmDelete = () => {
     // await axios.delete(
-    //   `https://project-rof.vercel.app/api/record/deleteRecord/${deleteId}`
+    //   `${process.env.VITE_BACKEND}/api/record/deleteRecord/${deleteId}`
     // );
     setDeleteShowPopup(false);
     fetchData();
   };
-
-
 
   //Edir Note Popup
 
@@ -532,49 +510,44 @@ const [activeSection, setActiveSection] = useState("appointments");
   const handleSubmit2 = async () => {
     setErrorMessage2("");
 
-    if (!clientName2 || !briefing2 || !projectName ) {
-   
+    if (!clientName2 || !briefing2 || !projectName) {
+      const teamdata = {
+        name: clientName2,
+        briefing: briefing2,
+        project: projectName,
+      };
 
-    const teamdata = {
-      name: clientName2,
-      briefing: briefing2,
-      project: projectName,
-     
-    };
+      console.log("Data to be sent:", teamdata);
 
-    console.log("Data to be sent:", teamdata);
+      setCreateStatus2("Registering Channel....");
+      setIsCreating2(true);
 
-    setCreateStatus2("Registering Channel....");
-    setIsCreating2(true);
+      try {
+        console.log("Successfully Added:", res.data);
 
-    try {
+        setCreateStatus2("Close note");
 
-      console.log("Successfully Added:", res.data);
+        // resetForm();
 
-      setCreateStatus2("Close note");
+        // getData1();
+      } catch (error) {
+        console.error("Error editing note:", error);
 
-      // resetForm();
-
-      // getData1();
-
-    } catch (error) {
-      console.error("Error editing note:", error);
-
-      setCreateStatus2("Error editing note");
-      errorMessage2(error.response?.data?.message || "An unexpected error occurred.");
-
-    } finally {
-      setIsCreating2(false);
+        setCreateStatus2("Error editing note");
+        errorMessage2(
+          error.response?.data?.message || "An unexpected error occurred."
+        );
+      } finally {
+        setIsCreating2(false);
+      }
     }
-    }}
-
+  };
 
   return (
     <div>
       <div
         style={{ gap: "20px", paddingTop: "30px" }}
-        className="headLn p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg"
-      >
+        className="headLn p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg">
         <h1
           className="font-bold flex items-center gap-1"
           style={{
@@ -582,8 +555,7 @@ const [activeSection, setActiveSection] = useState("appointments");
             fontSize: "24px",
             fontWeight: "500",
             color: "black",
-          }}
-        >
+          }}>
           Home
           <IoIosArrowForward style={{ color: "black" }} />
           <span
@@ -593,335 +565,315 @@ const [activeSection, setActiveSection] = useState("appointments");
               fontSize: "24px",
               color: "black",
             }}
-            className="font-medium"
-          >
+            className="font-medium">
             Overview
           </span>
         </h1>
       </div>
 
       <main className="flex-1 overflow-x-hidden overflow-y-auto p-6 bg-[#F7F3E8]">
-        
-            {/* Buttons for Mobile View */}
-            <div className="flex justify-center mb-6 lg:hidden">
+        {/* Buttons for Mobile View */}
+        <div className="flex justify-center mb-6 lg:hidden">
           <button
-            className={`py-2 px-4 rounded-l-full ${activeSection === "appointments"
-              ? "bg-[#3D2314] text-white"
-              : "bg-white text-[#3D2314]"
-              }`}
-            onClick={() => handleSectionChange("appointments")}
-          >
+            className={`py-2 px-4 rounded-l-full ${
+              activeSection === "appointments"
+                ? "bg-[#3D2314] text-white"
+                : "bg-white text-[#3D2314]"
+            }`}
+            onClick={() => handleSectionChange("appointments")}>
             Appointments
           </button>
           <button
-            className={`py-2 px-4 rounded-r-full ${activeSection === "history"
-              ? "bg-[#3D2314] text-white"
-              : "bg-white text-[#3D2314]"
-              }`}
-            onClick={() => handleSectionChange("history")}
-          >
+            className={`py-2 px-4 rounded-r-full ${
+              activeSection === "history"
+                ? "bg-[#3D2314] text-white"
+                : "bg-white text-[#3D2314]"
+            }`}
+            onClick={() => handleSectionChange("history")}>
             Client History
           </button>
         </div>
-        
+
         {/* Tables for Large Devices */}
         <div className="hidden lg:block">
           {/* Upcoming Appointments */}
-        <div style={{ textAlign: "-webkit-center " }}>
-          <div className="mb-6 w-[964px]">
-            <h2
-              style={{
-                textAlign: "justify",
-                fontFamily: "Manrope",
-                fontSize: "18px",
-                fontWeight: "600",
-                lineHeight: "24.59px",
-              }}
-              className="text-lg font-semibold mb-2"
-            >
-              Upcoming Appointments
-            </h2>
-            <div className="wrapperD rounded-[12px]">
-              <div className="wrapperD-outer">
-                <table className="w-full bg-white rounded-[12px]">
-                  <thead className=" bg-[#D7D7D7]">
-                    <tr>
-                      <th
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          lineHeight: "16.39px",
-                          color: "#4B4B4B",
-                        }}
-                        className="py-2 px-4 text-left th1"
-                      >
-                        Date
-                      </th>
-                      <th
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          lineHeight: "16.39px",
-                          color: "#4B4B4B",
-                          textAlign: "center",
-                        }}
-                        className="py-2 px-4 "
-                      >
-                        Customer ID
-                      </th>
-                      <th
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          lineHeight: "16.39px",
-                          color: "#4B4B4B",
-                          width: "180px",
-                        }}
-                        className="py-2 px-4 text-left"
-                      >
-                        Name
-                      </th>
-                      <th
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          lineHeight: "16.39px",
-                          color: "#4B4B4B",
-                        }}
-                        className="py-2 px-4 text-left"
-                      >
-                        Project Name
-                      </th>
-                      <th
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          lineHeight: "16.39px",
-                          color: "#4B4B4B",
-                          width: "85px",
-                        }}
-                        className="py-2 px-4 text-left"
-                      >
-                        Timer/Min
-                      </th>
-                      <th
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          lineHeight: "16.39px",
-                          color: "#4B4B4B",
-                          textAlign: "center",
-                        }}
-                        className="py-2 px-4 "
-                      >
-                        Start Time
-                      </th>
-                      <th
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          lineHeight: "16.39px",
-                          color: "#4B4B4B",
-                          textAlign: "center",
-                        }}
-                        className="py-2 px-4 "
-                      >
-                        End Time
-                      </th>
-                     
-                      <th
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "400",
-                          lineHeight: "16.39px",
-                          color: "#4B4B4B",
-                        }}
-                        className="py-2 px-4 text-left"
-                      >
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {upcomings.map((value, i) => (
+          <div style={{ textAlign: "-webkit-center " }}>
+            <div className="mb-6 w-[964px]">
+              <h2
+                style={{
+                  textAlign: "justify",
+                  fontFamily: "Manrope",
+                  fontSize: "18px",
+                  fontWeight: "600",
+                  lineHeight: "24.59px",
+                }}
+                className="text-lg font-semibold mb-2">
+                Upcoming Appointments
+              </h2>
+              <div className="wrapperD rounded-[12px]">
+                <div className="wrapperD-outer">
+                  <table className="w-full bg-white rounded-[12px]">
+                    <thead className=" bg-[#D7D7D7]">
                       <tr>
-                        <td
+                        <th
                           style={{
                             fontFamily: "Manrope",
-                            fontSize: "16px",
-                            fontWeight: "500",
-                            lineHeight: "21.86px",
-                            color: "#5C5C5C",
-                            borderBottom: "1px solid #E4E7EC",
+                            fontSize: "12px",
+                            fontWeight: "400",
+                            lineHeight: "16.39px",
+                            color: "#4B4B4B",
                           }}
-                          className="py-2 px-2"
-                        >
-                          {DateupdatedAt(value.createdAt)}
-                        </td>
-                        <td style={{
-                            fontFamily: "Manrope",
-                            fontSize: "16px",
-                            fontWeight: "700",
-                            lineHeight: "21.86px",
-                            color: "#5C5C5C",
-                            borderBottom: "1px solid #E4E7EC",
-                            color:'#000AFF',
-                            textDecoration:'underline',
-                            textAlign:'center',
-                          }}>
-                          ROF001
-                        </td>
-                        <td
+                          className="py-2 px-4 text-left th1">
+                          Date
+                        </th>
+                        <th
                           style={{
                             fontFamily: "Manrope",
-                            fontSize: "16px",
-                            fontWeight: "500",
-                            lineHeight: "21.86px",
-                            color: "#5C5C5C",
-                            borderBottom: "1px solid #E4E7EC",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            textAlign: "center",
-                            alignContent: "center",
-                            alignItems: "center",
-                            padding: '8px'
-                          }}
-                        >
-                          <span className="bg-green-200 text-green-800 py-1 px-2 rounded">
-                            New Client
-                          </span>
-                          <span style={{ color: "#5C5C5C", fontSize: "16px" }}>
-                            {value.ClientName}
-                          </span>
-                        </td>
-                        <td
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "16px",
-                            fontWeight: "500",
-                            lineHeight: "21.86px",
-                            color: "#5C5C5C",
-                            borderBottom: "1px solid #E4E7EC",
+                            fontSize: "12px",
+                            fontWeight: "400",
+                            lineHeight: "16.39px",
+                            color: "#4B4B4B",
                             textAlign: "center",
                           }}
-                          className="py-2 px-2"
-                        >
-                          {" "}
-                          {value.ClientProject}
-                        </td>
-                        <td
+                          className="py-2 px-4 ">
+                          Customer ID
+                        </th>
+                        <th
                           style={{
                             fontFamily: "Manrope",
-                            fontSize: "16px",
-                            fontWeight: "600",
-                            lineHeight: "21.86px",
-                            color: "black",
-                            borderBottom: "1px solid #E4E7EC",
+                            fontSize: "12px",
+                            fontWeight: "400",
+                            lineHeight: "16.39px",
+                            color: "#4B4B4B",
+                            width: "180px",
+                          }}
+                          className="py-2 px-4 text-left">
+                          Name
+                        </th>
+                        <th
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "12px",
+                            fontWeight: "400",
+                            lineHeight: "16.39px",
+                            color: "#4B4B4B",
+                          }}
+                          className="py-2 px-4 text-left">
+                          Project Name
+                        </th>
+                        <th
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "12px",
+                            fontWeight: "400",
+                            lineHeight: "16.39px",
+                            color: "#4B4B4B",
+                            width: "85px",
+                          }}
+                          className="py-2 px-4 text-left">
+                          Timer/Min
+                        </th>
+                        <th
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "12px",
+                            fontWeight: "400",
+                            lineHeight: "16.39px",
+                            color: "#4B4B4B",
                             textAlign: "center",
                           }}
-                          className="py-2 px-2"
-                        >
-                          {formatTime(timeLeft)}
-                        </td>
-                        <td
+                          className="py-2 px-4 ">
+                          Start Time
+                        </th>
+                        <th
                           style={{
                             fontFamily: "Manrope",
-                            fontSize: "16px",
-                            fontWeight: "600",
-                            lineHeight: "21.86px",
-                            color: "black",
-                            borderBottom: "1px solid #E4E7EC",
+                            fontSize: "12px",
+                            fontWeight: "400",
+                            lineHeight: "16.39px",
+                            color: "#4B4B4B",
                             textAlign: "center",
                           }}
-                          className="py-2 px-2"
-                        >
-                          {time === 0 ? "00 : 00" : formatTime(time)}
-                        </td>
-                        <td
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "16px",
-                            fontWeight: "600",
-                            lineHeight: "21.86px",
-                            color: "black",
-                            borderBottom: "1px solid #E4E7EC",
-                            textAlign: "center",
-                          }}
-                          className="py-2 px-2"
-                        >
-                          {EndCounter === 0 ? "00 : 00" : EndCounter}
-                        </td>
-                        
-                        <td
-                          style={{
-                            fontFamily: "Manrope",
-                            height: "47px",
-                            fontSize: "16px",
-                            fontWeight: "500",
-                            lineHeight: "21.86px",
-                            color: "#5C5C5C",
-                            borderBottom: "1px solid #E4E7EC",
-                            display: "flex",
-                            justifyContent: "space-around",
-                          }}
-                          className="py-1 px-2"
-                        >
-                          <button
-                            className="text-green-500 mr-2 correct1"
-                            onClick={() =>
-                              handleCorrectClick("correct1", "cross1")
-                            }
-                          >
-                            {iconState.correct1 ? (
-                              "✓"
-                            ) : (
-                              <img src={backButtton} alt="Back" />
-                            )}
-                          </button>
-                          <button
-                            className="text-red-500 cross1"
-                            onClick={() => {
-                              if (iconState.correct1 === false) {
-                                handleCrossClick("correct1", "cross1");
-                              }
-                            }}
-                          >
-                            {iconState.cross1 ? (
-                              <span onClick={() => rejectMeetingfun(IdEmp)}>
-                                ✕
-                              </span>
-                            ) : (
-                              <img
-                                
-                                src={stopButton}
-                                alt="Stop"
-                                onClick={ stopTime}
-                              />
-                            )}
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+                          className="py-2 px-4 ">
+                          End Time
+                        </th>
 
-                  </tbody>
-                </table>
+                        <th
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "12px",
+                            fontWeight: "400",
+                            lineHeight: "16.39px",
+                            color: "#4B4B4B",
+                          }}
+                          className="py-2 px-4 text-left">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {upcomings.map((value, i) => (
+                        <tr>
+                          <td
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "16px",
+                              fontWeight: "500",
+                              lineHeight: "21.86px",
+                              color: "#5C5C5C",
+                              borderBottom: "1px solid #E4E7EC",
+                            }}
+                            className="py-2 px-2">
+                            {DateupdatedAt(value.createdAt)}
+                          </td>
+                          <td
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "16px",
+                              fontWeight: "700",
+                              lineHeight: "21.86px",
+                              color: "#5C5C5C",
+                              borderBottom: "1px solid #E4E7EC",
+                              color: "#000AFF",
+                              textDecoration: "underline",
+                              textAlign: "center",
+                            }}>
+                            ROF001
+                          </td>
+                          <td
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "16px",
+                              fontWeight: "500",
+                              lineHeight: "21.86px",
+                              color: "#5C5C5C",
+                              borderBottom: "1px solid #E4E7EC",
+                              display: "flex",
+                              justifyContent: "space-between",
+                              textAlign: "center",
+                              alignContent: "center",
+                              alignItems: "center",
+                              padding: "8px",
+                            }}>
+                            <span className="bg-green-200 text-green-800 py-1 px-2 rounded">
+                              New Client
+                            </span>
+                            <span
+                              style={{ color: "#5C5C5C", fontSize: "16px" }}>
+                              {value.ClientName}
+                            </span>
+                          </td>
+                          <td
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "16px",
+                              fontWeight: "500",
+                              lineHeight: "21.86px",
+                              color: "#5C5C5C",
+                              borderBottom: "1px solid #E4E7EC",
+                              textAlign: "center",
+                            }}
+                            className="py-2 px-2">
+                            {" "}
+                            {value.ClientProject}
+                          </td>
+                          <td
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "16px",
+                              fontWeight: "600",
+                              lineHeight: "21.86px",
+                              color: "black",
+                              borderBottom: "1px solid #E4E7EC",
+                              textAlign: "center",
+                            }}
+                            className="py-2 px-2">
+                            {formatTime(timeLeft)}
+                          </td>
+                          <td
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "16px",
+                              fontWeight: "600",
+                              lineHeight: "21.86px",
+                              color: "black",
+                              borderBottom: "1px solid #E4E7EC",
+                              textAlign: "center",
+                            }}
+                            className="py-2 px-2">
+                            {time === 0 ? "00 : 00" : formatTime(time)}
+                          </td>
+                          <td
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "16px",
+                              fontWeight: "600",
+                              lineHeight: "21.86px",
+                              color: "black",
+                              borderBottom: "1px solid #E4E7EC",
+                              textAlign: "center",
+                            }}
+                            className="py-2 px-2">
+                            {EndCounter === 0 ? "00 : 00" : EndCounter}
+                          </td>
+
+                          <td
+                            style={{
+                              fontFamily: "Manrope",
+                              height: "47px",
+                              fontSize: "16px",
+                              fontWeight: "500",
+                              lineHeight: "21.86px",
+                              color: "#5C5C5C",
+                              borderBottom: "1px solid #E4E7EC",
+                              display: "flex",
+                              justifyContent: "space-around",
+                            }}
+                            className="py-1 px-2">
+                            <button
+                              className="text-green-500 mr-2 correct1"
+                              onClick={() =>
+                                handleCorrectClick("correct1", "cross1")
+                              }>
+                              {iconState.correct1 ? (
+                                "✓"
+                              ) : (
+                                <img src={backButtton} alt="Back" />
+                              )}
+                            </button>
+                            <button
+                              className="text-red-500 cross1"
+                              onClick={() => {
+                                if (iconState.correct1 === false) {
+                                  handleCrossClick("correct1", "cross1");
+                                }
+                              }}>
+                              {iconState.cross1 ? (
+                                <span onClick={() => rejectMeetingfun(IdEmp)}>
+                                  ✕
+                                </span>
+                              ) : (
+                                <img
+                                  src={stopButton}
+                                  alt="Stop"
+                                  onClick={stopTime}
+                                />
+                              )}
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
 
         <br />
 
-{/* Search Bar */}
+        {/* Search Bar */}
         <div className="flex flex-row items-center justify-center ml-96 headLn">
           <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full  mr-96 ">
             <input
@@ -962,8 +914,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                 lineHeight: "24.59px",
                 color: "#2B2B2B",
               }}
-              className="text-lg font-semibold mb-2 text-justify"
-            >
+              className="text-lg font-semibold mb-2 text-justify">
               Client's History
             </h2>
             <div className="wrapperT">
@@ -971,8 +922,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                 <thead
                   style={{
                     background: "#E8E8E8E8",
-                  }}
-                >
+                  }}>
                   <tr>
                     <th
                       style={{
@@ -983,10 +933,9 @@ const [activeSection, setActiveSection] = useState("appointments");
                         textAlign: "left",
                         color: "#5C5C5C",
                         textAlign: "center",
-                        width:'126px'
+                        width: "126px",
                       }}
-                      className="py-2 px-4 text-left th1"
-                    >
+                      className="py-2 px-4 text-left th1">
                       Name
                     </th>
                     <th
@@ -999,8 +948,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                         color: "#5C5C5C",
                         textAlign: "center",
                       }}
-                      className="py-2 px-4 text-left th1"
-                    >
+                      className="py-2 px-4 text-left th1">
                       Customer ID
                     </th>
                     <th
@@ -1013,8 +961,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                         color: "#5C5C5C",
                         textAlign: "center",
                       }}
-                      className="py-2 px-4 text-left th1"
-                    >
+                      className="py-2 px-4 text-left th1">
                       Email
                     </th>
                     <th
@@ -1026,8 +973,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                         color: "#5C5C5C",
                         textAlign: "center",
                       }}
-                      className="py-2 px-4 text-left th1"
-                    >
+                      className="py-2 px-4 text-left th1">
                       Phone No.
                     </th>
                     <th
@@ -1039,8 +985,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                         textAlign: "center",
                         color: "#5C5C5C",
                       }}
-                      className="py-2 px-4 text-left th1"
-                    >
+                      className="py-2 px-4 text-left th1">
                       Property Interest
                     </th>
                     <th
@@ -1052,8 +997,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                         textAlign: "center",
                         color: "#5C5C5C",
                       }}
-                      className="py-2 px-4 text-left th1"
-                    >
+                      className="py-2 px-4 text-left th1">
                       Schedule Meeting
                     </th>
                     <th
@@ -1065,8 +1009,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                         textAlign: "center",
                         color: "#5C5C5C",
                       }}
-                      className="py-2 px-4 text-left th1"
-                    >
+                      className="py-2 px-4 text-left th1">
                       Status
                     </th>
                     <th
@@ -1077,11 +1020,10 @@ const [activeSection, setActiveSection] = useState("appointments");
                         lineHeight: "19.12px",
                         textAlign: "center",
                         color: "#5C5C5C",
-                        width:'126px'
+                        width: "126px",
                       }}
-                      className="py-2 px-4 text-left th1 flex justify-around"
-                    >
-                      <img src={notify} className=""/>
+                      className="py-2 px-4 text-left th1 flex justify-around">
+                      <img src={notify} className="" />
                       Action
                     </th>
                   </tr>
@@ -1094,9 +1036,8 @@ const [activeSection, setActiveSection] = useState("appointments");
                     lineHeight: "21.86px",
                     color: "#2B2B2B",
                     textAlign: "center",
-                    padding: '10px'
-                  }}
-                >
+                    padding: "10px",
+                  }}>
                   {data
                     .filter(({ ClientName }) =>
                       ClientName.toLowerCase().includes(
@@ -1104,80 +1045,78 @@ const [activeSection, setActiveSection] = useState("appointments");
                       )
                     )
                     .map((visitor, index) => (
-                      <tr style={{ height: '48px' }}>
+                      <tr style={{ height: "48px" }}>
                         <td
                           style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4"
-                        >
+                          className="py-4 px-4">
                           {visitor.ClientName}
                         </td>
                         <Link to="/SalesExecutive/Notes/IDHistory">
-                        <td
-                          style={{ borderBottom: "1px solid #E4E7EC",cursor:'pointer', color:'#000AFF', textDecoration:'underline',fontWeight:'700' }}
-                          className="py-4 px-4"
-
-                        >
-                          ROF001
-                        </td>
+                          <td
+                            style={{
+                              borderBottom: "1px solid #E4E7EC",
+                              cursor: "pointer",
+                              color: "#000AFF",
+                              textDecoration: "underline",
+                              fontWeight: "700",
+                            }}
+                            className="py-4 px-4">
+                            ROF001
+                          </td>
                         </Link>
                         <td
                           style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4"
-                        >
+                          className="py-4 px-4">
                           {visitor.ClientEmail}
                         </td>
                         <td
                           style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4"
-                        >
+                          className="py-4 px-4">
                           {visitor.ClientMobile}
                         </td>
                         <td
                           style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4"
-                        >
+                          className="py-4 px-4">
                           {visitor.ClientProject}
                         </td>
                         <td
                           style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4"
-                        >
+                          className="py-4 px-4">
                           {DateupdatedAt(visitor.createdAt)}
                         </td>
                         <td
                           style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4 flex flex-wrap justify-between"
-                        >
+                          className="py-4 px-4 flex flex-wrap justify-between">
                           <span
                             style={{ borderBottom: "1px solid #E4E7EC" }}
-                            className={`rounded   ${visitor.completed === "completed" ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded" :
-                              visitor.completed === "notCompleted" ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded" :
-                                visitor.completed === "progress" ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded" :
-                                  ""
-
-                              }`}>
+                            className={`rounded   ${
+                              visitor.completed === "completed"
+                                ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
+                                : visitor.completed === "notCompleted"
+                                ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded"
+                                : visitor.completed === "progress"
+                                ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
+                                : ""
+                            }`}>
                             {visitor.completed === "notCompleted"
                               ? "Not completed"
                               : visitor.completed === "completed"
-                                ? "Completed"
-                                : visitor.completed === "progress"
-                                  ? "In Progress"
-                                  : ""}
+                              ? "Completed"
+                              : visitor.completed === "progress"
+                              ? "In Progress"
+                              : ""}
                           </span>
-                          <span style={{ alignContent: 'center' }}>
-                            {
-                              visitor.completed === "completed" ? <FaCheck style={{ color: '#48A321' }} /> :
-                                visitor.completed === "notCompleted" ? <RxCross2 style={{ color: '#A32121' }} /> :
-                                  visitor.completed === "progress" ? <BsThreeDots style={{ color: "yellowgreen" }} /> :
-                                    ""
-                            }
-
-
-
-
-
+                          <span style={{ alignContent: "center" }}>
+                            {visitor.completed === "completed" ? (
+                              <FaCheck style={{ color: "#48A321" }} />
+                            ) : visitor.completed === "notCompleted" ? (
+                              <RxCross2 style={{ color: "#A32121" }} />
+                            ) : visitor.completed === "progress" ? (
+                              <BsThreeDots style={{ color: "yellowgreen" }} />
+                            ) : (
+                              ""
+                            )}
                           </span>
-
 
                           {/* <span>
                             <button className="text-[#48A321] mr-2"></button>
@@ -1185,19 +1124,21 @@ const [activeSection, setActiveSection] = useState("appointments");
                         </td>
                         <td
                           style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className=" "
-                        >
-                        <div className="flex justify-around">
-                         <img src={view} />
-                         <img src={edit} style={{cursor:'pointer'}}  onClick={() => setShowPopupEdit(true)}/>
-                         <img src={delt} style={{cursor:'pointer'}} onClick={() => handleDeleteClick()}/>
-                        
-                        </div>
-                         
-                          
-                          
+                          className=" ">
+                          <div className="flex justify-around">
+                            <img src={view} />
+                            <img
+                              src={edit}
+                              style={{ cursor: "pointer" }}
+                              onClick={() => setShowPopupEdit(true)}
+                            />
+                            <img
+                              src={delt}
+                              style={{ cursor: "pointer" }}
+                              onClick={() => handleDeleteClick()}
+                            />
+                          </div>
                         </td>
-                        
                       </tr>
                     ))}
                 </tbody>
@@ -1205,13 +1146,14 @@ const [activeSection, setActiveSection] = useState("appointments");
             </div>
           </div>
         </div>
-      
-      
-{/* Tables for Mobile Devices */}
-{activeSection === "appointments" && (
+
+        {/* Tables for Mobile Devices */}
+        {activeSection === "appointments" && (
           <div className="lg:hidden h-full appointmenttable">
             {/* Upcoming Appointments */}
-            <div className="tab4 h-full" style={{ textAlign: "-webkit-center" }}>
+            <div
+              className="tab4 h-full"
+              style={{ textAlign: "-webkit-center" }}>
               <div className="mb-6  w-full h-full">
                 <div className=" rounded-[12px]">
                   <div className="">
@@ -1235,16 +1177,12 @@ const [activeSection, setActiveSection] = useState("appointments");
                                 className="correct1 w-[102px] h-[44px] bg-[#CFF3C9] text-[#3A972B] rounded-lg font-semibold"
                                 onClick={() =>
                                   handleCorrectClick("correct1", "cross1")
-                                }
-                              >
+                                }>
                                 ✓ Accept
                               </button>
                               <button
                                 className="cross1 w-[102px] h-[44px] text-[#ED1111] bg-[#eecfcf] rounded-lg font-semibold"
-                                onClick={stopTime
-
-                                }
-                              >
+                                onClick={stopTime}>
                                 ✕ Decline
                               </button>
                             </div>
@@ -1285,7 +1223,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                                     Start Time
                                   </th>
                                   <td className="text-[#595757] p-[10px] text-[16px] border-[1px] border-[#E9E9E9] font-semibold text-left whitespace-nowrap">
-                                  {time === 0 ? "00 : 00" : formatTime(time)}
+                                    {time === 0 ? "00 : 00" : formatTime(time)}
                                   </td>
                                 </tr>
                                 <tr>
@@ -1326,7 +1264,7 @@ const [activeSection, setActiveSection] = useState("appointments");
           </div>
         )}
 
-{activeSection === "history" && (
+        {activeSection === "history" && (
           <div className="lg:hidden">
             {/* Search Bar */}
             <div className="flex flex-row items-center justify-center">
@@ -1363,8 +1301,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                     lineHeight: "24.59px",
                     color: "#2B2B2B",
                   }}
-                  className="text-lg font-semibold mb-2 text-justify"
-                >
+                  className="text-lg font-semibold mb-2 text-justify">
                   Client's History
                 </h2>
                 <div className="wrapperT h-[460px] overflow-x-auto">
@@ -1372,8 +1309,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                     <thead
                       style={{
                         background: "#E8E8E8E8",
-                      }}
-                    >
+                      }}>
                       <tr>
                         <th
                           style={{
@@ -1385,8 +1321,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                             color: "#5C5C5C",
                             textAlign: "center",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Name
                         </th>
                         <th
@@ -1399,8 +1334,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                             color: "#5C5C5C",
                             textAlign: "center",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Email
                         </th>
                         <th
@@ -1412,8 +1346,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                             color: "#5C5C5C",
                             textAlign: "center",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Phone No.
                         </th>
                         <th
@@ -1425,8 +1358,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                             textAlign: "center",
                             color: "#5C5C5C",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Property Interest
                         </th>
                         <th
@@ -1438,8 +1370,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                             textAlign: "center",
                             color: "#5C5C5C",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Schedule Meeting
                         </th>
                         <th
@@ -1451,8 +1382,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                             textAlign: "center",
                             color: "#5C5C5C",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Status
                         </th>
 
@@ -1465,8 +1395,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                             textAlign: "center",
                             color: "#5C5C5C",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Action
                         </th>
                       </tr>
@@ -1480,8 +1409,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                         color: "#2B2B2B",
                         textAlign: "center",
                         padding: "10px",
-                      }}
-                    >
+                      }}>
                       {data
                         .filter(({ ClientName }) =>
                           ClientName.toLowerCase().includes(
@@ -1492,56 +1420,50 @@ const [activeSection, setActiveSection] = useState("appointments");
                           <tr key={index} style={{ height: "48px" }}>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               {visitor.ClientName}
                             </td>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               {visitor.ClientEmail}
                             </td>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               {visitor.ClientMobile}
                             </td>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               {visitor.ClientProject}
                             </td>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               {DateupdatedAt(visitor.createdAt)}
                             </td>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4 flex flex-wrap justify-between"
-                            >
+                              className="py-4 px-4 flex flex-wrap justify-between">
                               <span
                                 style={{ borderBottom: "1px solid #E4E7EC" }}
-                                className={`rounded ${visitor.completed === "completed"
-                                  ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
-                                  : visitor.completed === "notCompleted"
+                                className={`rounded ${
+                                  visitor.completed === "completed"
+                                    ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
+                                    : visitor.completed === "notCompleted"
                                     ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded"
                                     : visitor.completed === "progress"
-                                      ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
-                                      : ""
-                                  }`}
-                              >
+                                    ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
+                                    : ""
+                                }`}>
                                 {visitor.completed === "notCompleted"
                                   ? "Not completed"
                                   : visitor.completed === "completed"
-                                    ? "Completed"
-                                    : visitor.completed === "progress"
-                                      ? "In Progress"
-                                      : ""}
+                                  ? "Completed"
+                                  : visitor.completed === "progress"
+                                  ? "In Progress"
+                                  : ""}
                               </span>
                               <span style={{ alignContent: "center" }}>
                                 {visitor.completed === "completed" ? (
@@ -1560,8 +1482,7 @@ const [activeSection, setActiveSection] = useState("appointments");
 
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               <button className="text-green-500 mr-4 correct1">
                                 <img src={eyes} alt="View" />
                               </button>
@@ -1581,10 +1502,6 @@ const [activeSection, setActiveSection] = useState("appointments");
             </div>
           </div>
         )}
-      
-      
-      
-      
       </main>
 
       {showAddNotePopup && (
@@ -1592,13 +1509,11 @@ const [activeSection, setActiveSection] = useState("appointments");
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
           <div
             ref={addNotePopupRef}
-            className="fixed inset-0 flex items-center justify-center z-50"
-          >
+            className="fixed inset-0 flex items-center justify-center z-50">
             <div className="add-team-members w-[688px] h-auto p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
               <button
                 className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[664px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                onClick={() => setShowAddNotePopup(false)}
-              >
+                onClick={() => setShowAddNotePopup(false)}>
                 X
               </button>
               <input
@@ -1632,8 +1547,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                   borderRadius: "6px",
                 }}
                 onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
-                ref={projectDropdownRef}
-              >
+                ref={projectDropdownRef}>
                 <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
                   {project || "Choose Project"}
                   <img
@@ -1648,8 +1562,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                       <div
                         key={projects.name}
                         className="p-2 cursor-pointer hover:bg-gray-200"
-                        onClick={() => handleProjectChange(projects.name)}
-                      >
+                        onClick={() => handleProjectChange(projects.name)}>
                         {projects.name}
                       </div>
                     ))}
@@ -1671,8 +1584,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                   border: "0.8px solid rgba(0,0,0,0.44) ",
                   borderRadius: "6px",
                 }}
-                className="rounded-md border border-gray-300 font-manrope  div2 mb-4"
-              >
+                className="rounded-md border border-gray-300 font-manrope  div2 mb-4">
                 <textarea
                   type="text"
                   placeholder="Add your Briefing"
@@ -1682,17 +1594,15 @@ const [activeSection, setActiveSection] = useState("appointments");
                     outline: "none",
                     width: "600px",
                     height: "100px",
-                    fontWeight: 400
+                    fontWeight: 400,
                   }}
                   onChange={(e) => setBriefing(e.target.value)}
                 />
               </div>
 
-
               <div
                 style={{ padding: "16px 24px" }}
-                className="rounded-md border mb-4 border-gray-300 font-manrope flex flex-wrap w-[640px] h-[51px] justify-between"
-              >
+                className="rounded-md border mb-4 border-gray-300 font-manrope flex flex-wrap w-[640px] h-[51px] justify-between">
                 <div
                   style={{
                     color: "rgba(0, 0, 0, 0.68)",
@@ -1700,8 +1610,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                     fontSize: "16px",
                     lineHeight: "19.2px",
                     fontFamily: "Manrope",
-                  }}
-                >
+                  }}>
                   Client Conversation
                 </div>
                 <div className="flex flex-wrap">
@@ -1713,8 +1622,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                       fontSize: "16px",
                       lineHeight: "19.2px",
                       fontFamily: "Manrope",
-                    }}
-                  >
+                    }}>
                     <input
                       className="mr-2 custom-radio"
                       type="radio"
@@ -1733,8 +1641,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                       fontSize: "16px",
                       lineHeight: "19.2px",
                       fontFamily: "Manrope",
-                    }}
-                  >
+                    }}>
                     <input
                       className="mr-2 custom-radio"
                       type="radio"
@@ -1753,8 +1660,7 @@ const [activeSection, setActiveSection] = useState("appointments");
                       fontSize: "16px",
                       lineHeight: "19.2px",
                       fontFamily: "Manrope",
-                    }}
-                  >
+                    }}>
                     <input
                       className="mr-2 custom-radio"
                       type="radio"
@@ -1768,12 +1674,10 @@ const [activeSection, setActiveSection] = useState("appointments");
                 </div>
               </div>
 
-
               <button
                 onClick={handleSubmit}
                 className="create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
-                disabled={isCreating}
-              >
+                disabled={isCreating}>
                 {createStatus || "Add Note"}
               </button>
               {errorMessage && (
@@ -1783,7 +1687,6 @@ const [activeSection, setActiveSection] = useState("appointments");
           </div>
         </>
       )}
-      
 
       {showDeletePopup && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -1799,14 +1702,12 @@ const [activeSection, setActiveSection] = useState("appointments");
               <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
                 <button
                   className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-                  onClick={confirmDelete }
-                >
+                  onClick={confirmDelete}>
                   Delete
                 </button>
                 <button
                   className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
-                  onClick={() => setDeleteShowPopup(false)}
-                >
+                  onClick={() => setDeleteShowPopup(false)}>
                   Cancel
                 </button>
               </div>
@@ -1818,21 +1719,17 @@ const [activeSection, setActiveSection] = useState("appointments");
         </div>
       )}
 
-
-{showPopupEdit && (
+      {showPopupEdit && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="fixed inset-0 bg-black opacity-50"></div>
           <div
             ref={popupRef}
-            className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
-          >
+            className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50">
             <button
               className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-              onClick={() => setShowPopupEdit(false)}
-            >
+              onClick={() => setShowPopupEdit(false)}>
               X
             </button>
-
 
             <input
               type="text"
@@ -1842,7 +1739,6 @@ const [activeSection, setActiveSection] = useState("appointments");
               onChange={(e) => setClientName2(e.target.value)}
             />
 
-          
             <input
               type="text"
               className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
@@ -1852,7 +1748,12 @@ const [activeSection, setActiveSection] = useState("appointments");
             />
             <textarea
               className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300 "
-              style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", color: "#000000" }}
+              style={{
+                fontFamily: "Manrope",
+                fontWeight: "400",
+                fontSize: "16px",
+                color: "#000000",
+              }}
               placeholder="Add your Briefing"
               value={briefing2}
               onChange={(e) => setBriefing2(e.target.value)}
@@ -1860,21 +1761,16 @@ const [activeSection, setActiveSection] = useState("appointments");
             <button
               onClick={handleSubmit2}
               className="`justify-between create-team-btn flex flex-wrap  h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
-              disabled={isCreating2}
-            > 
-            <img src={edit2} />
+              disabled={isCreating2}>
+              <img src={edit2} />
               {isCreating ? createStatus2 : "Edit Note"}
             </button>
             {errorMessage && (
               <p className="text-red-500 mt-2">{errorMessage}</p>
             )}
-
           </div>
         </div>
       )}
-
-
-
     </div>
   );
 }

@@ -8,7 +8,6 @@ import DropIcon from "../../assets/DropIcon.png";
 import EmailIcon from "../../assets/email.png";
 import PhoneIcon from "../../assets/phone.png";
 
-
 const ViewMembers = () => {
   const [data, setData] = useState([]);
   const [managerData, setManagerdata] = useState([]);
@@ -34,30 +33,26 @@ const ViewMembers = () => {
   const dropdownRef = useRef();
   const projectDropdownRef = useRef(); // ref for project dropdown
 
-
-
   const fetchData = async () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `https://project-rof.vercel.app/api/ViewMembers/ViewMembers`
+        `${process.env.VITE_BACKEND}/api/ViewMembers/ViewMembers`
       );
       setData(res.data);
 
       const res1 = await axios.get(
-        "https://project-rof.vercel.app/api/salesManager/fetch-all"
+        `${process.env.VITE_BACKEND}/api/salesManager/fetch-all`
       );
       setManagerdata(res1.data);
 
-
-      const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
+      const res2 = await axios.get(`${process.env.VITE_BACKEND}/api/projects`);
       setdata2(res2.data);
 
       setLoading(false);
     } catch (error) {
       console.log(error.massage);
       setLoading(false);
-
     }
   };
 
@@ -166,7 +161,6 @@ const ViewMembers = () => {
     if (e.key === "Enter" && selectedSuggestion) {
       handleAddMember(selectedSuggestion);
       setSelectedSuggestion(null); // Clear the selected suggestion after adding
-
     }
   };
 
@@ -183,7 +177,9 @@ const ViewMembers = () => {
     if (inputValue.trim()) {
       try {
         const res = await axios.get(
-          `https://project-rof.vercel.app/api/attendants/fetch-all?name=${inputValue.trim()}`
+          `${
+            process.env.VITE_BACKEND
+          }/api/attendants/fetch-all?name=${inputValue.trim()}`
         );
         // Filter suggestions based on case-insensitive comparison
         const filteredSuggestions = res.data.filter((suggestion) =>
@@ -192,8 +188,6 @@ const ViewMembers = () => {
         setSuggestions(filteredSuggestions); // Set filtered suggestions
 
         // setSuggestions(res.data); // Assuming res.data contains the array of suggestions
-
-
       } catch (error) {
         console.error("Error fetching executive members:", error);
       }
@@ -207,7 +201,6 @@ const ViewMembers = () => {
     handleAddMember(suggestion);
     setNewMember(""); // Clear the input after selection
   };
-
 
   const handleProjectChange = (projectName) => {
     setProject(projectName);
@@ -233,7 +226,7 @@ const ViewMembers = () => {
 
       try {
         const res = await axios.post(
-          "https://project-rof.vercel.app/api/teams/save",
+          `${process.env.VITE_BACKEND}/api/teams/save`,
           teamdata
         );
         console.log("res", res);
@@ -314,7 +307,7 @@ const ViewMembers = () => {
       };
       try {
         const res = await axios.post(
-          "https://project-rof.vercel.app/api/salesManager/save",
+          `${process.env.VITE_BACKEND}/api/salesManager/save`,
           managerData
         );
         console.log("res", res);
@@ -322,18 +315,15 @@ const ViewMembers = () => {
         console.log("Response send", res);
 
         const updatedManagers = await axios.get(
-          "https://project-rof.vercel.app/api/salesManager/fetch-all"
+          `${process.env.VITE_BACKEND}/api/salesManager/fetch-all`
         );
         setManagerdata(updatedManagers.data);
 
         // Fetch and update member data
         const updatedMembers = await axios.get(
-          "https://project-rof.vercel.app/api/ViewMembers/ViewMembers"
+          `${process.env.VITE_BACKEND}/api/ViewMembers/ViewMembers`
         );
         setData(updatedMembers.data);
-
-
-
       } catch (error) {
         console.error("Error creating manager:", error);
         setManagerCreateStatus("Error Creating Manager");
@@ -397,7 +387,7 @@ const ViewMembers = () => {
 
       try {
         const res = await axios.post(
-          "https://project-rof.vercel.app/api/attendants/save",
+          `${process.env.VITE_BACKEND}/api/attendants/save`,
           executiveData
         );
         console.log("res", res);
@@ -406,10 +396,9 @@ const ViewMembers = () => {
 
         // Fetch and update member data
         const updatedMembers = await axios.get(
-          "https://project-rof.vercel.app/api/ViewMembers/ViewMembers"
+          `${process.env.VITE_BACKEND}/api/ViewMembers/ViewMembers`
         );
         setData(updatedMembers.data);
-
       } catch (error) {
         console.error("Error creating executive:", error);
         setExecutiveCreateStatus("Error Creating Executive");
@@ -429,18 +418,17 @@ const ViewMembers = () => {
     return text || "";
   };
 
-
-
   const handleDelete = async (deleteId) => {
     try {
       const res = await axios.delete(
-        `https://project-rof.vercel.app/api/ViewMembers/ViewMembersDelete/${deleteId}`
+        `${process.env.VITE_BACKEND}/api/ViewMembers/ViewMembersDelete/${deleteId}`
       );
       // setDeleteData(res.data);
       console.log("Delete response", res);
-      setData((prevData) => prevData.filter((member) => member._id !== deleteId));
+      setData((prevData) =>
+        prevData.filter((member) => member._id !== deleteId)
+      );
       setShowPopup(false);
-
     } catch (error) {
       console.log(error.message);
     }
@@ -449,7 +437,6 @@ const ViewMembers = () => {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
-
 
   useEffect(() => {
     fetchData();
@@ -531,16 +518,14 @@ const ViewMembers = () => {
                 <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
                 <div
                   ref={teamPopupRef}
-                  className="ml-[620px] mt-[220px] team-creation-popup w-[125px] h-[147px] rounded-[4px] bg-white absolute z-50 flex flex-col justify-between"
-                >
+                  className="ml-[620px] mt-[220px] team-creation-popup w-[125px] h-[147px] rounded-[4px] bg-white absolute z-50 flex flex-col justify-between">
                   <button
                     className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
                     onClick={() => {
                       setShowTeamPopup(false);
                       setShowAddTeamMemberPopup(true);
                       resetTeamForm();
-                    }}
-                  >
+                    }}>
                     Add Team
                   </button>
                   <button
@@ -549,8 +534,7 @@ const ViewMembers = () => {
                       setShowTeamPopup(false);
                       setShowAddManagerPopup(true);
                       resetManagerForm();
-                    }}
-                  >
+                    }}>
                     Add Manager
                   </button>
                   <button
@@ -559,8 +543,7 @@ const ViewMembers = () => {
                       setShowTeamPopup(false);
                       setShowAddExecutivePopup(true);
                       resetExecutiveForm();
-                    }}
-                  >
+                    }}>
                     Add Executive
                   </button>
                 </div>
@@ -708,8 +691,8 @@ const ViewMembers = () => {
                               lineHeight: "21.86px",
                             }}>
                             {member &&
-                              member.employeeId &&
-                              member.employeeId.length > 0
+                            member.employeeId &&
+                            member.employeeId.length > 0
                               ? member.employeeId
                               : "not found"}
                           </div>
@@ -811,8 +794,6 @@ const ViewMembers = () => {
             </div>
           </div>
 
-
-
           {showPopup && deleteId !== null && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="fixed inset-0 bg-black opacity-50"></div>
@@ -827,18 +808,13 @@ const ViewMembers = () => {
                   <div className="delete-cont flex justify-center items-center w-[197px] ml-1 h-[33px] gap-6 mt-4">
                     <button
                       className="w-[85px]  h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-
-                      onClick={() => handleDelete(deleteId)}
-
-                    >
+                      onClick={() => handleDelete(deleteId)}>
                       Delete
                     </button>
                     <button
                       className="w-[85px]  h-[33px] p-2.5 rounded-md border-black border flex items-center justify-center"
                       // onClick={() => setShowPopup(false)}
-                      onClick={handleClosePopup}
-
-                    >
+                      onClick={handleClosePopup}>
                       Cancel
                     </button>
                   </div>
@@ -855,13 +831,11 @@ const ViewMembers = () => {
               <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
               <div
                 ref={addTeamMemberPopupRef}
-                className="fixed inset-0 flex items-center justify-center z-50"
-              >
+                className="fixed inset-0 flex items-center justify-center z-50">
                 <div className="add-team-members w-[488px] h-auto p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
                   <button
                     className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                    onClick={() => setShowAddTeamMemberPopup(false)}
-                  >
+                    onClick={() => setShowAddTeamMemberPopup(false)}>
                     X
                   </button>
                   <div style={{ width: "440px", height: "319px" }}>
@@ -877,8 +851,7 @@ const ViewMembers = () => {
                       onClick={() =>
                         setIsProjectDropdownOpen(!isProjectDropdownOpen)
                       }
-                      ref={projectDropdownRef}
-                    >
+                      ref={projectDropdownRef}>
                       <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
                         {project || "Assign Project"}
                         <img
@@ -893,8 +866,9 @@ const ViewMembers = () => {
                             <div
                               key={projects.name}
                               className="p-2 cursor-pointer hover:bg-gray-200"
-                              onClick={() => handleProjectChange(projects.name)}
-                            >
+                              onClick={() =>
+                                handleProjectChange(projects.name)
+                              }>
                               {projects.name}
                             </div>
                           ))}
@@ -903,8 +877,7 @@ const ViewMembers = () => {
                     </div>
                     <div
                       className="relative w-[440px] h-12 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 block shadow-sm focus:border-brown-500 focus:ring focus:ring-brown-500 focus:ring-opacity-50"
-                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    >
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                       <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
                         {manager || "Assign Manager"}
                         <img
@@ -919,8 +892,7 @@ const ViewMembers = () => {
                             <div
                               key={sales.name}
                               className="p-2 cursor-pointer hover:bg-gray-200"
-                              onClick={() => handleManagerChange(sales.name)}
-                            >
+                              onClick={() => handleManagerChange(sales.name)}>
                               {sales.name}
                             </div>
                           ))}
@@ -933,12 +905,10 @@ const ViewMembers = () => {
                         {members.map((member, index) => (
                           <div
                             key={index}
-                            className="flex items-center bg-white px-2 py-1 rounded-md border border-gray-300"
-                          >
+                            className="flex items-center bg-white px-2 py-1 rounded-md border border-gray-300">
                             <button
                               onClick={() => handleRemoveMember(member)}
-                              className="text-black text-[22px]"
-                            >
+                              className="text-black text-[22px]">
                               &times;
                             </button>
                             <span className="ml-2 ">{member}</span>
@@ -961,8 +931,9 @@ const ViewMembers = () => {
                             <div
                               key={index}
                               className="suggestion-item"
-                              onClick={() => handleSuggestionClick(suggestion.name)}
-                            >
+                              onClick={() =>
+                                handleSuggestionClick(suggestion.name)
+                              }>
                               {suggestion.name}
                             </div>
                           ))}
@@ -979,8 +950,7 @@ const ViewMembers = () => {
                       fontSize: "16px",
                       lineHeight: "19.2px",
                     }}
-                    disabled={isCreating}
-                  >
+                    disabled={isCreating}>
                     {createStatus || "Create Team"}
                   </button>
                   {errorMessage && (
@@ -988,7 +958,6 @@ const ViewMembers = () => {
                   )}
                 </div>
               </div>
-
             </>
           )}
 
@@ -998,13 +967,11 @@ const ViewMembers = () => {
               <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
               <div
                 ref={addManagerPopupRef}
-                className="fixed inset-0 flex items-center justify-center z-50"
-              >
+                className="fixed inset-0 flex items-center justify-center z-50">
                 <div className="add-manager w-[488px] h-auto p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
                   <button
                     className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                    onClick={() => setShowAddManagerPopup(false)}
-                  >
+                    onClick={() => setShowAddManagerPopup(false)}>
                     X
                   </button>
                   <div className="relative w-[440px] h-12 mb-4">
@@ -1036,13 +1003,12 @@ const ViewMembers = () => {
                       className="absolute right-3 top-1/2 transform -translate-y-1/2"
                     />
 
-                    {!validateEmail(managerEmail) && managerEmail.length > 0 && (
-                      <p className="text-red-500 text-left text-xs">
-                        Please enter a valid email address.
-                      </p>
-                    )}
-
-
+                    {!validateEmail(managerEmail) &&
+                      managerEmail.length > 0 && (
+                        <p className="text-red-500 text-left text-xs">
+                          Please enter a valid email address.
+                        </p>
+                      )}
                   </div>
                   <div className="relative w-[440px] h-12 mb-4">
                     <input
@@ -1068,8 +1034,7 @@ const ViewMembers = () => {
                   <button
                     onClick={handleManagerSubmit}
                     className="w-fit create-manager-btn h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
-                    disabled={isManagerCreating}
-                  >
+                    disabled={isManagerCreating}>
                     {managerCreateStatus || "Add"}
                   </button>
                   {managerErrorMessage && (
@@ -1086,13 +1051,11 @@ const ViewMembers = () => {
               <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
               <div
                 ref={addExecutivePopupRef}
-                className="fixed inset-0 flex items-center justify-center z-50"
-              >
+                className="fixed inset-0 flex items-center justify-center z-50">
                 <div className="add-executive w-[488px] h-auto p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
                   <button
                     className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                    onClick={() => setShowAddExecutivePopup(false)}
-                  >
+                    onClick={() => setShowAddExecutivePopup(false)}>
                     X
                   </button>
                   <div className="relative w-[440px] h-12 mb-4">
@@ -1130,8 +1093,6 @@ const ViewMembers = () => {
                           Please enter a valid email address.
                         </p>
                       )}
-
-
                   </div>
                   <div className="relative w-[440px] h-12 mb-4">
                     <input
@@ -1157,8 +1118,7 @@ const ViewMembers = () => {
                   <button
                     onClick={handleExecutiveSubmit}
                     className="w-fit create-executive-btn h-12 py-3 px-6 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
-                    disabled={isExecutiveCreating}
-                  >
+                    disabled={isExecutiveCreating}>
                     {executiveCreateStatus || "Add"}
                   </button>
                   {executiveErrorMessage && (

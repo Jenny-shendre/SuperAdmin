@@ -13,22 +13,20 @@ const BtnTab = ({ doneTab, setDoneTab, isDisabled, handleSubmit }) => (
     {["Done"].map((tab) => (
       <button
         key={tab}
-        style={{ fontFamily: "Manrope", padding: "10px 20px", width: "89px", height: '47px' }}
-        className={`w-fit assign-manager-btn mt-3 h-12 py-3 px-6 rounded-md font-manrope text-lg font-medium ${isDisabled ? "bg-[grey] text-[#F4EAEA]" : "bg-[#3D2314] text-white"
-          }`}
+        style={{
+          fontFamily: "Manrope",
+          padding: "10px 20px",
+          width: "89px",
+          height: "47px",
+        }}
+        className={`w-fit assign-manager-btn mt-3 h-12 py-3 px-6 rounded-md font-manrope text-lg font-medium ${
+          isDisabled ? "bg-[grey] text-[#F4EAEA]" : "bg-[#3D2314] text-white"
+        }`}
         onClick={() => !isDisabled && handleSubmit()}
-        disabled={isDisabled}
-
-      >
+        disabled={isDisabled}>
         {tab}
-
-
       </button>
-
-
-    ))
-
-    }
+    ))}
   </div>
 );
 
@@ -53,20 +51,17 @@ const Table6 = () => {
   //vb
   const truncateText = (text, limit) => {
     if (text && text.length > limit) {
-      return text.slice(0, limit) + '...';
+      return text.slice(0, limit) + "...";
     }
-    return text || '';
+    return text || "";
   };
 
   const handleDeleteClick = async (id) => {
-
     setDeleteId(id);
     setShowPopup(true);
-
-
   };
 
-  const [inputChar3, setInputChar3] = useState('');
+  const [inputChar3, setInputChar3] = useState("");
 
   const executiveHandle = (event) => {
     const value = event.target.value;
@@ -74,7 +69,7 @@ const Table6 = () => {
     if (regex.test(value)) {
       setExecutiveInput(value);
     }
-  }
+  };
 
   const confirmDelete = async () => {
     if (deleteId) {
@@ -82,7 +77,9 @@ const Table6 = () => {
         let teamId = objectId; // Replace with your actual teamId logic
         let memberId = deleteId;
 
-        const res = await axios.delete(`https://project-rof.vercel.app/api/teams/deleteTeamsMembers/${teamId}/${memberId}`);
+        const res = await axios.delete(
+          `${process.env.VITE_BACKEND}/api/teams/deleteTeamsMembers/${teamId}/${memberId}`
+        );
         console.log("Member deleted", res);
         fetchData(); // Refresh data after deletion
       } catch (error) {
@@ -92,7 +89,6 @@ const Table6 = () => {
         setDeleteId(null); // Reset deleteId
       }
     }
-
   };
 
   const cancelDelete = () => {
@@ -100,17 +96,13 @@ const Table6 = () => {
     setDeleteId(null); // Reset deleteId
   };
 
-
-
   const managerHandle = (event) => {
     const value = event.target.value;
     const regex = /^[a-zA-Z ]*$/;
     if (regex.test(value)) {
       setManagerInput(value);
     }
-  }
-
-
+  };
 
   const pathname = location.pathname;
   const teamName = decodeURIComponent(
@@ -119,8 +111,6 @@ const Table6 = () => {
 
   const addExecutivePopupRef2 = useRef();
   const assignManagerPopupRef2 = useRef();
-
-
 
   const handleOutsideClick2 = (event) => {
     if (
@@ -140,7 +130,7 @@ const Table6 = () => {
   const fetchData = async () => {
     try {
       const res = await axios.post(
-        "https://project-rof.vercel.app/api/teams/teamfliter",
+        `${process.env.VITE_BACKEND}/api/teams/teamfliter`,
         { teamName }
       );
       setTeamData(res.data);
@@ -149,9 +139,6 @@ const Table6 = () => {
       console.log(error);
     }
   };
-
-
-
 
   useEffect(() => {
     fetchData();
@@ -179,7 +166,15 @@ const Table6 = () => {
   //   }
   // };
 
-  const handleKeyDown = (e, input, setInput, setList, suggestions, setSuggestions, selectedSuggestion) => {
+  const handleKeyDown = (
+    e,
+    input,
+    setInput,
+    setList,
+    suggestions,
+    setSuggestions,
+    selectedSuggestion
+  ) => {
     if (e.key === "Enter" && input.trim()) {
       if (selectedSuggestion) {
         setList((prevList) => [...prevList, selectedSuggestion]);
@@ -198,7 +193,9 @@ const Table6 = () => {
     if (inputValue.trim()) {
       try {
         const res = await axios.get(
-          `https://project-rof.vercel.app/api/attendants/fetch-all?name=${inputValue.trim()}`
+          `${
+            process.env.VITE_BACKEND
+          }/api/attendants/fetch-all?name=${inputValue.trim()}`
         );
 
         // Filter suggestions based on case-insensitive comparison
@@ -216,17 +213,16 @@ const Table6 = () => {
     }
   };
 
-
-  const handleSuggestionClick = (suggestion, setInput, setList, setSuggestions) => {
+  const handleSuggestionClick = (
+    suggestion,
+    setInput,
+    setList,
+    setSuggestions
+  ) => {
     setInput("");
     setList((prevList) => [...prevList, suggestion.name]);
     setSuggestions([]);
   };
-
-
-
-
-
 
   const handleRemoveItem = (item, setList) => {
     setList((prevList) => prevList.filter((i) => i !== item));
@@ -243,18 +239,20 @@ const Table6 = () => {
 
   const sendExecutiveData = {
     teamId: objectId,
-    teamMemberName: executives
-  }
+    teamMemberName: executives,
+  };
 
   console.log("object", sendExecutiveData);
   // console.log("objectId", objectId);
-
 
   const handleSubmitExecutives = async () => {
     console.log("Executives Array: ", executives);
 
     try {
-      const res = await axios.post("https://project-rof.vercel.app/api/teams/addOne", sendExecutiveData);
+      const res = await axios.post(
+        `${process.env.VITE_BACKEND}/api/teams/addOne`,
+        sendExecutiveData
+      );
       console.log("res send", res);
       setShowAddExecutivePopup2(false);
       fetchData(); // Refresh data after adding executive
@@ -264,13 +262,16 @@ const Table6 = () => {
   };
 
   const sendManagersData = {
-    managerName: managers
-  }
+    managerName: managers,
+  };
 
   const handleSubmitManagers = async () => {
     console.log("Managers Array: ", managers);
     try {
-      const res = await axios.put(`https://project-rof.vercel.app/api/teams/updateSalesManagerTeam/${objectId}`, sendManagersData);
+      const res = await axios.put(
+        `${process.env.VITE_BACKEND}/api/teams/updateSalesManagerTeam/${objectId}`,
+        sendManagersData
+      );
       console.log("res send", res);
       setShowAssignManagerPopup2(false);
       fetchData(); // Refresh data after adding executive
@@ -288,10 +289,9 @@ const Table6 = () => {
             fontFamily: "Poppins",
             fontSize: "24px",
             fontWeight: "500",
-          }}
-        >
+          }}>
           <Link to="/SuperAdmin">
-            <span >Home</span>
+            <span>Home</span>
           </Link>
           <IoIosArrowForward style={{ color: "#1C1B1F" }} />
           <Link to="/SuperAdmin/Team">
@@ -301,8 +301,7 @@ const Table6 = () => {
                 fontWeight: "400",
                 fontSize: "24px",
               }}
-              className="font-medium"
-            >
+              className="font-medium">
               {teamData.teamName}
             </span>
           </Link>
@@ -312,7 +311,11 @@ const Table6 = () => {
       <div style={{ display: "flex", gap: "24px", justifyContent: "center" }}>
         <div style={{ display: "flex" }} className="div3">
           <input
-            style={{ fontFamily: 'Manrope', lineHeight: '21.86px', fontWeight: '500' }}
+            style={{
+              fontFamily: "Manrope",
+              lineHeight: "21.86px",
+              fontWeight: "500",
+            }}
             type="text"
             value={valueinput}
             onChange={(e) => setvalueinput(e.target.value)}
@@ -323,8 +326,7 @@ const Table6 = () => {
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-400 relative  left-[-590px] top-[14px]"
             viewBox="0 0 20 20"
-            fill="currentColor"
-          >
+            fill="currentColor">
             <path
               fillRule="evenodd"
               d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
@@ -334,39 +336,56 @@ const Table6 = () => {
         </div>
         <div style={{ display: "flex", gap: "24px" }}>
           <div>
-            <button style={{ fontFamily: 'Manrope', fontWeight: '500', lineHeight: '21.86px', fontSize: '16px' }}
+            <button
+              style={{
+                fontFamily: "Manrope",
+                fontWeight: "500",
+                lineHeight: "21.86px",
+                fontSize: "16px",
+              }}
               className="bg-[#3D2314] text-white px-[24px] py-[12px] rounded-full w-[191px] h-[48px] flex justify-between "
-              onClick={() => setShowAddExecutivePopup2(true)}
-            >
+              onClick={() => setShowAddExecutivePopup2(true)}>
               <MdAdd className=" text-[24px]" />
               Add Executive
             </button>
           </div>
 
           <div>
-            <button style={{ fontFamily: 'Manrope', fontWeight: '500', lineHeight: '21.86px', fontSize: '16px' }}
+            <button
+              style={{
+                fontFamily: "Manrope",
+                fontWeight: "500",
+                lineHeight: "21.86px",
+                fontSize: "16px",
+              }}
               className="border-2 border-[#3D2314] px-[24px] py-[12px] rounded-full w-[208px] h-[48px] flex justify-between"
-              onClick={() => setShowAssignManagerPopup2(true)}
-            >
+              onClick={() => setShowAssignManagerPopup2(true)}>
               <TbReload className="color-[#3D2314]  text-[24px]" />
-
               Assign Manager
-
-
             </button>
           </div>
         </div>
       </div>
       <br />
 
-
       <div style={{ textAlign: "-webkit-center" }}>
         <div className="w-[927px] h-[591px]">
           <div className="bg-[#D7D7D7]">
-            <div style={{ width: '927px', height: '77px', padding: '8px 0px', background: '#D7D7D7' }}>
-
-
-              <h2 className="text-xl mb-2 text-center teamName" style={{ fontWeight: '600', fontSize: '24px', lineHeight: '32.78px', color: '#323232' }}>
+            <div
+              style={{
+                width: "927px",
+                height: "77px",
+                padding: "8px 0px",
+                background: "#D7D7D7",
+              }}>
+              <h2
+                className="text-xl mb-2 text-center teamName"
+                style={{
+                  fontWeight: "600",
+                  fontSize: "24px",
+                  lineHeight: "32.78px",
+                  color: "#323232",
+                }}>
                 {teamData.teamName}
               </h2>
               <p
@@ -376,14 +395,12 @@ const Table6 = () => {
                   fontFamily: "Manrope",
                   fontWeight: "700",
                   lineHeight: "21.86px",
-                }}
-              >
+                }}>
                 {teamData.managerName} (Team Lead)
               </p>
             </div>
             <div className="outer-wrapperT text-center flex items-center justify-center">
               <div className="table-wrapperT" style={{ width: "999px" }}>
-
                 <table className="w-full wrapperT">
                   <thead className="team1">
                     <tr
@@ -393,114 +410,190 @@ const Table6 = () => {
                         fontSize: "12px",
                         fontWeight: "500",
                         lineHeight: "16.39px",
-                      }}
-                    >
-                      <th className="px[10px] py-[6px] w-[188px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }} >Employee ID</th>
-                      <th className="px[10px] py-[6px] w-[188px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }}>Sales Executive</th>
-                      <th className="px[10px] py-[6px] w-[203px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }}>Sales Executive Email ID</th>
-                      <th className="px[10px] py-[6px] w-[174px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }}>Client Name</th>
-                      <th className="px[10px] py-[6px] w-[174px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }}>Project Name</th>
-                      <th className="px[10px] py-[6px] w-[58px] h-[28px]" style={{ fontWeight: '500', borderRight: '1px solid #E4E7EC' }}>Delete</th>
-
+                      }}>
+                      <th
+                        className="px[10px] py-[6px] w-[188px] h-[28px]"
+                        style={{
+                          fontWeight: "500",
+                          borderRight: "1px solid #E4E7EC",
+                        }}>
+                        Employee ID
+                      </th>
+                      <th
+                        className="px[10px] py-[6px] w-[188px] h-[28px]"
+                        style={{
+                          fontWeight: "500",
+                          borderRight: "1px solid #E4E7EC",
+                        }}>
+                        Sales Executive
+                      </th>
+                      <th
+                        className="px[10px] py-[6px] w-[203px] h-[28px]"
+                        style={{
+                          fontWeight: "500",
+                          borderRight: "1px solid #E4E7EC",
+                        }}>
+                        Sales Executive Email ID
+                      </th>
+                      <th
+                        className="px[10px] py-[6px] w-[174px] h-[28px]"
+                        style={{
+                          fontWeight: "500",
+                          borderRight: "1px solid #E4E7EC",
+                        }}>
+                        Client Name
+                      </th>
+                      <th
+                        className="px[10px] py-[6px] w-[174px] h-[28px]"
+                        style={{
+                          fontWeight: "500",
+                          borderRight: "1px solid #E4E7EC",
+                        }}>
+                        Project Name
+                      </th>
+                      <th
+                        className="px[10px] py-[6px] w-[58px] h-[28px]"
+                        style={{
+                          fontWeight: "500",
+                          borderRight: "1px solid #E4E7EC",
+                        }}>
+                        Delete
+                      </th>
                     </tr>
                   </thead>
 
                   <tbody>
                     {teamData?.teamMemberNames?.length > 0 ? (
-                      teamData.teamMemberNames.filter(
-                        ({
-                          name,
-                          email,
-                          projectName,
-                          employeeId,
-                          ClientName,
-                        }) =>
-                          name
-                            ?.toLowerCase()
-                            .includes(valueinput.toLowerCase()) ||
-                          projectName
-                            ?.toLowerCase()
-                            .includes(valueinput.toLowerCase()) ||
-                          employeeId
-                            ?.toLowerCase()
-                            .includes(valueinput.toLowerCase()) ||
-                          arrayClientName(ClientName)
-                            ?.toLowerCase()
-                            .includes(valueinput.toLowerCase()) ||
-                          email
-                            ?.toLowerCase()
-                            .includes(valueinput.toLowerCase())
-                      ).map((member, index) => (
-                        <tr
-                          key={index}
-                          className="border-t border-gray-200 text-center [#000000] w-[188px] h-[54px] p-10 bg-white"
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "16px",
-                            fontWeight: "500",
-                            lineHeight: "21.86px",
-                          }}
-                        >
-                          <td className="px-[10px] py-[6px] text-center  ">
-                            <a
-                              href=""
-                              className="text-[#000AFF] text-center"
+                      teamData.teamMemberNames
+                        .filter(
+                          ({
+                            name,
+                            email,
+                            projectName,
+                            employeeId,
+                            ClientName,
+                          }) =>
+                            name
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            projectName
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            employeeId
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            arrayClientName(ClientName)
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase()) ||
+                            email
+                              ?.toLowerCase()
+                              .includes(valueinput.toLowerCase())
+                        )
+                        .map((member, index) => (
+                          <tr
+                            key={index}
+                            className="border-t border-gray-200 text-center [#000000] w-[188px] h-[54px] p-10 bg-white"
+                            style={{
+                              fontFamily: "Manrope",
+                              fontSize: "16px",
+                              fontWeight: "500",
+                              lineHeight: "21.86px",
+                            }}>
+                            <td className="px-[10px] py-[6px] text-center  ">
+                              <a
+                                href=""
+                                className="text-[#000AFF] text-center"
+                                style={{
+                                  textDecoration: "Underline",
+                                }}>
+                                <td
+                                  className="px[10px] py-[6px] text-center "
+                                  //id center
+                                  style={{ fontWeight: "700" }}>
+                                  <Link
+                                    to={`/SuperAdmin/teamName/${teamData?.teamName}/${member?.employeeId}`}>
+                                    {member.employeeId?.length > 0
+                                      ? member?.employeeId
+                                      : "Not found"}
+                                  </Link>
+                                </td>
+                              </a>
+                            </td>
+
+                            <td
+                              className="px[10px] py-[6px]  max-w-[150px] overflow-hidden"
                               style={{
-                                textDecoration: "Underline",
+                                fontFamily: "Manrope",
+                                borderRight: "1px solid #E4E7EC",
+                                borderLeft: "1px solid #E4E7EC",
                               }}
-                            >
+                              title={
+                                member.name?.length > 0
+                                  ? member?.name
+                                  : "Not found"
+                              }>
+                              {truncateText(
+                                member.name?.length > 0
+                                  ? member?.name
+                                  : "Not found",
+                                12
+                              )}
+                            </td>
 
+                            <td
+                              className="py-2 max-w-[150px] overflow-hidden"
+                              style={{ borderRight: "1px solid #E4E7EC" }}
+                              title={
+                                member.email?.length > 0
+                                  ? member?.email
+                                  : "Not found"
+                              }>
+                              {truncateText(
+                                member.email?.length > 0
+                                  ? member?.email
+                                  : "Not found",
+                                18
+                              )}
+                            </td>
 
-                              <td className="px[10px] py-[6px] text-center "
-                                //id center
-                                style={{ fontWeight: '700' }}>
-                                <Link to={`/SuperAdmin/teamName/${teamData?.teamName}/${member?.employeeId}`}>
-                                  {member.employeeId?.length > 0
-                                    ? member?.employeeId
-                                    : "Not found"}
-                                </Link>
-                              </td>
-                            </a>
-                          </td>
+                            <td
+                              className="py-2 max-w-[150px] overflow-hidden"
+                              style={{ borderRight: "1px solid #E4E7EC" }}
+                              title={arrayClientName(member.ClientName)}>
+                              {truncateText(
+                                arrayClientName(member.ClientName, 13)
+                              )}
+                            </td>
 
-                          <td className="px[10px] py-[6px]  max-w-[150px] overflow-hidden"
-                            style={{ fontFamily: 'Manrope', borderRight: '1px solid #E4E7EC', borderLeft: '1px solid #E4E7EC' }}
-                            title={member.name?.length > 0 ? member?.name : "Not found"}>
-                            {truncateText(member.name?.length > 0 ? member?.name : "Not found", 12)}
-                          </td>
+                            <td
+                              className="py-2 max-w-[150px] overflow-hidden"
+                              style={{ borderRight: "1px solid #E4E7EC" }}
+                              title={
+                                member.projectName?.length > 0
+                                  ? member?.projectName
+                                  : "Not Assign"
+                              }>
+                              {truncateText(
+                                member.projectName?.length > 0
+                                  ? member?.projectName
+                                  : "Not Assign",
+                                13
+                              )}
+                            </td>
 
-                          <td className="py-2 max-w-[150px] overflow-hidden"
-                            style={{ borderRight: '1px solid #E4E7EC' }}
-                            title={member.email?.length > 0
-                              ? member?.email
-                              : "Not found"}>
-                            {truncateText(member.email?.length > 0
-                              ? member?.email
-                              : "Not found", 18)}
-                          </td>
-
-                          <td className="py-2 max-w-[150px] overflow-hidden"
-                            style={{ borderRight: '1px solid #E4E7EC' }}
-                            title={arrayClientName(member.ClientName)}>
-                            {truncateText(arrayClientName(member.ClientName, 13))}
-                          </td>
-
-                          <td className="py-2 max-w-[150px] overflow-hidden"
-                            style={{ borderRight: '1px solid #E4E7EC' }}
-                            title={member.projectName?.length > 0
-                              ? member?.projectName
-                              : "Not Assign"}>
-                            {truncateText(member.projectName?.length > 0
-                              ? member?.projectName
-                              : "Not Assign", 13)}
-                          </td>
-
-                          <td className="py-2" style={{ textAlign: '-webkit-center' }}>
-                            <RiDeleteBin6Line style={{ color: 'rgba(147, 0, 0, 1)', cursor: 'pointer' }} onClick={() => handleDeleteClick(member._id)} />
-
-                          </td>
-                        </tr>
-                      ))
+                            <td
+                              className="py-2"
+                              style={{ textAlign: "-webkit-center" }}>
+                              <RiDeleteBin6Line
+                                style={{
+                                  color: "rgba(147, 0, 0, 1)",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => handleDeleteClick(member._id)}
+                              />
+                            </td>
+                          </tr>
+                        ))
                     ) : (
                       <tr>
                         <td colSpan="5" className="text-center py-2">
@@ -521,13 +614,11 @@ const Table6 = () => {
           <div className="add-executive fixed inset-0 bg-black opacity-50 z-40"></div>
           <div
             ref={addExecutivePopupRef2}
-            className="fixed inset-0 flex items-center justify-center z-50"
-          >
+            className="fixed inset-0 flex items-center justify-center z-50">
             <div className="assign-manager w-[471px] h-[303px] p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
               <button
                 className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                onClick={() => setShowAddExecutivePopup2(false)}
-              >
+                onClick={() => setShowAddExecutivePopup2(false)}>
                 X
               </button>
 
@@ -548,14 +639,12 @@ const Table6 = () => {
                     {executives.map((executive, index) => (
                       <div
                         key={index}
-                        className="flex items-center bg-white px-2 py-1 rounded-md border border-gray-300"
-                      >
+                        className="flex items-center bg-white px-2 py-1 rounded-md border border-gray-300">
                         <button
                           onClick={() =>
                             handleRemoveItem(executive, setExecutives)
                           }
-                          className="text-black text-[22px]"
-                        >
+                          className="text-black text-[22px]">
                           &times;
                         </button>
                         <span className="ml-2">{executive}</span>
@@ -571,10 +660,20 @@ const Table6 = () => {
                     // onKeyDown={(e) =>
                     //   handleKeyDown(e, executiveInput, setExecutiveInput, setExecutives)
                     // }
-                    onChange={(e) => handleInputChange(e, setExecutiveInput, setSuggestions)}
-                    onKeyDown={(e) => handleKeyDown(e, executiveInput, setExecutiveInput, setExecutives, suggestions, setSuggestions, selectedSuggestion)}
-
-
+                    onChange={(e) =>
+                      handleInputChange(e, setExecutiveInput, setSuggestions)
+                    }
+                    onKeyDown={(e) =>
+                      handleKeyDown(
+                        e,
+                        executiveInput,
+                        setExecutiveInput,
+                        setExecutives,
+                        suggestions,
+                        setSuggestions,
+                        selectedSuggestion
+                      )
+                    }
                   />
                   {suggestions.length > 0 && (
                     <div className="suggestions">
@@ -582,10 +681,15 @@ const Table6 = () => {
                         <div
                           key={index}
                           className="suggestion-item"
-                          onClick={() => handleSuggestionClick(suggestion, setExecutiveInput, setExecutives, setSuggestions)}
-                        >
+                          onClick={() =>
+                            handleSuggestionClick(
+                              suggestion,
+                              setExecutiveInput,
+                              setExecutives,
+                              setSuggestions
+                            )
+                          }>
                           {suggestion.name}
-
                         </div>
                       ))}
                     </div>
@@ -593,7 +697,6 @@ const Table6 = () => {
                 </div>
               </div>
               <BtnTab
-
                 doneTab={doneTab}
                 setDoneTab={setDoneTab}
                 isDisabled={executives.length === 0}
@@ -610,13 +713,11 @@ const Table6 = () => {
           <div className="add-manager fixed inset-0 bg-black opacity-50 z-40"></div>
           <div
             ref={assignManagerPopupRef2}
-            className="fixed inset-0 flex items-center justify-center z-50"
-          >
+            className="fixed inset-0 flex items-center justify-center z-50">
             <div className="assign-manager w-[471px] h-[303px] p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
               <button
                 className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                onClick={() => setShowAssignManagerPopup2(false)}
-              >
+                onClick={() => setShowAssignManagerPopup2(false)}>
                 X
               </button>
 
@@ -637,14 +738,10 @@ const Table6 = () => {
                     {managers.map((manager, index) => (
                       <div
                         key={index}
-                        className="flex items-center bg-white px-2 py-1 rounded-md border border-gray-300"
-                      >
+                        className="flex items-center bg-white px-2 py-1 rounded-md border border-gray-300">
                         <button
-                          onClick={() =>
-                            handleRemoveItem(manager, setManagers)
-                          }
-                          className="text-black text-[22px]"
-                        >
+                          onClick={() => handleRemoveItem(manager, setManagers)}
+                          className="text-black text-[22px]">
                           &times;
                         </button>
                         <span className="ml-2">{manager}</span>
@@ -658,7 +755,12 @@ const Table6 = () => {
                     // onChange={(e) => setManagerInput(e.target.value)}
                     onChange={managerHandle}
                     onKeyDown={(e) =>
-                      handleKeyDown(e, managerInput, setManagerInput, setManagers)
+                      handleKeyDown(
+                        e,
+                        managerInput,
+                        setManagerInput,
+                        setManagers
+                      )
                     }
                   />
                 </div>
@@ -672,8 +774,6 @@ const Table6 = () => {
             </div>
           </div>
         </>
-
-
       )}
 
       {/* Delete Popup */}
@@ -692,15 +792,13 @@ const Table6 = () => {
                 <button
                   className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
                   onClick={confirmDelete} //Confirm delete action
-                  style={{ fontWeight: '600', fontSize: '18px' }}
-                >
+                  style={{ fontWeight: "600", fontSize: "18px" }}>
                   Delete
                 </button>
                 <button
                   className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
                   onClick={cancelDelete} // Cancel delete action
-                  style={{ fontWeight: '600', fontSize: '18px' }}
-                >
+                  style={{ fontWeight: "600", fontSize: "18px" }}>
                   Cancel
                 </button>
               </div>
@@ -712,8 +810,6 @@ const Table6 = () => {
         </div>
       )}
     </div>
-
-
   );
 };
 

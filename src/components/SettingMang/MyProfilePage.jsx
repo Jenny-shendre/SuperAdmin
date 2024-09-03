@@ -14,7 +14,7 @@ const MyProfilePage = () => {
     phone: "",
     role: "",
     employeeId: "",
-    country: "",    
+    country: "",
     location: "",
     postalCode: "",
     aadharCard: "",
@@ -33,7 +33,7 @@ const MyProfilePage = () => {
   const [editMode1, setEditMode1] = useState(false);
   const gitAPiData = async (employeeId) => {
     const res = await axios.get(
-      `https://project-rof.vercel.app/api/settingsManager/${employeeId}`
+      `${process.env.VITE_BACKEND}/api/settingsManager/${employeeId}`
     );
     setProfile(res.data);
   };
@@ -46,7 +46,7 @@ const MyProfilePage = () => {
   const toggleEditMode = async (employeeId) => {
     try {
       const res = await axios.put(
-        `https://project-rof.vercel.app/api/settingsManager/${employeeId}`,
+        `${process.env.VITE_BACKEND}/api/settingsManager/${employeeId}`,
         {
           ...profile,
         }
@@ -69,13 +69,11 @@ const MyProfilePage = () => {
     setEditMode(!editMode);
     console.log(profile);
     toggleEditMode(profile.employeeId);
-
   };
   const handleEditClick2 = () => {
     setEditMode1(!editMode1);
     console.log(profile);
     toggleEditMode(profile.employeeId);
-
   };
   return (
     <div className="px-[24px] py-[8px]">
@@ -160,7 +158,7 @@ const MyProfilePage = () => {
               placeholder="Enter phone number"
               readOnly={!editMode}
             />
-          </div>          
+          </div>
         </div>
         <div className="flex flex-wrap dumbo mb-2">
           <div className="mr-24 mb-4">
@@ -183,7 +181,7 @@ const MyProfilePage = () => {
               readOnly={true}
             />
           </div>
-          
+
           {/* <div className="mb-4">
             <label
               style={{
@@ -204,7 +202,7 @@ const MyProfilePage = () => {
               readOnly={!editMode}
             />
           </div> */}
-       <div>
+          <div>
             <label
               style={{
                 fontWeight: "400",
@@ -224,11 +222,8 @@ const MyProfilePage = () => {
               readOnly={true}
             />
           </div>
-          </div>
-          
-          
-          
-        
+        </div>
+
         <div className="flex flex-wrap dumbo">
           <div className="mr-24 mb-4">
             <label

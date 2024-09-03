@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import userImg from  "../../../assets/A2.png";
+import userImg from "../../../assets/A2.png";
 import BellImage from "../../../assets/BellImage.png";
 import ROFIMAGE from "../../../assets/ROFIMAGE.png"; // Imported the logo
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../utils/TokenUtils";
 import axios from "axios";
-
 
 const TopNav = () => {
   const [title, setTitle] = useState("Sales Manager");
@@ -22,9 +21,11 @@ const TopNav = () => {
     window.location.reload();
     navigate("/");
     window.location.reload();
-  }
+  };
 
-  const [IdEmp, setIdEmp] = useState(localStorage.getItem("EmpId") || "ROFEX10");
+  const [IdEmp, setIdEmp] = useState(
+    localStorage.getItem("EmpId") || "ROFEX10"
+  );
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const TopNav = () => {
     const sendStatusToBackend = async (status) => {
       try {
         const response = await axios.put(
-         ` https://project-rof.vercel.app/api/attendants/status/${IdEmp}`,
+          `${process.env.VITE_BACKEND}/api/attendants/status/${IdEmp}`,
           {
             StaffStatus: status ? "online" : "offline",
           }
@@ -57,7 +58,10 @@ const TopNav = () => {
       } catch (error) {
         console.error("Error sending status:", error);
         if (!status) {
-          localStorage.setItem("pendingStatus", JSON.stringify({ IdEmp, status: "offline" }));
+          localStorage.setItem(
+            "pendingStatus",
+            JSON.stringify({ IdEmp, status: "offline" })
+          );
         }
       }
     };
@@ -94,24 +98,24 @@ const TopNav = () => {
   }, [IdEmp]);
 
   return (
-    <div style={{
-      boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)',
-      paddingLeft:'0px',
-      width:'100%'
-    }} className={`border-0 bottom-shadow h-[66px] bg-white bg-opacity-50 flex items-center justify-between px-4 font-[Manrope] font-medium relative shadow-b-lg shadow-Black-1000`}>
-    {/* logo */}
-     <img src={ROFIMAGE}
-      alt="ROF Logo"
-      className="w-[71px] h-[50px] lg:hidden" />
+    <div
+      style={{
+        boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+        paddingLeft: "0px",
+        width: "100%",
+      }}
+      className={`border-0 bottom-shadow h-[66px] bg-white bg-opacity-50 flex items-center justify-between px-4 font-[Manrope] font-medium relative shadow-b-lg shadow-Black-1000`}>
+      {/* logo */}
+      <img
+        src={ROFIMAGE}
+        alt="ROF Logo"
+        className="w-[71px] h-[50px] lg:hidden"
+      />
 
-{/* bell icon */}
+      {/* bell icon */}
 
-<div className="flex items-center mr-2 gap-4 lg:hidden">
-        <img
-          src={BellImage}
-          alt="Notifications"
-          className="w-6 h-6"
-        />
+      <div className="flex items-center mr-2 gap-4 lg:hidden">
+        <img src={BellImage} alt="Notifications" className="w-6 h-6" />
         <img
           src={userImg}
           alt="User"
@@ -120,30 +124,39 @@ const TopNav = () => {
         />
       </div>
 
-{/* Welcome text and User Profile for large screens */}
-<div className="hidden mr-4 lg:flex lg:flex-grow lg:justify-end lg:items-center lg:gap-4 ">
-<div style={{
-  fontFamily:'Manrope',
-  fontSize:'20px',
-  fontWeight:'500',
-  lineHeight:'27.32px'
-}}>
+      {/* Welcome text and User Profile for large screens */}
+      <div className="hidden mr-4 lg:flex lg:flex-grow lg:justify-end lg:items-center lg:gap-4 ">
+        <div
+          style={{
+            fontFamily: "Manrope",
+            fontSize: "20px",
+            fontWeight: "500",
+            lineHeight: "27.32px",
+          }}>
+          Welcome! {title}
+        </div>
 
-  Welcome! {title}
+        <img
+          src={userImg}
+          alt="User"
+          className="w-8 h-8 rounded-full cursor-pointer"
+          onClick={clickfun}
+        />
+      </div>
 
-  </div>
+      {/* DropDown for profile */}
 
-  <img src={userImg} alt="User" className="w-8 h-8 rounded-full cursor-pointer" onClick={clickfun} />
-  </div>
-
-
- {/* DropDown for profile */}
-
-    
-      <div ref={popupRef} style={{ boxShadow: '0px 0px 4px 0px #00000040', padding: '6px 14px' }}
-        className={`absolute right-7 top-14 bg-white p-4 ${click ? "" : "hidden"}`}>
+      <div
+        ref={popupRef}
+        style={{ boxShadow: "0px 0px 4px 0px #00000040", padding: "6px 14px" }}
+        className={`absolute right-7 top-14 bg-white p-4 ${
+          click ? "" : "hidden"
+        }`}>
         <ul className="flex flex-col gap-1 ">
-          <li onClick={handleLogOut} style={{ fontFamily: 'Manrope', fontSize: '20px' }} className="font-[Manrope] cursor-pointer font-medium text-[#F13737]">
+          <li
+            onClick={handleLogOut}
+            style={{ fontFamily: "Manrope", fontSize: "20px" }}
+            className="font-[Manrope] cursor-pointer font-medium text-[#F13737]">
             Logout
           </li>
         </ul>

@@ -32,7 +32,7 @@ const MyProfilePageEx = () => {
   }, []);
   const gitAPiData = async (employeeId) => {
     const res = await axios.get(
-      `https://project-rof.vercel.app/api/settingsExecutive/${employeeId}`
+      `${process.env.VITE_BACKEND}/api/settingsExecutive/${employeeId}`
     );
     setProfile(res.data);
   };
@@ -43,7 +43,7 @@ const MyProfilePageEx = () => {
   const toggleEditMode = async (employeeId) => {
     try {
       const res = await axios.put(
-        `https://project-rof.vercel.app/api/settingsExecutive/${employeeId}`,
+        `${process.env.VITE_BACKEND}/api/settingsExecutive/${employeeId}`,
         {
           ...profile,
         }
@@ -159,8 +159,8 @@ const MyProfilePageEx = () => {
               readOnly={true}
             />
           </div>
-          
-           <div>
+
+          <div>
             <label
               style={{
                 fontWeight: "400",
@@ -202,7 +202,6 @@ const MyProfilePageEx = () => {
               readOnly={true}
             />
           </div>
-         
         </div>
       </div>
 

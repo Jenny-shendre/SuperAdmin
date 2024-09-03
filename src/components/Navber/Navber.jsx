@@ -44,7 +44,7 @@ const Navber = () => {
   useEffect(() => {
     if (initialLoad) {
       setActiveItem("OverViewAdmin");
-      navigate("/SuperAdmin");
+      // navigate("/SuperAdmin");
       setInitialLoad(false); // Disable initial load after the first load
     } else {
       if (locationPath.startsWith("/SuperAdmin/Direct_Visitors")) {
@@ -63,11 +63,9 @@ const Navber = () => {
         setActiveItem("Projects");
       } else if (locationPath.startsWith("/SuperAdmin/Team")) {
         setActiveItem("Team");
-      }
-      else if (locationPath.startsWith("/SuperAdmin/View_Members")) {
+      } else if (locationPath.startsWith("/SuperAdmin/View_Members")) {
         setActiveItem("Team");
-      } 
-       else if (locationPath.startsWith("/SuperAdmin/SettingAdmin")) {
+      } else if (locationPath.startsWith("/SuperAdmin/SettingAdmin")) {
         setActiveItem("SettingAdmin");
       } else {
         setActiveItem("OverViewAdmin");
@@ -241,7 +239,6 @@ const Navber = () => {
               Team
             </li>
           </Link>
-
         </ul>
       </div>
       <div>

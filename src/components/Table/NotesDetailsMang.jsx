@@ -7,13 +7,12 @@ import { IoIosArrowForward } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import close from "../../assets/add_notes (white).png";
 import info from "../../assets/carbon_customer.png";
 import info2 from "../../assets/hugeicons_manager.png";
 import info3 from "../../assets/eos-icons_admin-outlined.png";
-import add from '../../assets/akar-icons_edit (1).png';
+import add from "../../assets/akar-icons_edit (1).png";
 import { FaRegEdit } from "react-icons/fa";
 
 import "../Home.css";
@@ -29,7 +28,14 @@ import share from "../../assets/Vector (3).png";
 import { FcEditImage } from "react-icons/fc";
 
 const TabBar = ({ activeTab, setActiveTab }) => (
-  <div className="flex" style={{ background: 'white', width: '472px', borderRadius: '24px', boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)' }}>
+  <div
+    className="flex"
+    style={{
+      background: "white",
+      width: "472px",
+      borderRadius: "24px",
+      boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+    }}>
     {/* {["All", "Client", "Manager", "Super Admin"].map((tab) => (
       <button
         key={tab}
@@ -43,7 +49,6 @@ const TabBar = ({ activeTab, setActiveTab }) => (
         {tab}
       </button>
     ))} */}
-
   </div>
 );
 
@@ -62,15 +67,12 @@ function NotesDetailsMang() {
   const dropdownRef = useRef();
   const projectDropdownRef = useRef(); // ref for project dropdown
 
-
   const [data2, setdata2] = useState([]);
-
 
   const fetchData = async () => {
     setLoading(true);
 
-
-    const res2 = await axios.get("https://project-rof.vercel.app/api/projects");
+    const res2 = await axios.get(`${process.env.VITE_BACKEND}/api/projects`);
     setdata2(res2.data);
 
     setLoading(false);
@@ -82,14 +84,11 @@ function NotesDetailsMang() {
 
   //New
 
-
-
   const [clientConversation, setclientConversation] = useState("");
 
   const handleOptionChange = (event) => {
     setclientConversation(event.target.value);
   };
-
 
   const handleOutsideClick = (event) => {
     if (notePopupRef.current && !notePopupRef.current.contains(event.target)) {
@@ -138,12 +137,7 @@ function NotesDetailsMang() {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [
-    showNotePopup,
-    showAddNotePopup,
-    isDropdownOpen,
-    isProjectDropdownOpen,
-  ]);
+  }, [showNotePopup, showAddNotePopup, isDropdownOpen, isProjectDropdownOpen]);
 
   // Add note popup logic
 
@@ -155,27 +149,23 @@ function NotesDetailsMang() {
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
 
   const resetForm = () => {
-    setclientName('');
-    setProject('');
-    setBriefing('');
-    setCreateStatus('');
-    setErrorMessage('');
+    setclientName("");
+    setProject("");
+    setBriefing("");
+    setCreateStatus("");
+    setErrorMessage("");
   };
-
 
   const handleProjectChange = (projectName) => {
     setProject(projectName);
     setIsProjectDropdownOpen(false);
   };
 
-
-
-
   const handleSubmit = async () => {
     if (clientName && project && briefing) {
       setIsCreating(true);
       setErrorMessage(""); // Clear any previous error messages
-      console.log("Come")
+      console.log("Come");
 
       const teamdata = {
         clientName: clientName,
@@ -184,9 +174,7 @@ function NotesDetailsMang() {
       };
 
       try {
-
         setCreateStatus("Note Successfully Added ✓");
-
 
         console.log("Response send", teamdata);
       } catch (error) {
@@ -200,7 +188,6 @@ function NotesDetailsMang() {
     }
   };
 
-
   const [clientName2, setclientName2] = useState("");
   const [project2, setProject2] = useState("");
   const [briefing2, setBriefing2] = useState("");
@@ -213,13 +200,11 @@ function NotesDetailsMang() {
     setIsProjectDropdownOpen(false);
   };
 
-
-
   const handleSubmit2 = async () => {
     if (clientName2 && project2 && briefing2) {
       // isCreating(true);
       setErrorMessage2(""); // Clear any previous error messages
-      console.log("View Note")
+      console.log("View Note");
 
       const ViewData = {
         clientName2: clientName2,
@@ -228,8 +213,6 @@ function NotesDetailsMang() {
       };
 
       try {
-
-
         setCreateStatus2("Done");
 
         console.log("Response send", ViewData);
@@ -242,9 +225,6 @@ function NotesDetailsMang() {
     }
   };
 
-
-
-
   //SEARCH
 
   return (
@@ -252,8 +232,7 @@ function NotesDetailsMang() {
       <div
         style={{ gap: "20px", paddingTop: "30px" }}
         className="p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
-        "
-      >
+        ">
         <h1
           className="font-bold flex items-center gap-1"
           style={{
@@ -261,11 +240,8 @@ function NotesDetailsMang() {
             fontSize: "24px",
             fontWeight: "500",
             color: "black",
-          }}
-        >
-          <Link to="/SuperAdmin">
-            Home
-          </Link>
+          }}>
+          <Link to="/SuperAdmin">Home</Link>
           <IoIosArrowForward style={{ color: "black" }} />
           <span
             style={{
@@ -274,8 +250,7 @@ function NotesDetailsMang() {
               fontSize: "24px",
               color: "black",
             }}
-            className="font-medium"
-          >
+            className="font-medium">
             Notes
           </span>
         </h1>
@@ -315,14 +290,11 @@ function NotesDetailsMang() {
               padding: "12px 24px",
               fontFamily: "Manrope",
             }}
-
             onClick={() => {
               setShowNotePopup(false);
               setShowAddNotePopup(true);
               resetForm();
-            }}
-
-          >
+            }}>
             <img src={close} />
             <span style={{ fontFamily: "Manrope" }}>Add Notes </span>
           </button>
@@ -334,13 +306,11 @@ function NotesDetailsMang() {
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
           <div
             ref={addNotePopupRef}
-            className="fixed inset-0 flex items-center justify-center z-50"
-          >
+            className="fixed inset-0 flex items-center justify-center z-50">
             <div className="add-team-members w-[688px] h-[369px] p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
               <button
                 className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[664px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                onClick={() => setShowViewNotePopup(false)}
-              >
+                onClick={() => setShowViewNotePopup(false)}>
                 X
               </button>
               <input
@@ -374,10 +344,14 @@ function NotesDetailsMang() {
                   borderRadius: "6px",
                 }}
                 onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
-                ref={projectDropdownRef}
-              >
-                <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center"
-                  style={{ padding: "16px 24px", fontFamily: "Manrope", fontWeight: "400" }}>
+                ref={projectDropdownRef}>
+                <div
+                  className="cursor-pointer w-full h-full p-4 flex justify-between items-center"
+                  style={{
+                    padding: "16px 24px",
+                    fontFamily: "Manrope",
+                    fontWeight: "400",
+                  }}>
                   {project2 || "Choose Project"}
                   <img
                     className="ml-2 h-2 w-3 "
@@ -391,8 +365,7 @@ function NotesDetailsMang() {
                       <div
                         key={projects.name}
                         className="p-2 cursor-pointer hover:bg-gray-200"
-                        onClick={() => handleProjectChange2(projects.name)}
-                      >
+                        onClick={() => handleProjectChange2(projects.name)}>
                         {projects.name}
                       </div>
                     ))}
@@ -414,8 +387,7 @@ function NotesDetailsMang() {
                   border: "0.8px solid rgba(0,0,0,0.44) ",
                   borderRadius: "6px",
                 }}
-                className="rounded-md border border-gray-300 font-manrope  div2 mb-4"
-              >
+                className="rounded-md border border-gray-300 font-manrope  div2 mb-4">
                 <textarea
                   type="text"
                   placeholder="Add your Briefing"
@@ -431,15 +403,10 @@ function NotesDetailsMang() {
                 />
               </div>
 
-
-
-
-
               <button
                 onClick={handleSubmit2}
                 className="`create-team-btn flex flex-wrap w-[192px] h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
-                disabled={isCreating}
-              >
+                disabled={isCreating}>
                 {createStatus2 || (
                   <div className="flex flex-wrap ">
                     <span> Close Note </span>
@@ -454,19 +421,16 @@ function NotesDetailsMang() {
         </>
       )}
 
-
       {showAddNotePopup && (
         <>
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
           <div
             ref={addNotePopupRef}
-            className="fixed inset-0 flex items-center justify-center z-50"
-          >
+            className="fixed inset-0 flex items-center justify-center z-50">
             <div className="add-team-members w-[688px] h-auto p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
               <button
                 className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[664px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                onClick={() => setShowAddNotePopup(false)}
-              >
+                onClick={() => setShowAddNotePopup(false)}>
                 X
               </button>
               <input
@@ -500,8 +464,7 @@ function NotesDetailsMang() {
                   borderRadius: "6px",
                 }}
                 onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
-                ref={projectDropdownRef}
-              >
+                ref={projectDropdownRef}>
                 <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
                   {project || "Choose Project"}
                   <img
@@ -516,8 +479,7 @@ function NotesDetailsMang() {
                       <div
                         key={projects.name}
                         className="p-2 cursor-pointer hover:bg-gray-200"
-                        onClick={() => handleProjectChange(projects.name)}
-                      >
+                        onClick={() => handleProjectChange(projects.name)}>
                         {projects.name}
                       </div>
                     ))}
@@ -539,8 +501,7 @@ function NotesDetailsMang() {
                   border: "0.8px solid rgba(0,0,0,0.44) ",
                   borderRadius: "6px",
                 }}
-                className="rounded-md border border-gray-300 font-manrope  div2 mb-4"
-              >
+                className="rounded-md border border-gray-300 font-manrope  div2 mb-4">
                 <textarea
                   type="text"
                   placeholder="Add your Briefing"
@@ -550,25 +511,18 @@ function NotesDetailsMang() {
                     outline: "none",
                     width: "600px",
                     height: "100px",
-                    fontWeight: 400
+                    fontWeight: 400,
                   }}
                   onChange={(e) => setBriefing(e.target.value)}
                 />
               </div>
 
-
-
-
-
               <button
                 onClick={handleSubmit}
                 className="`create-team-btn flex flex-wrap  h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
-                disabled={isCreating}
-              >
+                disabled={isCreating}>
                 {createStatus || (
                   <div className="flex flex-wrap ">
-
-
                     <span> Add Note </span>
                   </div>
                 )}
@@ -584,12 +538,10 @@ function NotesDetailsMang() {
       <br />
       <div className="flex justify-center">
         <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
-
       </div>
 
       <br />
       <div className="Cards gap-4 flex flex-wrap px-[25px] cardT">
-
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
             <div className="">
@@ -602,8 +554,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Ramesh Kulkarni
               </h2>
               <br />
@@ -611,8 +562,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -628,10 +578,9 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
-              Client expressed interest in [Property Name]. Followed up on
-              email with additional details and brochure. Awaiting response.
+              }}>
+              Client expressed interest in [Property Name]. Followed up on email
+              with additional details and brochure. Awaiting response.
             </p>
           </div>
           <div className="">
@@ -641,24 +590,17 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "68px"
-
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "68px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
-
           </div>
         </div>
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
@@ -673,8 +615,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Ramesh Kulkarni
               </h2>
               <br />
@@ -682,8 +623,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -697,10 +637,9 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
-              Client expressed interest in [Property Name]. Followed up on
-              email with additional details and brochure. Awaiting response.
+              }}>
+              Client expressed interest in [Property Name]. Followed up on email
+              with additional details and brochure. Awaiting response.
             </p>
           </div>
           <br />
@@ -711,22 +650,17 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "38px"
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "38px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
           </div>
         </div>
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
@@ -741,8 +675,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Manager
               </h2>
               <br />
@@ -750,8 +683,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -766,8 +698,7 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
+              }}>
               Discussed Riyaana Dey’s financing options and need for
               pre-approval assistance.
             </p>
@@ -781,22 +712,17 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "38px"
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "38px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
           </div>
         </div>
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
@@ -811,8 +737,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Superadmin
               </h2>
               <br />
@@ -820,8 +745,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -837,8 +761,7 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
+              }}>
               Confirmation on available closing dates for shortlisted
               properties.
             </p>
@@ -851,25 +774,19 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "38px"
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "38px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
           </div>
         </div>
-
 
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
@@ -883,8 +800,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Ramesh Kulkarni
               </h2>
               <br />
@@ -892,8 +808,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -909,10 +824,9 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
-              Client expressed interest in [Property Name]. Followed up on
-              email with additional details and brochure. Awaiting response.
+              }}>
+              Client expressed interest in [Property Name]. Followed up on email
+              with additional details and brochure. Awaiting response.
             </p>
           </div>
           <div className="flex justify-between">
@@ -922,22 +836,17 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "52px"
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "52px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
           </div>
         </div>
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
@@ -952,8 +861,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Ramesh Kulkarni
               </h2>
               <br />
@@ -961,8 +869,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -978,10 +885,9 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
-              Client expressed interest in [Property Name]. Followed up on
-              email with additional details and brochure. Awaiting response.
+              }}>
+              Client expressed interest in [Property Name]. Followed up on email
+              with additional details and brochure. Awaiting response.
             </p>
           </div>
           <div className="flex justify-between">
@@ -991,23 +897,17 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "52px"
-
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "52px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
           </div>
         </div>
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
@@ -1022,8 +922,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Ramesh Kulkarni
               </h2>
               <br />
@@ -1031,8 +930,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -1048,10 +946,9 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
-              Client expressed interest in [Property Name]. Followed up on
-              email with additional details and brochure. Awaiting response.
+              }}>
+              Client expressed interest in [Property Name]. Followed up on email
+              with additional details and brochure. Awaiting response.
             </p>
           </div>
           <div className="flex justify-between">
@@ -1061,22 +958,17 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "52px"
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "52px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
           </div>
         </div>
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
@@ -1091,8 +983,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Ramesh Kulkarni
               </h2>
               <br />
@@ -1100,8 +991,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -1117,10 +1007,9 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
-              Client expressed interest in [Property Name]. Followed up on
-              email with additional details and brochure. Awaiting response.
+              }}>
+              Client expressed interest in [Property Name]. Followed up on email
+              with additional details and brochure. Awaiting response.
             </p>
           </div>
           <div className="flex justify-between">
@@ -1130,26 +1019,19 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "52px"
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "52px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
           </div>
         </div>
-
-
 
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px] h-[297px]">
           <div className="flex justify-around items-center mb-4">
@@ -1163,8 +1045,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Ramesh Kulkarni
               </h2>
               <br />
@@ -1172,8 +1053,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -1189,10 +1069,9 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
-              Client expressed interest in [Property Name]. Followed up on
-              email with additional details and brochure. Awaiting response.
+              }}>
+              Client expressed interest in [Property Name]. Followed up on email
+              with additional details and brochure. Awaiting response.
             </p>
           </div>
           <div className="flex justify-between">
@@ -1202,22 +1081,17 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "52px"
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "52px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
           </div>
         </div>
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
@@ -1232,8 +1106,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Ramesh Kulkarni
               </h2>
               <br />
@@ -1241,8 +1114,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -1258,10 +1130,9 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
-              Client expressed interest in [Property Name]. Followed up on
-              email with additional details and brochure. Awaiting response.
+              }}>
+              Client expressed interest in [Property Name]. Followed up on email
+              with additional details and brochure. Awaiting response.
             </p>
           </div>
           <div className="flex justify-between">
@@ -1271,22 +1142,17 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "52px"
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "52px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
           </div>
         </div>
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
@@ -1301,8 +1167,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Ramesh Kulkarni
               </h2>
               <br />
@@ -1310,8 +1175,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -1327,10 +1191,9 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
-              Client expressed interest in [Property Name]. Followed up on
-              email with additional details and brochure. Awaiting response.
+              }}>
+              Client expressed interest in [Property Name]. Followed up on email
+              with additional details and brochure. Awaiting response.
             </p>
           </div>
           <div className="flex justify-between">
@@ -1340,22 +1203,17 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "52px"
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "52px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
           </div>
         </div>
         <div className=" bg-white rounded-lg shadow-md p-4 w-[311px]">
@@ -1370,8 +1228,7 @@ function NotesDetailsMang() {
                   textAlign: "justify",
                   fontFamily: "Manrope",
                 }}
-                className="text-[18px] text-center text-[#3D2314]"
-              >
+                className="text-[18px] text-center text-[#3D2314]">
                 Ramesh Kulkarni
               </h2>
               <br />
@@ -1379,8 +1236,7 @@ function NotesDetailsMang() {
                 <div>
                   <p
                     className="text-[#3D2314] text-[14px]"
-                    style={{ textAlign: "justify", fontFamily: "Manrope" }}
-                  >
+                    style={{ textAlign: "justify", fontFamily: "Manrope" }}>
                     24 June | 12:50 am
                   </p>
                 </div>
@@ -1396,10 +1252,9 @@ function NotesDetailsMang() {
                 lineHeight: "16.39px",
                 fontWeight: "400",
                 fontFamily: "Manrope",
-              }}
-            >
-              Client expressed interest in [Property Name]. Followed up on
-              email with additional details and brochure. Awaiting response.
+              }}>
+              Client expressed interest in [Property Name]. Followed up on email
+              with additional details and brochure. Awaiting response.
             </p>
           </div>
           <div className="flex justify-between">
@@ -1409,27 +1264,21 @@ function NotesDetailsMang() {
                 borderRadius: "4px",
                 padding: "8px 24px",
                 fontFamily: "Manrope",
-                width: '-webkit-fill-available',
-                justifyContent: 'center',
-                marginTop: "52px"
+                width: "-webkit-fill-available",
+                justifyContent: "center",
+                marginTop: "52px",
               }}
-
               onClick={() => {
                 setShowNotePopup(false);
                 setShowViewNotePopup(true);
-              }}
-
-
-            >
+              }}>
               <img src={edit} />
               <span style={{ fontFamily: "Manrope" }}>View</span>
             </button>
-
           </div>
         </div>
       </div>
     </div>
-
   );
 }
 

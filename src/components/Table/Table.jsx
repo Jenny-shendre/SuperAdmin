@@ -21,17 +21,17 @@ const Table = () => {
   //vb
   const truncateText = (text, limit) => {
     if (text && text.length > limit) {
-      return text.slice(0, limit) + '...';
+      return text.slice(0, limit) + "...";
     }
-    return text || '';
+    return text || "";
   };
 
   const deletedAt = async () => {
     if (deleteId) {
       await axios.delete(
-        `https://project-rof.vercel.app/api/customers/delete/${deleteId}`
+        `${process.env.VITE_BACKEND}/api/customers/delete/${deleteId}`
       );
-      setdata((prevData) => prevData.filter(item => item._id !== deleteId)); 
+      setdata((prevData) => prevData.filter((item) => item._id !== deleteId));
       setShowPopup(false); // Hide popup after deletion
     }
   };
@@ -40,7 +40,7 @@ const Table = () => {
   const fetchData = async () => {
     setLoading(true);
     const res = await axios.get(
-      `https://project-rof.vercel.app/api/customers/fetch-all`
+      `${process.env.VITE_BACKEND}/api/customers/fetch-all`
     );
     setdata(res.data);
     setLoading(false);
@@ -127,7 +127,8 @@ const Table = () => {
                   style={{ boxShadow: " 0px 0px 4px 0px #00000040" }}>
                   <thead>
                     <tr className="text-[9px] lg:text-[15px] text-left  bg-[#E8E8E8]">
-                      <th className="border-b"
+                      <th
+                        className="border-b"
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
@@ -137,7 +138,6 @@ const Table = () => {
                           paddingLeft: "7px",
                           width: "125px",
                           padding: "5px",
-
                         }}>
                         Date
                       </th>
@@ -303,15 +303,14 @@ const Table = () => {
                           <td className="py-1 border-b text-center">
                             {visitor.timeDuration}
                           </td>
-                          <td className="px-4 py-2 max-w-[150px] overflow-hidden "
+                          <td
+                            className="px-4 py-2 max-w-[150px] overflow-hidden "
                             style={{
                               borderBottom: "1px solid #E8E8E8",
                               textAlign: "center",
                               textOverflow: "ellipsis",
                             }}
-                            title={visitor.name}
-
-                          >
+                            title={visitor.name}>
                             {truncateText(visitor.name, 14)}
                           </td>
 
@@ -333,25 +332,26 @@ const Table = () => {
                           <td className="py-1 border-b text-center">
                             {visitor.mobile}
                           </td>
-                          <td className="py-1 border-b text-center max-w-[150px] overflow-hidden"
-                            title={visitor.email}
-                          >
+                          <td
+                            className="py-1 border-b text-center max-w-[150px] overflow-hidden"
+                            title={visitor.email}>
                             {truncateText(visitor.email, 17)}
                           </td>
-                          <td className="py-1 border-b text-center max-w-[150px] overflow-hidden"
+                          <td
+                            className="py-1 border-b text-center max-w-[150px] overflow-hidden"
                             title={visitor.projectName}>
                             {truncateText(visitor.projectName, 13)}
                           </td>
 
-                          <td className="py-1 border-b  text-center max-w-[150px] overflow-hidden"
+                          <td
+                            className="py-1 border-b  text-center max-w-[150px] overflow-hidden"
                             title={visitor.attendantName}>
                             {truncateText(visitor.attendantName, 12)}
                           </td>
 
-
-
                           <td className="py-3 px-1 flex gap-4 item-center justify-center">
-                            <Link to={`/SuperAdmin/Direct_Visitors/${visitor.customerId}`}>
+                            <Link
+                              to={`/SuperAdmin/Direct_Visitors/${visitor.customerId}`}>
                               <PiNotePencilBold
                                 // onClick={() => handleEdit(visitor._id)}
                                 style={{
@@ -375,8 +375,6 @@ const Table = () => {
                               }}
                             />
                           </td>
-
-
                         </tr>
                       ))}
                   </tbody>
@@ -400,14 +398,12 @@ const Table = () => {
                   <div className="delete-cont flex justify-center items-center w-[197px] ml-1 h-[33px] gap-6 mt-4">
                     <button
                       className="w-[85px]  h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-                      onClick={deletedAt}
-                    >
+                      onClick={deletedAt}>
                       Delete
                     </button>
                     <button
                       className="w-[85px]  h-[33px] p-2.5 rounded-md border-black border flex items-center justify-center"
-                      onClick={() => setShowPopup(false)}
-                    >
+                      onClick={() => setShowPopup(false)}>
                       Cancel
                     </button>
                   </div>
