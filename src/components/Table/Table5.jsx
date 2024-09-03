@@ -422,7 +422,7 @@ const Table5 = () => {
   };
 
   const handleExecutiveSubmit = async () => {
-    if (executiveName && executiveEmail && executivePhone && salePass) {
+    if (executiveName && executiveEmail && executivePhone) {
       // Check for phone number
       if (!validateManagerName(executiveName)) {
         setExecutiveErrorMessage(
@@ -438,10 +438,10 @@ const Table5 = () => {
         setExecutiveErrorMessage("Phone number must be exactly 10 digits.");
         return;
       }
-      if (salePass === "") {
-        setExecutiveErrorMessage("Enter password to set.");
-        return;
-      }
+      // if (salePass === "") {
+      //   setExecutiveErrorMessage("Enter password to set.");
+      //   return;
+      // }
       setIsExecutiveCreating(true);
       setExecutiveErrorMessage(""); // Clear any previous error messages
 
