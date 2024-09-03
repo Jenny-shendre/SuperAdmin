@@ -207,10 +207,16 @@ const SettingPages = () => {
           </button>
         </div>
         <div>
+<<<<<<< HEAD
           {activeItem === "MyProfilePage" && <MyProfilePage />}
           {activeItem === "PasswordPage" && (
             <PasswordPage email={managerData.email} />
           )}
+=======
+          {activeItem === 'MyProfilePage' && <MyProfilePage />}
+          {activeItem === 'PasswordPage' && <PasswordPage phone={managerData.phone} />}
+
+>>>>>>> 36a1f88f6132bc89daaa4f196ffcafb33fbfd7e1
         </div>
       </div>
     </div>

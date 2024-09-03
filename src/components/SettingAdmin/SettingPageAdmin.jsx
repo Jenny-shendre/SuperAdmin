@@ -250,10 +250,17 @@ const SettingPageAdmin = () => {
           </div>
 
           <div>
+<<<<<<< HEAD
             {activeItem === "MyProfileAdmin" && <MyProfileAdmin />}
             {activeItem === "PasswordAdmin" && (
               <PasswordAdmin email={adminData.email} />
             )}
+=======
+            {activeItem === 'MyProfileAdmin' && <MyProfileAdmin />}
+            {activeItem === 'PasswordAdmin' && <PasswordAdmin phone={adminData.phone} />}
+
+
+>>>>>>> 36a1f88f6132bc89daaa4f196ffcafb33fbfd7e1
           </div>
         </div>
       </div>

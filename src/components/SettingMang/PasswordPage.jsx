@@ -8,19 +8,19 @@ const PasswordPage = ({ email }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const [userEmail, setUserEmail] = useState(email);
+  const [userPhone, setUserPhone] = useState(email);
 
   // const handleButtonClick = (data) => {
   //   console.log(data);
   // };
 
   useEffect(() => {
-    setUserEmail(email);
-  }, [email]);
+    setUserPhone(phone);
+  }, [phone]);
 
   const handleEditClick = async () => {
     const data = {
-      email: userEmail,
+      phone: userPhone,
       oldPassword: oldPassword,
       newPassword: newPassword,
       confirmPassword: confirmNewPassword,

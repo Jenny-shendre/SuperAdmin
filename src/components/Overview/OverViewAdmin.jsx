@@ -27,6 +27,7 @@ import {
 import { data } from "autoprefixer";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { format } from "date-fns";
 
 ChartJS.register(
   CategoryScale,
@@ -47,6 +48,10 @@ const OverViewAdmin = () => {
   const [staffOnline, setStaffOnline] = useState(0);
   const [barData, setBarData] = useState([]);
   const [executiveData, setExecutiveData] = useState([]);
+  const [teamData, setTeamData] = useState([]);
+  const [notesData, setNotesData] = useState([]);
+
+
 
   //APIs
 
@@ -121,7 +126,18 @@ const OverViewAdmin = () => {
     return response.data;
   };
 
-  console.log("barData", barData);
+
+  const TopTeamPerformer = async (interval) => {
+    const response = await axios.get(
+      "https://project-rof.vercel.app/api/overview/TOP3Team",
+      {
+        params: { interval },
+      }
+    );
+    return response.data;
+  };
+
+
 
   const opts = ["Daily", "Weekly", "Monthly", "Yearly"];
 
@@ -194,6 +210,7 @@ const OverViewAdmin = () => {
         stafOnline,
         graphData,
         topExecutive,
+        topTeam,
       ] = await Promise.all([
         fetchDirectVisitors(opt.toLowerCase()),
         fetchChannelVisitors(opt.toLowerCase()),
@@ -202,11 +219,19 @@ const OverViewAdmin = () => {
         StaffOnline(opt.toLowerCase()),
         BargraphData(opt.toLowerCase()),
         TopExecutivePerformer(opt.toLowerCase()),
+        TopTeamPerformer(opt.toLowerCase()),
+
       ]);
 
+<<<<<<< HEAD
       console.log("Direct Data:", directData); // Log API responses
       console.log("Channel Data:", channelData);
       console.log("Meetings Data:", meetingsData);
+=======
+      console.log('Direct Data:', directData);  // Log API responses
+      console.log('Channel Data:', channelData);
+      console.log('topTeam Data:', topTeam);
+>>>>>>> 36a1f88f6132bc89daaa4f196ffcafb33fbfd7e1
 
       setDirectVisitors(directData?.numberOfDirectVisitors || 23);
       setChannelVisitors(channelData.numberOfChannelVisitors || 0);
@@ -215,6 +240,8 @@ const OverViewAdmin = () => {
       setStaffOnline(stafOnline.totalStatus || 0);
       setBarData(graphData.data || 0);
       setExecutiveData(topExecutive || 0);
+      setTeamData(topTeam || 0);
+
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -223,6 +250,26 @@ const OverViewAdmin = () => {
   useEffect(() => {
     handleOptionClick(selectedOpt);
   }, [selectedOpt]);
+<<<<<<< HEAD
+=======
+
+  const getNotes = async () => {
+    const res = await axios.get("https://project-rof.vercel.app/api/overview/Note");
+    setNotesData(res.data);
+  }
+
+  useEffect(() => {
+    getNotes();
+  }, []);
+
+  console.log("notesData", notesData)
+
+  const DateupdatedAt = (DateupdatedAt) => {
+    const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
+    return formattedDate;
+  };
+
+>>>>>>> 36a1f88f6132bc89daaa4f196ffcafb33fbfd7e1
 
   return (
     <div className=" h-[1024px] p-6 overview">
@@ -544,26 +591,16 @@ const OverViewAdmin = () => {
                   fontWeight: "500",
                   fontFamily: "Manrope",
                 }}>
-                <tr className="divide-x-2 divide-gray-200">
-                  <td className="px-4 py-2">1</td>
-                  <td className="px-4 py-2">Team A</td>
-                  <td className="px-4 py-2">105</td>
-                  <td className="px-4 py-2">34</td>
-                </tr>
+                {teamData.map((visitor, index) => (
 
-                <tr className="divide-x-2 divide-gray-200">
-                  <td className="px-4 py-2">2</td>
-                  <td className="px-4 py-2">Team B</td>
-                  <td className="px-4 py-2">86</td>
-                  <td className="px-4 py-2">30</td>
-                </tr>
+                  <tr className="divide-x-2 divide-gray-200">
+                    <td className="px-4 py-2 text-[12px]">{index + 1}</td>
+                    <td className="px-4 py-2">{visitor.teamName}</td>
+                    <td className="px-4 py-2">{visitor.clientCount}</td>
+                    <td className="px-4 py-2">{visitor.conversionCount}</td>
+                  </tr>
+                ))}
 
-                <tr className="divide-x-2 divide-gray-200">
-                  <td className="px-4 py-2">3</td>
-                  <td className="px-4 py-2">Team C</td>
-                  <td className="px-4 py-2">75</td>
-                  <td className="px-4 py-2">20</td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -601,6 +638,7 @@ Notes */}
               </div>
 
               <div style={{ height: "547px" }} className="NotesT">
+              {notesData.map((note, index) => (
                 <div className="flex justify-around">
                   <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
                     <div
@@ -626,13 +664,13 @@ Notes */}
                           style={{ fontWeight: "500" }}
                           className="  text-[16px] font-[Manrope] text-[#383838] text-left">
                           {" "}
-                          22 June | 05:50 pm
+                          {DateupdatedAt(note.date)}
                         </h3>
                         <marquee
                           style={{ fontWeight: "500", width: "192px" }}
                           className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
+                          {note.note}
+
                         </marquee>
                       </div>
                     </div>
@@ -642,502 +680,8 @@ Notes */}
                     <FiEye />
                   </div>
                 </div>
+              ))}
 
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
-
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
-
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
-
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
-                <div className="flex justify-around">
-                  <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                    <div
-                      className="items-center justify-center"
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "50%",
-                        padding: "8px",
-                        background: "rgba(99, 46, 4, 0.5)",
-                        color: "rgba(61, 35, 20, 1)",
-                        fontSize: "14px",
-                        fontFamily: "Manrope",
-                        fontWeight: "600px",
-                      }}>
-                      SB
-                    </div>
-
-                    <div className="flex flex-wrap ">
-                      <div>
-                        {" "}
-                        <h3
-                          style={{ fontWeight: "500" }}
-                          className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                          {" "}
-                          22 June | 05:50 pm
-                        </h3>
-                        <marquee
-                          style={{ fontWeight: "500", width: "192px" }}
-                          className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                          Client expressed interest in a specific property
-                          listing (MLS# 12345).
-                        </marquee>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ alignContent: "center" }}>
-                    <FiEye />
-                  </div>
-                </div>
               </div>
             </div>
           </div>

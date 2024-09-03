@@ -8,7 +8,7 @@ const PasswordPageEx = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const [userEmail, setUserEmail] = useState([]);
+  const [userPhone, setUserPhone] = useState([]);
 
   const [IdEmp, setIdEmp] = useState(
     localStorage.getItem("EmpId") || "ROFEX10"
@@ -24,7 +24,7 @@ const PasswordPageEx = () => {
       `${process.env.VITE_BACKEND}/api/settingsExecutive/${employeeId}`
     );
     // console.log("response", res);
-    setUserEmail(res.data.email);
+    setUserPhone(res.data.phone);
   };
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const PasswordPageEx = () => {
 
   const handleEditClick = async () => {
     const data = {
-      email: userEmail,
+      phone: userPhone,
       oldPassword: oldPassword,
       newPassword: newPassword,
       confirmPassword: confirmNewPassword,
