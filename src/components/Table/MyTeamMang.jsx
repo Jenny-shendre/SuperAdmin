@@ -52,23 +52,28 @@ function MyTeamMang() {
   const [showAddNotePopup, setShowAddNotePopup] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
-
+  const [localemail, Setlocalemail] = useState(
+    localStorage.getItem("email") || "prakash@rof.co.in"
+  );
+  const [dataNote, setdataNote] = useState([]);
   //BACKEND
 
   const [loading, setLoading] = useState(false);
   const [notes, setNotes] = useState([]);
   const [search, setSearch] = useState("");
 
-  const getData = async (url) => {
+  const getData = async () => {
+    console.log(localemail);
     try {
       setLoading(true);
-      const res = await axios.get(url);
+      const res = await axios.get(
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/salesManager/findSalesManagerteamData/${localemail}`
+      );
       const resData = res.data;
-      if (resData && resData.allTeamMembers) {
-        setNotes(resData.allTeamMembers);
-      } else {
-        setNotes([]);
-      }
+      console.log("resData", resData);
+      setNotes(resData);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -76,25 +81,39 @@ function MyTeamMang() {
       setNotes([]);
     }
   };
-
   useEffect(() => {
-    let url;
-    if (activeTab === "All") {
-      url = `${import.meta.env.VITE_BACKEND}/api/teamMember/fetch-all`;
-    } else if (activeTab === "Available") {
-      url = `${import.meta.env.VITE_BACKEND}/api/teamMember/fetch-available`;
-    } else if (activeTab === "In meet") {
-      url = `${import.meta.env.VITE_BACKEND}/api/teamMember/fetch-assigned`;
-    }
-    getData(url);
-  }, [activeTab, valueinput]);
+    getData();
+  }, [localemail]);
 
-  const debouncedSearch = useCallback(
-    debounce((query) => {
-      setSearch(query);
-    }, 300),
-    []
-  );
+  // Filter the data based on the active tab and search input
+  useEffect(() => {
+    let filtered = notes;
+
+    // Filter based on active tab
+    if (activeTab === "In meet") {
+      filtered = notes.filter(
+        (note) => note.status.toLowerCase() === "assigned"
+      );
+    } else if (activeTab === "Available") {
+      filtered = notes.filter(
+        (note) => note.status.toLowerCase() === "available"
+      );
+    } else if (activeTab !== "All") {
+      filtered = notes.filter(
+        (note) => note.status.toLowerCase() === activeTab.toLowerCase()
+      );
+    }
+
+    // Further filter by search term if it's not empty
+    if (search.trim() !== "") {
+      filtered = filtered.filter((note) =>
+        note.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    // Set the filtered data to be displayed
+    setdataNote(filtered);
+  }, [notes, activeTab, search]);
 
   const handleSearchChange = (e) => {
     const inputValue = e.target.value;
@@ -274,8 +293,8 @@ function MyTeamMang() {
       ) : (
         <div className="Cards gap-8">
           <div className="flex flex-wrap gap-8 mb-[30px]">
-            {filteredNotes.length > 0 ? (
-              filteredNotes.map((note) => (
+            {dataNote.length > 0 ? (
+              dataNote.map((note) => (
                 <div
                   key={note.name}
                   className=" bg-white rounded-[12px] p-[12px] max-w-xs w-[310px] h-[272px]"
@@ -366,7 +385,7 @@ function MyTeamMang() {
                       {note.status === "assigned" ? "in meet" : "available"}
                     </div>
                   </div>
-                  <Link to="/SalesManager/ClientHistory">
+                  <Link to={`/SalesManager/ClientHistory/${note.employeeId}`}>
                     <button
                       className="font-[Manrope] w-full gap-2 bg-[#3D2314] text-white py-2 px-4 rounded-lg flex items-center justify-center"
                       style={{ border: "1px solid #3D2314" }}>

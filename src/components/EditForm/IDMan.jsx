@@ -19,6 +19,7 @@ import {
 const IDMan = () => {
   const [loading, setLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [filterdata, setfilterdata] = useState([]);
   const [FormData, setFormData] = useState({
     name: "",
     mobile: "",
@@ -27,25 +28,52 @@ const IDMan = () => {
     attendantName: "",
     projectName: "",
     createdAt: "",
-    responseTime: "",
+    timeResponse: "",
     timeDuration: "",
     createdAt: "",
+    partnerId: "",
+    attendantName: "",
+    customerName: "",
+    channelPartnerCompanyName: "",
+    channelPartnerName: "",
+    projectLocation: "",
+    customerMobileLastFour: "",
   });
 
   const toggleEdit = () => {
     setEdit((prevEdit) => !prevEdit);
   };
+
   const location = useLocation();
   const pathname = location.pathname;
-  const id = pathname.substring(pathname.lastIndexOf("/") + 1);
-
-  const getData = async () => {
+  const clientId = pathname.substring(pathname.lastIndexOf("/") + 1);
+  console.log(clientId);
+  const setgetdata = async () => {
     try {
       setLoading(true);
+
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND}/api/customers/fetch/${id}`
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/customers/getCustomerV2/${clientId}`
       );
-      setFormData(res.data[0]);
+      console.log(res.data);
+      setFormData(res.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+  const getData = async (id) => {
+    try {
+      setLoading(true);
+
+      const res = await axios.put(
+        `${import.meta.env.VITE_BACKEND}/api/customers/DataUpdate/${clientId}`
+      );
+      console.log(res.data);
+      setFormData(res.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -54,8 +82,8 @@ const IDMan = () => {
   };
 
   useEffect(() => {
-    getData();
-  }, [id]);
+    setgetdata();
+  }, [clientId]);
 
   //  ! time
   const DateupdatedAt = (DateupdatedAt) => {
@@ -93,7 +121,7 @@ const IDMan = () => {
 
     try {
       const res = await axios.put(
-        `${import.meta.env.VITE_BACKEND}/api/customers/update/${id}`,
+        `${import.meta.env.VITE_BACKEND}/api/customers/DataUpdate/${id}`,
         {
           ...FormData,
         }
@@ -150,6 +178,7 @@ const IDMan = () => {
       setShowEmojiPicker(false);
     };
 
+    console.log("filterdata", filterdata.name);
     return (
       <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col justify-between relative">
         <div style={{ marginTop: "-8px" }} className="flex space-x-2">
@@ -296,7 +325,9 @@ const IDMan = () => {
               key={FormData}
               style={{}}
               className="w-[169px] flex px-8 py-4 justify-center bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
-              onClick={() => toggleEditMode(FormData._id)}>
+              onClick={() =>
+                toggleEditMode(FormData?.customerId || FormData?.partnerId)
+              }>
               <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
                 <div className="pt-1 pr-4">
                   <FaRegEdit />
@@ -343,9 +374,9 @@ const IDMan = () => {
                           }}
                           placeholder="John Doe"
                           required
-                          name="name"
+                          name={"name" || "customerName"}
                           readOnly={!editMode}
-                          value={FormData}
+                          value={FormData?.name || FormData?.customerName || ""}
                           onChange={handleChange}
                         />
                       </div>
@@ -370,8 +401,12 @@ const IDMan = () => {
                           placeholder="9425846894"
                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                           required
-                          name="mobile"
-                          value={FormData}
+                          name={"mobile" || "customerMobileLastFour"}
+                          value={
+                            FormData?.mobile ||
+                            FormData?.customerMobileLastFour ||
+                            ""
+                          }
                           onChange={handleChange}
                           readOnly={true}
                         />
@@ -398,7 +433,7 @@ const IDMan = () => {
                         placeholder="johndoe@gmail.com"
                         required
                         name="email"
-                        value={FormData}
+                        value={FormData?.email || ""}
                         onChange={handleChange}
                         readOnly={!editMode}
                       />
@@ -427,7 +462,7 @@ const IDMan = () => {
                           }}
                           placeholder="Project A"
                           name="projectName"
-                          value={FormData}
+                          value={FormData?.projectName || ""}
                           onChange={handleChange}
                           readOnly={true}
                         />
@@ -452,8 +487,10 @@ const IDMan = () => {
                           }}
                           placeholder="ROF0001"
                           required
-                          name="customerId"
-                          value={FormData}
+                          name={"customerId" || "partnerId"}
+                          value={
+                            FormData?.customerId || FormData?.partnerId || ""
+                          }
                           onChange={handleChange}
                           readOnly={true}
                         />
@@ -480,7 +517,7 @@ const IDMan = () => {
                         placeholder="Samyak Gandhi"
                         required
                         name="attendantName"
-                        value={FormData}
+                        value={FormData?.attendantName || ""}
                         onChange={handleChange}
                         readOnly={true}
                       />
@@ -506,7 +543,7 @@ const IDMan = () => {
                           padding: "10px 18px 10px 18px",
                         }}
                         name="createdAt"
-                        // value={DateupdatedAt(FormData.createdAt)}
+                        value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
                         readOnly={true}
                       />
@@ -529,7 +566,7 @@ const IDMan = () => {
                           padding: "10px 18px 10px 18px",
                         }}
                         name="responseTime"
-                        // value={ResponseAt(FormData.createdAt)}
+                        value={FormData.timeResponse}
                         onChange={handleChange}
                         readOnly={true}
                       />
@@ -552,7 +589,7 @@ const IDMan = () => {
                           padding: "10px 18px 10px 18px",
                         }}
                         name="timeDuration"
-                        // value={FormData.timeDuration}
+                        value={FormData.timeDuration}
                         onChange={handleChange}
                         readOnly={true}
                       />
@@ -575,7 +612,7 @@ const IDMan = () => {
                           lineHeight: "27.32px",
                           padding: "10px 18px 10px 18px",
                         }}
-                        readOnly={!editMode}>
+                        readOnly={editMode}>
                         {/* {FormData.notes} */}
                       </textarea>
                     </div>
@@ -599,7 +636,38 @@ const IDMan = () => {
                 className="mb-4 text-center">
                 Notes Activity Log
               </h2>
+              <div style={{ height: "300px", overflowY: "scroll" }}>
+                <div className="space-y-4">
+                  {FormData.notes && FormData.notes.length > 0 ? (
+                    <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
+                        <span
+                          style={{
+                            fontFamily: "Manrope",
+                            fontSize: "12px",
+                            fontWeight: "500",
+                          }}>
+                          Sales Executive
+                        </span>
+                      </div>
 
+                      {FormData.notes}
+                      <div
+                        style={{
+                          fontFamily: "Manrope",
+                          fontSize: "8px",
+                          fontWeight: "600",
+                        }}
+                        className=" text-right mt-2 text-[#4A4A4A]">
+                        {ResponseAt2(FormData.updatedAt)}
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
               <div className="mt-4 ">
                 <NoteInput />
               </div>
