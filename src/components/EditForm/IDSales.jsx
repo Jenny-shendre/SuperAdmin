@@ -43,7 +43,7 @@ const IDSales = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `${process.env.VITE_BACKEND}/api/customers/fetch/${id}`
+        `${import.meta.env.VITE_BACKEND}/api/customers/fetch/${id}`
       );
       setFormData(res.data[0]);
       setLoading(false);
@@ -93,7 +93,7 @@ const IDSales = () => {
 
     try {
       const res = await axios.put(
-        `${process.env.VITE_BACKEND}/api/customers/update/${id}`,
+        `${import.meta.env.VITE_BACKEND}/api/customers/update/${id}`,
         {
           ...FormData,
         }

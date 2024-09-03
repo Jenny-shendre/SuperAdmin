@@ -49,7 +49,7 @@ const TopNav = () => {
     const sendStatusToBackend = async (status) => {
       try {
         const response = await axios.put(
-          ` ${process.env.VITE_BACKEND}/api/attendants/status/${IdEmp}`,
+          ` ${import.meta.env.VITE_BACKEND}/api/attendants/status/${IdEmp}`,
           {
             StaffStatus: status ? "online" : "offline",
           }

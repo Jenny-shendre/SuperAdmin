@@ -80,11 +80,11 @@ function MyTeamMang() {
   useEffect(() => {
     let url;
     if (activeTab === "All") {
-      url = `${process.env.VITE_BACKEND}/api/teamMember/fetch-all`;
+      url = `${import.meta.env.VITE_BACKEND}/api/teamMember/fetch-all`;
     } else if (activeTab === "Available") {
-      url = `${process.env.VITE_BACKEND}/api/teamMember/fetch-available`;
+      url = `${import.meta.env.VITE_BACKEND}/api/teamMember/fetch-available`;
     } else if (activeTab === "In meet") {
-      url = `${process.env.VITE_BACKEND}/api/teamMember/fetch-assigned`;
+      url = `${import.meta.env.VITE_BACKEND}/api/teamMember/fetch-assigned`;
     }
     getData(url);
   }, [activeTab, valueinput]);
@@ -120,7 +120,9 @@ function MyTeamMang() {
   const fetchData = async () => {
     setLoading(true);
 
-    const res2 = await axios.get(`${process.env.VITE_BACKEND}/api/projects`);
+    const res2 = await axios.get(
+      `${import.meta.env.VITE_BACKEND}/api/projects`
+    );
     setdata2(res2.data);
 
     setLoading(false);

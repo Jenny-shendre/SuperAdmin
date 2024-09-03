@@ -37,16 +37,18 @@ const ViewMembers = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `${process.env.VITE_BACKEND}/api/ViewMembers/ViewMembers`
+        `${import.meta.env.VITE_BACKEND}/api/ViewMembers/ViewMembers`
       );
       setData(res.data);
 
       const res1 = await axios.get(
-        `${process.env.VITE_BACKEND}/api/salesManager/fetch-all`
+        `${import.meta.env.VITE_BACKEND}/api/salesManager/fetch-all`
       );
       setManagerdata(res1.data);
 
-      const res2 = await axios.get(`${process.env.VITE_BACKEND}/api/projects`);
+      const res2 = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/projects`
+      );
       setdata2(res2.data);
 
       setLoading(false);
@@ -178,7 +180,7 @@ const ViewMembers = () => {
       try {
         const res = await axios.get(
           `${
-            process.env.VITE_BACKEND
+            import.meta.env.VITE_BACKEND
           }/api/attendants/fetch-all?name=${inputValue.trim()}`
         );
         // Filter suggestions based on case-insensitive comparison
@@ -226,7 +228,7 @@ const ViewMembers = () => {
 
       try {
         const res = await axios.post(
-          `${process.env.VITE_BACKEND}/api/teams/save`,
+          `${import.meta.env.VITE_BACKEND}/api/teams/save`,
           teamdata
         );
         console.log("res", res);
@@ -307,7 +309,7 @@ const ViewMembers = () => {
       };
       try {
         const res = await axios.post(
-          `${process.env.VITE_BACKEND}/api/salesManager/save`,
+          `${import.meta.env.VITE_BACKEND}/api/salesManager/save`,
           managerData
         );
         console.log("res", res);
@@ -315,13 +317,13 @@ const ViewMembers = () => {
         console.log("Response send", res);
 
         const updatedManagers = await axios.get(
-          `${process.env.VITE_BACKEND}/api/salesManager/fetch-all`
+          `${import.meta.env.VITE_BACKEND}/api/salesManager/fetch-all`
         );
         setManagerdata(updatedManagers.data);
 
         // Fetch and update member data
         const updatedMembers = await axios.get(
-          `${process.env.VITE_BACKEND}/api/ViewMembers/ViewMembers`
+          `${import.meta.env.VITE_BACKEND}/api/ViewMembers/ViewMembers`
         );
         setData(updatedMembers.data);
       } catch (error) {
@@ -387,7 +389,7 @@ const ViewMembers = () => {
 
       try {
         const res = await axios.post(
-          `${process.env.VITE_BACKEND}/api/attendants/save`,
+          `${import.meta.env.VITE_BACKEND}/api/attendants/save`,
           executiveData
         );
         console.log("res", res);
@@ -396,7 +398,7 @@ const ViewMembers = () => {
 
         // Fetch and update member data
         const updatedMembers = await axios.get(
-          `${process.env.VITE_BACKEND}/api/ViewMembers/ViewMembers`
+          `${import.meta.env.VITE_BACKEND}/api/ViewMembers/ViewMembers`
         );
         setData(updatedMembers.data);
       } catch (error) {
@@ -421,7 +423,9 @@ const ViewMembers = () => {
   const handleDelete = async (deleteId) => {
     try {
       const res = await axios.delete(
-        `${process.env.VITE_BACKEND}/api/ViewMembers/ViewMembersDelete/${deleteId}`
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/ViewMembers/ViewMembersDelete/${deleteId}`
       );
       // setDeleteData(res.data);
       console.log("Delete response", res);

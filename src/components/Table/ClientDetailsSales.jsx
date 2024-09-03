@@ -62,7 +62,9 @@ function ClientDetails() {
   const fetchData = async () => {
     setLoading(true);
 
-    const res2 = await axios.get("${process.env.VITE_BACKEND}/api/projects");
+    const res2 = await axios.get(
+      "${import.meta.env.VITE_BACKEND}/api/projects"
+    );
     setdata2(res2.data);
 
     setLoading(false);
@@ -145,7 +147,9 @@ function ClientDetails() {
       try {
         if (clientConversation === "Yes") {
           const res = await axios.put(
-            `${process.env.VITE_BACKEND}/api/attendants/clientConversion/${IdEmp}`
+            `${
+              import.meta.env.VITE_BACKEND
+            }/api/attendants/clientConversion/${IdEmp}`
           );
           console.log("count the client converted", res);
         }
@@ -183,7 +187,7 @@ function ClientDetails() {
     console.log("Client", id);
     try {
       const client = await axios.put(
-        `${process.env.VITE_BACKEND}/api/customers/NoteUpdate/${id}`,
+        `${import.meta.env.VITE_BACKEND}/api/customers/NoteUpdate/${id}`,
         {
           notes: briefing,
         }
@@ -197,7 +201,7 @@ function ClientDetails() {
     }
     try {
       const dataNote = await axios.post(
-        `${process.env.VITE_BACKEND}/api/notes`,
+        `${import.meta.env.VITE_BACKEND}/api/notes`,
         {
           name: clientName,
           note: briefing,
@@ -328,7 +332,9 @@ function ClientDetails() {
   const historyData = async (employeeId) => {
     try {
       const res = await axios.get(
-        `${process.env.VITE_BACKEND}/api/clientManagement/history/${employeeId}`
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/clientManagement/history/${employeeId}`
       );
       setdata(res.data);
     } catch (error) {
@@ -339,7 +345,9 @@ function ClientDetails() {
   const upcoming = async (employeeId) => {
     try {
       const res = await axios.get(
-        `${process.env.VITE_BACKEND}/api/clientManagement/upcoming/${employeeId}`
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/clientManagement/upcoming/${employeeId}`
       );
       setupcoming(res.data);
       console.log("setupcoming", res.data);
@@ -354,7 +362,9 @@ function ClientDetails() {
   const rejectMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        ` ${process.env.VITE_BACKEND}/api/clientManagement/reject/${employeeId}`
+        ` ${
+          import.meta.env.VITE_BACKEND
+        }/api/clientManagement/reject/${employeeId}`
       );
       console.log("reject", res);
     } catch (error) {
@@ -364,7 +374,9 @@ function ClientDetails() {
   const acceptMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        `${process.env.VITE_BACKEND}/api/clientManagement/accept/${employeeId}`
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/clientManagement/accept/${employeeId}`
       );
       console.log(res.data);
     } catch (error) {
@@ -375,7 +387,9 @@ function ClientDetails() {
   const meetingOvers = async (employeeId) => {
     try {
       const res = await axios.put(
-        `${process.env.VITE_BACKEND}/api/clientManagement/meetingOver/${employeeId}`
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/clientManagement/meetingOver/${employeeId}`
       );
       console.log(res.data);
     } catch (error) {
@@ -388,7 +402,7 @@ function ClientDetails() {
     console.log("EndDateTime.......", EndDateTime);
     try {
       const res = await axios.put(
-        `${process.env.VITE_BACKEND}/api/timeSheet/timeline/${ClientID}`,
+        `${import.meta.env.VITE_BACKEND}/api/timeSheet/timeline/${ClientID}`,
         {
           StartTime: StartDateTime,
           EndTime: EndDateTime,
@@ -406,7 +420,9 @@ function ClientDetails() {
     const formattedDate = format(currentDate, "mm:ss");
     try {
       const res = await axios.put(
-        `${process.env.VITE_BACKEND}/api/timeSheet/timeResponse/${ClientID}`,
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/timeSheet/timeResponse/${ClientID}`,
         {
           StartTime: resstart,
           EndTime: formattedDate,
@@ -489,7 +505,7 @@ function ClientDetails() {
   };
   const confirmDelete = () => {
     // await axios.delete(
-    //   `${process.env.VITE_BACKEND}/api/record/deleteRecord/${deleteId}`
+    //   `${import.meta.env.VITE_BACKEND}/api/record/deleteRecord/${deleteId}`
     // );
     setDeleteShowPopup(false);
     fetchData();

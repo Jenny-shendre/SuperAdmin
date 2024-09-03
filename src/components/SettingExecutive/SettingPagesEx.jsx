@@ -53,7 +53,9 @@ const SettingPagesEx = () => {
 
     try {
       const res = await axios.put(
-        `${process.env.VITE_BACKEND}/api/settingsExecutive/CoverImage/${IdEmp}`,
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/settingsExecutive/CoverImage/${IdEmp}`,
         formData,
         {
           headers: {
@@ -105,7 +107,7 @@ const SettingPagesEx = () => {
 
   const gitAPiData = async (employeeId) => {
     const res = await axios.get(
-      `${process.env.VITE_BACKEND}/api/settingsExecutive/${employeeId}`
+      `${import.meta.env.VITE_BACKEND}/api/settingsExecutive/${employeeId}`
     );
     // console.log("response", res);
     setExectiveData(res.data);

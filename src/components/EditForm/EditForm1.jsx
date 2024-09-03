@@ -41,12 +41,12 @@ function EditForm1() {
     try {
       setLoading(true);
       const res = await axios.get(
-        `${process.env.VITE_BACKEND}/api/partners/fetch/${id}`
+        `${import.meta.env.VITE_BACKEND}/api/partners/fetch/${id}`
       );
       setFormData(res.data);
 
       const res1 = await axios.post(
-        `${process.env.VITE_BACKEND}/api/partners/fetchByName`,
+        `${import.meta.env.VITE_BACKEND}/api/partners/fetchByName`,
         { channelPartnerName: res.data.channelPartnerName }
       );
 
@@ -127,7 +127,7 @@ function EditForm1() {
 
     try {
       const res = await axios.put(
-        `${process.env.VITE_BACKEND}/api/partners/update/${id}`,
+        `${import.meta.env.VITE_BACKEND}/api/partners/update/${id}`,
         {
           ...FormData,
         }

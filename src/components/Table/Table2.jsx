@@ -39,7 +39,7 @@ const Table2 = () => {
   const handleDeleteClick = async (deleteId) => {
     try {
       const res = await axios.delete(
-        `${process.env.VITE_BACKEND}/api/channels/${deleteId}`
+        `${import.meta.env.VITE_BACKEND}/api/channels/${deleteId}`
       );
       console.log("Channel deleted", res);
       setdata((prevData) => prevData.filter((item) => item._id !== deleteId));
@@ -97,7 +97,7 @@ const Table2 = () => {
 
     try {
       const res = await axios.post(
-        `${process.env.VITE_BACKEND}/api/channels`,
+        `${import.meta.env.VITE_BACKEND}/api/channels`,
         teamdata
       );
 
@@ -123,7 +123,9 @@ const Table2 = () => {
   const getData1 = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${process.env.VITE_BACKEND}/api/channels`);
+      const res = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/channels`
+      );
       setdata(res.data);
       setLoading(false);
     } catch (error) {

@@ -13,7 +13,7 @@ import EmailIcon from "../../assets/email.png";
 import PhoneIcon from "../../assets/phone.png";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link2 } from "lucide-react";
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Table5 = () => {
   const [valueinput, setvalueinput] = useState("");
@@ -56,20 +56,22 @@ const Table5 = () => {
   const fetchData = async () => {
     setLoading(true);
     const res = await axios.get(
-      `${process.env.VITE_BACKEND}/api/salesManager/fetch-all`
+      `${import.meta.env.VITE_BACKEND}/api/salesManager/fetch-all`
     );
     setdata(res.data);
 
     const res1 = await axios.get(
-      `${process.env.VITE_BACKEND}/api/teams/fetch-all`
+      `${import.meta.env.VITE_BACKEND}/api/teams/fetch-all`
     );
     setdata1(res1.data);
 
-    const res2 = await axios.get(`${process.env.VITE_BACKEND}/api/projects`);
+    const res2 = await axios.get(
+      `${import.meta.env.VITE_BACKEND}/api/projects`
+    );
     setdata2(res2.data);
 
     const res3 = await axios.get(
-      `${process.env.VITE_BACKEND}/api/attendants/fetch-all`
+      `${import.meta.env.VITE_BACKEND}/api/attendants/fetch-all`
     );
     setExecutiveMember(res3.data);
 
@@ -222,7 +224,7 @@ const Table5 = () => {
       try {
         const res = await axios.get(
           `${
-            process.env.VITE_BACKEND
+            import.meta.env.VITE_BACKEND
           }/api/attendants/fetch-all?name=${inputValue.trim()}`
         );
         // Filter suggestions based on case-insensitive comparison
@@ -270,7 +272,7 @@ const Table5 = () => {
 
       try {
         const res = await axios.post(
-          `${process.env.VITE_BACKEND}/api/teams/save`,
+          `${import.meta.env.VITE_BACKEND}/api/teams/save`,
           teamdata
         );
         console.log("res", res);
@@ -299,12 +301,11 @@ const Table5 = () => {
   const [isManagerCreating, setIsManagerCreating] = useState(false);
   const [managerCreateStatus, setManagerCreateStatus] = useState("");
   const [managerErrorMessage, setManagerErrorMessage] = useState(""); // state for error message
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
-
 
   const resetManagerForm = () => {
     setManagerName("");
@@ -349,7 +350,7 @@ const Table5 = () => {
         setManagerErrorMessage("Phone number must be exactly 10 digits.");
         return;
       }
-      if (password === '') {
+      if (password === "") {
         setManagerErrorMessage("Please enter Password to set.");
         return;
       }
@@ -364,7 +365,7 @@ const Table5 = () => {
       };
       try {
         const res = await axios.post(
-          `${process.env.VITE_BACKEND}/api/salesManager/save`,
+          `${import.meta.env.VITE_BACKEND}/api/salesManager/save`,
           managerData
         );
         console.log("res", res);
@@ -373,7 +374,7 @@ const Table5 = () => {
 
         // Fetch the updated list of managers after successful creation
         const updatedManagers = await axios.get(
-          `${process.env.VITE_BACKEND}/api/salesManager/fetch-all`
+          `${import.meta.env.VITE_BACKEND}/api/salesManager/fetch-all`
         );
         setdata(updatedManagers.data); // Assuming setdata is used for storing managers data
 
@@ -397,9 +398,8 @@ const Table5 = () => {
   const [isExecutiveCreating, setIsExecutiveCreating] = useState(false);
   const [executiveCreateStatus, setExecutiveCreateStatus] = useState("");
   const [executiveErrorMessage, setExecutiveErrorMessage] = useState(""); //  state for error message
-  const [password2, setPassword2] = useState('');
+  const [password2, setPassword2] = useState("");
   const [showPassword2, setShowPassword2] = useState(false);
-
 
   const resetExecutiveForm = () => {
     setExecutiveName("");
@@ -422,7 +422,7 @@ const Table5 = () => {
   };
 
   const handleExecutiveSubmit = async () => {
-    if (executiveName && executiveEmail && executivePhone && salePass) {
+    if (executiveName && executiveEmail && executivePhone) {
       // Check for phone number
       if (!validateManagerName(executiveName)) {
         setExecutiveErrorMessage(
@@ -438,10 +438,10 @@ const Table5 = () => {
         setExecutiveErrorMessage("Phone number must be exactly 10 digits.");
         return;
       }
-      if (salePass === '') {
-        setExecutiveErrorMessage("Enter password to set.");
-        return;
-      }
+      // if (salePass === "") {
+      //   setExecutiveErrorMessage("Enter password to set.");
+      //   return;
+      // }
       setIsExecutiveCreating(true);
       setExecutiveErrorMessage(""); // Clear any previous error messages
 
@@ -454,7 +454,7 @@ const Table5 = () => {
 
       try {
         const res = await axios.post(
-          `${process.env.VITE_BACKEND}/api/attendants/save`,
+          `${import.meta.env.VITE_BACKEND}/api/attendants/save`,
           executiveData
         );
         console.log("res", res);
@@ -487,7 +487,7 @@ const Table5 = () => {
   const handleDeleteConfirm = async () => {
     try {
       const res = await axios.delete(
-        `${process.env.VITE_BACKEND}/api/teams/${deleteId}`
+        `${import.meta.env.VITE_BACKEND}/api/teams/${deleteId}`
       );
       console.log("Team deleted", res);
       setdata1((prevData) => prevData.filter((item) => item._id !== deleteId)); // Update state to remove deleted item
@@ -580,10 +580,6 @@ const Table5 = () => {
               </button>
               <Link to="/SuperAdmin/View_Members">
                 <button
-<<<<<<< HEAD
-=======
-
->>>>>>> 36a1f88f6132bc89daaa4f196ffcafb33fbfd7e1
                   className="add-team-button bg-[#3D2314]  text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] ml-10 mt-4 lg:mt-0"
                   style={{
                     height: "48px",
@@ -595,7 +591,6 @@ const Table5 = () => {
                     fontFamily: "Manrope",
                     fontWeight: "500",
                   }}>
-<<<<<<< HEAD
                   <span
                     style={{
                       width: "20px",
@@ -606,10 +601,6 @@ const Table5 = () => {
                     }}>
                     <LuEye />
                   </span>
-=======
-                  <span style={{ width: "20px", height: "14px", top: "17px", left: "24px", gap: "12px" }}><LuEye /></span>
-
->>>>>>> 36a1f88f6132bc89daaa4f196ffcafb33fbfd7e1
                   View Members
                 </button>
               </Link>
@@ -1132,8 +1123,7 @@ const Table5 = () => {
                   <div className="relative w-[440px] h-12 mb-4 flex rounded-md border border-gray-300">
                     <input
                       className="w-full h-full p-4  font-manrope text-lg font-normal"
-
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
@@ -1231,8 +1221,7 @@ const Table5 = () => {
                   <div className="relative w-[440px] h-12 mb-4 flex rounded-md border border-gray-300">
                     <input
                       className="w-full h-full p-4  font-manrope text-lg font-normal"
-
-                      type={showPassword2 ? 'text' : 'password'}
+                      type={showPassword2 ? "text" : "password"}
                       value={password2}
                       onChange={(e) => setPassword2(e.target.value)}
                       placeholder="Enter your password"

@@ -23,7 +23,7 @@ function LoginTwo() {
 
     try {
       const res = await axios.post(
-        `${process.env.VITE_BACKEND}/api/admin/forget-pass`,
+        `${import.meta.env.VITE_BACKEND}/api/admin/forget-pass`,
         { phone }
       );
       console.log("response send", res.data);
@@ -54,7 +54,7 @@ function LoginTwo() {
 
     try {
       const res = await axios.post(
-        "${process.env.VITE_BACKEND}/api/admin/verify-otp",
+        "${import.meta.env.VITE_BACKEND}/api/admin/verify-otp",
         { phone, otp }
       );
       if (res.data.success) {

@@ -85,21 +85,23 @@ const Table7 = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        `${process.env.VITE_BACKEND}/api/seviceRequest/ProjectFilter`,
+        `${import.meta.env.VITE_BACKEND}/api/seviceRequest/ProjectFilter`,
         sendData
       );
       setServicedata(res.data);
       // console.log(res.data);
 
       const res1 = await axios.post(
-        `${process.env.VITE_BACKEND}/api/projects/ProjectFilter`,
+        `${import.meta.env.VITE_BACKEND}/api/projects/ProjectFilter`,
         sendData
       );
       setProjectData(res1.data);
       // console.log(res1.data);
 
       const res2 = await axios.post(
-        `${process.env.VITE_BACKEND}/api/chequeImage/entries-with-cheque-image`,
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/chequeImage/entries-with-cheque-image`,
         sendData
       );
       setChequeData(res2.data);

@@ -72,7 +72,9 @@ function NotesDetailsMang() {
   const fetchData = async () => {
     setLoading(true);
 
-    const res2 = await axios.get(`${process.env.VITE_BACKEND}/api/projects`);
+    const res2 = await axios.get(
+      `${import.meta.env.VITE_BACKEND}/api/projects`
+    );
     setdata2(res2.data);
 
     setLoading(false);

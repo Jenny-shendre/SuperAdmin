@@ -78,7 +78,9 @@ const Table6 = () => {
         let memberId = deleteId;
 
         const res = await axios.delete(
-          `${process.env.VITE_BACKEND}/api/teams/deleteTeamsMembers/${teamId}/${memberId}`
+          `${
+            import.meta.env.VITE_BACKEND
+          }/api/teams/deleteTeamsMembers/${teamId}/${memberId}`
         );
         console.log("Member deleted", res);
         fetchData(); // Refresh data after deletion
@@ -130,7 +132,7 @@ const Table6 = () => {
   const fetchData = async () => {
     try {
       const res = await axios.post(
-        `${process.env.VITE_BACKEND}/api/teams/teamfliter`,
+        `${import.meta.env.VITE_BACKEND}/api/teams/teamfliter`,
         { teamName }
       );
       setTeamData(res.data);
@@ -194,7 +196,7 @@ const Table6 = () => {
       try {
         const res = await axios.get(
           `${
-            process.env.VITE_BACKEND
+            import.meta.env.VITE_BACKEND
           }/api/attendants/fetch-all?name=${inputValue.trim()}`
         );
 
@@ -250,7 +252,7 @@ const Table6 = () => {
 
     try {
       const res = await axios.post(
-        `${process.env.VITE_BACKEND}/api/teams/addOne`,
+        `${import.meta.env.VITE_BACKEND}/api/teams/addOne`,
         sendExecutiveData
       );
       console.log("res send", res);
@@ -269,7 +271,9 @@ const Table6 = () => {
     console.log("Managers Array: ", managers);
     try {
       const res = await axios.put(
-        `${process.env.VITE_BACKEND}/api/teams/updateSalesManagerTeam/${objectId}`,
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/teams/updateSalesManagerTeam/${objectId}`,
         sendManagersData
       );
       console.log("res send", res);

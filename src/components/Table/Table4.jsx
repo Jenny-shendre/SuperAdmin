@@ -104,7 +104,7 @@ const Table4 = () => {
 
     try {
       const sendData = await axios.post(
-        `${process.env.VITE_BACKEND}/api/projects`,
+        `${import.meta.env.VITE_BACKEND}/api/projects`,
         newProject
       );
       console.log("Project added successfully", sendData);
@@ -127,7 +127,9 @@ const Table4 = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${process.env.VITE_BACKEND}/api/projects`);
+      const res = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/projects`
+      );
       console.log("res", res.data);
       setProjectData(res.data);
       setLoading(false);
@@ -154,7 +156,7 @@ const Table4 = () => {
   const handleDelete = async (deleteId) => {
     try {
       const res = await axios.delete(
-        `${process.env.VITE_BACKEND}/api/projects/delete/${deleteId}`
+        `${import.meta.env.VITE_BACKEND}/api/projects/delete/${deleteId}`
       );
       console.log("Project deleted", res);
 
@@ -199,7 +201,7 @@ const Table4 = () => {
     if (editId) {
       try {
         const resposne = await axios.get(
-          `${process.env.VITE_BACKEND}/api/projects/project/${editId}`
+          `${import.meta.env.VITE_BACKEND}/api/projects/project/${editId}`
         );
         setProjectDetails(resposne.data);
       } catch (error) {
@@ -217,7 +219,7 @@ const Table4 = () => {
 
     try {
       const updateProject = await axios.put(
-        `${process.env.VITE_BACKEND}/api/projects/update/${editId}`,
+        `${import.meta.env.VITE_BACKEND}/api/projects/update/${editId}`,
         projectDetails,
         {
           headers: {

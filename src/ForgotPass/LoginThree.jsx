@@ -60,7 +60,7 @@ function LoginThree() {
     setErrorMessage("");
     try {
       const res = await axios.post(
-        `${process.env.VITE_BACKEND}/api/admin/set-password`,
+        `${import.meta.env.VITE_BACKEND}/api/admin/set-password`,
         { phone, newPassword, confirmPassword }
       );
       console.log("response send", res);
