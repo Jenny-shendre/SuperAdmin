@@ -13,7 +13,7 @@ import EmailIcon from "../../assets/email.png";
 import PhoneIcon from "../../assets/phone.png";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link2 } from "lucide-react";
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Table5 = () => {
   const [valueinput, setvalueinput] = useState("");
@@ -299,12 +299,11 @@ const Table5 = () => {
   const [isManagerCreating, setIsManagerCreating] = useState(false);
   const [managerCreateStatus, setManagerCreateStatus] = useState("");
   const [managerErrorMessage, setManagerErrorMessage] = useState(""); // state for error message
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
-
 
   const resetManagerForm = () => {
     setManagerName("");
@@ -349,7 +348,7 @@ const Table5 = () => {
         setManagerErrorMessage("Phone number must be exactly 10 digits.");
         return;
       }
-      if (password === '') {
+      if (password === "") {
         setManagerErrorMessage("Please enter Password to set.");
         return;
       }
@@ -397,9 +396,8 @@ const Table5 = () => {
   const [isExecutiveCreating, setIsExecutiveCreating] = useState(false);
   const [executiveCreateStatus, setExecutiveCreateStatus] = useState("");
   const [executiveErrorMessage, setExecutiveErrorMessage] = useState(""); //  state for error message
-  const [password2, setPassword2] = useState('');
+  const [password2, setPassword2] = useState("");
   const [showPassword2, setShowPassword2] = useState(false);
-
 
   const resetExecutiveForm = () => {
     setExecutiveName("");
@@ -438,7 +436,7 @@ const Table5 = () => {
         setExecutiveErrorMessage("Phone number must be exactly 10 digits.");
         return;
       }
-      if (salePass === '') {
+      if (salePass === "") {
         setExecutiveErrorMessage("Enter password to set.");
         return;
       }
@@ -580,10 +578,6 @@ const Table5 = () => {
               </button>
               <Link to="/SuperAdmin/View_Members">
                 <button
-<<<<<<< HEAD
-=======
-
->>>>>>> 36a1f88f6132bc89daaa4f196ffcafb33fbfd7e1
                   className="add-team-button bg-[#3D2314]  text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] ml-10 mt-4 lg:mt-0"
                   style={{
                     height: "48px",
@@ -595,7 +589,6 @@ const Table5 = () => {
                     fontFamily: "Manrope",
                     fontWeight: "500",
                   }}>
-<<<<<<< HEAD
                   <span
                     style={{
                       width: "20px",
@@ -606,10 +599,6 @@ const Table5 = () => {
                     }}>
                     <LuEye />
                   </span>
-=======
-                  <span style={{ width: "20px", height: "14px", top: "17px", left: "24px", gap: "12px" }}><LuEye /></span>
-
->>>>>>> 36a1f88f6132bc89daaa4f196ffcafb33fbfd7e1
                   View Members
                 </button>
               </Link>
@@ -1132,8 +1121,7 @@ const Table5 = () => {
                   <div className="relative w-[440px] h-12 mb-4 flex rounded-md border border-gray-300">
                     <input
                       className="w-full h-full p-4  font-manrope text-lg font-normal"
-
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
@@ -1231,8 +1219,7 @@ const Table5 = () => {
                   <div className="relative w-[440px] h-12 mb-4 flex rounded-md border border-gray-300">
                     <input
                       className="w-full h-full p-4  font-manrope text-lg font-normal"
-
-                      type={showPassword2 ? 'text' : 'password'}
+                      type={showPassword2 ? "text" : "password"}
                       value={password2}
                       onChange={(e) => setPassword2(e.target.value)}
                       placeholder="Enter your password"
