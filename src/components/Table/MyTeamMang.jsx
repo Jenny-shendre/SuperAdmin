@@ -53,8 +53,7 @@ function MyTeamMang() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
   const [localemail, Setlocalemail] = useState(
-    //localStorage.getItem("email")||
-    "prakash@rof.co.in"
+    localStorage.getItem("email") || "prakash@rof.co.in"
   );
   const [dataNote, setdataNote] = useState([]);
   //BACKEND
