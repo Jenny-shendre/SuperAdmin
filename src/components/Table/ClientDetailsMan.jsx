@@ -293,6 +293,7 @@ console.log("Manager email", email);
                   
                 {data
                       .filter((executive) => {
+                        if (!executive.lastClientName) return false;
                         const clientName = executive.lastClientName?.ClientName?.toLowerCase() || "";
                         const projectName = executive.lastClientName?.ClientProject?.toLowerCase() || "";
                         const executiveName = executive.name?.toLowerCase() || "";
