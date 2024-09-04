@@ -36,9 +36,18 @@ function ClientDetails() {
   const [ClientID, setClientID] = useState();
   const [resstart, setRes] = useState();
   const [resEndDateTime, setresEndDateTime] = useState();
+  const [clientIdData, setClientIdData] = useState("CHROF77");
+
+  const [customerdata, setCustomerdata] = useState({
+    projectName: "",
+    customerName: "",
+    name: "",
+    notes: ""
+
+  });
 
   const [IdEmp, setIdEmp] = useState(
-    localStorage.getItem("EmpId") || "ROFEX103"
+    localStorage.getItem("EmpId") ||  "ROFEX103"
   );
 
   const [showNotePopup, setShowNotePopup] = useState(false);
@@ -146,8 +155,7 @@ function ClientDetails() {
       try {
         if (clientConversation === "Yes") {
           const res = await axios.put(
-            `${
-              import.meta.env.VITE_BACKEND
+            `${import.meta.env.VITE_BACKEND
             }/api/attendants/clientConversion/${IdEmp}`
           );
           console.log("count the client converted", res);
@@ -331,8 +339,7 @@ function ClientDetails() {
   const historyData = async (employeeId) => {
     try {
       const res = await axios.get(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/clientManagement/history/${employeeId}`
       );
       setdata(res.data);
@@ -344,8 +351,7 @@ function ClientDetails() {
   const upcoming = async (employeeId) => {
     try {
       const res = await axios.get(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/clientManagement/upcoming/${employeeId}`
       );
       setupcoming(res.data);
@@ -361,8 +367,7 @@ function ClientDetails() {
   const rejectMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        ` ${
-          import.meta.env.VITE_BACKEND
+        ` ${import.meta.env.VITE_BACKEND
         }/api/clientManagement/reject/${employeeId}`
       );
       console.log("reject", res);
@@ -373,8 +378,7 @@ function ClientDetails() {
   const acceptMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/clientManagement/accept/${employeeId}`
       );
       console.log(res.data);
@@ -386,8 +390,7 @@ function ClientDetails() {
   const meetingOvers = async (employeeId) => {
     try {
       const res = await axios.put(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/clientManagement/meetingOver/${employeeId}`
       );
       console.log(res.data);
@@ -419,8 +422,7 @@ function ClientDetails() {
     const formattedDate = format(currentDate, "mm:ss");
     try {
       const res = await axios.put(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/timeSheet/timeResponse/${ClientID}`,
         {
           StartTime: resstart,
@@ -498,14 +500,14 @@ function ClientDetails() {
   //Delete PopUp
   const [showDeletePopup, setDeleteShowPopup] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
-  const handleDeleteClick = () => {
-    setDeleteId();
+  const handleDeleteClick = (ClientId) => {
+    setDeleteId(ClientId);
     setDeleteShowPopup(true);
   };
-  const confirmDelete = () => {
-    // await axios.delete(
-    //   `${import.meta.env.VITE_BACKEND}/api/record/deleteRecord/${deleteId}`
-    // );
+  const confirmDelete = async () => {
+    await axios.delete(
+      `${import.meta.env.VITE_BACKEND}/api/clientManagement/deleteHistory/${IdEmp}/${deleteId}`
+    );
     setDeleteShowPopup(false);
     fetchData();
   };
@@ -525,38 +527,58 @@ function ClientDetails() {
   const handleSubmit2 = async () => {
     setErrorMessage2("");
 
-    if (!clientName2 || !briefing2 || !projectName) {
-      const teamdata = {
-        name: clientName2,
-        briefing: briefing2,
-        project: projectName,
-      };
+    const notesdata = {
+      notes: briefing2,
+    };
 
-      console.log("Data to be sent:", teamdata);
 
-      setCreateStatus2("Registering Channel....");
-      setIsCreating2(true);
+    setCreateStatus2("Registering Channel....");
+    setIsCreating2(true);
 
-      try {
-        console.log("Successfully Added:", res.data);
+    try {
+      const res = await axios.put(`${import.meta.env.VITE_BACKEND}/api/customers/DataUpdate/${clientIdData}`, notesdata)
 
-        setCreateStatus2("Close note");
+      console.log("Data is updated :", res);
 
-        // resetForm();
+      setCreateStatus2("Close note");
 
-        // getData1();
-      } catch (error) {
-        console.error("Error editing note:", error);
+      // resetForm();
 
-        setCreateStatus2("Error editing note");
-        errorMessage2(
-          error.response?.data?.message || "An unexpected error occurred."
-        );
-      } finally {
-        setIsCreating2(false);
-      }
+      // getData1();
+    } catch (error) {
+      console.error("Error editing note:", error);
+
+      setCreateStatus2("Error editing note");
+      errorMessage2(
+        error.response?.data?.message || "An unexpected error occurred."
+      );
+    } finally {
+      setIsCreating2(false);
     }
+
   };
+
+  const getData = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND}/api/customers/getCustomerV2/${clientIdData}`);
+      setCustomerdata(res.data);
+      console.log("customer data", customerdata)
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  useEffect(() => {
+    getData();
+    console.log("customer data2", customerdata)
+
+  }, [showPopupEdit])
+
+  // console.log("customer id", clientIdData)
+
+
 
   return (
     <div>
@@ -590,20 +612,18 @@ function ClientDetails() {
         {/* Buttons for Mobile View */}
         <div className="flex justify-center mb-6 lg:hidden">
           <button
-            className={`py-2 px-4 rounded-l-full ${
-              activeSection === "appointments"
-                ? "bg-[#3D2314] text-white"
-                : "bg-white text-[#3D2314]"
-            }`}
+            className={`py-2 px-4 rounded-l-full ${activeSection === "appointments"
+              ? "bg-[#3D2314] text-white"
+              : "bg-white text-[#3D2314]"
+              }`}
             onClick={() => handleSectionChange("appointments")}>
             Appointments
           </button>
           <button
-            className={`py-2 px-4 rounded-r-full ${
-              activeSection === "history"
-                ? "bg-[#3D2314] text-white"
-                : "bg-white text-[#3D2314]"
-            }`}
+            className={`py-2 px-4 rounded-r-full ${activeSection === "history"
+              ? "bg-[#3D2314] text-white"
+              : "bg-white text-[#3D2314]"
+              }`}
             onClick={() => handleSectionChange("history")}>
             Client History
           </button>
@@ -1066,7 +1086,8 @@ function ClientDetails() {
                           className="py-4 px-4">
                           {visitor.ClientName}
                         </td>
-                        <Link to="/SalesExecutive/Notes/IDHistory">
+                        <Link
+                          to={`/SalesExecutive/Notes/IDHistory/${visitor.ClientId}`}>
                           <td
                             style={{
                               borderBottom: "1px solid #E4E7EC",
@@ -1076,7 +1097,7 @@ function ClientDetails() {
                               fontWeight: "700",
                             }}
                             className="py-4 px-4">
-                            ROF001
+                            {visitor.ClientId}
                           </td>
                         </Link>
                         <td
@@ -1104,22 +1125,21 @@ function ClientDetails() {
                           className="py-4 px-4 flex flex-wrap justify-between">
                           <span
                             style={{ borderBottom: "1px solid #E4E7EC" }}
-                            className={`rounded   ${
-                              visitor.completed === "completed"
-                                ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
-                                : visitor.completed === "notCompleted"
+                            className={`rounded   ${visitor.completed === "completed"
+                              ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
+                              : visitor.completed === "notCompleted"
                                 ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded"
                                 : visitor.completed === "progress"
-                                ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
-                                : ""
-                            }`}>
+                                  ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
+                                  : ""
+                              }`}>
                             {visitor.completed === "notCompleted"
                               ? "Not completed"
                               : visitor.completed === "completed"
-                              ? "Completed"
-                              : visitor.completed === "progress"
-                              ? "In Progress"
-                              : ""}
+                                ? "Completed"
+                                : visitor.completed === "progress"
+                                  ? "In Progress"
+                                  : ""}
                           </span>
                           <span style={{ alignContent: "center" }}>
                             {visitor.completed === "completed" ? (
@@ -1145,12 +1165,15 @@ function ClientDetails() {
                             <img
                               src={edit}
                               style={{ cursor: "pointer" }}
-                              onClick={() => setShowPopupEdit(true)}
+                              onClick={() => {
+                                setShowPopupEdit(true);
+                                setClientIdData(visitor.ClientId);
+                              }}
                             />
                             <img
                               src={delt}
                               style={{ cursor: "pointer" }}
-                              onClick={() => handleDeleteClick()}
+                              onClick={() => handleDeleteClick(visitor.ClientId)}
                             />
                           </div>
                         </td>
@@ -1463,22 +1486,21 @@ function ClientDetails() {
                               className="py-4 px-4 flex flex-wrap justify-between">
                               <span
                                 style={{ borderBottom: "1px solid #E4E7EC" }}
-                                className={`rounded ${
-                                  visitor.completed === "completed"
-                                    ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
-                                    : visitor.completed === "notCompleted"
+                                className={`rounded ${visitor.completed === "completed"
+                                  ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
+                                  : visitor.completed === "notCompleted"
                                     ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded"
                                     : visitor.completed === "progress"
-                                    ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
-                                    : ""
-                                }`}>
+                                      ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
+                                      : ""
+                                  }`}>
                                 {visitor.completed === "notCompleted"
                                   ? "Not completed"
                                   : visitor.completed === "completed"
-                                  ? "Completed"
-                                  : visitor.completed === "progress"
-                                  ? "In Progress"
-                                  : ""}
+                                    ? "Completed"
+                                    : visitor.completed === "progress"
+                                      ? "In Progress"
+                                      : ""}
                               </span>
                               <span style={{ alignContent: "center" }}>
                                 {visitor.completed === "completed" ? (
@@ -1750,7 +1772,7 @@ function ClientDetails() {
               type="text"
               className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
               placeholder="Client Name"
-              value={clientName2}
+              value={customerdata?.name || customerdata?.customerName || ""}
               onChange={(e) => setClientName2(e.target.value)}
             />
 
@@ -1758,7 +1780,7 @@ function ClientDetails() {
               type="text"
               className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
               placeholder="Choose Project"
-              value={projectName}
+              value={customerdata?.projectName || customerdata?.projectName || ""}
               onChange={(e) => setProjectName(e.target.value)}
             />
             <textarea
@@ -1771,6 +1793,7 @@ function ClientDetails() {
               }}
               placeholder="Add your Briefing"
               value={briefing2}
+              name="notes"
               onChange={(e) => setBriefing2(e.target.value)}
             />
             <button

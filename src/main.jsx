@@ -150,7 +150,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute element={Note} />,
       },
       {
-        path: "/SalesExecutive/Notes/IDHistory",
+        path: "/SalesExecutive/Notes/IDHistory/:ClientId",
         element: <PrivateRoute element={IDSales} />,
       },
       {

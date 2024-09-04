@@ -53,86 +53,121 @@ const OverViewAdmin = () => {
 
   //APIs
 
+  
   const fetchDirectVisitors = async (interval) => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND}/api/overview/direct-visitors`,
-      {
-        params: { interval },
-      }
-    );
-    console.log({ response: response.data }, "dsfkjsdfhkdsjh");
-    return response.data;
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/overview/direct-visitors`,
+        {
+          params: { interval },
+        }
+      );
+      console.log({ response: response.data }, "dsfkjsdfhkdsjh");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const fetchChannelVisitors = async (interval) => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND}/api/overview/channel-visitors`,
-      {
-        params: { interval },
-      }
-    );
-    return response.data;
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/overview/channel-visitors`,
+        {
+          params: { interval },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const dealsClosedResponse = async (interval) => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND}/api/overview/total-DealsClosed`,
-      {
-        params: { interval },
-      }
-    );
-    return response.data;
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/overview/total-DealsClosed`,
+        {
+          params: { interval },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const fetchTotalMeetings = async (interval) => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND}/api/overview/total-meetings`,
-      {
-        params: { interval },
-      }
-    );
-    return response.data;
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/overview/total-meetings`,
+        {
+          params: { interval },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const StaffOnline = async (interval) => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND}api/overview/total-status`,
-      {
-        params: { interval },
-      }
-    );
-    return response.data;
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/overview/total-status`,
+        {
+          params: { interval },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const BargraphData = async (interval) => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND}api/overview/Bar`,
-      {
-        params: { interval },
-      }
-    );
-    return response.data;
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/overview/Bar`,
+        {
+          params: { interval },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const TopExecutivePerformer = async (interval) => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND}api/overview/Top_Executive`,
-      {
-        params: { interval },
-      }
-    );
-    return response.data;
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/overview/Top_Executive`,
+        {
+          params: { interval },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const TopTeamPerformer = async (interval) => {
-    const response = await axios.get(
-      "https://project-rof.vercel.app/api/overview/TOP3Team",
-      {
-        params: { interval },
-      }
-    );
-    return response.data;
+    try {
+      console.log(`Top team`, interval);
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/overview/TOP3Team`,
+        {
+          params: { interval },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
+
 
   const opts = ["Daily", "Weekly", "Monthly", "Yearly"];
 
