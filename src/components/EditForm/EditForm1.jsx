@@ -281,60 +281,62 @@ function EditForm1() {
       {loading ? (
         <Loading />
       ) : (
-        <div>
-          <div className="flex flex-wrap ">
-            <div className="ml-8 mt-8">
-              <h1
-                className="font-bold flex items-center gap-1"
-                style={{
-                  fontFamily: "Poppins",
-                  fontSize: "24px",
-                  fontWeight: "500",
-                }}>
-                <Link to="/SuperAdmin">
-                  <span>Home</span>
-                </Link>
-                <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-                <Link to="/SuperAdmin/Channel_Visitors">
+        <div className="w-full h-screen overflow-auto flex flex-col items-start justify-start">
+          <div className="w-full flex justify-between items-center p-2 h-[15%]">
+            <div className="w-full h-auto flex flex-col items-start justify-start">
+              <div className="ml-8 ">
+                <h1
+                  className="font-bold flex items-center gap-1"
+                  style={{
+                    fontFamily: "Poppins",
+                    fontSize: "20px",
+                    fontWeight: "500",
+                  }}>
+                  <Link to="/SuperAdmin">
+                    <span>Home</span>
+                  </Link>
+                  <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+                  <Link to="/SuperAdmin/Channel_Visitors">
+                    <span
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: "400",
+                        fontSize: "20px",
+                      }}
+                      className="font-medium">
+                      Channel Visitors
+                    </span>
+                  </Link>
+                  <IoIosArrowForward style={{ color: "#1C1B1F" }} />
                   <span
                     style={{
                       fontFamily: "Poppins",
                       fontWeight: "400",
-                      fontSize: "24px",
+                      fontSize: "20px",
                     }}
                     className="font-medium">
-                    Channel Visitors
+                    Channel ID
                   </span>
-                </Link>
-                <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-                <span
-                  style={{
-                    fontFamily: "Poppins",
-                    fontWeight: "400",
-                    fontSize: "24px",
-                  }}
-                  className="font-medium">
-                  Channel ID
-                </span>
-              </h1>
+                </h1>
+              </div>
             </div>
-          </div>
-          <div className="flex pr-[50px]" style={{ justifyContent: "end" }}>
+
             <button
-              className="flex lg:px-8 lg:py-4 editbutton bg-[#3D2314] text-white rounded-full"
+              className="flex py-3  px-6 editbutton bg-[#3D2314] text-white rounded-full"
               key={FormData._id}
               onClick={() => toggleEditMode(FormData._id)}>
               <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
                 <FaRegEdit />
               </h4>
-              <p className="text-[16px]">
+              <p className="text-[16px] text-nowrap">
                 {editMode ? "Save" : "Edit Details"}
               </p>
             </button>
           </div>
-          <main className="flex flex-wrap gap-5 lg:ml-8 mt-6 ">
+
+          <main className="flex flex-1 flex-col lg:items-start justify-around w-full  ">
             <div
-              className="lg:w-[695px] lg:h-[792px] bg-[#FFFFFF] p-[24px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 lg:mr-4"
+              className="w-[98%] mx-auto h-auto  bg-[#FFFFFF] p-[14px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 lg:mr-4"
               style={{ borderRadius: "24px" }}>
               <h2
                 className="text-[20px] text-center font-[Manrope] mb-4"
@@ -344,7 +346,7 @@ function EditForm1() {
               <form>
                 <div>
                   <div>
-                    <div className="flex flex-wrap gap-[40px]">
+                    <div className="flex flex-wrap gap-[20px]">
                       <div>
                         <label
                           htmlFor="first_name"
@@ -650,96 +652,98 @@ function EditForm1() {
                 </div>
               </form>
             </div>
-            <div className="lg:w-[555px] lg:h-[233px] bg-[#FFFFFF] p-[8px] rounded-2xl shadow-lg shadow-[#632E04]">
-              <div className="mt-4">
-                <h2
-                  className="text-center mb-4 text-[#000000] text-[20px] font-[Manrope]"
-                  style={{ fontWeight: "700" }}>
-                  Channel Partner Activity Log
-                </h2>
-              </div>
-              <div className="w-full h-[123px] overflow-x-auto">
-                <div className="w-full h-[123px] overflow-y-auto">
-                  <table className="w-full text-leftm">
-                    <thead className="">
-                      <tr className="text-[#FFFFFF]">
-                        <th
-                          className="border-b p-2 bg-[#3D2314]"
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "400",
-                            width: "75px",
-                          }}>
-                          Serial No
-                        </th>
-                        <th
-                          className="border-b p-2 bg-[#3D2314]"
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "400",
-                            width: "109px",
-                          }}>
-                          Date
-                        </th>
-                        <th
-                          className="border-b p-2 bg-[#3D2314]"
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "400",
-                            width: "96px",
-                          }}>
-                          Timing
-                        </th>
-                        <th
-                          className="border-b p-2 bg-[#3D2314]"
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "400",
-                            width: "92px",
-                            borderLeft: "1px solid grey",
-                          }}>
-                          Project
-                        </th>
-                        <th
-                          className="border-b bg-[#3D2314]"
-                          style={{
-                            fontSize: "14px",
-                            fontWeight: "400",
-                            width: "135px",
-                          }}>
-                          Channel Partner
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody
-                      className="border-b p-2 text-[#000000] text-[16px] font-[Manrope]"
-                      style={{ fontWeight: "500" }}>
-                      {data.length > 0
-                        ? data.map((item, index) => (
-                            <tr key={item.id}>
-                              <td className="border-b p-2">{index + 1}</td>
-                              <td className="border-b p-2">
-                                {DateupdatedAt(item.createdAt)}
-                              </td>
-                              <td className="border-b p-2">
-                                {ResponseAt(item.createdAt)}
-                              </td>
-                              <td className="border-b p-2 text-[14px]">
-                                {item.projectName}
-                              </td>
-                              <td className="border-b p-2">
-                                {item.customerName}
-                              </td>
-                            </tr>
-                          ))
-                        : "No Data Found..."}
-                    </tbody>
-                  </table>
+            <div className="w-full flex items-center justify-around mb-20 ">
+              <div className="w-[48%] lg:h-[529px] bg-[#FFFFFF] p-[8px] rounded-2xl shadow-lg shadow-[#632E04]">
+                <div className="mt-4">
+                  <h2
+                    className="text-center mb-4 text-[#000000] text-[20px] font-[Manrope]"
+                    style={{ fontWeight: "700" }}>
+                    Channel Partner Activity Log
+                  </h2>
                 </div>
+                <div className="w-full h-auto overflow-x-auto">
+                  <div className="w-full h-[400px] overflow-y-auto hide-scrollbar">
+                    <table className="w-full text-left ">
+                      <thead className="">
+                        <tr className="text-[#FFFFFF]">
+                          <th
+                            className="border-b p-2 bg-[#3D2314]"
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "400",
+                              width: "75px",
+                            }}>
+                            Serial No
+                          </th>
+                          <th
+                            className="border-b p-2 bg-[#3D2314]"
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "400",
+                              width: "109px",
+                            }}>
+                            Date
+                          </th>
+                          <th
+                            className="border-b p-2 bg-[#3D2314]"
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "400",
+                              width: "96px",
+                            }}>
+                            Timing
+                          </th>
+                          <th
+                            className="border-b p-2 bg-[#3D2314]"
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "400",
+                              width: "92px",
+                              borderLeft: "1px solid grey",
+                            }}>
+                            Project
+                          </th>
+                          <th
+                            className="border-b bg-[#3D2314]"
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: "400",
+                              width: "135px",
+                            }}>
+                            Channel Partner
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody
+                        className="border-b p-2 text-[#000000] text-[16px] font-[Manrope]"
+                        style={{ fontWeight: "500" }}>
+                        {data.length > 0
+                          ? data.map((item, index) => (
+                              <tr key={item.id}>
+                                <td className="border-b p-2">{index + 1}</td>
+                                <td className="border-b p-2">
+                                  {DateupdatedAt(item.createdAt)}
+                                </td>
+                                <td className="border-b p-2">
+                                  {ResponseAt(item.createdAt)}
+                                </td>
+                                <td className="border-b p-2 text-[14px]">
+                                  {item.projectName}
+                                </td>
+                                <td className="border-b p-2">
+                                  {item.customerName}
+                                </td>
+                              </tr>
+                            ))
+                          : "No Data Found..."}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br /> <br />
               </div>
-              <br /> <br />
               <div
-                className="mt-4 w-[555px] lg:h-[529px] bg-[#FFFFFF] p-[24px] rounded-2xl"
+                className="mt-4 w-[48%] lg:h-[529px] bg-[#FFFFFF] p-[24px] rounded-2xl"
                 style={{
                   borderRadius: "24px",
                   boxShadow: "0px 0px 6.7px 0px #632E04",
@@ -757,7 +761,7 @@ function EditForm1() {
                 <div style={{ height: "300px", overflowY: "scroll" }}>
                   <div className="space-y-4">
                     {FormData.notes && FormData.notes.length > 0 ? (
-                      <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
+                      <div className="bg-[#E9E9E9] p-3 rounded w-full h-[113px]">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
                           <span
@@ -784,32 +788,6 @@ function EditForm1() {
                     ) : (
                       ""
                     )}
-
-                    {/* <div className="bg-[#E9E9E9] w-[507px] h-[97px] p-3 rounded">
-              <div className="flex items-center space-x-2 mb-2">
-                <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
-                <span style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"500"}}>Manager</span>
-              </div>
-              <ul style={{marginTop:"-4px"}} className="list-disc pl-5 text-sm ">
-                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px" }}>Great notes! I'd like to follow up with Clients [Contact Name] to discuss the Pricing program in more detail. Can you schedule a meeting with them?</li>
-               
-                
-              </ul>
-              <div style={{fontFamily:"Manrope" , fontSize:"8px" , fontWeight:"600"}} className=" text-right mt-2 text-[#4A4A4A]">25/07/2024, 02:00 PM</div>
-            </div>
-            
-            <div className="bg-[#E9E9E9] w-[507px] h-[97px] p-3 rounded">
-              <div className="flex items-center space-x-2 mb-2">
-                <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
-                <span style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"500"}}>Super Admin</span>
-              </div>
-              <ul style={{marginTop:"-4px"}} className="list-disc pl-5 text-sm ">
-                <li style={{fontFamily:"Manrope" , fontSize:"12px" , fontWeight:"600",lineHeight:"16.39px" }}>Great notes! I'd like to follow up with Clients [Contact Name] to discuss the Pricing program in more detail. Can you schedule a meeting with them?</li>
-               
-                
-              </ul>
-              <div style={{fontFamily:"Manrope" , fontSize:"8px" , fontWeight:"600"}} className=" text-right mt-2 text-[#4A4A4A]">25/07/2024, 02:00 PM</div>
-            </div> */}
                   </div>
                 </div>
                 <div className="mt-4 ">

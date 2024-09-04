@@ -510,15 +510,16 @@ const Table5 = () => {
       ) : (
         <div
           style={{ gap: "10px" }}
-          className="Tab3 p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg h-screen">
+          className="Tab3 p-4  flex flex-col bg-custom-bg h-screen items-center justify-start overflow-hidden w-full">
+          {/* First box */}
           <div
             style={{ gap: "20px", paddingLeft: "0px" }}
-            className="p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg">
+            className="p-4 overflow-x-auto flex flex-col  gap-9 bg-custom-bg  ">
             <h1
               className="font-bold flex items-center gap-1"
               style={{
                 fontFamily: "Poppins",
-                fontSize: "24px",
+                fontSize: "20px",
                 fontWeight: "500",
               }}>
               <Link to="/SuperAdmin">
@@ -529,14 +530,14 @@ const Table5 = () => {
                 style={{
                   fontFamily: "Poppins",
                   fontWeight: "400",
-                  fontSize: "24px",
+                  fontSize: "20px",
                 }}
                 className="font-medium">
                 Team
               </span>
             </h1>
 
-            <div className="flex flex-row items-center justify-center text-center">
+            <div className="flex items-center justify-center text-center">
               <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full">
                 <input
                   className="w-full py-2 px-12 rounded-full"
@@ -561,7 +562,7 @@ const Table5 = () => {
                 className="add-team-button bg-[#3D2314]  text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] ml-10 mt-4 lg:mt-0"
                 style={{
                   height: "48px",
-                  width: "120px",
+                  width: "100px",
                   border: "1px solid #3D2314",
                   boxShadow: "0px 0px 4px 0px #00000040",
                 }}>
@@ -583,7 +584,6 @@ const Table5 = () => {
                   className="add-team-button bg-[#3D2314]  text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] ml-10 mt-4 lg:mt-0"
                   style={{
                     height: "48px",
-                    width: "189px",
                     border: "1px solid #3D2314",
                     boxShadow: "0px 0px 4px 0px #00000040",
                     gap: "12px",
@@ -643,245 +643,236 @@ const Table5 = () => {
               )}
             </div>
           </div>
+          {/* Second box */}
+          <div className="text-center w-full mb-5 h-[65%] overflow-y-scroll">
+            {data.length !== 0 ? (
+              <table
+                className="w-full bg-white overflow-hidden"
+                style={{
+                  boxShadow: " 0px 0px 4px 0px #00000040",
+                  borderCollapse: "collapse",
+                }}>
+                <thead>
+                  <tr className="text-[9px] lg:text-[15px] text-left bg-[#E8E8E8]">
+                    <th
+                      style={{
+                        fontFamily: "Manrope",
+                        fontSize: "12px",
+                        fontWeight: "500",
+                        lineHeight: "16.39px",
+                        textAlign: "center",
+                        paddingLeft: "10px",
+                        width: "188px",
 
-          <div className="outer-wrapper text-center flex items-center justify-center">
-            <div className="table-wrapper" style={{ width: "900px" }}>
-              {data.length !== 0 ? (
-                <table
-                  className="min-w-full bg-white"
-                  style={{
-                    boxShadow: " 0px 0px 4px 0px #00000040",
-                    borderCollapse: "collapse",
-                  }}>
-                  <thead>
-                    <tr className="text-[9px] lg:text-[15px] text-left bg-[#E8E8E8]">
-                      <th
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          paddingLeft: "10px",
-                          width: "188px",
+                        padding: "10px",
+                        border: "1px solid #ddd",
+                        justifyContent: "center",
+                      }}>
+                      Teams
+                    </th>
+                    <th
+                      className="text-center"
+                      style={{
+                        fontFamily: "Manrope",
+                        fontSize: "12px",
+                        fontWeight: "500",
+                        lineHeight: "16.39px",
+                        textAlign: "center",
+                        padding: "5px",
+                        width: "178px",
+                        border: "1px solid #ddd",
+                      }}>
+                      Manager Name
+                    </th>
+                    <th
+                      className="border-b text-center"
+                      style={{
+                        fontFamily: "Manrope",
+                        fontSize: "12px",
+                        fontWeight: "500",
+                        lineHeight: "16.39px",
+                        textAlign: "center",
+                        padding: "5px",
+                        width: "224px",
+                        border: "1px solid #ddd",
+                      }}>
+                      Manager Email ID
+                    </th>
+                    <th
+                      className="border-b text-center"
+                      style={{
+                        fontFamily: "Manrope",
+                        fontSize: "12px",
+                        fontWeight: "500",
+                        lineHeight: "16.39px",
+                        textAlign: "center",
+                        width: "174px",
+                        border: "1px solid #ddd",
+                      }}>
+                      Current Project
+                    </th>
+                    <th
+                      className="border-b text-center "
+                      style={{
+                        fontFamily: "Manrope",
+                        fontSize: "12px",
+                        fontWeight: "500",
+                        lineHeight: "16.39px",
+                        textAlign: "center",
+                        padding: "5px",
+                        width: "125px",
+                        height: "16px",
+                        justifyItems: "center",
+                        alignItems: "center",
+                        border: "1px solid #ddd",
+                      }}>
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
 
-                          padding: "10px",
-                          border: "1px solid #ddd",
-                          justifyContent: "center",
-                        }}>
-                        Teams
-                      </th>
-                      <th
-                        className="text-center"
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          padding: "5px",
-                          width: "178px",
-                          border: "1px solid #ddd",
-                        }}>
-                        Manager Name
-                      </th>
-                      <th
-                        className="border-b text-center"
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          padding: "5px",
-                          width: "224px",
-                          border: "1px solid #ddd",
-                        }}>
-                        Manager Email ID
-                      </th>
-                      <th
-                        className="border-b text-center"
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          width: "174px",
-                          border: "1px solid #ddd",
-                        }}>
-                        Current Project
-                      </th>
-                      <th
-                        className="border-b text-center "
-                        style={{
-                          fontFamily: "Manrope",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          lineHeight: "16.39px",
-                          textAlign: "center",
-                          padding: "5px",
-                          width: "125px",
-                          height: "16px",
-                          justifyItems: "center",
-                          alignItems: "center",
-                          border: "1px solid #ddd",
-                        }}>
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {data1
-                      ?.filter(
-                        ({
-                          teamName,
-                          managerName,
-                          projectName,
-                          managerEmail,
-                        }) =>
-                          teamName
-                            ?.toLowerCase()
-                            .includes(valueinput.toLowerCase()) ||
-                          projectName
-                            ?.toLowerCase()
-                            .includes(valueinput.toLowerCase()) ||
-                          projectName
-                            ?.toLowerCase()
-                            .includes(valueinput.toLowerCase()) ||
-                          managerEmail
-                            ?.toLowerCase()
-                            .includes(valueinput.toLowerCase()) ||
-                          managerName
-                            ?.toLowerCase()
-                            .includes(valueinput.toLowerCase())
-                      )
-                      .map((visitor, index) => (
-                        <tr
-                          key={index}
-                          className="border-b text-[9px] lg:text-[14px]">
-                          <td
+                <tbody className="">
+                  {data1
+                    ?.filter(
+                      ({ teamName, managerName, projectName, managerEmail }) =>
+                        teamName
+                          ?.toLowerCase()
+                          .includes(valueinput.toLowerCase()) ||
+                        projectName
+                          ?.toLowerCase()
+                          .includes(valueinput.toLowerCase()) ||
+                        projectName
+                          ?.toLowerCase()
+                          .includes(valueinput.toLowerCase()) ||
+                        managerEmail
+                          ?.toLowerCase()
+                          .includes(valueinput.toLowerCase()) ||
+                        managerName
+                          ?.toLowerCase()
+                          .includes(valueinput.toLowerCase())
+                    )
+                    .map((visitor, index) => (
+                      <tr key={index} className="border-b text-[9px] ">
+                        <td
+                          style={{
+                            padding: "10px",
+                            border: "1px solid #ddd",
+                            width: "188px",
+                            height: "54px",
+                          }}>
+                          <div
+                            className="py-3 text-center flex items-center "
                             style={{
-                              padding: "10px",
-                              border: "1px solid #ddd",
-                              width: "188px",
-                              height: "54px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              fontSize: "16px",
+                              fontWeight: "500",
+                              fontFamily: "Manrope",
+                              lineHeight: "21.86px",
                             }}>
-                            <div
-                              className="py-3 text-center flex items-center "
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                fontSize: "16px",
-                                fontWeight: "500",
-                                fontFamily: "Manrope",
-                                lineHeight: "21.86px",
-                              }}>
-                              {visitor.teamName}
-                            </div>
-                          </td>
+                            {visitor.teamName}
+                          </div>
+                        </td>
 
-                          <td
-                            className="py-3 border-b text-center  max-w-[120px] overflow-hidden "
-                            style={{
-                              textAlign: "center",
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "178px",
-                              height: "54px",
-                              fontSize: "16px",
-                              fontWeight: "500",
-                              fontFamily: "Manrope",
-                              lineHeight: "21.86px",
-                            }}
-                            title={visitor.managerName}>
-                            {truncateText(visitor.managerName, 14)}
-                          </td>
+                        <td
+                          className="py-3 border-b text-center  max-w-[120px] overflow-hidden "
+                          style={{
+                            textAlign: "center",
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "178px",
+                            height: "54px",
+                            fontSize: "16px",
+                            fontWeight: "500",
+                            fontFamily: "Manrope",
+                            lineHeight: "21.86px",
+                          }}
+                          title={visitor.managerName}>
+                          {truncateText(visitor.managerName, 14)}
+                        </td>
 
-                          <td
-                            className=" py-3 border-b text-center"
-                            style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "224px",
-                              height: "54px",
-                              fontSize: "16px",
-                              fontWeight: "500",
-                              fontFamily: "Manrope",
-                              lineHeight: "21.86px",
-                            }}
-                            title={visitor.managerEmail}>
-                            {truncateText(visitor.managerEmail, 18)}
-                          </td>
+                        <td
+                          className=" py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "224px",
+                            height: "54px",
+                            fontSize: "16px",
+                            fontWeight: "500",
+                            fontFamily: "Manrope",
+                            lineHeight: "21.86px",
+                          }}
+                          title={visitor.managerEmail}>
+                          {truncateText(visitor.managerEmail, 18)}
+                        </td>
 
-                          <td
-                            className="  py-3 border-b text-center"
-                            style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "174px",
-                              height: "54px",
-                              fontSize: "16px",
-                              fontWeight: "500",
-                              fontFamily: "Manrope",
-                              lineHeight: "21.86px",
-                            }}
-                            title={visitor.projectName}>
-                            {truncateText(visitor.projectName, 13)}
-                          </td>
+                        <td
+                          className="  py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "174px",
+                            height: "54px",
+                            fontSize: "16px",
+                            fontWeight: "500",
+                            fontFamily: "Manrope",
+                            lineHeight: "21.86px",
+                          }}
+                          title={visitor.projectName}>
+                          {truncateText(visitor.projectName, 13)}
+                        </td>
 
-                          <td
-                            className="  py-3 border-b text-center"
+                        <td
+                          className="  py-3 border-b text-center"
+                          style={{
+                            border: "1px solid #ddd",
+                            padding: "10px",
+                            width: "118px",
+                            height: "54px",
+                            justifyItems: "center",
+                          }}>
+                          <div
+                            className="py-3  flex gap-5 "
                             style={{
-                              border: "1px solid #ddd",
-                              padding: "10px",
-                              width: "118px",
-                              height: "54px",
-                              justifyItems: "center",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              display: "flex",
                             }}>
-                            <div
-                              className="py-3  flex gap-5 "
-                              style={{
-                                justifyContent: "center",
-                                alignItems: "center",
-                                display: "flex",
-                              }}>
-                              <Link to={`/SuperAdmin/Team/${visitor.teamName}`}>
-                                <IoOpenOutline
-                                  style={{
-                                    width: "24px",
-                                    height: "24px",
-                                    cursor: "pointer",
-                                    fontSize: "18px",
-                                    color: "#632E04",
-                                  }}
-                                />
-                              </Link>
-
-                              <RiDeleteBin6Line
-                                onClick={() => {
-                                  handleDeleteClick(visitor._id);
-                                }}
+                            <Link to={`/SuperAdmin/Team/${visitor.teamName}`}>
+                              <IoOpenOutline
                                 style={{
-                                  width: "27px",
-                                  height: "27px",
+                                  width: "24px",
+                                  height: "24px",
                                   cursor: "pointer",
                                   fontSize: "18px",
-                                  color: "#930000",
+                                  color: "#632E04",
                                 }}
                               />
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              ) : (
-                <p>No records found...!</p>
-              )}
-            </div>
+                            </Link>
+
+                            <RiDeleteBin6Line
+                              onClick={() => {
+                                handleDeleteClick(visitor._id);
+                              }}
+                              style={{
+                                width: "27px",
+                                height: "27px",
+                                cursor: "pointer",
+                                fontSize: "18px",
+                                color: "#930000",
+                              }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No records found...!</p>
+            )}
           </div>
           {showPopup && (
             <div className="fixed inset-0 flex items-center justify-center z-50">

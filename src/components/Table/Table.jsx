@@ -62,43 +62,43 @@ const Table = () => {
   };
 
   return (
-    <div className="arrowss">
+    <div className="w-full ">
       {loading ? (
         <Loding />
       ) : (
         <div
           style={{ gap: "10px" }}
-          className="Tab3 p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg h-screen;
- ">
+          className="p-4 w-full flex flex-col gap-3 bg-custom-bg
+     ">
           {/* bg: #F7F3E8 */}
-          <div
-            style={{ gap: "20px", paddingLeft: "0px" }}
-            className="p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
- ">
-            <h1
-              className="font-bold flex items-center gap-1"
-              style={{
-                fontFamily: "Poppins",
-                fontSize: "24px",
-                fontWeight: "500",
-              }}>
-              <Link to="/SuperAdmin">
-                <span>Home</span>
-              </Link>
-              <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-              <span
+
+          <div className="w-full flex flex-col gap-2">
+            <div className="">
+              {/* // First box */}
+              <h1
+                className="font-bold flex items-center gap-1"
                 style={{
                   fontFamily: "Poppins",
-                  fontWeight: "400",
-                  fontSize: "24px",
-                }}
-                className="font-medium">
-                Direct Visitors
-              </span>
-            </h1>
-
-            <div className="flex flex-row items-center justify-start flex items-center justify-center ml-80">
-              <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full  mr-96 ">
+                  fontSize: "20px",
+                  fontWeight: "500",
+                }}>
+                <Link to="/SuperAdmin">
+                  <span>Home</span>
+                </Link>
+                <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+                <span
+                  style={{
+                    fontFamily: "Poppins",
+                    fontWeight: "400",
+                    fontSize: "24px",
+                  }}
+                  className="font-medium">
+                  Direct Visitors
+                </span>
+              </h1>
+            </div>
+            <div className="w-full ">
+              <div className="flex justify-start items-center w-1/2 mx-auto mb-3  rounded-full">
                 <input
                   className="w-full py-2 px-12 rounded-full "
                   style={{
@@ -119,20 +119,21 @@ const Table = () => {
               </div>
             </div>
           </div>
-          <div className="outer-wrapper">
-            <div className="table-wrapper">
+
+          <div className="w-full  ">
+            <div className="table-wrapper w-full ">
               {data.length !== 0 ? (
                 <table
-                  className="min-w-full bg-white"
+                  className="w-full bg-white "
                   style={{ boxShadow: " 0px 0px 4px 0px #00000040" }}>
                   <thead>
-                    <tr className="text-[9px] lg:text-[15px] text-left  bg-[#E8E8E8]">
+                    <tr className="text-left  bg-[#E8E8E8]">
                       <th
                         className="border-b"
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
-                          fontWeight: "500",
+                          fontWeight: "700",
                           lineHeight: "16.39px",
                           textAlign: "left",
                           paddingLeft: "7px",
@@ -146,7 +147,7 @@ const Table = () => {
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
-                          fontWeight: "500",
+                          fontWeight: "700",
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
@@ -158,7 +159,7 @@ const Table = () => {
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
-                          fontWeight: "500",
+                          fontWeight: "700",
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
@@ -172,7 +173,7 @@ const Table = () => {
                           width: "166px",
                           height: "35px",
                           fontSize: "12px",
-                          fontWeight: "500",
+                          fontWeight: "700",
                           lineHeight: "16.39px",
                           textAlign: "center",
                         }}>
@@ -183,7 +184,7 @@ const Table = () => {
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
-                          fontWeight: "500",
+                          fontWeight: "700",
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
@@ -195,7 +196,7 @@ const Table = () => {
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
-                          fontWeight: "500",
+                          fontWeight: "700",
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
@@ -207,7 +208,7 @@ const Table = () => {
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
-                          fontWeight: "500",
+                          fontWeight: "700",
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
@@ -219,7 +220,7 @@ const Table = () => {
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
-                          fontWeight: "500",
+                          fontWeight: "700",
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
@@ -231,7 +232,7 @@ const Table = () => {
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
-                          fontWeight: "500",
+                          fontWeight: "700",
                           lineHeight: "16.39px",
                           textAlign: "center",
                           width: "100px",
@@ -244,7 +245,7 @@ const Table = () => {
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "12px",
-                          fontWeight: "500",
+                          fontWeight: "700",
                           lineHeight: "16.39px",
                           textAlign: "center",
                           padding: "5px",
@@ -292,15 +293,17 @@ const Table = () => {
                       .map((visitor, index) => (
                         <tr
                           style={{ paddingLeft: "5px" }}
-                          className="py-1 border-b text-[9px] lg:text-[14px]"
+                          className="py-1 border-b text-[14px] "
                           key={index}>
-                          <td style={{ paddingLeft: "5px" }}>
+                          <td
+                            style={{ paddingLeft: "5px" }}
+                            className="text-[12px]">
                             {DateupdatedAt(visitor.updatedAt)}
                           </td>
-                          <td className="py-1 border-b text-center">
+                          <td className="py-1 border-b text-[11px] text-center">
                             {visitor.timeResponse}
                           </td>
-                          <td className="py-1 border-b text-center">
+                          <td className="py-1 border-b text-[11px] text-center">
                             {visitor.timeDuration}
                           </td>
                           <td

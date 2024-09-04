@@ -67,57 +67,63 @@ const Table1 = () => {
       ) : (
         <div
           style={{ gap: "10px" }}
-          className="Tab3 p-1 overflow-x-auto flex flex-col gap-9 bg-custom-bg h-screen;
+          className="Tab3 p-1 overflow-x-auto flex flex-col bg-custom-bg h-screen
         ">
           <div
-            style={{ gap: "20px", paddingTop: "30px" }}
-            className="p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
-        ">
-            <h1
-              className="font-bold flex items-center gap-1"
-              style={{
-                fontFamily: "Poppins",
-                fontSize: "24px",
-                fontWeight: "500",
-              }}>
-              <Link to="/SuperAdmin">
-                <span>Home</span>
-              </Link>
-              <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-              <span
+            style={{ gap: "", paddingTop: "" }}
+            className="overflow-x-auto flex flex-col justify-start items-center bg-custom-bg h-screen">
+            {/* firstbox */}
+            <div
+              style={{ gap: "20px", paddingLeft: "0px" }}
+              className="p-4 overflow-x-auto flex flex-col items-start  gap-9 bg-custom-bg  w-full ">
+              <h1
+                className="flex items-center"
                 style={{
                   fontFamily: "Poppins",
-                  fontWeight: "400",
-                  fontSize: "24px",
-                }}
-                className="font-medium">
-                Channel Visitors
-              </span>
-            </h1>
-
-            <div className="flex flex-row items-center justify-start flex items-center justify-center ml-80">
-              <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full  mr-96 ">
-                <input
-                  className="w-full py-2 px-12 rounded-full "
+                  fontSize: "20px",
+                  fontWeight: "500",
+                }}>
+                <Link to="/SuperAdmin">
+                  <span>Home</span>
+                </Link>
+                <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+                <span
                   style={{
-                    border: "1px solid #3D2314",
-                    boxShadow: " 0px 0px 4px 0px #00000040",
+                    fontFamily: "Poppins",
+                    fontWeight: "400",
+                    fontSize: "20px",
                   }}
-                  type="text"
-                  value={valueinput}
-                  onChange={(e) => setvalueinput(e.target.value)}
-                  placeholder="Search"
-                />
-                <img
-                  style={{ top: "0.6rem" }}
-                  src={Searchsvg}
-                  alt="Search"
-                  className="absolute left-4"
-                />
+                  className="font-medium">
+                  Channel Visitors
+                </span>
+              </h1>
+
+              <div className="flex items-center justify-center text-center w-full">
+                <div className="flex justify-start items-center w-[50%] lg:block mx-auto relative lg:w-[36rem] rounded-full">
+                  <input
+                    className="w-full py-2 px-12 rounded-full "
+                    style={{
+                      border: "1px solid #3D2314",
+                      boxShadow: " 0px 0px 4px 0px #00000040",
+                    }}
+                    type="text"
+                    value={valueinput}
+                    onChange={(e) => setvalueinput(e.target.value)}
+                    placeholder="Search"
+                  />
+                  <img
+                    style={{ top: "0.6rem" }}
+                    src={Searchsvg}
+                    alt="Search"
+                    className="absolute left-4"
+                  />
+                </div>
               </div>
             </div>
-            <div className="outer-wrapper">
-              <div className="table-wrapper">
+
+            {/* Second box */}
+            <div className="outer-wrapper w-full h-[65%]">
+              <div className="text-center w-full mb-5 h-full overflow-y-scroll">
                 {data.length !== 0 ? (
                   <table
                     className="min-w-full bg-white"

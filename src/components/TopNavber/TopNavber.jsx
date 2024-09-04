@@ -101,7 +101,7 @@ const TopNav = () => {
         boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
         paddingRight: "0px",
       }}
-      className={`TNav border-0 bottom-shadow w-full h-[3.688rem] lg:h-[50px] bg-white bg-opacity-50  flex flex-row justify-end px-5 gap-5 items-center font-[Manrope] font-medium relative shadow-b-lg shadow-Black-1000`}>
+      className={`w-full flex justify-end items-center h-16`}>
       <div
         style={{
           fontFamily: "Manrope",
@@ -122,7 +122,7 @@ const TopNav = () => {
       <div
         ref={popupRef}
         style={{ boxShadow: "0px 0px 4px 0px #00000040", padding: "6px 14px" }}
-        className={`absolute right-7 top-14 bg-white p-4 ${
+        className={`absolute right-7 top-14 bg-white p-4 border  ${
           click ? "" : "hidden"
         }`}>
         <ul className="flex flex-col gap-1 ">

@@ -123,31 +123,33 @@ const SettingPageAdmin = () => {
   }, []);
 
   return (
-    <div className="p-[24px]">
-      <h1
-        className="font-bold flex items-center gap-1 pb-[20px]"
-        style={{
-          fontFamily: "Poppins",
-          fontSize: "24px",
-          fontWeight: "500",
-        }}>
-        Home
-        <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-        <span
+    <div className="p-[16px]  flex flex-col items-start h-screen">
+      <div className="h-[7%]">
+        <h1
+          className="font-bold flex items-center gap-1 "
           style={{
             fontFamily: "Poppins",
-            fontWeight: "400",
             fontSize: "24px",
-          }}
-          className="font-medium">
-          {/* Direct Visitors */}
-          Setting
-        </span>
-      </h1>
+            fontWeight: "500",
+          }}>
+          Home
+          <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+          <span
+            style={{
+              fontFamily: "Poppins",
+              fontWeight: "400",
+              fontSize: "24px",
+            }}
+            className="font-medium">
+            {/* Direct Visitors */}
+            Setting
+          </span>
+        </h1>
+      </div>
 
-      <div className="flex h-[819px] w-[1285px] bg-white">
+      <div className="flex h-[85%] overflow-auto w-full bg-white">
         <div
-          className="w-[25%] h-[794px] text-black flex flex-col"
+          className="w-[25%] h-full text-black flex flex-col overflow-hidden"
           style={{ borderRight: "1px solid #D0D0D0", alignItems: "center" }}>
           <div className="flex flex-col items-center mt-10 w-[122px] h-[101px] gap-[17px] justify-between">
             <button
@@ -184,7 +186,7 @@ const SettingPageAdmin = () => {
           </div>
         </div>
 
-        <div className="w-[1032px] h-[724px] gap-[16px] p-[24px] ">
+        <div className="w-[75%] h-full gap-[16px] p-[24px] overflow-auto hide-scrollbar">
           <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
             <div className="flex items-center gap-4">
               <div onChange={handleImageChange}>
