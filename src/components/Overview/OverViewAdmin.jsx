@@ -51,9 +51,6 @@ const OverViewAdmin = () => {
   const [teamData, setTeamData] = useState([]);
   const [notesData, setNotesData] = useState([]);
 
-  //APIs
-
-  
   const fetchDirectVisitors = async (interval) => {
     try {
       const response = await axios.get(
@@ -62,7 +59,6 @@ const OverViewAdmin = () => {
           params: { interval },
         }
       );
-      console.log({ response: response.data }, "dsfkjsdfhkdsjh");
       return response.data;
     } catch (error) {
       console.log(error);
@@ -155,7 +151,6 @@ const OverViewAdmin = () => {
 
   const TopTeamPerformer = async (interval) => {
     try {
-      console.log(`Top team`, interval);
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND}/api/overview/TOP3Team`,
         {
@@ -167,7 +162,6 @@ const OverViewAdmin = () => {
       console.log(error);
     }
   };
-
 
   const opts = ["Daily", "Weekly", "Monthly", "Yearly"];
 
@@ -184,26 +178,17 @@ const OverViewAdmin = () => {
       "04-05",
       "05-06",
     ],
-
     datasets: [
       {
-        label: "selectedOpt",
-
-        backgroundColor: function (contex) {
-          const value = contex.raw;
+        label: selectedOpt,
+        backgroundColor: function (context) {
+          const value = context.raw;
           return value > 17 ? "rgba(61, 35, 20, 1)" : "rgba(240, 235, 232, 1)";
         },
         borderRadius: 5,
-
         data: barData,
       },
     ],
-
-    options: {
-      plugins: {
-        Legend: false,
-      },
-    },
   };
 
   const options = {
@@ -215,20 +200,15 @@ const OverViewAdmin = () => {
         beginAtZero: true,
       },
     },
+    responsive: true,
+    maintainAspectRatio: false,
   };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  // useEffect(() => {
-
-  //   handleOptionClick(selectedOpt);
-  // }, [selectedOpt]);
-
   const handleOptionClick = async (opt) => {
-    console.log(`Option selected: ${opt}`);
-
     setSelectedOpt(opt);
     setIsOpen(false);
     try {
@@ -252,18 +232,14 @@ const OverViewAdmin = () => {
         TopTeamPerformer(opt.toLowerCase()),
       ]);
 
-      console.log("Direct Data:", directData); // Log API responses
-      console.log("Channel Data:", channelData);
-      console.log("topTeam Data:", topTeam);
-
-      setDirectVisitors(directData?.numberOfDirectVisitors || 23);
+      setDirectVisitors(directData?.numberOfDirectVisitors || 0);
       setChannelVisitors(channelData.numberOfChannelVisitors || 0);
       setTotalMeetings(meetingsData.totalMeetings || 0);
       setDealClosed(dealsClosed.totalClientConversion || 0);
       setStaffOnline(stafOnline.totalStatus || 0);
-      setBarData(graphData.data || 0);
-      setExecutiveData(topExecutive || 0);
-      setTeamData(topTeam || 0);
+      setBarData(graphData.data || []);
+      setExecutiveData(topExecutive || []);
+      setTeamData(topTeam || []);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -274,275 +250,105 @@ const OverViewAdmin = () => {
   }, [selectedOpt]);
 
   const getNotes = async () => {
-    const res = await axios.get(
-      "https://project-rof.vercel.app/api/overview/Note"
-    );
-    setNotesData(res.data);
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/overview/Note`
+      );
+      setNotesData(res.data);
+    } catch (error) {
+      console.error("Error fetching notes:", error);
+    }
   };
 
   useEffect(() => {
     getNotes();
   }, []);
 
-  console.log("notesData", notesData);
-
-  const DateupdatedAt = (DateupdatedAt) => {
-    const formattedDate = format(new Date(DateupdatedAt), "dd MMM | hh:mm a");
-    return formattedDate;
+  const DateupdatedAt = (dateUpdatedAt) => {
+    return format(new Date(dateUpdatedAt), "dd MMM | hh:mm a");
   };
 
   return (
-    <div className=" h-[1024px] p-6 overview">
-      <div
-        style={{ paddingLeft: "0px" }}
-        className="  overflow-x-auto flex flex-col gap- bg-custom-bg">
-        <div className="flex flex-row items-center justify-center text-center "></div>
-
-        <div classNamename="dropdown-section relative inline-block text-left ">
-          <div className="group flex justify-end mr-[25px]">
+    <div className="p-4 md:p-6 overview ">
+      <div className="flex flex-col gap-4 bg-custom-bg">
+        <div className="flex justify-end mr-4 md:mr-[25px]">
+          <div className="relative inline-block text-left">
             <button
               onClick={toggleDropdown}
-              className="pointer dropdown-toggle inline-flex justify-between items-center w-[162px] h-[35px] px-4 py-2 text-sm  bg-[white] text-[black]">
-              <img src={filter} width="24px" height="24px" />
+              className="inline-flex justify-between items-center w-[140px] md:w-[162px] h-[35px] px-4 py-2 text-sm bg-white text-black border rounded-md">
+              <img src={filter} width="24" height="24" alt="Filter" />
               {selectedOpt || "Daily"}
               <svg
-                className="w-4 h-4 ml-2 -mr-1"
+                className="w-4 h-4 ml-2"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor">
-                <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
+                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
             </button>
 
-            {/* <!-- Dropdown menu --> */}
-            {/* <div
-                className="absolute top-[260px] w-40 mt-1 origin-top-left item-center bg-white divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
-                <div className="py-1">
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Daily</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Weekly</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Monthly</a>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center">Yearly</a>
-                </div>
-              </div> */}
+            {isOpen && (
+              <ul className="absolute right-0 mt-2 w-[140px] md:w-[162px] bg-white border rounded-md shadow-lg z-10">
+                {opts.map((opt, index) => (
+                  <li
+                    key={index}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => handleOptionClick(opt)}>
+                    {opt}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>
 
-      {isOpen && (
-        <ul
-          className="dropdown-menu top-[240px] w-40 mt-1 origin-top-left item-center bg-white"
-          style={{
-            position: "absolute",
-            textAlign: "center",
-            right: "50px",
-            cursor: "pointer",
-            top: "180px",
-          }}>
-          {opts.map((opt, index) => (
-            <li
-              className="py-1"
-              key={index}
-              onClick={() => handleOptionClick(opt.toString())}>
-              {opt}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div className=" grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-[20px] mt-4">
-        <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
-          <div
-            style={{
-              fontFamily: "Manrope",
-              fontWeight: "400",
-              fontSize: "14px",
-              lineHeight: "19.12px",
-            }}>
-            Total Direct <br /> Visitors
-            <img className="h-[24px] w-[24px] mt-3" src={onee} alt="" />
-          </div>
-
-          <div
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "500",
-              fontSize: "44px",
-              textAlign: "center",
-              width: "102px",
-              height: "31px",
-            }}
-            className="mt-2  text-[#632E04] ">
-            {directVisitors || 0}
-          </div>
-        </div>
-        <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
-          <div
-            style={{
-              fontFamily: "Manrope",
-              fontWeight: "400",
-              fontSize: "14px",
-              lineHeight: "19.12px",
-            }}>
-            Total Channel <br /> Visitors
-            <img className="h-[24px] w-[24px] mt-3" src={twoo} alt="" />
-          </div>
-          <div
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "500",
-              fontSize: "44px",
-              textAlign: "center",
-              width: "89px",
-              height: "31px",
-            }}
-            className="mt-2  text-[#632E04] ">
-            {channelVisitors || 0}
-          </div>
-        </div>
-        <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
-          <div
-            style={{
-              fontFamily: "Manrope",
-              fontWeight: "400",
-              fontSize: "14px",
-              lineHeight: "19.12px",
-            }}>
-            Deals <br /> Closed
-            <img className="h-[24px] w-[24px] mt-3" src={threee} alt="" />
-          </div>
-          <div
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "500",
-              fontSize: "44px",
-              textAlign: "center",
-              width: "82px",
-              height: "31px",
-            }}
-            className="mt-2 ml-12   text-[#632E04]">
-            {dealClosed || 0}
-          </div>
-        </div>
-        <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
-          <div
-            style={{
-              fontFamily: "Manrope",
-              fontWeight: "400",
-              fontSize: "14px",
-              lineHeight: "19.12px",
-            }}>
-            Total Staff <br /> Online
-            <img className="h-[24px] w-[24px] mt-3" src={fourrr} alt="" />
-          </div>
-          <div
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "500",
-              fontSize: "44px",
-              textAlign: "center",
-              width: "112px",
-              height: "31px",
-            }}
-            className="mt-2  text-[#632E04]">
-            {staffOnline || 0}
-          </div>
-        </div>
-        <div className="bg-white shadow rounded-lg p-6 w-[230px] h-[117px] border-2 border-[#3D2314] flex">
-          <div
-            style={{
-              fontFamily: "Manrope",
-              fontWeight: "400",
-              fontSize: "14px",
-              lineHeight: "19.12px",
-            }}>
-            Total <br /> Meetings
-            <img className="h-[24px] w-[24px] mt-3" src={fivee} alt="" />
-          </div>
-          <div
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "500",
-              fontSize: "44px",
-              textAlign: "center",
-              width: "62px",
-              height: "31px",
-            }}
-            className="mt-2 ml-10  text-[#632E04]">
-            {totalMeetings || 0}
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-6  ">
-        <div className="w-[417px] h-[47px]  ">
-          <div>
-            <div
-              className="bg-[#3D2314] flex w-[417px] h-[47px]"
-              style={{
-                borderRadius: "8px 8px 0px 0px",
-                display: "flex",
-                justifyContent: "center",
-              }}>
-              <img
-                src={single}
-                style={{
-                  gap: "4px",
-                  width: "34px",
-                  height: "34px",
-                  alignSelf: "center",
-                  marginLeft: "5px",
-                }}
-              />
-              <p
-                className="  [#313131] text-[white] "
-                style={{
-                  fontSize: "20px",
-                  fontFamily: "Manrope",
-                  fontWeight: "400",
-                  lineHeight: "27.32px",
-                  alignContent: "center",
-                }}>
-                Top Executive Perfomer
-              </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mt-4">
+        {[
+          { title: "Total Direct Visitors", value: directVisitors, icon: onee },
+          { title: "Total Channel Visitors", value: channelVisitors, icon: twoo },
+          { title: "Deals Closed", value: dealClosed, icon: threee },
+          { title: "Total Staff Online", value: staffOnline, icon: fourrr },
+          { title: "Total Meetings", value: totalMeetings, icon: fivee },
+        ].map((stat, index) => (
+          <div key={index} className="bg-white shadow rounded-lg p-4 border-2 border-[#3D2314] flex flex-col justify-between">
+            <div className="flex justify-between items-start">
+              <div className="text-sm font-normal">{stat.title}</div>
+              <img className="h-6 w-6" src={stat.icon} alt="" />
             </div>
+            <div className="text-3xl md:text-4xl font-medium text-[#632E04] mt-2">
+              {stat.value || 0}
+            </div>
+          </div>
+        ))}
+      </div>
 
-            <table className="w-[417px] h-[170px] ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">
+        {/* Top Executive Performer Table */}
+        <div className="w-full xl:w-[417px]">
+          <div className="bg-[#3D2314] flex items-center justify-center p-2 rounded-t-lg">
+            <img src={single} className="w-8 h-8 mr-2" alt="Top Executive" />
+            <p className="text-white text-lg font-normal">
+              Top Executive Performer
+            </p>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full">
               <thead>
-                <tr
-                  className="text-center text-sm font-medium divide-x-2 divide-gray-300 "
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    lineHeight: "16.39px",
-                    height: "35px",
-                  }}>
-                  <th className="px-4 py-2 h-[35px] w-[40px] bg-[#F5F2F0]">
-                    No
-                  </th>
-                  <th className="px-4 py-2   bg-[#F5F2F0]">Name</th>
-                  <th className="px-4 py-2  bg-[#F5F2F0]">Meeting Attended</th>
-                  <th className="px-4 py-2   bg-[#F5F2F0]">Conversion</th>
+                <tr className="text-center text-sm font-medium bg-[#F5F2F0]">
+                  <th className="px-2 py-2">No</th>
+                  <th className="px-2 py-2">Name</th>
+                  <th className="px-2 py-2">Meeting Attended</th>
+                  <th className="px-2 py-2">Conversion</th>
                 </tr>
               </thead>
-
-              <tbody
-                className="bg-white text-center [#2B2B2B] divide-y divide-gray-200"
-                style={{
-                  fontSize: "16px",
-                  fontWeight: "500",
-                  fontFamily: "Manrope",
-                }}>
+              <tbody className="bg-white text-center divide-y divide-gray-200">
                 {executiveData.map((visitor, index) => (
-                  <tr className="divide-x-2 divide-gray-200">
-                    <td className="px-4 py-2 text-[12px]">{index + 1}</td>
-                    <td className="px-2 py-2 text-[12px]">{visitor.name}</td>
-                    <td className="px-4 py-2 text-[12px]">
-                      {visitor.totalMeetings}
-                    </td>
-                    <td className="px-4 py-2 text-[12px]">
-                      {visitor.clientConversion}
-                    </td>
+                  <tr key={index} className="divide-x divide-gray-200">
+                    <td className="px-2 py-2 text-xs">{index + 1}</td>
+                    <td className="px-2 py-2 text-xs">{visitor.name}</td>
+                    <td className="px-2 py-2 text-xs">{visitor.totalMeetings}</td>
+                    <td className="px-2 py-2 text-xs">{visitor.clientConversion}</td>
                   </tr>
                 ))}
               </tbody>
@@ -550,199 +356,81 @@ const OverViewAdmin = () => {
           </div>
         </div>
 
-        {/* 2nd table */}
-
-        <div className="w-[417px] h-[47px]  ">
-          <div>
-            <div
-              className="bg-[#3D2314] flex w-[417px] h-[47px]"
-              style={{
-                borderRadius: "8px 8px 0px 0px",
-                display: "flex",
-                justifyContent: "center",
-              }}>
-              <img
-                src={team}
-                style={{
-                  gap: "4px",
-                  width: "34px",
-                  height: "34px",
-                  alignSelf: "center",
-                  marginLeft: "5px",
-                }}
-              />
-              <p
-                className="[#313131] text-[white] "
-                style={{
-                  fontSize: "20px",
-                  fontFamily: "Manrope",
-                  fontWeight: "400",
-                  lineHeight: "27.32px",
-                  alignContent: "center",
-                }}>
-                Top Team Perfomance
-              </p>
-            </div>
-
-            <table className="w-[417px] h-[170px] ">
+        {/* Top Team Performance Table */}
+        <div className="w-full xl:w-[417px]">
+          <div className="bg-[#3D2314] flex items-center justify-center p-2 rounded-t-lg">
+            <img src={team} className="w-8 h-8 mr-2" alt="Top Team" />
+            <p className="text-white text-lg font-normal">
+              Top Team Performance
+            </p>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full">
               <thead>
-                <tr
-                  className="text-center text-sm font-medium divide-x-2 divide-gray-200"
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    lineHeight: "16.39px",
-                    height: "35px",
-                  }}>
-                  <th className="px-4 py-2 h-[35px] w-[40px] bg-[#F5F2F0]">
-                    No
-                  </th>
-                  <th className="px-4 py-2   bg-[#F5F2F0]">Name</th>
-                  <th className="px-4 py-2  bg-[#F5F2F0]">Meeting Attended</th>
-                  <th className="px-4 py-2   bg-[#F5F2F0]">Conversion</th>
+                <tr className="text-center text-sm font-medium bg-[#F5F2F0]">
+                  <th className="px-2 py-2">No</th>
+                  <th className="px-2 py-2">Name</th>
+                  <th className="px-2 py-2">Meeting Attended</th>
+                  <th className="px-2 py-2">Conversion</th>
                 </tr>
               </thead>
-
-              <tbody
-                className="bg-white text-center [#2B2B2B] divide-y divide-gray-200"
-                style={{
-                  fontSize: "16px",
-                  fontWeight: "500",
-                  fontFamily: "Manrope",
-                }}>
+              <tbody className="bg-white text-center divide-y divide-gray-200">
                 {teamData.map((visitor, index) => (
-                  <tr className="divide-x-2 divide-gray-200">
-                    <td className="px-4 py-2 text-[12px]">{index + 1}</td>
-                    <td className="px-4 py-2">{visitor.teamName}</td>
-                    <td className="px-4 py-2">{visitor.clientCount}</td>
-                    <td className="px-4 py-2">{visitor.conversionCount}</td>
-                  </tr>
+                  <tr key={index} className="divide-x divide-gray-200">
+                    <td className="px-2 py-2 text-xs">{index + 1}</td>
+                    <td className="px-2 py-2 text-xs">{visitor.teamName}</td>
+                    <td className="px-2 py-2 text-xs">{visitor.clientCount}</td>
+                    <td className="px-2 py-2 text-xs">{visitor.conversionCount}</td>
+                    </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </div>
-        {/* 
-Notes */}
 
-        <Link to="/SuperAdmin/Note_Pages">
-          <div className=" bg-white shadow-md   w-[361px] h-[620px] ">
-            <div>
-              <div
-                className="w-[361px] h-[47px] flex bg-[#3D2314] justify-center"
-                style={{ borderRadius: "8px 8px 0px 0px" }}>
-                <img
-                  src={Notes}
-                  style={{
-                    gap: "4px",
-                    width: "34px",
-                    height: "34px",
-                    alignSelf: "center",
-                    marginLeft: "5px",
-                  }}
-                />
-                <p
-                  className=" [#313131] text-[white]  ml-[8px] "
-                  style={{
-                    fontSize: "20px",
-                    fontFamily: "Manrope",
-                    fontWeight: "400",
-                    lineHeight: "27.32px",
-                    alignContent: "center",
-                  }}>
-                  Notes
-                </p>
-              </div>
-
-              <div style={{ height: "547px" }} className="NotesT">
-                {notesData.map((note, index) => (
-                  <div className="flex justify-around">
-                    <div className="flex flex-wrap  justify-between w-[270px] mt-4  ml-[12px] ">
-                      <div
-                        className="items-center justify-center"
-                        style={{
-                          width: "36px",
-                          height: "36px",
-                          borderRadius: "50%",
-                          padding: "8px",
-                          background: "rgba(99, 46, 4, 0.5)",
-                          color: "rgba(61, 35, 20, 1)",
-                          fontSize: "14px",
-                          fontFamily: "Manrope",
-                          fontWeight: "600px",
-                        }}>
-                        SB
-                      </div>
-
-                      <div className="flex flex-wrap ">
-                        <div>
-                          {" "}
-                          <h3
-                            style={{ fontWeight: "500" }}
-                            className="  text-[16px] font-[Manrope] text-[#383838] text-left">
-                            {" "}
-                            {DateupdatedAt(note.date)}
-                          </h3>
-                          <marquee
-                            style={{ fontWeight: "500", width: "192px" }}
-                            className="text-[10px] font-[Manrope] text-[black] text-left border-b">
-                            {note.note}
-                          </marquee>
-                        </div>
-                      </div>
+        {/* Notes Section */}
+         
+         <div className="w-full xl:w-[361px]">
+          <div className="bg-white shadow-md h-[620px]">
+            <div className="bg-[#3D2314] flex items-center justify-center p-2 rounded-t-lg">
+              <img src={Notes} className="w-8 h-8 mr-2" alt="Notes" />
+              <p className="text-white text-lg font-normal">Notes</p>
+            </div>
+            <div style={{ height: "547px" }} className="overflow-y-auto">
+              {notesData.map((note, index) => (
+                <div key={index} className="flex justify-between items-center p-4 border-b">
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-[rgba(99,46,4,0.5)] text-[#3D2314] flex items-center justify-center text-sm font-semibold mr-4">
+                      SB
                     </div>
-
-                    <div style={{ alignContent: "center" }}>
-                      <FiEye />
+                    <div>
+                      <h3 className="text-sm font-medium text-[#383838]">
+                        {DateupdatedAt(note.date)}
+                      </h3>
+                      <p className="text-xs text-black truncate w-48">
+                        {note.note}
+                      </p>
                     </div>
                   </div>
-                ))}
-              </div>
+                  <FiEye className="text-gray-500" />
+                </div>
+              ))}
             </div>
           </div>
-        </Link>
+          </div>
 
-        {/* Graph */}
-        <div className=" mt-1">
-          <div
-            className="graph-div bg-white shadow rounded-lg p-[24px]  w-[874px] h-[380px] "
-            style={{ marginTop: "-400px" }}>
-            <div
-              style={{
-                marginTop: "-15px",
-                fontfamily: "Manrope",
-                fontsize: "14px",
-                fontweight: " 600",
-                lineheight: " 19.12px",
-                textalign: "left",
-              }}>
-              Most Meeting Hour
-            </div>
-            <div
-              style={{
-                marginTop: "-6px",
-                borderBottom: "3px dashed #3D2314",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-              className="mt-2  text-[#632E04] ">
-              <span
-                style={{
-                  fontFamily: "Poppins",
-                  fontWeight: "500",
-                  fontSize: "44px",
-                }}>
+        {/* Graph Section */}
+        <div className="col-span-full xl:col-span-2 mt-6 xl:mt-0">
+          <div className="bg-white shadow rounded-lg p-6">
+            <h2 className="text-lg font-semibold mb-4">Most Meeting Hour</h2>
+            <div className="flex justify-between items-center mb-4 pb-2 border-b-2 border-dashed border-[#3D2314]">
+              <span className="text-3xl md:text-4xl font-medium text-[#632E04]">
                 01-02 PM
               </span>
-              <span style={{ fontSize: "18px", color: "black" }}>Today</span>
+              <span className="text-sm text-gray-600">Today</span>
             </div>
-            <div className="graphBar h-[260px]">
-              <Bar
-                style={{ borderRadius: "4px" }}
-                data={data}
-                options={options}
-              />
+            <div className="h-[360px]">
+              <Bar data={data} options={options} />
             </div>
           </div>
         </div>
@@ -752,3 +440,8 @@ Notes */}
 };
 
 export default OverViewAdmin;
+
+
+
+
+

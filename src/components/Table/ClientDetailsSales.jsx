@@ -581,30 +581,12 @@ function ClientDetails() {
 
 
   return (
-    <div>
-      <div
-        style={{ gap: "20px", paddingTop: "30px" }}
-        className="headLn p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg">
-        <h1
-          className="font-bold flex items-center gap-1"
-          style={{
-            fontFamily: "Poppins",
-            fontSize: "24px",
-            fontWeight: "500",
-            color: "black",
-          }}>
+    <div className="flex flex-col h-screen">
+       <div className="flex items-center p-4 lg:p-6 bg-custom-bg">
+        <h1 className="text-xl lg:text-2xl font-bold flex items-center gap-1">
           Home
-          <IoIosArrowForward style={{ color: "black" }} />
-          <span
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "500",
-              fontSize: "24px",
-              color: "black",
-            }}
-            className="font-medium">
-            Overview
-          </span>
+          <IoIosArrowForward className="text-black" />
+          <span className="font-medium">Overview</span>
         </h1>
       </div>
 
@@ -612,19 +594,23 @@ function ClientDetails() {
         {/* Buttons for Mobile View */}
         <div className="flex justify-center mb-6 lg:hidden">
           <button
-            className={`py-2 px-4 rounded-l-full ${activeSection === "appointments"
-              ? "bg-[#3D2314] text-white"
-              : "bg-white text-[#3D2314]"
-              }`}
-            onClick={() => handleSectionChange("appointments")}>
+            className={`py-2 px-4 rounded-l-full ${
+              activeSection === "appointments"
+                ? "bg-[#3D2314] text-white"
+                : "bg-white text-[#3D2314]"
+            }`}
+            onClick={() => handleSectionChange("appointments")}
+          >
             Appointments
           </button>
           <button
-            className={`py-2 px-4 rounded-r-full ${activeSection === "history"
-              ? "bg-[#3D2314] text-white"
-              : "bg-white text-[#3D2314]"
-              }`}
-            onClick={() => handleSectionChange("history")}>
+            className={`py-2 px-4 rounded-r-full ${
+              activeSection === "history"
+                ? "bg-[#3D2314] text-white"
+                : "bg-white text-[#3D2314]"
+            }`}
+            onClick={() => handleSectionChange("history")}
+          >
             Client History
           </button>
         </div>
@@ -632,555 +618,173 @@ function ClientDetails() {
         {/* Tables for Large Devices */}
         <div className="hidden lg:block">
           {/* Upcoming Appointments */}
-          <div style={{ textAlign: "-webkit-center " }}>
-            <div className="mb-6 w-[964px]">
-              <h2
-                style={{
-                  textAlign: "justify",
-                  fontFamily: "Manrope",
-                  fontSize: "18px",
-                  fontWeight: "600",
-                  lineHeight: "24.59px",
-                }}
-                className="text-lg font-semibold mb-2">
-                Upcoming Appointments
-              </h2>
-              <div className="wrapperD rounded-[12px]">
-                <div className="wrapperD-outer">
-                  <table className="w-full bg-white rounded-[12px]">
-                    <thead className=" bg-[#D7D7D7]">
-                      <tr>
-                        <th
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "12px",
-                            fontWeight: "400",
-                            lineHeight: "16.39px",
-                            color: "#4B4B4B",
-                          }}
-                          className="py-2 px-4 text-left th1">
-                          Date
-                        </th>
-                        <th
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "12px",
-                            fontWeight: "400",
-                            lineHeight: "16.39px",
-                            color: "#4B4B4B",
-                            textAlign: "center",
-                          }}
-                          className="py-2 px-4 ">
-                          Customer ID
-                        </th>
-                        <th
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "12px",
-                            fontWeight: "400",
-                            lineHeight: "16.39px",
-                            color: "#4B4B4B",
-                            width: "180px",
-                          }}
-                          className="py-2 px-4 text-left">
-                          Name
-                        </th>
-                        <th
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "12px",
-                            fontWeight: "400",
-                            lineHeight: "16.39px",
-                            color: "#4B4B4B",
-                          }}
-                          className="py-2 px-4 text-left">
-                          Project Name
-                        </th>
-                        <th
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "12px",
-                            fontWeight: "400",
-                            lineHeight: "16.39px",
-                            color: "#4B4B4B",
-                            width: "85px",
-                          }}
-                          className="py-2 px-4 text-left">
-                          Timer/Min
-                        </th>
-                        <th
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "12px",
-                            fontWeight: "400",
-                            lineHeight: "16.39px",
-                            color: "#4B4B4B",
-                            textAlign: "center",
-                          }}
-                          className="py-2 px-4 ">
-                          Start Time
-                        </th>
-                        <th
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "12px",
-                            fontWeight: "400",
-                            lineHeight: "16.39px",
-                            color: "#4B4B4B",
-                            textAlign: "center",
-                          }}
-                          className="py-2 px-4 ">
-                          End Time
-                        </th>
-
-                        <th
-                          style={{
-                            fontFamily: "Manrope",
-                            fontSize: "12px",
-                            fontWeight: "400",
-                            lineHeight: "16.39px",
-                            color: "#4B4B4B",
-                          }}
-                          className="py-2 px-4 text-left">
-                          Actions
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {upcomings.map((value, i) => (
-                        <tr>
-                          <td
-                            style={{
-                              fontFamily: "Manrope",
-                              fontSize: "16px",
-                              fontWeight: "500",
-                              lineHeight: "21.86px",
-                              color: "#5C5C5C",
-                              borderBottom: "1px solid #E4E7EC",
+          <div className="mb-8">
+            <h2 className="text-lg font-semibold mb-4">Upcoming Appointments</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full bg-white rounded-lg shadow-sm">
+                <thead className="bg-[#D7D7D7]">
+                  <tr>
+                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">Date</th>
+                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">Customer ID</th>
+                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">Name</th>
+                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">Project Name</th>
+                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">Timer/Min</th>
+                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">Start Time</th>
+                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">End Time</th>
+                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {upcomings.map((value, i) => (
+                    <tr key={i}>
+                      <td className="py-2 px-4 text-sm">{DateupdatedAt(value.createdAt)}</td>
+                      <td className="py-2 px-4 text-sm text-center text-[#000AFF] underline font-bold">ROF001</td>
+                      <td className="py-2 px-4 text-sm">
+                        <span className="bg-green-200 text-green-800 py-1 px-2 rounded text-xs">New Client</span>
+                        <span className="ml-2">{value.ClientName}</span>
+                      </td>
+                      <td className="py-2 px-4 text-sm">{value.ClientProject}</td>
+                      <td className="py-2 px-4 text-sm font-semibold">{formatTime(timeLeft)}</td>
+                      <td className="py-2 px-4 text-sm font-semibold text-center">{time === 0 ? "00 : 00" : formatTime(time)}</td>
+                      <td className="py-2 px-4 text-sm font-semibold text-center">{EndCounter === 0 ? "00 : 00" : EndCounter}</td>
+                      <td className="py-2 px-4 text-sm">
+                        <div className="flex justify-around">
+                          <button
+                            className="text-green-500 mr-2"
+                            onClick={() => handleCorrectClick("correct1", "cross1")}
+                          >
+                            {iconState.correct1 ? "✓" : <img src={backButtton} alt="Back" />}
+                          </button>
+                          <button
+                            className="text-red-500"
+                            onClick={() => {
+                              if (iconState.correct1 === false) {
+                                handleCrossClick("correct1", "cross1");
+                              }
                             }}
-                            className="py-2 px-2">
-                            {DateupdatedAt(value.createdAt)}
-                          </td>
-                          <td
-                            style={{
-                              fontFamily: "Manrope",
-                              fontSize: "16px",
-                              fontWeight: "700",
-                              lineHeight: "21.86px",
-                              color: "#5C5C5C",
-                              borderBottom: "1px solid #E4E7EC",
-                              color: "#000AFF",
-                              textDecoration: "underline",
-                              textAlign: "center",
-                            }}>
-                            ROF001
-                          </td>
-                          <td
-                            style={{
-                              fontFamily: "Manrope",
-                              fontSize: "16px",
-                              fontWeight: "500",
-                              lineHeight: "21.86px",
-                              color: "#5C5C5C",
-                              borderBottom: "1px solid #E4E7EC",
-                              display: "flex",
-                              justifyContent: "space-between",
-                              textAlign: "center",
-                              alignContent: "center",
-                              alignItems: "center",
-                              padding: "8px",
-                            }}>
-                            <span className="bg-green-200 text-green-800 py-1 px-2 rounded">
-                              New Client
-                            </span>
-                            <span
-                              style={{ color: "#5C5C5C", fontSize: "16px" }}>
-                              {value.ClientName}
-                            </span>
-                          </td>
-                          <td
-                            style={{
-                              fontFamily: "Manrope",
-                              fontSize: "16px",
-                              fontWeight: "500",
-                              lineHeight: "21.86px",
-                              color: "#5C5C5C",
-                              borderBottom: "1px solid #E4E7EC",
-                              textAlign: "center",
-                            }}
-                            className="py-2 px-2">
-                            {" "}
-                            {value.ClientProject}
-                          </td>
-                          <td
-                            style={{
-                              fontFamily: "Manrope",
-                              fontSize: "16px",
-                              fontWeight: "600",
-                              lineHeight: "21.86px",
-                              color: "black",
-                              borderBottom: "1px solid #E4E7EC",
-                              textAlign: "center",
-                            }}
-                            className="py-2 px-2">
-                            {formatTime(timeLeft)}
-                          </td>
-                          <td
-                            style={{
-                              fontFamily: "Manrope",
-                              fontSize: "16px",
-                              fontWeight: "600",
-                              lineHeight: "21.86px",
-                              color: "black",
-                              borderBottom: "1px solid #E4E7EC",
-                              textAlign: "center",
-                            }}
-                            className="py-2 px-2">
-                            {time === 0 ? "00 : 00" : formatTime(time)}
-                          </td>
-                          <td
-                            style={{
-                              fontFamily: "Manrope",
-                              fontSize: "16px",
-                              fontWeight: "600",
-                              lineHeight: "21.86px",
-                              color: "black",
-                              borderBottom: "1px solid #E4E7EC",
-                              textAlign: "center",
-                            }}
-                            className="py-2 px-2">
-                            {EndCounter === 0 ? "00 : 00" : EndCounter}
-                          </td>
-
-                          <td
-                            style={{
-                              fontFamily: "Manrope",
-                              height: "47px",
-                              fontSize: "16px",
-                              fontWeight: "500",
-                              lineHeight: "21.86px",
-                              color: "#5C5C5C",
-                              borderBottom: "1px solid #E4E7EC",
-                              display: "flex",
-                              justifyContent: "space-around",
-                            }}
-                            className="py-1 px-2">
-                            <button
-                              className="text-green-500 mr-2 correct1"
-                              onClick={() =>
-                                handleCorrectClick("correct1", "cross1")
-                              }>
-                              {iconState.correct1 ? (
-                                "✓"
-                              ) : (
-                                <img src={backButtton} alt="Back" />
-                              )}
-                            </button>
-                            <button
-                              className="text-red-500 cross1"
-                              onClick={() => {
-                                if (iconState.correct1 === false) {
-                                  handleCrossClick("correct1", "cross1");
-                                }
-                              }}>
-                              {iconState.cross1 ? (
-                                <span onClick={() => rejectMeetingfun(IdEmp)}>
-                                  ✕
-                                </span>
-                              ) : (
-                                <img
-                                  src={stopButton}
-                                  alt="Stop"
-                                  onClick={stopTime}
-                                />
-                              )}
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+                          >
+                            {iconState.cross1 ? (
+                              <span onClick={() => rejectMeetingfun(IdEmp)}>✕</span>
+                            ) : (
+                              <img src={stopButton} alt="Stop" onClick={stopTime} />
+                            )}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
 
-        <br />
-
         {/* Search Bar */}
-        <div className="flex flex-row items-center justify-center ml-96 headLn">
-          <div className="flex justify-start items-center w-[50%] lg:block relative lg:w-[36rem] rounded-full  mr-96 ">
+        <div className="flex justify-center mb-6">
+          <div className="relative w-full max-w-2xl">
             <input
-              className="w-full py-2 px-12 rounded-full h-[48px]"
-              style={{
-                boxShadow: " 0px 0px 4px 0px #00000040",
-                width: "619px",
-                height: "48px",
-                padding: "12px 24px 12px 45px",
-                gap: "24px",
-                borderRadius: "27px",
-                opacity: "0px",
-              }}
+              className="w-full py-2 px-12 rounded-full shadow-md"
               type="text"
               value={valueinput}
               onChange={(e) => setvalueinput(e.target.value)}
               placeholder="Search"
             />
-            <img
-              style={{ top: "0.9rem" }}
-              src={Searchsvg}
-              alt="Search"
-              className="absolute left-3"
-            />
+            <img src={Searchsvg} alt="Search" className="absolute left-3 top-1/2 transform -translate-y-1/2" />
           </div>
         </div>
 
-        <br />
-
         {/* Client History */}
         <div style={{ textAlign: " -webkit-center" }} className="headLn">
-          <div className="w-[1323px] ">
-            <h2
-              style={{
-                fontFamily: "Manrope",
-                fontSize: "18px",
-                fontWeight: "600",
-                lineHeight: "24.59px",
-                color: "#2B2B2B",
-              }}
-              className="text-lg font-semibold mb-2 text-justify">
-              Client's History
-            </h2>
+          <div className="overflow-x-auto">
+             <h2 className="text-lg font-semibold mb-4">Client's History</h2>
             <div className="wrapperT">
-              <table className="w-full bg-white shadow-sm rounded-lg">
-                <thead
-                  style={{
-                    background: "#E8E8E8E8",
-                  }}>
-                  <tr>
-                    <th
-                      style={{
-                        fontFamily: "Manrope",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        lineHeight: "19.12px",
-                        textAlign: "left",
-                        color: "#5C5C5C",
-                        textAlign: "center",
-                        width: "126px",
-                      }}
-                      className="py-2 px-4 text-left th1">
-                      Name
-                    </th>
-                    <th
-                      style={{
-                        fontFamily: "Manrope",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        lineHeight: "19.12px",
-                        textAlign: "left",
-                        color: "#5C5C5C",
-                        textAlign: "center",
-                      }}
-                      className="py-2 px-4 text-left th1">
-                      Customer ID
-                    </th>
-                    <th
-                      style={{
-                        fontFamily: "Manrope",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        lineHeight: "19.12px",
-                        textAlign: "left",
-                        color: "#5C5C5C",
-                        textAlign: "center",
-                      }}
-                      className="py-2 px-4 text-left th1">
-                      Email
-                    </th>
-                    <th
-                      style={{
-                        fontFamily: "Manrope",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        lineHeight: "19.12px",
-                        color: "#5C5C5C",
-                        textAlign: "center",
-                      }}
-                      className="py-2 px-4 text-left th1">
-                      Phone No.
-                    </th>
-                    <th
-                      style={{
-                        fontFamily: "Manrope",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        lineHeight: "19.12px",
-                        textAlign: "center",
-                        color: "#5C5C5C",
-                      }}
-                      className="py-2 px-4 text-left th1">
-                      Property Interest
-                    </th>
-                    <th
-                      style={{
-                        fontFamily: "Manrope",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        lineHeight: "19.12px",
-                        textAlign: "center",
-                        color: "#5C5C5C",
-                      }}
-                      className="py-2 px-4 text-left th1">
-                      Schedule Meeting
-                    </th>
-                    <th
-                      style={{
-                        fontFamily: "Manrope",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        lineHeight: "19.12px",
-                        textAlign: "center",
-                        color: "#5C5C5C",
-                      }}
-                      className="py-2 px-4 text-left th1">
-                      Status
-                    </th>
-                    <th
-                      style={{
-                        fontFamily: "Manrope",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        lineHeight: "19.12px",
-                        textAlign: "center",
-                        color: "#5C5C5C",
-                        width: "126px",
-                      }}
-                      className="py-2 px-4 text-left th1 flex justify-around">
-                      <img src={notify} className="" />
-                      Action
-                    </th>
+            <table className="w-full bg-white shadow-sm rounded-lg">
+            <thead className="bg-[#E8E8E8]">
+              <tr>
+                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Name</th>
+                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Customer ID</th>
+                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Email</th>
+                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Phone No.</th>
+                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Property Interest</th>
+                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Schedule Meeting</th>
+                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Status</th>
+                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data
+                .filter(({ ClientName }) =>
+                  ClientName.toLowerCase().includes(valueinput.toLowerCase())
+                )
+                .map((visitor, index) => (
+                  <tr key={index}>
+                    <td className="py-2 px-4 text-sm">{visitor.ClientName}</td>
+                    <td className="py-2 px-4 text-sm">
+                      <Link
+                        to={`/SalesExecutive/Notes/IDHistory/${visitor.ClientId}`}
+                        className="text-[#000AFF] underline font-bold"
+                      >
+                        {visitor.ClientId}
+                      </Link>
+                    </td>
+                    <td className="py-2 px-4 text-sm">{visitor.ClientEmail}</td>
+                    <td className="py-2 px-4 text-sm">{visitor.ClientMobile}</td>
+                    <td className="py-2 px-4 text-sm">{visitor.ClientProject}</td>
+                    <td className="py-2 px-4 text-sm">{DateupdatedAt(visitor.createdAt)}</td>
+                    <td className="py-2 px-4 text-sm">
+                      <span
+                        className={`py-1 px-2 rounded ${
+                          visitor.completed === "completed"
+                            ? "bg-[#E1F8D7] text-[#48A321]"
+                            : visitor.completed === "notCompleted"
+                            ? "bg-[#A321211A] text-[#A32121]"
+                            : visitor.completed === "progress"
+                            ? "bg-[lightyellow] text-[yellowgreen]"
+                            : ""
+                        }`}
+                      >
+                        {visitor.completed === "notCompleted"
+                          ? "Not completed"
+                          : visitor.completed === "completed"
+                          ? "Completed"
+                          : visitor.completed === "progress"
+                          ? "In Progress"
+                          : ""}
+                      </span>
+                      <span className="ml-2">
+                        {visitor.completed === "completed" ? (
+                          <FaCheck className="text-[#48A321]" />
+                        ) : visitor.completed === "notCompleted" ? (
+                          <RxCross2 className="text-[#A32121]" />
+                        ) : visitor.completed === "progress" ? (
+                          <BsThreeDots className="text-[yellowgreen]" />
+                        ) : null}
+                      </span>
+                    </td>
+                    <td className="py-2 px-4 text-sm">
+                      <div className="flex space-x-2">
+                        <img src={view} alt="View" className="cursor-pointer" />
+                        <img
+                          src={edit}
+                          alt="Edit"
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setShowPopupEdit(true);
+                            setClientIdData(visitor.ClientId);
+                          }}
+                        />
+                        <img
+                          src={delt}
+                          alt="Delete"
+                          className="cursor-pointer"
+                          onClick={() => handleDeleteClick(visitor.ClientId)}
+                        />
+                      </div>
+                    </td>
                   </tr>
-                </thead>
-                <tbody
-                  style={{
-                    fontFamily: "Manrope",
-                    fontSize: "16px",
-                    fontWeight: "500",
-                    lineHeight: "21.86px",
-                    color: "#2B2B2B",
-                    textAlign: "center",
-                    padding: "10px",
-                  }}>
-                  {data
-                    .filter(({ ClientName }) =>
-                      ClientName.toLowerCase().includes(
-                        valueinput.toLowerCase()
-                      )
-                    )
-                    .map((visitor, index) => (
-                      <tr style={{ height: "48px" }}>
-                        <td
-                          style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4">
-                          {visitor.ClientName}
-                        </td>
-                        <Link
-                          to={`/SalesExecutive/Notes/IDHistory/${visitor.ClientId}`}>
-                          <td
-                            style={{
-                              borderBottom: "1px solid #E4E7EC",
-                              cursor: "pointer",
-                              color: "#000AFF",
-                              textDecoration: "underline",
-                              fontWeight: "700",
-                            }}
-                            className="py-4 px-4">
-                            {visitor.ClientId}
-                          </td>
-                        </Link>
-                        <td
-                          style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4">
-                          {visitor.ClientEmail}
-                        </td>
-                        <td
-                          style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4">
-                          {visitor.ClientMobile}
-                        </td>
-                        <td
-                          style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4">
-                          {visitor.ClientProject}
-                        </td>
-                        <td
-                          style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4">
-                          {DateupdatedAt(visitor.createdAt)}
-                        </td>
-                        <td
-                          style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className="py-4 px-4 flex flex-wrap justify-between">
-                          <span
-                            style={{ borderBottom: "1px solid #E4E7EC" }}
-                            className={`rounded   ${visitor.completed === "completed"
-                              ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
-                              : visitor.completed === "notCompleted"
-                                ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded"
-                                : visitor.completed === "progress"
-                                  ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
-                                  : ""
-                              }`}>
-                            {visitor.completed === "notCompleted"
-                              ? "Not completed"
-                              : visitor.completed === "completed"
-                                ? "Completed"
-                                : visitor.completed === "progress"
-                                  ? "In Progress"
-                                  : ""}
-                          </span>
-                          <span style={{ alignContent: "center" }}>
-                            {visitor.completed === "completed" ? (
-                              <FaCheck style={{ color: "#48A321" }} />
-                            ) : visitor.completed === "notCompleted" ? (
-                              <RxCross2 style={{ color: "#A32121" }} />
-                            ) : visitor.completed === "progress" ? (
-                              <BsThreeDots style={{ color: "yellowgreen" }} />
-                            ) : (
-                              ""
-                            )}
-                          </span>
-
-                          {/* <span>
-                            <button className="text-[#48A321] mr-2"></button>
-                          </span> */}
-                        </td>
-                        <td
-                          style={{ borderBottom: "1px solid #E4E7EC" }}
-                          className=" ">
-                          <div className="flex justify-around">
-                            <img src={view} />
-                            <img
-                              src={edit}
-                              style={{ cursor: "pointer" }}
-                              onClick={() => {
-                                setShowPopupEdit(true);
-                                setClientIdData(visitor.ClientId);
-                              }}
-                            />
-                            <img
-                              src={delt}
-                              style={{ cursor: "pointer" }}
-                              onClick={() => handleDeleteClick(visitor.ClientId)}
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+                ))}
+            </tbody>
+          </table>
             </div>
           </div>
         </div>
@@ -1273,21 +877,7 @@ function ClientDetails() {
                                   </td>
                                 </tr>
                                 <tr>
-                                  {/* <th className="text-[#595757] bg-white p-[10px] text-[14px] border-[1px] border-[#E9E9E9] text-left whitespace-nowrap">
-                                    Notes
-                                  </th> */}
-                                  {/* <td className="text-[#595757] flex gap-4  p-[10px] text-[16px] border-[1px] border-[#E9E9E9] font-semibold text-left whitespace-nowrap">
-                                    <img
-                                      src={notify}
-                                      onClick={() => {
-                                        setShowNotePopup(false);
-                                        setShowAddNotePopup(true);
-                                      }}
-                                      style={{ cursor: "pointer" }}
-                                      alt="notify"
-                                    />
-                                    Note
-                                  </td> */}
+                                
                                 </tr>
                               </tbody>
                             </table>
