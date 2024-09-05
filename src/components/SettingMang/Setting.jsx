@@ -1,46 +1,31 @@
-
 import SettingPages from "./SettingPages";
 import { IoIosArrowForward } from "react-icons/io";
 
 const Setting = () => {
-    return (
-       
-        <div >
-            <div
-          style={{ gap: "20px", paddingTop: "30px", fontFamily: 'Manrope' }}
-          className="pl-[24px] overflow-x-auto flex flex-col gap-9 bg-custom-bg;
-        "
+  return (
+    <div className="lg:flex lg:flex-col lg:gap-9">
+      {/* Header Section */}
+      <div
+        className="pl-6 lg:pl-12 pt-6 lg:pt-10 flex items-center gap-1 bg-custom-bg font-[Manrope]"
+      >
+        <h1
+          className="flex items-center gap-2 font-bold text-lg lg:text-2xl"
         >
-          <h1
-            className="font-bold flex items-center gap-1 font-[Manrope]"
-            style={{
-              fontFamily: "Poppins",
-              fontSize: "24px",
-              fontWeight: "500",
-            }}
-          >
-            Home
-            <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-            <span
-              style={{
-                fontFamily: "Poppins",
-                fontWeight: "400",
-                fontSize: "24px",
-              }}
-              className="font-medium font-[Manrope]"
-            >
-             Settings
-            </span>
-          </h1>
-        </div>
-        <div className="w-[960px] h-[819px] p-[24px] overflow-x-auto overflow-y-scroll hide-scrollbar h-screen bg-white m-[24px]"style={{borderRadius:'8px'}}>
-            
-           <SettingPages/>
-            
-            
-            
-             </div>
-             </div>
-    );
-}
+          Home
+          <IoIosArrowForward className="text-[#1C1B1F]" />
+          <span className="font-medium text-lg lg:text-2xl">Settings</span>
+        </h1>
+      </div>
+
+      {/* Main Content Section */}
+      <div
+        className="w-full lg:w-[860px] p-6 lg:p-8 bg-white m-6 lg:m-8 overflow-x-auto overflow-y-auto hide-scrollbar h-auto"
+        style={{ borderRadius: "8px" }}
+      >
+        <SettingPages />
+      </div>
+    </div>
+  );
+};
+
 export default Setting;

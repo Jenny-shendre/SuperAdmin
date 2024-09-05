@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import edit from "../../assets/Group.png";
-import { Link } from "react-router-dom";
-import "../Home.css";
 import axios from "axios";
 
 const MyProfilePage = () => {
@@ -20,9 +17,7 @@ const MyProfilePage = () => {
     aadharCard: "",
   });
 
-  const [IdEmp, setIdEmp] = useState(
-    localStorage.getItem("EmpId") || "ROFEMO3"
-  );
+  const [IdEmp, setIdEmp] = useState(localStorage.getItem("EmpId") || "ROFEMO3");
 
   useEffect(() => {
     const EmpId = localStorage.getItem("EmpId");
@@ -31,32 +26,28 @@ const MyProfilePage = () => {
 
   const [editMode, setEditMode] = useState(false);
   const [editMode1, setEditMode1] = useState(false);
+
   const gitAPiData = async (employeeId) => {
-    const res = await axios.get(
-      `${import.meta.env.VITE_BACKEND}/api/settingsManager/${employeeId}`
-    );
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND}/api/settingsManager/${employeeId}`);
     setProfile(res.data);
   };
 
   useEffect(() => {
     gitAPiData(IdEmp);
   }, []);
-  console.log("profile", profile);
 
   const toggleEditMode = async (employeeId) => {
     try {
       const res = await axios.put(
         `${import.meta.env.VITE_BACKEND}/api/settingsManager/${employeeId}`,
-        {
-          ...profile,
-        }
+        { ...profile }
       );
-      console.log("res update", res);
       setProfile(res.data);
     } catch (error) {
       console.log(error);
     }
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProfile((prevProfile) => ({
@@ -67,309 +58,163 @@ const MyProfilePage = () => {
 
   const handleEditClick = () => {
     setEditMode(!editMode);
-    console.log(profile);
     toggleEditMode(profile.employeeId);
   };
+
   const handleEditClick2 = () => {
     setEditMode1(!editMode1);
-    console.log(profile);
     toggleEditMode(profile.employeeId);
   };
+
   return (
-    <div className="px-[24px] py-[8px]">
+    <div className="p-6 lg:p-12">
       <hr className="mb-6" />
 
-      {/* Second Box */}
-      <div>
-        <div className="flex justify-between items-center mb-4">
-          <h2
-            style={{ fontWeight: "700", fontFamily: "Manrope" }}
-            className="text-[#3C3C3C] text-[Manrope] text-[20px]">
-            Personal Information
-          </h2>
+      {/* Personal Information Section */}
+      <div className="h-[300px]">
+        <div className="h-4 flex justify-between items-center mb-4">
+          <h2 className="text-gray-800 font-bold text-xl lg:text-2xl">Personal Information</h2>
           <button
-            className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px] "
-            onClick={handleEditClick}>
-            <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-              <img src={edit} />
-            </h4>
-            <p style={{ fontFamily: "Manrope" }}>
-              {editMode ? "Save" : "Edit"}
-            </p>
+            className="flex items-center bg-brown-900 text-white rounded-full w-28 h-12 justify-center lg:w-36 lg:h-12"
+            onClick={handleEditClick}
+          >
+            <img src={edit} alt="edit" className="w-5 h-5 mr-2" />
+            <p>{editMode ? "Save" : "Edit"}</p>
           </button>
         </div>
 
-        <div className="flex flex-wrap dumbo mb-2 ">
-          <div className="mr-24 mb-4  ">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              Name
-            </label>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label className="block text-gray-600 text-sm mb-2">Name</label>
             <input
               type="text"
               name="name"
               value={profile.name}
               onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              className="w-full h-10 px-3 border border-gray-300 rounded-lg"
               placeholder="Enter first name"
               readOnly={!editMode}
             />
           </div>
-          {/* <div className="mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              Last Name
-            </label>
-            <input
-              type="text"
-              name="lastName"
-              value={profile.lastName}
-              onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg"
-              placeholder="Enter last name"
-            />
-          </div> */}
-          <div className="mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              Phone Number
-            </label>
+
+          <div>
+            <label className="block text-gray-600 text-sm mb-2">Phone Number</label>
             <input
               type="text"
               name="phone"
               value={profile.phone}
               onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              className="w-full h-10 px-3 border border-gray-300 rounded-lg"
               placeholder="Enter phone number"
               readOnly={!editMode}
             />
           </div>
-        </div>
-        <div className="flex flex-wrap dumbo mb-2">
-          <div className="mr-24 mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              Email Address
-            </label>
+
+          <div>
+            <label className="block text-gray-600 text-sm mb-2">Email Address</label>
             <input
               type="text"
               name="email"
               value={profile.email}
               onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              className="w-full h-10 px-3 border border-gray-300 rounded-lg"
               placeholder="Enter email address"
               readOnly={true}
             />
           </div>
 
-          {/* <div className="mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              Phone Number
-            </label>
-            <input
-              type="text"
-              name="phone"
-              value={profile.phone}
-              onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
-              placeholder="Enter phone number"
-              readOnly={!editMode}
-            />
-          </div> */}
           <div>
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              Employee ID
-            </label>
+            <label className="block text-gray-600 text-sm mb-2">Employee ID</label>
             <input
               type="text"
               name="employeeId"
               value={profile.employeeId}
               onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              className="w-full h-10 px-3 border border-gray-300 rounded-lg"
               placeholder="Enter employee ID"
               readOnly={true}
             />
           </div>
-        </div>
 
-        <div className="flex flex-wrap dumbo">
-          <div className="mr-24 mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              Designation
-            </label>
+          <div>
+            <label className="block text-gray-600 text-sm mb-2">Designation</label>
             <input
               type="text"
               name="role"
               value={profile.role}
               onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              className="w-full h-10 px-3 border border-gray-300 rounded-lg"
               placeholder="Enter role"
               readOnly={true}
             />
           </div>
-          {/* <div>
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              Employee ID
-            </label>
-            <input
-              type="text"
-              name="employeeId"
-              value={profile.employeeId}
-              onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
-              placeholder="Enter employee ID"
-              readOnly={true}
-            />
-          </div> */}
         </div>
       </div>
 
-      <hr className="mt-1 mb-4" />
+      <hr className="my-6" />
 
-      {/* Third Box */}
+      {/* Address Section */}
       <div>
-        <div className="flex justify-between items-center ">
-          <h2
-            style={{ fontWeight: "700", fontFamily: "Manrope" }}
-            className="text-[#3C3C3C] text-[Manrope] text-[20px]">
-            Address
-          </h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-gray-800 font-bold text-xl lg:text-2xl">Address</h2>
           <button
-            className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px] "
-            onClick={handleEditClick2}>
-            <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-              <img src={edit} />
-            </h4>
-            <p style={{ fontFamily: "Manrope" }}>
-              {editMode1 ? "Save" : "Edit"}
-            </p>
+            className="flex items-center bg-brown-900 text-white rounded-full w-28 h-12 justify-center lg:w-36 lg:h-12"
+            onClick={handleEditClick2}
+          >
+            <img src={edit} alt="edit" className="w-5 h-5 mr-2" />
+            <p>{editMode1 ? "Save" : "Edit"}</p>
           </button>
         </div>
 
-        <div className="flex flex-wrap dumbo mt-6">
-          <div className="mr-24 mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              Country
-            </label>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label className="block text-gray-600 text-sm mb-2">Country</label>
             <input
               type="text"
               name="country"
               value={profile.country}
               onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              className="w-full h-10 px-3 border border-gray-300 rounded-lg"
               placeholder="Enter country"
               readOnly={!editMode1}
             />
           </div>
-          <div className="mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              City/State
-            </label>
+
+          <div>
+            <label className="block text-gray-600 text-sm mb-2">City/State</label>
             <input
               type="text"
               name="location"
               value={profile.location}
               onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              className="w-full h-10 px-3 border border-gray-300 rounded-lg"
               placeholder="Enter city/state"
               readOnly={!editMode1}
             />
           </div>
-        </div>
-        <div className="flex flex-wrap dumbo">
-          <div className="mr-24 mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              Postal Code
-            </label>
+
+          <div>
+            <label className="block text-gray-600 text-sm mb-2">Postal Code</label>
             <input
               type="text"
               name="postalCode"
               value={profile.postalCode}
               onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
+              className="w-full h-10 px-3 border border-gray-300 rounded-lg"
               placeholder="Enter postal code"
               readOnly={!editMode1}
             />
           </div>
-          <div className="mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px]">
-              Adhaar Card
-            </label>
+
+          <div>
+            <label className="block text-gray-600 text-sm mb-2">Aadhar Card</label>
             <input
               type="text"
               name="aadharCard"
               value={profile.aadharCard}
               onChange={handleInputChange}
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg "
-              placeholder="Enter Adhaar card number"
+              className="w-full h-10 px-3 border border-gray-300 rounded-lg"
+              placeholder="Enter Aadhar card number"
               readOnly={!editMode1}
             />
           </div>
