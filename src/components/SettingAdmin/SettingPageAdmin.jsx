@@ -189,7 +189,7 @@ const SettingPageAdmin = () => {
         <div className="w-[75%] h-full gap-[16px] p-[24px] overflow-auto hide-scrollbar">
           <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
             <div className="flex items-center gap-4">
-              <div onChange={handleImageChange}>
+              {/* <div onChange={handleImageChange}>
                 {image ? (
                   <img
                     src={URL.createObjectURL(image)}
@@ -213,7 +213,7 @@ const SettingPageAdmin = () => {
                   className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4"
                 />
                 <input type="file" ref={inputRef} style={{ display: "none" }} />
-              </div>
+              </div> */}
               <div>
                 <div
                   style={{

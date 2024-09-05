@@ -91,7 +91,7 @@ const Table12 = () => {
         </span>
       </div>
 
-      <div className="flex justify-between  mb-5 ml-[280px] mt-[20px] ">
+      <div className="flex  mb-5 justify-center mt-[20px] ">
         <input
           type="text"
           onChange={(e) => setvalueinput(e.target.value)}
@@ -101,14 +101,14 @@ const Table12 = () => {
           style={{ padding: "12px 24px 12px 50px" }}
         />
         <img
-          style={{ marginLeft: "15px", marginTop: "12px" }}
+          style={{ marginLeft: "-560px", marginTop: "14px" }}
           src={Searchsvg}
           alt="Search"
           className="absolute "
         />
       </div>
 
-      <div className="w-[1090px] h-[496px] ml-[90px] ">
+      <div className="w-[850px] h-[496px] mx-auto">
         <div className="bg-[#D7D7D7] ">
           <h2
             className=" mb-2 text-center"
@@ -130,7 +130,7 @@ const Table12 = () => {
             Samyak Gupta (Sales Executive)
           </p>
 
-          <table className="w-full ">
+          <table className="w-[850px] ">
             <div className="outer-wrapperK">
               <div className="table-wrapperK">
                 <thead className="team1">

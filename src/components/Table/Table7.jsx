@@ -9,6 +9,7 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
 import Loading from "../Loding/Loding";
+import '../Home.css'
 
 const Table7 = () => {
   const [action, setAction] = useState("service");
@@ -301,7 +302,7 @@ const Table7 = () => {
               </Link>
             </div>
 
-            <div className="flex flex-col md:flex-row mb-6 items-center justify-center gap-[24px]">
+            <div className="flex flex-col md:flex-row mb-6 items-center justify-center gap-[24px]  w-[95%] " >
               <div className="relative mb-4 md:mb-0 md:w-[619px] h-[48px] mt-4 ">
                 <input
                   className="w-[619px] h-[48px] py-2 px-12 rounded-full"
@@ -315,7 +316,7 @@ const Table7 = () => {
                   placeholder="Search"
                 />
                 <img
-                  style={{ top: "0.6rem" }}
+                  style={{ top: "0.8rem" }}
                   src={Searchsvg}
                   alt="Search"
                   className="absolute left-4"
@@ -330,7 +331,7 @@ const Table7 = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md overflow-hidden w-[1130px] h-[290px] ml-[50px]">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden w-[900px] h-[290px] mx-auto" >
               <div className="flex">
                 <img
                   src={projectData?.projectImage ?? one}
@@ -361,7 +362,7 @@ const Table7 = () => {
               </div>
             </div>
 
-            <div className="flex mb-4 mt-4 items-center justify-center">
+            <div className="flex mb-4 mt-4 items-center justify-center " >
               <button
                 className={`px-4 py-2 rounded-l-3xl ${
                   action === "service"
@@ -382,7 +383,7 @@ const Table7 = () => {
               </button>
             </div>
 
-            <div className="flex items-center justify-center w-full h-full">
+            <div className="flex items-center justify-center w-full h-full" style={{height:'500px', overflowY:'scroll'}}>
               {action === "service" && (
                 <div className="overflow-x-auto" style={{ maxHeight: "363px" }}>
                   <table
@@ -600,13 +601,18 @@ const Table7 = () => {
           </div>
 
           {showPopup && (
-            <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="fixed inset-0 flex items-center justify-center z-50 ">
               <div className="fixed inset-0 bg-black opacity-50"></div>
               <div
                 ref={popupRef}
-                className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50">
+                className="popup-container w-[581px] h-[500px] p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50 scrollbar-hide" style={{height:'500px', overflowY:'scroll', overflowX:'hidden'}}>
+                 <button
+                  className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                  onClick={() => setShowPopup(false)}>
+                  X
+                </button>
                 <div
-                  className="upload-box w-[323px] h-[189px] border-dotted border flex flex-col items-center justify-center gap-3 cursor-pointer"
+                  className="upload-box w-[323px] h-[189px] border-dotted border flex flex-col items-center justify-center gap-3 cursor-pointer "
                   onClick={() => fileInputRef.current.click()}>
                   {uploadedImage ? (
                     <img

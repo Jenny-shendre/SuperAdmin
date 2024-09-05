@@ -404,7 +404,7 @@ const OverViewAdmin = () => {
         </div>
 
         {/* Notes Section */}
-
+{/* 
         <div className="w-[95%] my-10 hide-scrollbar">
           <div className="bg-white shadow-md h-[620px]">
             <div className="bg-[#3D2314] flex items-center justify-center p-2 rounded-t-lg">
@@ -434,7 +434,7 @@ const OverViewAdmin = () => {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Graph Section */}
         <div className="col-span-full xl:col-span-3 mt-6 xl:mt-0 w-[95%] mx-auto">

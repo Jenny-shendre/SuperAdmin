@@ -155,8 +155,8 @@ function EditForm2() {
                 Channel Partners
               </Link>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-              <Link
-                to="/SuperAdmin/Rainbow_overseas"
+              <div
+                            
                 style={{
                   fontFamily: "Poppins",
                   fontWeight: "400",
@@ -164,7 +164,7 @@ function EditForm2() {
                 }}
                 className="font-medium">
                 Rainbow Overseas
-              </Link>
+              </div>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
                 style={{
@@ -189,7 +189,7 @@ function EditForm2() {
             <p className="text-[16px]">{editMode ? "Save" : "Edit Details"}</p>
           </button>
         </div>
-        <main className="flex flex-wrap gap-5 pl-[50px]">
+        <main className="flex flex-wrap gap-5 pl-[50px] " style={{height:'360px', overflowY:'scroll'}}>
           <div
             className="lg:w-[695px] lg:h-[792px] bg-[#FFFFFF] p-[24px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 lg:mr-4"
             style={{ borderRadius: "24px" }}>
