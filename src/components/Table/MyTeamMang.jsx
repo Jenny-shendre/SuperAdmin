@@ -105,15 +105,15 @@ function MyTeamMang() {
     }
 
     // Further filter by search term if it's not empty
-    if (search.trim() !== "") {
+    if (valueinput.trim() !== "") {
       filtered = filtered.filter((note) =>
-        note.name.toLowerCase().includes(search.toLowerCase())
+        note.name.toLowerCase().includes(valueinput.toLowerCase())
       );
     }
 
     // Set the filtered data to be displayed
     setdataNote(filtered);
-  }, [notes, activeTab, search]);
+  }, [notes, activeTab, valueinput]);
 
   const handleSearchChange = (e) => {
     const inputValue = e.target.value;
@@ -531,3 +531,14 @@ function debounce(func, wait) {
 }
 
 export default MyTeamMang;
+
+
+
+
+
+
+
+
+
+
+
