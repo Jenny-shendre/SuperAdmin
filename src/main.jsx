@@ -37,6 +37,7 @@ import ViewMembers from "./components/Table/ViewMembers.jsx";
 import ClientHistory from "./components/Table/MyTeamMan2.jsx";
 import IDMan from "./components/EditForm/IDMan.jsx";
 import IDSales from "./components/EditForm/IDSales.jsx";
+import Setting from "./components/SettingMang/Setting.jsx";
 
 const router = createBrowserRouter([
   //Login_Cred
@@ -190,6 +191,11 @@ const router = createBrowserRouter([
         path: "/SalesManager/IDMan/:clientid",
         element: <PrivateRoute element={IDMan} />,
       },
+      {
+        path: "/SalesManager/Setting",
+        element: <PrivateRoute element={Setting} />,
+      },
+
     ],
   },
 ]);
