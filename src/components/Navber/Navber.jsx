@@ -44,7 +44,7 @@ const Navber = () => {
   useEffect(() => {
     if (initialLoad) {
       setActiveItem("OverViewAdmin");
-      // navigate("/SuperAdmin");
+      navigate("/SuperAdmin");
       setInitialLoad(false); // Disable initial load after the first load
     } else {
       if (locationPath.startsWith("/SuperAdmin/Direct_Visitors")) {
@@ -71,7 +71,7 @@ const Navber = () => {
         setActiveItem("OverViewAdmin");
       }
     }
-  }, [locationPath, initialLoad]);
+  }, [locationPath,navigate, initialLoad]);
 
   return (
     <div
