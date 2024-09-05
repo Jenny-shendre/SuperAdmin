@@ -103,6 +103,7 @@ const TopNav = () => {
         boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
         paddingLeft: "0px",
         width: "100%",
+        background:'white'
       }}
       className={`border-0 bottom-shadow h-[66px] bg-white bg-opacity-50 flex items-center justify-between px-4 font-[Manrope] font-medium relative shadow-b-lg shadow-Black-1000`}>
       {/* logo */}

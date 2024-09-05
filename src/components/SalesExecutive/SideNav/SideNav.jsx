@@ -154,11 +154,7 @@ const SideNav = () => {
                 }`}
               onClick={() => handleItemClick("SettingEx")}
             >
-              {activeItem === "SettingEx" ? (
-                <img src={Settings2} alt="" className="w-4 lg:w-auto" />
-              ) : (
-                <img src={Settings2} alt="" />
-              )}
+              
               Settings
             </li>
           </Link>
