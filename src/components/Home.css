@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 @media only screen and (max-width: 1180px) {
 
 
@@ -243,4 +251,9 @@ thead{
 
 .description textarea::placeholder{
   color: #3D2314;
+}
+
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, and Opera */
 }

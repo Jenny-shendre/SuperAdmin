@@ -48,7 +48,7 @@ function LoginCred() {
     // Password validation
 
     if (
-      password.length < 6 ||
+    
       !/[A-Za-z]/.test(password) ||
       !/[0-9]/.test(password)
     ) {

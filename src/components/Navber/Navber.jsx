@@ -65,11 +65,19 @@ const Navber = () => {
         setActiveItem("Team");
       } else if (locationPath.startsWith("/SuperAdmin/View_Members")) {
         setActiveItem("Team");
-      } else if (locationPath.startsWith("/SuperAdmin/SettingAdmin")) {
-        setActiveItem("SettingAdmin");
-      } else {
-        setActiveItem("OverViewAdmin");
       }
+        else if (locationPath.startsWith("teamName/:teamName/:employeeId")) {
+          setActiveItem("Team");
+        
+      }
+      else if (locationPath.startsWith("/SuperAdmin/Team/teamName/:teamName/:employeeId")) {
+        setActiveItem("Team");
+      
+    } 
+      else if (locationPath.startsWith("/SuperAdmin/SettingAdmin")) {
+        setActiveItem("SettingAdmin");
+      } 
+      
     }
   }, [locationPath,navigate, initialLoad]);
 

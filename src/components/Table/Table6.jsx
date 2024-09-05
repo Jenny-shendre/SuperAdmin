@@ -313,12 +313,13 @@ const Table6 = () => {
       </div>
 
       <div style={{ display: "flex", gap: "24px", justifyContent: "center" }}>
-        <div style={{ display: "flex" }} className="div3">
+        <div style={{ display: "flex" }} >
           <input
             style={{
               fontFamily: "Manrope",
               lineHeight: "21.86px",
               fontWeight: "500",
+              width:'400px'
             }}
             type="text"
             value={valueinput}
@@ -328,7 +329,7 @@ const Table6 = () => {
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-gray-400 relative  left-[-590px] top-[14px]"
+            className="h-5 w-5 text-[#3D2314] relative  left-[-370px] top-[14px] placeholder-[#3D2314]"
             viewBox="0 0 20 20"
             fill="currentColor">
             <path
@@ -372,12 +373,12 @@ const Table6 = () => {
       </div>
       <br />
 
-      <div style={{ textAlign: "-webkit-center" }}>
-        <div className="w-[927px] h-[591px]">
-          <div className="bg-[#D7D7D7]">
+      <div style={{ textAlign: "" }}>
+        <div className="w-[900px] h-[591px]">
+          <div className="bg-[#D7D7D7] w-[900px]">
             <div
               style={{
-                width: "927px",
+                width: "900px",
                 height: "77px",
                 padding: "8px 0px",
                 background: "#D7D7D7",
@@ -437,7 +438,7 @@ const Table6 = () => {
                           fontWeight: "500",
                           borderRight: "1px solid #E4E7EC",
                         }}>
-                        Sales Executive Email ID
+                        Email ID
                       </th>
                       <th
                         className="px[10px] py-[6px] w-[174px] h-[28px]"
