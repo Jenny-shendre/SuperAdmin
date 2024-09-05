@@ -74,7 +74,8 @@ function LoginCred() {
       localStorage.setItem("EmpId", employeeId);
       localStorage.setItem("phone", phone);
       localStorage.setItem("email", email);
-
+      localStorage.setItem("role", role);
+      console.log("role", role);
       setRole(userRole);
       setLoggedIn(true);
       navigate("/SuperAdmin");
@@ -88,13 +89,14 @@ function LoginCred() {
 
   // useEffect(() => {}, []);
   const token = localStorage.getItem("token");
-
+  const roles = localStorage.getItem("role");
+  console.log(roles);
   if (token) {
     return (
       <div>
-        {role === "super admin" && <SuperAdminScreen />}
-        {role === "sales executive" && <SalesExecutiveScreen />}
-        {role === "manager" && <SalesManagerScreen />}
+        {roles === "super admin" && <SuperAdminScreen />}
+        {roles === "sales executive" && <SalesExecutiveScreen />}
+        {roles === "manager" && <SalesManagerScreen />}
       </div>
     );
   }
