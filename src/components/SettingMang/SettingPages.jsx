@@ -192,7 +192,6 @@ const SettingPages = () => {
           )}
           {activeItem === 'MyProfilePage' && <MyProfilePage />}
           {activeItem === 'PasswordPage' && <PasswordPage phone={managerData.phone} />}
-
         </div>
       </div>
     </div>

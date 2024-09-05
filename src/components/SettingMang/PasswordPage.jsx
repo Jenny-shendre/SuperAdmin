@@ -7,6 +7,7 @@ import axios from "axios";
 const PasswordPage = ({ email }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [phone, setPhone] = useState('')
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [userPhone, setUserPhone] = useState(email);
 

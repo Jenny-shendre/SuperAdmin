@@ -681,7 +681,7 @@ function ClientDetails() {
 
         {/* Search Bar */}
         <div className="flex justify-center mb-6">
-          <div className="relative w-full max-w-2xl">
+          <div className="relative w-full max-w-2xl none">
             <input
               className="w-full py-2 px-12 rounded-full shadow-md"
               type="text"
@@ -896,7 +896,7 @@ function ClientDetails() {
           <div className="lg:hidden">
             {/* Search Bar */}
             <div className="flex flex-row items-center justify-center">
-              <div className="flex justify-center place-self-center items-center w-[100%] lg:w-[36rem] relative rounded-full">
+              {/* <div className="flex justify-center place-self-center items-center w-[100%] lg:w-[36rem] relative rounded-full">
                 <input
                   className="w-full py-2 px-12 rounded-full h-[48px] lg:h-[48px] lg:w-[619px]"
                   style={{
@@ -915,7 +915,7 @@ function ClientDetails() {
                   alt="Search"
                   className="absolute left-3"
                 />
-              </div>
+              </div> */}
             </div>
 
             {/* Client's History */}
