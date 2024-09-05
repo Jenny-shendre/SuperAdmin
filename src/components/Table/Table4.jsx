@@ -329,7 +329,7 @@ const Table4 = () => {
                   .map((project, index) => (
                     <div
                       key={index}
-                      className="bg-white pb-[12px] rounded-lg overflow-hidden shadow w-[297px]">
+                      className="bg-white pb-[12px] rounded-lg  shadow w-[297px]">
                       <Link to={`/SuperAdmin/project/${project.name}`}>
                         <img
                           src={project?.projectImage ?? one}
@@ -426,7 +426,12 @@ const Table4 = () => {
               <div className="fixed inset-0 bg-black opacity-50"></div>
               <div
                 ref={popupRef}
-                className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50">
+                className="popup-container w-[581px] h-[450px] p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50">
+                 <button
+                  className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
+                  onClick={() => setShowPopup(false)}>
+                  X
+                </button>
                 <div
                   className="upload-box description w-[323px] h-[189px] border-dotted border-[5px] flex flex-col items-center justify-center gap-3 cursor-pointer"
                   onClick={() => fileInputRef.current.click()}>
@@ -475,7 +480,7 @@ const Table4 = () => {
                   onChange={(e) => setProjectLocation(e.target.value)}
                 />
                 <textarea
-                  className="project-address-input w-[533px] min-h-[134px] p-4 rounded-md border border-gray-300"
+                  className="project-address-input w-[533px] min-h-[90px] p-4 rounded-md border border-gray-300"
                   style={{
                     fontFamily: "Manrope",
                     fontWeight: "400",
@@ -503,14 +508,14 @@ const Table4 = () => {
               <div className="fixed inset-0 bg-black opacity-50"></div>
               <div
                 ref={popupRef}
-                className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50">
+                className="popup-container w-[581px] h-[470px] p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50">
                 <button
                   className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
                   onClick={() => setShowPopup2(false)}>
                   X
                 </button>
                 <div
-                  className="upload-box description  w-[323px] h-[189px] border-dotted border-[5px] flex flex-col items-center justify-end gap-3 pb-2 cursor-pointer"
+                  className="upload-box description  w-[323px] h-[190px] border-dotted border-[5px] flex flex-col items-center justify-end gap-3 pb-2 cursor-pointer"
                   onClick={() => fileInputRef.current.click()}>
                   {projectDetails.projectImage ? (
                     <img
@@ -535,6 +540,7 @@ const Table4 = () => {
                           color: "white",
                           padding: "10px",
                           borderRadius: "7px",
+                          marginTop:'8px'
                         }}>
                         Change Image
                       </p>
@@ -618,7 +624,7 @@ const Table4 = () => {
                   </div>
                 </div>
                 <button
-                  className="add-project-button w-[170px] h-12 p-2 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
+                  className="add-project-button w-[170px] h-12 p-2 bg-[#3D2314]  rounded-md text-center font-manrope text-lg font-medium text-white"
                   onClick={handleUpdateProject}>
                   Submit
                 </button>

@@ -204,7 +204,7 @@ const Table2 = () => {
               </span>
             </h1>
 
-            <div className="flex flex-row  text-center  items-center w-[100%] justify-between">
+            <div className="flex flex-row  text-center  items-center  justify-between">
               <div style={{ width: "70%", textAlign: "-webkit-center" }}>
                 <div className="flex justify-center items-center w-[70%] lg:block relative lg:w-[36rem] rounded-full">
                   <input
@@ -251,7 +251,7 @@ const Table2 = () => {
             <div className="table-wrapper" style={{ width: "999px" }}>
               {data.length !== 0 ? (
                 <table
-                  className="min-w-full bg-white"
+                  className="w-[950px] bg-white"
                   style={{ boxShadow: " 0px 0px 4px 0px #00000040" }}>
                   <thead>
                     <tr className="text-[9px] lg:text-[15px] text-left  bg-[#E8E8E8]">
