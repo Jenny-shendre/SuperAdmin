@@ -91,6 +91,7 @@ const SettingPages = () => {
     }
   };
 
+
   const gitAPiData = async (employeeId) => {
     const res = await axios.get(
       `${import.meta.env.VITE_BACKEND}/api/settingsManager/${employeeId}`
@@ -103,9 +104,9 @@ const SettingPages = () => {
   }, []);
 
   return (
-    <div className="flex  min-h-screen ">
+    <div className="flex  min-h-screen  ">
       <div
-        className="w-1/6 h-[794px] text-black flex flex-col"
+        className="w-1/3 h-[994px] text-black flex flex-col"
         style={{ borderRight: "1px solid #D0D0D0" }}>
         <div className="flex flex-col items-center mt-10 w-[122px] h-[101px] gap-[17px] justify-between">
           <button
@@ -140,10 +141,31 @@ const SettingPages = () => {
         </div>
       </div>
 
-      <div className="w-[1032px] h-[724px] gap-[16px] p-[24px] pt-0 ">
-        <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
-          <div className="flex items-center gap-4">
-          
+      <div className="w-[75%] h-[360px] gap-[16px] p-[24px] overflow-auto hide-scrollbar">
+          <div className="w-full h-[142px] p-6 flex justify-between items-center mb-6 border-2 border-[#D0D0D0] rounded-lg">
+            <div className="flex items-center gap-4">
+            <div onChange={handleImageChange}>
+              {image ? (
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt=""
+                  style={{
+                    position: "absolute",
+                    top: "196px",
+                    width: "77px",
+                    height: "77px",
+                    borderRadius: "50%",
+                  }}
+                />
+              ) : (
+                <img src="" alt="" />
+              )}
+              <img
+                src={managerData.CoverImage}
+                className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4"
+              />
+              <input type="file" ref={inputRef} style={{ display: "none" }} />
+            </div>
 
             <div>
               <div

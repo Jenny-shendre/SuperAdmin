@@ -1161,41 +1161,25 @@ function ClientDetails() {
                   borderRadius: "6px",
                 }}
               />
-              <div
-                className="relative w-[640px] h-[48px]   mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+               <input
+                type="text"
+                value ={upcomings[0].ClientProject}
+                onChange={(e) => setclientName(e.target.value)}
+                className="w-[640px] h-12 mb-4"
+                placeholder="Client Name"
                 style={{
                   color: "rgba(0, 0, 0, 0.68)",
                   fontWeight: 400,
                   fontSize: "16px",
+                  padding: "16px 24px",
                   lineHeight: "19.2px",
                   fontFamily: "Manrope",
                   gap: "10px",
                   border: "0.8px solid rgba(0,0,0,0.44) ",
                   borderRadius: "6px",
                 }}
-                onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
-                ref={projectDropdownRef}>
-                <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
-                  {project || "Choose Project"}
-                  <img
-                    className="ml-2 h-2 w-3 "
-                    src={DropIcon}
-                    alt="Dropdown Icon"
-                  />
-                </div>
-                {isProjectDropdownOpen && (
-                  <div className="absolute z-10 mt-2 w-full p-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-52 overflow-y-auto">
-                    {data2.map((projects) => (
-                      <div
-                        key={projects.name}
-                        className="p-2 cursor-pointer hover:bg-gray-200"
-                        onClick={() => handleProjectChange(projects.name)}>
-                        {projects.name}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              />
+              
 
               <div
                 style={{
