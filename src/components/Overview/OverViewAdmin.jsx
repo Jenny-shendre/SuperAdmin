@@ -269,7 +269,7 @@ const OverViewAdmin = () => {
   };
 
   return (
-    <div className="p-4 md:p-6 overview ">
+    <div className="p-4 md:p-6 overview h-full ">
       <div className="flex flex-col gap-4 bg-custom-bg">
         <div className="flex justify-end mr-4 md:mr-[25px]">
           <div className="relative inline-block text-left">
@@ -283,7 +283,11 @@ const OverViewAdmin = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor">
-                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                <path
+                  fillRule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
               </svg>
             </button>
 
@@ -303,15 +307,21 @@ const OverViewAdmin = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mt-4">
+      <div className="w-[95%] flex flex-wrap items-start justify-start gap-5 mt-5 mx-auto">
         {[
           { title: "Total Direct Visitors", value: directVisitors, icon: onee },
-          { title: "Total Channel Visitors", value: channelVisitors, icon: twoo },
+          {
+            title: "Total Channel Visitors",
+            value: channelVisitors,
+            icon: twoo,
+          },
           { title: "Deals Closed", value: dealClosed, icon: threee },
           { title: "Total Staff Online", value: staffOnline, icon: fourrr },
           { title: "Total Meetings", value: totalMeetings, icon: fivee },
         ].map((stat, index) => (
-          <div key={index} className="bg-white shadow rounded-lg p-4 border-2 border-[#3D2314] flex flex-col justify-between">
+          <div
+            key={index}
+            className="min-w-[23%] bg-white shadow rounded-lg p-4 border-2 border-[#3D2314] flex flex-col justify-between">
             <div className="flex justify-between items-start">
               <div className="text-sm font-normal">{stat.title}</div>
               <img className="h-6 w-6" src={stat.icon} alt="" />
@@ -322,10 +332,9 @@ const OverViewAdmin = () => {
           </div>
         ))}
       </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">
+      <div className="flex flex-wrap items-start justify-around ">
         {/* Top Executive Performer Table */}
-        <div className="w-full xl:w-[417px]">
+        <div className="w-[45%] my-10">
           <div className="bg-[#3D2314] flex items-center justify-center p-2 rounded-t-lg">
             <img src={single} className="w-8 h-8 mr-2" alt="Top Executive" />
             <p className="text-white text-lg font-normal">
@@ -347,8 +356,12 @@ const OverViewAdmin = () => {
                   <tr key={index} className="divide-x divide-gray-200">
                     <td className="px-2 py-2 text-xs">{index + 1}</td>
                     <td className="px-2 py-2 text-xs">{visitor.name}</td>
-                    <td className="px-2 py-2 text-xs">{visitor.totalMeetings}</td>
-                    <td className="px-2 py-2 text-xs">{visitor.clientConversion}</td>
+                    <td className="px-2 py-2 text-xs">
+                      {visitor.totalMeetings}
+                    </td>
+                    <td className="px-2 py-2 text-xs">
+                      {visitor.clientConversion}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -357,7 +370,7 @@ const OverViewAdmin = () => {
         </div>
 
         {/* Top Team Performance Table */}
-        <div className="w-full xl:w-[417px]">
+        <div className="w-[45%] my-10">
           <div className="bg-[#3D2314] flex items-center justify-center p-2 rounded-t-lg">
             <img src={team} className="w-8 h-8 mr-2" alt="Top Team" />
             <p className="text-white text-lg font-normal">
@@ -380,8 +393,10 @@ const OverViewAdmin = () => {
                     <td className="px-2 py-2 text-xs">{index + 1}</td>
                     <td className="px-2 py-2 text-xs">{visitor.teamName}</td>
                     <td className="px-2 py-2 text-xs">{visitor.clientCount}</td>
-                    <td className="px-2 py-2 text-xs">{visitor.conversionCount}</td>
-                    </tr>
+                    <td className="px-2 py-2 text-xs">
+                      {visitor.conversionCount}
+                    </td>
+                  </tr>
                 ))}
               </tbody>
             </table>
@@ -389,8 +404,8 @@ const OverViewAdmin = () => {
         </div>
 
         {/* Notes Section */}
-         
-         <div className="w-full xl:w-[361px]">
+
+        <div className="w-[95%] my-10 hide-scrollbar">
           <div className="bg-white shadow-md h-[620px]">
             <div className="bg-[#3D2314] flex items-center justify-center p-2 rounded-t-lg">
               <img src={Notes} className="w-8 h-8 mr-2" alt="Notes" />
@@ -398,7 +413,9 @@ const OverViewAdmin = () => {
             </div>
             <div style={{ height: "547px" }} className="overflow-y-auto">
               {notesData.map((note, index) => (
-                <div key={index} className="flex justify-between items-center p-4 border-b">
+                <div
+                  key={index}
+                  className="flex justify-between items-center p-4 border-b">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-[rgba(99,46,4,0.5)] text-[#3D2314] flex items-center justify-center text-sm font-semibold mr-4">
                       SB
@@ -417,10 +434,10 @@ const OverViewAdmin = () => {
               ))}
             </div>
           </div>
-          </div>
+        </div>
 
         {/* Graph Section */}
-        <div className="col-span-full xl:col-span-2 mt-6 xl:mt-0">
+        <div className="col-span-full xl:col-span-3 mt-6 xl:mt-0 w-[95%] mx-auto">
           <div className="bg-white shadow rounded-lg p-6">
             <h2 className="text-lg font-semibold mb-4">Most Meeting Hour</h2>
             <div className="flex justify-between items-center mb-4 pb-2 border-b-2 border-dashed border-[#3D2314]">
@@ -429,7 +446,7 @@ const OverViewAdmin = () => {
               </span>
               <span className="text-sm text-gray-600">Today</span>
             </div>
-            <div className="h-[360px]">
+            <div className="h-[360px] ">
               <Bar data={data} options={options} />
             </div>
           </div>
@@ -440,8 +457,3 @@ const OverViewAdmin = () => {
 };
 
 export default OverViewAdmin;
-
-
-
-
-
