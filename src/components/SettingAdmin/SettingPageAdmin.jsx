@@ -196,8 +196,8 @@ const SettingPageAdmin = () => {
                     alt=""
                     style={{
                       position: "relative",
-                      top: "40px",
-                      left:'-8px',
+                      top: "37px",
+                      left:'9px',
                       width: "77px",
                       height: "77px",
                       borderRadius: "50%",
@@ -209,7 +209,7 @@ const SettingPageAdmin = () => {
                 )}
                 <img
                   src={adminData.CoverImage}
-                  style={{position:'relative', top:'-35px'}}
+                  style={{position:'relative', top:'-40px', left:'8px'}}
                   className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4"
                 />
                 <input type="file" ref={inputRef} style={{ display: "none" }} />
