@@ -195,11 +195,13 @@ const SettingPageAdmin = () => {
                     src={URL.createObjectURL(image)}
                     alt=""
                     style={{
-                      position: "absolute",
-                      top: "196px",
+                      position: "relative",
+                      top: "40px",
+                      left:'-8px',
                       width: "77px",
                       height: "77px",
                       borderRadius: "50%",
+                      zIndex:'+1'
                     }}
                   />
                 ) : (
@@ -207,6 +209,7 @@ const SettingPageAdmin = () => {
                 )}
                 <img
                   src={adminData.CoverImage}
+                  style={{position:'relative', top:'-35px'}}
                   className="w-[77px] h-[77px] bg-gray-300 rounded-full mr-4"
                 />
                 <input type="file" ref={inputRef} style={{ display: "none" }} />

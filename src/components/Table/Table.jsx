@@ -111,10 +111,10 @@ const Table = () => {
                   placeholder="Search"
                 />
                 <img
-                  style={{ top: "0.6rem" }}
+                  style={{ top: "133px" }}
                   src={Searchsvg}
                   alt="Search"
-                  className="absolute  left-4"
+                  className="absolute  left-[520px]"
                 />
               </div>
             </div>

@@ -334,9 +334,9 @@ function EditForm1() {
             </button>
           </div>
 
-          <main className="flex flex-1 flex-col lg:items-start justify-around w-full  ">
+          <main className="flex flex-col   ">
             <div
-              className="w-[98%] mx-auto h-auto  bg-[#FFFFFF] p-[14px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 lg:mr-4"
+              className="w-[695px] mx-auto h-auto  bg-[#FFFFFF] p-[10px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 "
               style={{ borderRadius: "24px" }}>
               <h2
                 className="text-[20px] text-center font-[Manrope] mb-4"

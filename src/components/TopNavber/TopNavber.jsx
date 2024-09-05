@@ -100,8 +100,13 @@ const TopNav = () => {
       style={{
         boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
         paddingRight: "0px",
+        background:'white',
+        width :'100%',
+        display:'flex',
+        justifyContent:'end',
+        paddingRight:'10px'
       }}
-      className={`w-full flex justify-end items-center h-16`}>
+      className={`w-full flex justify-end items-center  h-16 gap-[10px]`}>
       <div
         style={{
           fontFamily: "Manrope",
@@ -115,7 +120,7 @@ const TopNav = () => {
         <img
           src={userImg}
           alt="Userimg"
-          className="w-8 rounded-full mr-12 cursor-pointer"
+          className="w-8 rounded-full cursor-pointer"
           onClick={clickfun}
         />
       </div>

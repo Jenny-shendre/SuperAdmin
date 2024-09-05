@@ -210,7 +210,7 @@ const Table3 = () => {
                   placeholder="Search"
                 />
                 <img
-                  style={{ top: "0.6rem" }}
+                  style={{ top: "0.8rem" }}
                   src={Searchsvg}
                   alt="Search"
                   className="absolute left-4"
@@ -228,7 +228,7 @@ const Table3 = () => {
                         className="font-medium"
                         style={{
                           fontFamily: "Manrope",
-                          fontSize: "12px",
+                          fontSize: "9px",
                           textAlign: "left",
                           paddingLeft: "7px",
                           padding: "5px",
@@ -240,7 +240,7 @@ const Table3 = () => {
                         className="font-medium"
                         style={{
                           fontFamily: "Manrope",
-                          fontSize: "12px",
+                          fontSize: "9px",
                           textAlign: "center",
                           paddingLeft: "7px",
                           padding: "5px",
@@ -252,7 +252,7 @@ const Table3 = () => {
                         className="border-b text-center font-medium"
                         style={{
                           fontFamily: "Manrope",
-                          fontSize: "12px",
+                          fontSize: "9px",
                           textAlign: "center",
                           padding: "5px",
                           width: "181px",
@@ -263,7 +263,7 @@ const Table3 = () => {
                         className="border-b text-center font-medium"
                         style={{
                           fontFamily: "Manrope",
-                          fontSize: "12px",
+                          fontSize: "9px",
                           textAlign: "center",
                           padding: "5px",
                           width: "145px",
@@ -274,7 +274,7 @@ const Table3 = () => {
                         className="border-b font-medium"
                         style={{
                           fontFamily: "Manrope",
-                          fontSize: "12px",
+                          fontSize: "9px",
                           textAlign: "center",
                           padding: "5px",
                           width: "155px",
@@ -285,7 +285,7 @@ const Table3 = () => {
                         className="border-b text-center font-medium"
                         style={{
                           fontFamily: "Manrope",
-                          fontSize: "12px",
+                          fontSize: "9px",
                           textAlign: "center",
                           padding: "5px",
                           width: "109px",
@@ -296,7 +296,7 @@ const Table3 = () => {
                         className="border-b text-center font-medium"
                         style={{
                           fontFamily: "Manrope",
-                          fontSize: "12px",
+                          fontSize: "9px",
                           textAlign: "center",
                           padding: "5px",
                           width: "93px",
@@ -307,7 +307,7 @@ const Table3 = () => {
                         className="border-b font-medium"
                         style={{
                           fontFamily: "Manrope",
-                          fontSize: "12px",
+                          fontSize: "9px",
                           textAlign: "center",
                           padding: "5px",
                           width: "164px",
@@ -318,7 +318,7 @@ const Table3 = () => {
                         className="border-b font-medium"
                         style={{
                           fontFamily: "Manrope",
-                          fontSize: "12px",
+                          fontSize: "9px",
                           textAlign: "center",
                           padding: "5px",
                           width: "42px",
@@ -329,7 +329,7 @@ const Table3 = () => {
                         className="border-b font-medium"
                         style={{
                           fontFamily: "Manrope",
-                          fontSize: "12px",
+                          fontSize: "9px",
                           textAlign: "center",
                           padding: "5px",
                           width: "102px",
@@ -344,7 +344,7 @@ const Table3 = () => {
                         item,
                         index // Use filtered data
                       ) => (
-                        <tr className="text-[9px] lg:text-[14px]" key={item.id}>
+                        <tr className="text-[9px] lg:text-[10px]" key={item.id}>
                           {/* <td className="py-3 ml-6 text-center flex items-center" style={{ paddingLeft: "5px", textAlign: 'center' }}>{index + 1}</td> */}
                           <td
                             className="py-3  text-center flex items-center justify-center"

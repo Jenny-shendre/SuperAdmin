@@ -8,6 +8,7 @@ import DropIcon from "../../assets/DropIcon.png";
 import EmailIcon from "../../assets/email.png";
 import PhoneIcon from "../../assets/phone.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 const ViewMembers = () => {
@@ -474,6 +475,7 @@ const ViewMembers = () => {
         <Loading />
       ) : (
         <div className="p-4">
+
           <h1
             className="font-bold flex items-center gap-1"
             style={{
@@ -481,7 +483,10 @@ const ViewMembers = () => {
               fontSize: "24px",
               fontWeight: "500",
             }}>
+                         <Link to="/SuperAdmin">
             <span>Home</span>
+            </Link>
+            
 
             <IoIosArrowForward style={{ color: "#1C1B1F" }} />
             <span
@@ -577,7 +582,7 @@ const ViewMembers = () => {
           </div>
 
           <div className="outer-wrapper text-center flex items-center justify-center mt-[20px]">
-            <div className="table-wrapper" style={{ width: "1013px" }}>
+            <div className="table-wrapper" style={{ width: "900px" }}>
               <table
                 className="min-w-full bg-white"
                 style={{

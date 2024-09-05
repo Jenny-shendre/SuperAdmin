@@ -581,7 +581,7 @@ const Table5 = () => {
               </button>
               <Link to="/SuperAdmin/View_Members">
                 <button
-                  className="add-team-button bg-[#3D2314]  text-white px-4 py-2 rounded-full flex items-center justify-center h-[48px] ml-10 mt-4 lg:mt-0"
+                  className="add-team-button bg-[#3D2314]  text-white px-2 py-2 rounded-full flex items-center justify-center h-[48px] ml-10 mt-4 lg:mt-0"
                   style={{
                     height: "48px",
                     border: "1px solid #3D2314",
@@ -644,7 +644,7 @@ const Table5 = () => {
             </div>
           </div>
           {/* Second box */}
-          <div className="text-center w-full mb-5 h-[65%] overflow-y-scroll">
+          <div className="text-center w-full mb-5 h-[62%] overflow-y-scroll">
             {data.length !== 0 ? (
               <table
                 className="w-full bg-white overflow-hidden"

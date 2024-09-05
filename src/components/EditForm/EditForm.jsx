@@ -302,7 +302,7 @@ const FormEdit = () => {
             </div>
           </div>
 
-          <div className="flex mr-[50px]" style={{ justifyContent: "end" }}>
+          <div className="flex mr-[50px]" style={{ justifyContent: "end", }}>
             <button
               key={FormData._id}
               className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
@@ -315,7 +315,7 @@ const FormEdit = () => {
               </p>
             </button>
           </div>
-          <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10">
+          <main className="flex flex-wrap gap-5 lg:ml-8" style={{ height:'360px', overflowY:'scroll', padding:'10px 10px 10px 10px'}}>
             <div
               className="lg:w-[695px] lg:h-[683px] bg-[#FFFFFF] p-[24px] rounded-2xl mb-6 lg:mb-0 lg:mr-4"
               style={{
