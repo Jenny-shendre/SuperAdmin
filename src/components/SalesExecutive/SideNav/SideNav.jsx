@@ -150,11 +150,12 @@ const SideNav = () => {
                 textAlign: "left",
               }}
 
-              className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope] ${activeItem === "SettingEx" ? "bg-[#3D2314] text-[#FFFFFF]" : ""
-                }`}
+              className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope]`}
               onClick={() => handleItemClick("SettingEx")}
             >
-              
+             
+                <img src={Settings2} alt="" className="w-4 lg:w-auto" />
+             
               Settings
             </li>
           </Link>

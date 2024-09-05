@@ -166,10 +166,7 @@ const SideNavM = () => {
                 lineHeight: "27.32px",
                 textAlign: "left",
               }}
-              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] ${activeItem === "Setting"
-                ? "bg-[#3D2314] text-[#FFFFFF]"
-                : ""
-                }`}
+              className={`text-[#3D2314] cursor-pointer font-medium flex flex-row gap-3 w-auto  lg:w-52 p-2 text-sm lg:text-lg font-[Manrope] `}
               onClick={() => handleItemClick("Setting")}
             >
               {activeItem === "Setting" ? (
