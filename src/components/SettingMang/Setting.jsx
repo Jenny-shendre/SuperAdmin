@@ -19,7 +19,7 @@ const Setting = () => {
 
       {/* Main Content Section */}
       <div
-        className="w-full lg:w-[860px] p-6 lg:p-8 bg-white m-6 lg:m-8 overflow-x-auto overflow-y-auto hide-scrollbar h-auto"
+        className="w-[90%]  p-6 lg:p-8 bg-white m-6 lg:m-8 overflow-x-auto overflow-y-auto hide-scrollbar h-auto"
         style={{ borderRadius: "8px" }}
       >
         <SettingPages />

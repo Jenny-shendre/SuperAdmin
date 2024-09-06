@@ -71,15 +71,15 @@ const MyProfilePage = () => {
       <hr className="mb-6" />
 
       {/* Personal Information Section */}
-      <div className="h-[300px]">
+      <div className="h-full">
         <div className="h-4 flex justify-between items-center mb-4">
           <h2 className="text-gray-800 font-bold text-xl lg:text-2xl">Personal Information</h2>
           <button
-            className="flex items-center bg-brown-900 text-white rounded-full w-28 h-12 justify-center lg:w-36 lg:h-12"
+            className="flex border border-green-300 items-center bg-[#3D2314] text-white rounded-full w-28 h-12 justify-center lg:w-36 lg:h-12"
             onClick={handleEditClick}
           >
             <img src={edit} alt="edit" className="w-5 h-5 mr-2" />
-            <p>{editMode ? "Save" : "Edit"}</p>
+            <p> {editMode ? "Save" : "Edit"} </p>
           </button>
         </div>
 

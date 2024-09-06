@@ -41,7 +41,7 @@ const PasswordPage = ({ email }) => {
             Change Password
           </h2>
           <button
-            className="flex items-center bg-brown-900 text-white rounded-full w-28 h-12 lg:w-36 lg:h-12 justify-center"
+            className="flex items-center bg-[#3D2314] text-white rounded-full w-28 h-12 lg:w-36 lg:h-12 justify-center"
             onClick={handleEditClick}
           >
             <div className="w-4 h-4 lg:w-5 lg:h-5 mr-2">

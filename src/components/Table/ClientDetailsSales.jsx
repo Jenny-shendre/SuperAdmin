@@ -42,12 +42,11 @@ function ClientDetails() {
     projectName: "",
     customerName: "",
     name: "",
-    notes: ""
-
+    notes: "",
   });
 
   const [IdEmp, setIdEmp] = useState(
-    localStorage.getItem("EmpId") ||  "ROFEX103"
+    localStorage.getItem("EmpId") || "ROFEX103"
   );
 
   const [showNotePopup, setShowNotePopup] = useState(false);
@@ -71,7 +70,7 @@ function ClientDetails() {
     setLoading(true);
 
     const res2 = await axios.get(
-      "${import.meta.env.VITE_BACKEND}/api/projects"
+      `${import.meta.env.VITE_BACKEND}/api/projects`
     );
     setdata2(res2.data);
 
@@ -132,8 +131,10 @@ function ClientDetails() {
 
   // Add team members popup logic
 
-  const [clientName, setclientName] = useState("");
-  const [project, setProject] = useState("");
+  const [clientName, setclientName] = useState(
+    upcomings?.[0]?.ClientName || ""
+  );
+  const [project, setProject] = useState(upcomings?.[0]?.ClientProject || "");
   const [briefing, setBriefing] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const [createStatus, setCreateStatus] = useState("");
@@ -143,46 +144,6 @@ function ClientDetails() {
   const handleProjectChange = (projectName) => {
     setProject(projectName);
     setIsProjectDropdownOpen(false);
-  };
-
-  const handleSubmit = async () => {
-    if (clientName && project && briefing && clientConversation) {
-      setIsCreating(true);
-      setErrorMessage(""); // Clear any previous error messages
-      console.log("Come");
-      ClientDetails(upcomings[0].ClientId, IdEmp);
-
-      try {
-        if (clientConversation === "Yes") {
-          const res = await axios.put(
-            `${import.meta.env.VITE_BACKEND
-            }/api/attendants/clientConversion/${IdEmp}`
-          );
-          console.log("count the client converted", res);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-
-      const notedata = {
-        clientName: clientName,
-        project: project,
-        briefing: briefing,
-        clientConversation: clientConversation,
-      };
-
-      try {
-        setCreateStatus("Note Successfully Added ✓");
-        console.log("Response send", notedata);
-      } catch (error) {
-        console.error("Error creating Note:", error);
-        setCreateStatus("Error Creating Note");
-      } finally {
-        setIsCreating(false);
-      }
-    } else {
-      setErrorMessage("Please fill in all fields.");
-    }
   };
 
   // useEffect(() => {
@@ -339,7 +300,8 @@ function ClientDetails() {
   const historyData = async (employeeId) => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/clientManagement/history/${employeeId}`
       );
       setdata(res.data);
@@ -351,7 +313,8 @@ function ClientDetails() {
   const upcoming = async (employeeId) => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/clientManagement/upcoming/${employeeId}`
       );
       setupcoming(res.data);
@@ -367,7 +330,8 @@ function ClientDetails() {
   const rejectMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        ` ${import.meta.env.VITE_BACKEND
+        ` ${
+          import.meta.env.VITE_BACKEND
         }/api/clientManagement/reject/${employeeId}`
       );
       console.log("reject", res);
@@ -378,7 +342,8 @@ function ClientDetails() {
   const acceptMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/clientManagement/accept/${employeeId}`
       );
       console.log(res.data);
@@ -390,7 +355,8 @@ function ClientDetails() {
   const meetingOvers = async (employeeId) => {
     try {
       const res = await axios.put(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/clientManagement/meetingOver/${employeeId}`
       );
       console.log(res.data);
@@ -422,7 +388,8 @@ function ClientDetails() {
     const formattedDate = format(currentDate, "mm:ss");
     try {
       const res = await axios.put(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/timeSheet/timeResponse/${ClientID}`,
         {
           StartTime: resstart,
@@ -495,6 +462,66 @@ function ClientDetails() {
     setclientConversation(event.target.value);
   };
 
+  const handleSubmit = async () => {
+    console.log(
+      clientName,
+
+      upcomings?.[0]?.ClientName,
+      "&&",
+      upcomings?.[0]?.ClientProject,
+      project,
+      "&&",
+      briefing,
+      "&&",
+      clientConversation
+    );
+    if (
+      upcomings?.[0]?.ClientName &&
+      upcomings?.[0]?.ClientProject &&
+      briefing &&
+      clientConversation
+    ) {
+      setIsCreating(true);
+      setErrorMessage(""); // Clear any previous error messages
+      console.log("Come");
+      ClientDetails(upcomings[0].ClientId, IdEmp);
+
+      try {
+        if (clientConversation === "Yes") {
+          const res = await axios.put(
+            `${
+              import.meta.env.VITE_BACKEND
+            }/api/attendants/clientConversion/${IdEmp}`
+          );
+          console.log("count the client converted", res);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      const notedata = {
+        clientName: upcomings?.[0]?.ClientNamentName,
+        project: upcomings?.[0]?.ClientProject,
+        briefing: briefing,
+        clientConversation: clientConversation,
+      };
+
+      try {
+        setCreateStatus("Note Successfully Added ✓");
+        console.log("Response send", notedata);
+        historyData(IdEmp);
+        upcoming(IdEmp);
+      } catch (error) {
+        console.error("Error creating Note:", error);
+        setCreateStatus("Error Creating Note");
+      } finally {
+        setIsCreating(false);
+      }
+    } else {
+      setErrorMessage("Please fill in all fields.");
+    }
+  };
+
   // console.log("clientConversation", clientConversation);
 
   //Delete PopUp
@@ -506,7 +533,9 @@ function ClientDetails() {
   };
   const confirmDelete = async () => {
     await axios.delete(
-      `${import.meta.env.VITE_BACKEND}/api/clientManagement/deleteHistory/${IdEmp}/${deleteId}`
+      `${
+        import.meta.env.VITE_BACKEND
+      }/api/clientManagement/deleteHistory/${IdEmp}/${deleteId}`
     );
     setDeleteShowPopup(false);
     fetchData();
@@ -531,12 +560,16 @@ function ClientDetails() {
       notes: briefing2,
     };
 
-
     setCreateStatus2("Registering Channel....");
     setIsCreating2(true);
 
     try {
-      const res = await axios.put(`${import.meta.env.VITE_BACKEND}/api/customers/DataUpdate/${clientIdData}`, notesdata)
+      const res = await axios.put(
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/customers/DataUpdate/${clientIdData}`,
+        notesdata
+      );
 
       console.log("Data is updated :", res);
 
@@ -555,34 +588,32 @@ function ClientDetails() {
     } finally {
       setIsCreating2(false);
     }
-
   };
 
   const getData = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND}/api/customers/getCustomerV2/${clientIdData}`);
+      const res = await axios.get(
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/customers/getCustomerV2/${clientIdData}`
+      );
       setCustomerdata(res.data);
-      console.log("customer data", customerdata)
-
+      console.log("customer data", customerdata);
     } catch (error) {
       console.log(error);
     }
-
-  }
+  };
 
   useEffect(() => {
     getData();
-    console.log("customer data2", customerdata)
-
-  }, [showPopupEdit])
+    console.log("customer data2", customerdata);
+  }, [showPopupEdit]);
 
   // console.log("customer id", clientIdData)
 
-
-
   return (
     <div className="flex flex-col h-screen">
-       <div className="flex items-center p-4 lg:p-6 bg-custom-bg">
+      <div className="flex items-center p-4 lg:p-6 bg-custom-bg">
         <h1 className="text-xl lg:text-2xl font-bold flex items-center gap-1">
           Home
           <IoIosArrowForward className="text-black" />
@@ -599,8 +630,7 @@ function ClientDetails() {
                 ? "bg-[#3D2314] text-white"
                 : "bg-white text-[#3D2314]"
             }`}
-            onClick={() => handleSectionChange("appointments")}
-          >
+            onClick={() => handleSectionChange("appointments")}>
             Appointments
           </button>
           <button
@@ -609,8 +639,7 @@ function ClientDetails() {
                 ? "bg-[#3D2314] text-white"
                 : "bg-white text-[#3D2314]"
             }`}
-            onClick={() => handleSectionChange("history")}
-          >
+            onClick={() => handleSectionChange("history")}>
             Client History
           </button>
         </div>
@@ -619,41 +648,78 @@ function ClientDetails() {
         <div className="hidden lg:block">
           {/* Upcoming Appointments */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold mb-4">Upcoming Appointments</h2>
+            <h2 className="text-lg font-semibold mb-4">
+              Upcoming Appointments
+            </h2>
             <div className="overflow-x-auto">
               <table className="w-full bg-white rounded-lg shadow-sm">
                 <thead className="bg-[#D7D7D7]">
                   <tr>
-                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">Date</th>
-                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">Customer ID</th>
-                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">Name</th>
-                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">Project Name</th>
-                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">Timer/Min</th>
-                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">Start Time</th>
-                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">End Time</th>
-                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">Actions</th>
+                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">
+                      Date
+                    </th>
+                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">
+                      Customer ID
+                    </th>
+                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">
+                      Name
+                    </th>
+                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">
+                      Project Name
+                    </th>
+                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">
+                      Timer/Min
+                    </th>
+                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">
+                      Start Time
+                    </th>
+                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">
+                      End Time
+                    </th>
+                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {upcomings.map((value, i) => (
                     <tr key={i}>
-                      <td className="py-2 px-4 text-sm">{DateupdatedAt(value.createdAt)}</td>
-                      <td className="py-2 px-4 text-sm text-center text-[#000AFF] underline font-bold">ROF001</td>
                       <td className="py-2 px-4 text-sm">
-                        <span className="bg-green-200 text-green-800 py-1 px-2 rounded text-xs">New Client</span>
+                        {DateupdatedAt(value.createdAt)}
+                      </td>
+                      <td className="py-2 px-4 text-sm text-center text-[#000AFF] underline font-bold">
+                        ROF001
+                      </td>
+                      <td className="py-2 px-4 text-sm">
+                        <span className="bg-green-200 text-green-800 py-1 px-2 rounded text-xs">
+                          New Client
+                        </span>
                         <span className="ml-2">{value.ClientName}</span>
                       </td>
-                      <td className="py-2 px-4 text-sm">{value.ClientProject}</td>
-                      <td className="py-2 px-4 text-sm font-semibold">{formatTime(timeLeft)}</td>
-                      <td className="py-2 px-4 text-sm font-semibold text-center">{time === 0 ? "00 : 00" : formatTime(time)}</td>
-                      <td className="py-2 px-4 text-sm font-semibold text-center">{EndCounter === 0 ? "00 : 00" : EndCounter}</td>
+                      <td className="py-2 px-4 text-sm">
+                        {value.ClientProject}
+                      </td>
+                      <td className="py-2 px-4 text-sm font-semibold">
+                        {formatTime(timeLeft)}
+                      </td>
+                      <td className="py-2 px-4 text-sm font-semibold text-center">
+                        {time === 0 ? "00 : 00" : formatTime(time)}
+                      </td>
+                      <td className="py-2 px-4 text-sm font-semibold text-center">
+                        {EndCounter === 0 ? "00 : 00" : EndCounter}
+                      </td>
                       <td className="py-2 px-4 text-sm">
                         <div className="flex justify-around">
                           <button
                             className="text-green-500 mr-2"
-                            onClick={() => handleCorrectClick("correct1", "cross1")}
-                          >
-                            {iconState.correct1 ? "✓" : <img src={backButtton} alt="Back" />}
+                            onClick={() =>
+                              handleCorrectClick("correct1", "cross1")
+                            }>
+                            {iconState.correct1 ? (
+                              "✓"
+                            ) : (
+                              <img src={backButtton} alt="Back" />
+                            )}
                           </button>
                           <button
                             className="text-red-500"
@@ -661,12 +727,17 @@ function ClientDetails() {
                               if (iconState.correct1 === false) {
                                 handleCrossClick("correct1", "cross1");
                               }
-                            }}
-                          >
+                            }}>
                             {iconState.cross1 ? (
-                              <span onClick={() => rejectMeetingfun(IdEmp)}>✕</span>
+                              <span onClick={() => rejectMeetingfun(IdEmp)}>
+                                ✕
+                              </span>
                             ) : (
-                              <img src={stopButton} alt="Stop" onClick={stopTime} />
+                              <img
+                                src={stopButton}
+                                alt="Stop"
+                                onClick={stopTime}
+                              />
                             )}
                           </button>
                         </div>
@@ -681,7 +752,7 @@ function ClientDetails() {
 
         {/* Search Bar */}
         <div className="flex justify-center mb-6">
-          <div className="relative w-full max-w-2xl none">
+          <div className="relative w-full max-w-2xl">
             <input
               className="w-full py-2 px-12 rounded-full shadow-md"
               type="text"
@@ -689,102 +760,138 @@ function ClientDetails() {
               onChange={(e) => setvalueinput(e.target.value)}
               placeholder="Search"
             />
-            <img src={Searchsvg} alt="Search" className="absolute left-3 top-1/2 transform -translate-y-1/2" />
+            <img
+              src={Searchsvg}
+              alt="Search"
+              className="absolute left-3 top-1/2 transform -translate-y-1/2"
+            />
           </div>
         </div>
 
         {/* Client History */}
         <div style={{ textAlign: " -webkit-center" }} className="headLn">
           <div className="overflow-x-auto">
-             <h2 className="text-lg font-semibold mb-4">Client's History</h2>
+            <h2 className="text-lg font-semibold mb-4">Client's History</h2>
             <div className="wrapperT">
-            <table className="w-full bg-white shadow-sm rounded-lg">
-            <thead className="bg-[#E8E8E8]">
-              <tr>
-                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Name</th>
-                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Customer ID</th>
-                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Email</th>
-                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Phone No.</th>
-                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Property Interest</th>
-                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Schedule Meeting</th>
-                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Status</th>
-                <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data
-                .filter(({ ClientName }) =>
-                  ClientName.toLowerCase().includes(valueinput.toLowerCase())
-                )
-                .map((visitor, index) => (
-                  <tr key={index}>
-                    <td className="py-2 px-4 text-sm">{visitor.ClientName}</td>
-                    <td className="py-2 px-4 text-sm">
-                      <Link
-                        to={`/SalesExecutive/Notes/IDHistory/${visitor.ClientId}`}
-                        className="text-[#000AFF] underline font-bold"
-                      >
-                        {visitor.ClientId}
-                      </Link>
-                    </td>
-                    <td className="py-2 px-4 text-sm">{visitor.ClientEmail}</td>
-                    <td className="py-2 px-4 text-sm">{visitor.ClientMobile}</td>
-                    <td className="py-2 px-4 text-sm">{visitor.ClientProject}</td>
-                    <td className="py-2 px-4 text-sm">{DateupdatedAt(visitor.createdAt)}</td>
-                    <td className="py-2 px-4 text-sm">
-                      <span
-                        className={`py-1 px-2 rounded ${
-                          visitor.completed === "completed"
-                            ? "bg-[#E1F8D7] text-[#48A321]"
-                            : visitor.completed === "notCompleted"
-                            ? "bg-[#A321211A] text-[#A32121]"
-                            : visitor.completed === "progress"
-                            ? "bg-[lightyellow] text-[yellowgreen]"
-                            : ""
-                        }`}
-                      >
-                        {visitor.completed === "notCompleted"
-                          ? "Not completed"
-                          : visitor.completed === "completed"
-                          ? "Completed"
-                          : visitor.completed === "progress"
-                          ? "In Progress"
-                          : ""}
-                      </span>
-                      <span className="ml-2">
-                        {visitor.completed === "completed" ? (
-                          <FaCheck className="text-[#48A321]" />
-                        ) : visitor.completed === "notCompleted" ? (
-                          <RxCross2 className="text-[#A32121]" />
-                        ) : visitor.completed === "progress" ? (
-                          <BsThreeDots className="text-[yellowgreen]" />
-                        ) : null}
-                      </span>
-                    </td>
-                    <td className="py-2 px-4 text-sm">
-                      <div className="flex space-x-2">
-                        <img src={view} alt="View" className="cursor-pointer" />
-                        <img
-                          src={edit}
-                          alt="Edit"
-                          className="cursor-pointer"
-                          onClick={() => {
-                            setShowPopupEdit(true);
-                            setClientIdData(visitor.ClientId);
-                          }}
-                        />
-                        <img
-                          src={delt}
-                          alt="Delete"
-                          className="cursor-pointer"
-                          onClick={() => handleDeleteClick(visitor.ClientId)}
-                        />
-                      </div>
-                    </td>
+              <table className="w-full bg-white shadow-sm rounded-lg">
+                <thead className="bg-[#E8E8E8]">
+                  <tr>
+                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                      Name
+                    </th>
+                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                      Customer ID
+                    </th>
+                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                      Email
+                    </th>
+                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                      Phone No.
+                    </th>
+                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                      Property Interest
+                    </th>
+                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                      Schedule Meeting
+                    </th>
+                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                      Status
+                    </th>
+                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                      Action
+                    </th>
                   </tr>
-                ))}
-            </tbody>
-          </table>
+                </thead>
+                <tbody>
+                  {data
+                    .filter(({ ClientName }) =>
+                      ClientName.toLowerCase().includes(
+                        valueinput.toLowerCase()
+                      )
+                    )
+                    .map((visitor, index) => (
+                      <tr key={index}>
+                        <td className="py-2 px-4 text-sm">
+                          {visitor.ClientName}
+                        </td>
+                        <td className="py-2 px-4 text-sm">
+                          <Link
+                            to={`/SalesExecutive/Notes/IDHistory/${visitor.ClientId}`}
+                            className="text-[#000AFF] underline font-bold">
+                            {visitor.ClientId}
+                          </Link>
+                        </td>
+                        <td className="py-2 px-4 text-sm">
+                          {visitor.ClientEmail}
+                        </td>
+                        <td className="py-2 px-4 text-sm">
+                          {visitor.ClientMobile}
+                        </td>
+                        <td className="py-2 px-4 text-sm">
+                          {visitor.ClientProject}
+                        </td>
+                        <td className="py-2 px-4 text-sm">
+                          {DateupdatedAt(visitor.createdAt)}
+                        </td>
+                        <td className="py-2 px-4 text-sm">
+                          <span
+                            className={`py-1 px-2 rounded ${
+                              visitor.completed === "completed"
+                                ? "bg-[#E1F8D7] text-[#48A321]"
+                                : visitor.completed === "notCompleted"
+                                ? "bg-[#A321211A] text-[#A32121]"
+                                : visitor.completed === "progress"
+                                ? "bg-[lightyellow] text-[yellowgreen]"
+                                : ""
+                            }`}>
+                            {visitor.completed === "notCompleted"
+                              ? "Not completed"
+                              : visitor.completed === "completed"
+                              ? "Completed"
+                              : visitor.completed === "progress"
+                              ? "In Progress"
+                              : ""}
+                          </span>
+                          <span className="ml-2">
+                            {visitor.completed === "completed" ? (
+                              <FaCheck className="text-[#48A321]" />
+                            ) : visitor.completed === "notCompleted" ? (
+                              <RxCross2 className="text-[#A32121]" />
+                            ) : visitor.completed === "progress" ? (
+                              <BsThreeDots className="text-[yellowgreen]" />
+                            ) : null}
+                          </span>
+                        </td>
+                        <td className="py-2 px-4 text-sm">
+                          <div className="flex space-x-2">
+                            <img
+                              src={view}
+                              alt="View"
+                              className="cursor-pointer"
+                            />
+                            <img
+                              src={edit}
+                              alt="Edit"
+                              className="cursor-pointer"
+                              onClick={() => {
+                                setShowPopupEdit(true);
+                                setClientIdData(visitor.ClientId);
+                              }}
+                            />
+                            <img
+                              src={delt}
+                              alt="Delete"
+                              className="cursor-pointer"
+                              onClick={() =>
+                                handleDeleteClick(visitor.ClientId)
+                              }
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -876,9 +983,7 @@ function ClientDetails() {
                                     {EndCounter === 0 ? "00:00" : EndCounter}
                                   </td>
                                 </tr>
-                                <tr>
-                                
-                                </tr>
+                                <tr></tr>
                               </tbody>
                             </table>
                           </div>
@@ -896,7 +1001,7 @@ function ClientDetails() {
           <div className="lg:hidden">
             {/* Search Bar */}
             <div className="flex flex-row items-center justify-center">
-              {/* <div className="flex justify-center place-self-center items-center w-[100%] lg:w-[36rem] relative rounded-full">
+              <div className="flex justify-center place-self-center items-center w-[100%] lg:w-[36rem] relative rounded-full">
                 <input
                   className="w-full py-2 px-12 rounded-full h-[48px] lg:h-[48px] lg:w-[619px]"
                   style={{
@@ -915,7 +1020,7 @@ function ClientDetails() {
                   alt="Search"
                   className="absolute left-3"
                 />
-              </div> */}
+              </div>
             </div>
 
             {/* Client's History */}
@@ -1076,21 +1181,22 @@ function ClientDetails() {
                               className="py-4 px-4 flex flex-wrap justify-between">
                               <span
                                 style={{ borderBottom: "1px solid #E4E7EC" }}
-                                className={`rounded ${visitor.completed === "completed"
-                                  ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
-                                  : visitor.completed === "notCompleted"
+                                className={`rounded ${
+                                  visitor.completed === "completed"
+                                    ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
+                                    : visitor.completed === "notCompleted"
                                     ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded"
                                     : visitor.completed === "progress"
-                                      ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
-                                      : ""
-                                  }`}>
+                                    ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
+                                    : ""
+                                }`}>
                                 {visitor.completed === "notCompleted"
                                   ? "Not completed"
                                   : visitor.completed === "completed"
-                                    ? "Completed"
-                                    : visitor.completed === "progress"
-                                      ? "In Progress"
-                                      : ""}
+                                  ? "Completed"
+                                  : visitor.completed === "progress"
+                                  ? "In Progress"
+                                  : ""}
                               </span>
                               <span style={{ alignContent: "center" }}>
                                 {visitor.completed === "completed" ? (
@@ -1145,7 +1251,7 @@ function ClientDetails() {
               </button>
               <input
                 type="text"
-                value={upcomings[0].ClientName}
+                value={clientName || upcomings?.[0]?.ClientName}
                 onChange={(e) => setclientName(e.target.value)}
                 className="w-[640px] h-12 mb-4"
                 placeholder="Client Name"
@@ -1161,10 +1267,10 @@ function ClientDetails() {
                   borderRadius: "6px",
                 }}
               />
-               <input
+              <input
                 type="text"
-                value ={upcomings[0].ClientProject}
-                onChange={(e) => setclientName(e.target.value)}
+                value={project || upcomings?.[0]?.ClientProject}
+                onChange={(e) => setProject(e.target.value)}
                 className="w-[640px] h-12 mb-4"
                 placeholder="Client Name"
                 style={{
@@ -1179,7 +1285,29 @@ function ClientDetails() {
                   borderRadius: "6px",
                 }}
               />
-              
+              {/* <div
+                className="relative w-[640px] h-[48px]   mb-4 block   focus:ring focus:ring-brown-500 focus:ring-opacity-50"
+                style={{
+                  color: "rgba(0, 0, 0, 0.68)",
+                  fontWeight: 400,
+                  fontSize: "16px",
+                  lineHeight: "19.2px",
+                  fontFamily: "Manrope",
+                  gap: "10px",
+                  border: "0.8px solid rgba(0,0,0,0.44) ",
+                  borderRadius: "6px",
+                }}
+                onClick={() => setIsProjectDropdownOpen(!isProjectDropdownOpen)}
+                ref={projectDropdownRef}>
+                <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
+                  {project || "Choose Project"}
+                  <img
+                    className="ml-2 h-2 w-3 "
+                    src={DropIcon}
+                    alt="Dropdown Icon"
+                  />
+                </div>
+              </div> */}
 
               <div
                 style={{
@@ -1354,7 +1482,9 @@ function ClientDetails() {
               type="text"
               className="project-name-input w-[533px] h-12 p-4 rounded-md border border-gray-300 font-manrope text-lg "
               placeholder="Choose Project"
-              value={customerdata?.projectName || customerdata?.projectName || ""}
+              value={
+                customerdata?.projectName || customerdata?.projectName || ""
+              }
               onChange={(e) => setProjectName(e.target.value)}
             />
             <textarea
