@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { FaRegEdit } from "react-icons/fa";
-import edit from "../../assets/Group.png";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import edit from "../../assets/Group.png";
 
 const PasswordPage = ({ email }) => {
   const [oldPassword, setOldPassword] = useState("");
@@ -11,13 +9,9 @@ const PasswordPage = ({ email }) => {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [userPhone, setUserPhone] = useState(email);
 
-  // const handleButtonClick = (data) => {
-  //   console.log(data);
-  // };
-
   useEffect(() => {
-    setUserPhone(phone);
-  }, [phone]);
+    setUserPhone(email); // Set user phone/email from props
+  }, [email]);
 
   const handleEditClick = async () => {
     const data = {
@@ -32,46 +26,40 @@ const PasswordPage = ({ email }) => {
         `${import.meta.env.VITE_BACKEND}/api/admin/change-password`,
         data
       );
-      console.log("Password Change Successfully", res);
+      console.log("Password Changed Successfully", res);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="px-[24px] py-[8px]">
-      <hr className="mb-6 text-[#D0D0D0]" />
+    <div className="px-6 py-4 lg:px-12 lg:py-6 2xl:h-auto lg:h-auto">
+      <hr className="mb-6 text-gray-300 2xl:h-auto lg:h-auto" />
       <div>
         <div className="flex justify-between items-center mb-4">
-          <h2
-            style={{ fontWeight: "700", fontFamily: "Manrope" }}
-            className="text-[#3C3C3C] text-[Manrope] text-[20px]">
+          <h2 className="text-gray-700 font-bold text-xl lg:text-2xl">
             Change Password
           </h2>
           <button
-            className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[114px] h-[48px]"
-            onClick={handleEditClick}>
-            <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-              <img src={edit} />
-            </h4>
-            <p style={{ fontFamily: "Manrope" }}>Edit</p>
+            className="flex items-center bg-brown-900 text-white rounded-full w-28 h-12 lg:w-36 lg:h-12 justify-center"
+            onClick={handleEditClick}
+          >
+            <div className="w-4 h-4 lg:w-5 lg:h-5 mr-2">
+              <img src={edit} alt="Edit Icon" />
+            </div>
+            <p className="text-sm lg:text-base">Edit</p>
           </button>
         </div>
 
-        <div className="mb-2 dumbo">
-          <div className="mr-24 mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px] ">
+        {/* Old Password Input */}
+        <div className="mb-4">
+          <div className="lg:w-1/2">
+            <label className="block text-gray-600 text-sm mb-2">
               Old Password
             </label>
             <input
-              type="text"
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg"
+              type="password"
+              className="w-full lg:w-[360px] h-10 px-3 border border-gray-300 rounded-lg"
               placeholder="Old Password"
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
@@ -79,20 +67,15 @@ const PasswordPage = ({ email }) => {
           </div>
         </div>
 
-        <div className="mb-2 dumbo">
-          <div className="mr-24 mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] w-[280px] h-[19px] mb-[4px]">
+        {/* New Password Input */}
+        <div className="mb-4">
+          <div className="lg:w-1/2">
+            <label className="block text-gray-600 text-sm mb-2">
               Add New Password
             </label>
             <input
-              type="text"
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg"
+              type="password"
+              className="w-full lg:w-[360px] h-10 px-3 border border-gray-300 rounded-lg"
               placeholder="Add new Password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
@@ -100,20 +83,15 @@ const PasswordPage = ({ email }) => {
           </div>
         </div>
 
-        <div className="dumbo ">
-          <div className="mr-24 mb-4">
-            <label
-              style={{
-                fontWeight: "400",
-                lineHeight: "19.12px",
-                fontFamily: "Manrope",
-              }}
-              className="block text-[#5B5B5B] text-[14px] text-[Manrope] mb-[4px] w-[280px] h-[19px] ">
+        {/* Confirm New Password Input */}
+        <div className="mb-4">
+          <div className="lg:w-1/2">
+            <label className="block text-gray-600 text-sm mb-2">
               Confirm New Password
             </label>
             <input
-              type="text"
-              className="w-[280px] h-[39px] px-[10px] py-[10px] border rounded-lg"
+              type="password"
+              className="w-full lg:w-[360px] h-10 px-3 border border-gray-300 rounded-lg"
               placeholder="Confirm New Password"
               value={confirmNewPassword}
               onChange={(e) => setConfirmNewPassword(e.target.value)}
@@ -122,7 +100,7 @@ const PasswordPage = ({ email }) => {
         </div>
       </div>
 
-      <hr className="mt-1 mb-4" />
+      <hr className="mt-4 text-gray-300" />
     </div>
   );
 };
