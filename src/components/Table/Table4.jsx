@@ -380,10 +380,11 @@ const Table4 = () => {
                         </button>
                       </div>
                     </div>
-                  ))}
+                  )).reverse()}
               </div>
             </div>
           </main>
+          
           {/* //b */}
           {showPopup && deleteId !== null && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
