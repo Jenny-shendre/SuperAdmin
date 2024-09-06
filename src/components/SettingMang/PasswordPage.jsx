@@ -44,10 +44,10 @@ const PasswordPage = ({ email }) => {
             className="flex items-center bg-[#3D2314] text-white rounded-full w-28 h-12 lg:w-36 lg:h-12 justify-center"
             onClick={handleEditClick}
           >
-            <div className="w-4 h-4 lg:w-5 lg:h-5 mr-2">
+            {/* <div className="w-4 h-4 lg:w-5 lg:h-5 mr-2">
               <img src={edit} alt="Edit Icon" />
-            </div>
-            <p className="text-sm lg:text-base">Edit</p>
+            </div> */}
+            <p className="text-sm lg:text-base">Save</p>
           </button>
         </div>
 
