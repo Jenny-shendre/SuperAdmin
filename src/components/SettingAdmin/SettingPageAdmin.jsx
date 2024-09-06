@@ -244,14 +244,7 @@ const SettingPageAdmin = () => {
                 </div>
               </div>
             </div>
-            <button
-              className="flex lg:px-8 lg:py-3 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full w-[138px] h-[48px] justify-end"
-              onClick={handleEditClick && handleImageUpload}>
-              <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-                <img src={edit} />
-              </h4>
-              <p>Upload</p>
-            </button>
+           
           </div>
 
           <div>
