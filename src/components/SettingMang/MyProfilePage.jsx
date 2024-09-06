@@ -158,7 +158,7 @@ const MyProfilePage = () => {
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-gray-800 font-bold text-xl lg:text-2xl">Address</h2>
           <button
-            className="flex items-center bg-brown-900 text-white rounded-full w-28 h-12 justify-center lg:w-36 lg:h-12"
+            className="flex items-center bg-[#3D2314] text-white rounded-full w-28 h-12 justify-center lg:w-36 lg:h-12"
             onClick={handleEditClick2}
           >
             <img src={edit} alt="edit" className="w-5 h-5 mr-2" />
