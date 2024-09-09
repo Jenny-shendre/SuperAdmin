@@ -5,6 +5,7 @@ import Searchsvg from "../../assets/material-symbols_search.svg";
 import { CgNotes } from "react-icons/cg";
 import { IoCheckmarkOutline } from "react-icons/io5";
 import close from "../../assets/close.png";
+import cross from "../../assets/cross.png";
 import axios from "axios";
 import { format, isValid } from "date-fns";
 import Loading from "../Loding/Loding";
@@ -17,17 +18,21 @@ function ClientHistory() {
   const [valueinput, setvalueinput] = useState("");
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("All");
-
   const [showNotePopup, setShowNotePopup] = useState(false);
-
   const [showAddNotePopup, setShowAddNotePopup] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false); // state for project dropdown
+  const [isProjectDropdownOpen, setIsProjectDropdownOpen] = useState(false);
   const [selectedClient, setSelectedClient] = useState({});
   const [selectedExecutive, setSelectedExecutive] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [search, setSearch] = useState("");
-  //vb
+  const [clientName, setclientName] = useState("");
+  const [project, setProject] = useState("");
+  const [briefing, setBriefing] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+  const [createStatus, setCreateStatus] = useState("");
+  const [data2, setdata2] = useState([]);
+
   const truncateText = (text, limit = 10) => {
     if (text && text.length > limit) {
       return text.slice(0, limit) + "...";
@@ -37,22 +42,13 @@ function ClientHistory() {
 
   const notePopupRef = useRef();
   const addNotePopupRef = useRef();
-
   const dropdownRef = useRef();
-  const projectDropdownRef = useRef(); // ref for project dropdown
+  const projectDropdownRef = useRef();
 
-  // const [data2, setdata] = useState([]);
   const pathname = location.pathname;
-  // const employeeId = decodeURIComponent(
-  //   pathname.substring(pathname.lastIndexOf("/") + 1)
-  // );
-  // console.log(employeeId);
-
   const pathSegments = pathname.split("/");
-  const employeeId = decodeURIComponent(pathSegments[3]); // Assuming 'teamName' is at index 3
-  // const employeeId = decodeURIComponent(pathSegments[4]); // Assuming 'employeeId' is at index 4
+  const employeeId = decodeURIComponent(pathSegments[3]);
 
-  // console.log("teamName", teamName);
   console.log("employeeId", employeeId);
 
   const handleOutsideClick = (event) => {
@@ -78,7 +74,6 @@ function ClientHistory() {
           import.meta.env.VITE_BACKEND
         }/api/clientManagement/history/${employeeId}`
       );
-
       setData(res.data);
     } catch (error) {
       console.log(error);
@@ -101,22 +96,28 @@ function ClientHistory() {
   };
 
   const onNoteIconClick = (item) => {
-    //console.log("Selected Visitor:", client.ClientProject);
     setSelectedClient(item);
     setShowAddNotePopup(true);
   };
 
+  const handleProjectChange = (projectName) => {
+    setProject(projectName);
+    setIsProjectDropdownOpen(false);
+  };
+
+  const handleSubmit = async () => {
+    // Implementation of handleSubmit function
+  };
+
   return (
     <>
-      {" "}
       {loading ? (
         <Loading />
       ) : (
         <div>
           <div
             style={{ gap: "20px", paddingTop: "30px", fontFamily: "Manrope" }}
-            className="headLn p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
-        ">
+            className="headLn p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg">
             <h1
               className="font-bold flex items-center gap-1 font-[Manrope]"
               style={{
@@ -152,7 +153,7 @@ function ClientHistory() {
           <div className="flex flex-row items-center justify-center font-[Manrope]">
             <div className="mt-6 flex justify-start items-center lg:block relative lg:w-[36rem] rounded-full">
               <input
-                className="searchBox w-full rounded-full "
+                className="searchBox w-full rounded-full"
                 style={{
                   width: "619px",
                   height: "48px",
@@ -161,8 +162,7 @@ function ClientHistory() {
                   gap: "24px",
                   borderRadius: "27px",
                   opacity: "0px",
-
-                  boxShadow: " 0px 0px 4px 0px #00000040",
+                  boxShadow: "0px 0px 4px 0px #00000040",
                 }}
                 type="text"
                 value={valueinput}
@@ -178,15 +178,14 @@ function ClientHistory() {
             </div>
           </div>
 
-          <main className=" overflow-x-hidden overflow-y-auto p-6 font-[Manrope]">
+          <main className="overflow-x-hidden overflow-y-auto p-6 font-[Manrope]">
             <div
               style={{ textAlign: "-webkit-center" }}
               className="outer-wrapperB tableDiv">
-              <table className="w-[1060px] h-[740px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
+              <table className="w-[1060px] h-[740px] bg-white shadow-md overflow-hidden font-[Manrope] wrapperB">
                 <div className="outer-wrapper">
                   <div className="table-wrapper">
-                    {/* <div className="table-wrapperB"> */}
-                    <thead className=" font-[Manrope]">
+                    <thead className="font-[Manrope]">
                       <tr className="text-center text-[#4B4B4B] h-[36px] font-[Manrope]">
                         <th
                           style={{
@@ -197,7 +196,7 @@ function ClientHistory() {
                             color: "#4B4B4B",
                             width: "190px",
                           }}
-                          className="px-4 py-2 ">
+                          className="px-4 py-2">
                           Name
                         </th>
                         <th
@@ -246,7 +245,7 @@ function ClientHistory() {
                             width: "130px",
                           }}
                           className="px-4 py-2">
-                          Property Intrest
+                          Property Interest
                         </th>
                         <th
                           style={{
@@ -269,13 +268,13 @@ function ClientHistory() {
                             color: "#4B4B4B",
                             width: "135px",
                           }}
-                          className="px-4 py-2 ">
+                          className="px-4 py-2">
                           Status
                         </th>
                       </tr>
                     </thead>
 
-                    <tbody className="font-[Manrope] ">
+                    <tbody className="font-[Manrope]">
                       {data
                         .filter(
                           ({
@@ -308,7 +307,7 @@ function ClientHistory() {
                         .map((item, index) => (
                           <tr
                             className="text-[#5C5C5C] text-center border-b"
-                            key={item}>
+                            key={index}>
                             <td
                               className="px-4 py-2 max-w-[150px] overflow-hidden"
                               style={{
@@ -343,7 +342,7 @@ function ClientHistory() {
                             </td>
 
                             <td
-                              className="px-4 py-2 max-w-[150px] overflow-hidden "
+                              className="px-4 py-2 max-w-[150px] overflow-hidden"
                               style={{
                                 fontFamily: "Manrope",
                                 fontSize: "14px",
@@ -354,9 +353,8 @@ function ClientHistory() {
                             </td>
 
                             <td
-                              className="px-4 py-2 text-[#000000] "
+                              className="px-4 py-2 text-[#000000]"
                               style={{ fontWeight: "300" }}>
-                              {" "}
                               {item.ClientMobile}
                             </td>
                             <td
@@ -368,31 +366,36 @@ function ClientHistory() {
                               }>
                               {item.ClientProject}
                             </td>
-                            <td className="px-4 py-2 r">
+                            <td className="px-4 py-2">
                               {DateupdatedAt(item.createdAt)}
                             </td>
 
-                            <div
-                              className="flex justify-center items-center"
-                              style={{ alignContent: "center" }}>
-                              {item.accepted === "completed" ? (
-                                <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31] mt-2" />
-                              ) : item.accepted === "pending" ? (
-                                <img
-                                  src={close}
-                                  alt="In Progress"
-                                  className="w-[24px] h-[24px] mt-2 "
-                                />
-                              ) : (
-                                <span className="text-[#000000] mt-2">
-                                  {item.accepted}
-                                </span>
-                              )}
-                            </div>
+                            <td className="px-4 py-2">
+                              <div className="flex justify-center items-center">
+                                {item.accepted === "completed" ? (
+                                  <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31]" />
+                                ) : item.accepted === "pending" ? (
+                                  <img
+                                    src={close}
+                                    alt="In Progress"
+                                    className="w-[24px] h-[24px]"
+                                  />
+                                ) : item.accepted === "Not completed" ? (
+                                  <img
+                                    src={cross}
+                                    alt="Not completed"
+                                    className="w-[24px] h-[24px]"
+                                  />
+                                ) : (
+                                  <span className="text-[#000000]">
+                                    {item.accepted}
+                                  </span>
+                                )}
+                              </div>
+                            </td>
                           </tr>
                         ))}
                     </tbody>
-                    {/* </div> */}
                   </div>
                 </div>
               </table>
@@ -409,112 +412,9 @@ function ClientHistory() {
                   <button
                     className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[664px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
                     onClick={() => setShowAddNotePopup(false)}>
-                    X
-                  </button>
-                  <input
-                    type="text"
-                    value={selectedClient.executiveName || "Not Found"}
-                    onChange={() => {}}
-                    className="w-[640px] h-12 mb-4"
-                    placeholder="Sales Executive Name"
-                    style={{
-                      color: "rgba(0, 0, 0, 0.68)",
-                      fontWeight: 400,
-                      fontSize: "16px",
-                      padding: "16px 24px 16px 16px",
-                      lineHeight: "19.2px",
-                      fontFamily: "Manrope",
-                      gap: "10px",
-                      border: "0.8px solid rgba(0,0,0,0.44) ",
-                      borderRadius: "6px",
-                    }}
-                  />
-
-                  <input
-                    type="text"
-                    value={selectedClient.project || "Not Assign"}
-                    onChange={() => {}}
-                    className="w-[640px] h-12 mb-4"
-                    placeholder="Project Name"
-                    style={{
-                      color: "rgba(0, 0, 0, 0.68)",
-                      fontWeight: 400,
-                      fontSize: "16px",
-                      padding: "16px 24px 16px 16px",
-                      lineHeight: "19.2px",
-                      fontFamily: "Manrope",
-                      gap: "10px",
-                      border: "0.8px solid rgba(0,0,0,0.44) ",
-                      borderRadius: "6px",
-                    }}
-                  />
-
-                  <div
-                    style={{
-                      padding: "16px 24px 16px 16px",
-                      width: "640px",
-                      height: "127px",
-                      color: "rgba(0, 0, 0, 0.68)",
-                      fontWeight: 400,
-                      fontSize: "16px",
-                      lineHeight: "19.2px",
-                      fontFamily: "Manrope",
-                      gap: "10px",
-                      border: "0.8px solid rgba(0,0,0,0.44) ",
-                      borderRadius: "6px",
-                    }}
-                    className="rounded-md border border-gray-300 font-manrope  div2 mb-4">
-                    <textarea
-                      value={selectedClient.note || "Empty"}
-                      type="text"
-                      placeholder="Add your Briefing"
-                      style={{
-                        border: "none",
-                        overflowY: "scroll",
-                        outline: "none",
-                        width: "600px",
-                        height: "100px",
-                        fontWeight: 400,
-                      }}
-                      onChange={() => {}}
-                    />
-                  </div>
-
-                  <button
-                    className="flex flex-wrap gap-[10px] justify-between create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
-                    onClick={() => setShowAddNotePopup(false)}>
-                    Close Note
-                  </button>
-
-                  {/*<button
-                  onClick={handleSubmit}
-                  className="w-[192px] h-[44px] flex flex-wrap justify-center create-team-btn bg-[#3D2314] rounded-[4px] text-center text-white"
-                  disabled={isCreating}
-                  style={{ fontFamily: "Manrope", fontWeight: "400", fontSize: "16px", borderRadius: "4px", padding: "10px", gap: "10px" }}
-                >
-                  {createStatus || "Close Note"}
-                </button>*/}
-                  {errorMessage && (
-                    <p className="text-red-500 mt-2">{errorMessage}</p>
-                  )}
-                </div>
-              </div>
-            </>
-          )}
-
-          {showAddNotePopup && (
-            <>
-              <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
-              <div
-                ref={addNotePopupRef}
-                className="fixed inset-0 flex items-center justify-center z-50">
-                <div className="add-team-members w-[688px] h-auto p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
-                  <button
-                    className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[664px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                    onClick={() => setShowAddNotePopup(false)}>
-                    X
-                  </button>
-                  <input
+                      X
+                    </button>
+                    <input
                     type="text"
                     value={clientName}
                     onChange={(e) => setclientName(e.target.value)}
