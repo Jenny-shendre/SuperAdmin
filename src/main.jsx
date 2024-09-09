@@ -184,7 +184,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute element={overviewID} />,
       },
       {
-        path: "/SalesManager/ClientHistory/:employeeId",
+        path: "/SalesManager/ClientHistory/:employeeId/:name",
         element: <PrivateRoute element={ClientHistory} />,
       },
       {
