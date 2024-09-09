@@ -11,6 +11,9 @@ import Loading from "../Loding/Loding";
 import { FiEye } from "react-icons/fi";
 import { TbEdit } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { RxCross2 } from "react-icons/rx";
+import { FaCheck } from "react-icons/fa6";
+import { BsThreeDots } from "react-icons/bs";
 
 function ClientHistory() {
   const [data, setData] = useState([]);
@@ -182,7 +185,7 @@ function ClientHistory() {
             <div
               style={{ textAlign: "-webkit-center" }}
               className="outer-wrapperB tableDiv">
-              <table className="w-[1060px] h-[740px] bg-white shadow-md  overflow-hidden font-[Manrope]  wrapperB">
+              <table className="w-[1170px] h-auto bg-white shadow-md wrapper-b overflow-hidden font-[Manrope]">
                 <div className="outer-wrapper">
                   <div className="table-wrapper">
                     {/* <div className="table-wrapperB"> */}
@@ -255,7 +258,7 @@ function ClientHistory() {
                             fontWeight: "500",
                             lineHeight: "16.39px",
                             color: "#4B4B4B",
-                            width: "115px",
+                            width: "188px",
                           }}
                           className="px-4 py-2">
                           Meeting Date
@@ -267,7 +270,7 @@ function ClientHistory() {
                             fontWeight: "500",
                             lineHeight: "16.39px",
                             color: "#4B4B4B",
-                            width: "135px",
+                            width: "187px",
                           }}
                           className="px-4 py-2 ">
                           Status
@@ -368,33 +371,64 @@ function ClientHistory() {
                               }>
                               {item.ClientProject}
                             </td>
-                            <td className="px-4 py-2 r">
+                            <td className="px-2 py-2 ">
                               {DateupdatedAt(item.createdAt)}
                             </td>
+                            <td className="py-2 px-4 text-sm flex items-center justify-start gap-3">
+                              <span 
+                              className={`py-1 px-2 rounded w-[87px] h-[24px] gap-[8px] ${
+                              item.completed === "completed" 
+                              ? "bg-[#E1F8D7] text-[#48A321] font-[12px]"
+                              : item.completed === "notCompleted" 
+                              ? "bg-[#A321211A] text-[#A32121] w-[110px] text-[12px]"
+                              : item.completed === "progress"
+                              ? "bg-[lightyellow] text-[yellowgreen]"
+                              : ""
+                             }`}>
+                              {item.completed === "notCompleted"
+                              ? "Not Completed"
+                              : item.completed === "completed"
+                              ? "Completed"
+                              : item.completed === "progress"
+                              ? "In Progress"
+                              : ""}
+                             </span>
 
-                            <div
+                             <span className="ml-2">
+                              {item.completed === "completed" ? (
+                                <FaCheck className="text-[#48A321]" />
+                              ) : item.completed === "notCompleted" ? (
+                                <RxCross2 className="text-[#A32121]" /> 
+                              ) : item.completed === "progress" ? (
+                                <BsThreeDots className="text-[yellowgreen]" />
+                              )  : null}
+                              
+                              </span> 
+                            </td>
+                           
+                            {/* // <div
                               className="flex justify-center items-center"
                               style={{ alignContent: "center" }}>
-                              {item.accepted === "completed" ? (
-                                <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31] mt-2" />
-                              ) : item.accepted === "pending" ? (
-                                <img
-                                  src={close}
-                                  alt="In Progress"
-                                  className="w-[24px] h-[24px] mt-2 "
-                                />
+                              {item.accepted === "completed" ?  (
+                                <span className="bg-green-200 text-green-800 py-1 px-2 rounded text-xs"></span>
+                              // ) : item.accepted === "pending" ? (
+                              //   <FaCheck className="text-[#48A321]" />
+                              ) : item.accepted === "Not completed" ? (
+                                <RxCross2 className="text-[#A32121]" />
                               ) : (
                                 <span className="text-[#000000] mt-2">
-                                  {item.accepted}
+                                  {item.completed}
+                                  {item.NotCompleted}
                                 </span>
-                              )}
-                            </div>
+                                
+                              )}                            
+                            </div> */}
                           </tr>
                         ))}
                     </tbody>
-                    {/* </div> */}
+                    </div>
                   </div>
-                </div>
+                {/* </div> */}
               </table>
             </div>
           </main>
