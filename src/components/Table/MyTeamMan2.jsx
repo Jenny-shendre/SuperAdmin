@@ -322,8 +322,9 @@ function ClientHistory() {
                                 color: "#5C5C5C",
                               }}
                               title={item.ClientName}>
-                              {item.ClientName}
+                              {truncateText(item.ClientName,20)}
                             </td>
+                            
 
                             <td
                               className="px-4 py-2 max-w-[150px] overflow-hidden"
@@ -353,8 +354,10 @@ function ClientHistory() {
                                 fontSize: "14px",
                                 lineHeight: "19px",
                                 color: "#5C5C5C",
-                              }}>
-                              {item.ClientEmail}
+                              }}
+                              title={item.ClientEmail}>
+            
+                              {truncateText(item.ClientEmail,20)}
                             </td>
 
                             <td
@@ -364,13 +367,15 @@ function ClientHistory() {
                             </td>
                             <td
                               className="px-2 py-2 max-w-[150px] overflow-hidden"
-                              title={
-                                item.executiveName?.length > 0
-                                  ? item?.executiveName
-                                  : "Not found"
-                              }>
-                              {item.ClientProject}
+                              // title={
+                              //   item.executiveName?.length > 0
+                              //     ? item?.executiveName
+                              //     : "Not found"
+                              // }>
+                              title={item.ClientProject}>
+                                {truncateText(item.ClientProject,20)}
                             </td>
+                            
                             <td className="px-4 py-2">
                               {DateupdatedAt(item.createdAt)}
                             </td>

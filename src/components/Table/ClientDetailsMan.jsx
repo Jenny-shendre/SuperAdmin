@@ -146,9 +146,12 @@ function ClientDetailsMang() {
                         {executive.lastClientName?.ClientId || "Not Found"}
                       </Link>
                     </td>
+
                     <td className="py-3 px-6 text-left">
-                      {truncateText(executive.lastClientName?.ClientName || "No Last Client")}
+                       {truncateText(executive.lastClientName?.ClientName || "No Last Client")} 
+                   
                     </td>
+
                     <td className="py-3 px-6 text-left font-semibold">
                       {executive.lastClientName?.timeDuration || "Not Assigned"}
                     </td>
