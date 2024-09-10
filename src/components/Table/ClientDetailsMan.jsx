@@ -10,7 +10,6 @@ import { format, isValid } from "date-fns";
 import Searchsvg from "../../assets/material-symbols_search.svg";
 import { RxCross2 } from "react-icons/rx";
 
-
 function ClientDetailsMang() {
   const [data, setData] = useState([]);
   const [valueinput, setValueinput] = useState("");
@@ -30,7 +29,10 @@ function ClientDetailsMang() {
   };
 
   const handleOutsideClick = (event) => {
-    if (addNotePopupRef.current && !addNotePopupRef.current.contains(event.target)) {
+    if (
+      addNotePopupRef.current &&
+      !addNotePopupRef.current.contains(event.target)
+    ) {
       setShowAddNotePopup(false);
     }
   };
@@ -45,7 +47,11 @@ function ClientDetailsMang() {
   const getData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND}/api/salesManager/findSalesManagerlastTeamData/${email}`);
+      const res = await axios.get(
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/salesManager/findSalesManagerlastTeamData/${email}`
+      );
       setData(res.data);
       setLoading(false);
     } catch (error) {
@@ -79,29 +85,29 @@ function ClientDetailsMang() {
           <h1 className=" text-2xl font-medium mb-4 md:mb-0">
             Home <IoIosArrowForward className="inline-block" /> Overview
           </h1>
+        </div>
+        <div className="flex items-center justify-center text-center w-full">
+          <div className="flex justify-start items-center w-[50%] lg:block mx-auto relative lg:w-[36rem] rounded-full">
+            <input
+              className="w-full py-2 px-12 rounded-full "
+              style={{
+                border: "1px solid #3D2314",
+                boxShadow: " 0px 0px 4px 0px #00000040",
+              }}
+              type="text"
+              value={valueinput}
+              onChange={(e) => setValueinput(e.target.value)}
+              placeholder="Search"
+            />
+            <img
+              style={{ top: "0.6rem" }}
+              src={Searchsvg}
+              alt="Search"
+              className="absolute left-4"
+            />
           </div>
-          <div className="flex items-center justify-center text-center w-full">
-                <div className="flex justify-start items-center w-[50%] lg:block mx-auto relative lg:w-[36rem] rounded-full">
-                  <input
-                    className="w-full py-2 px-12 rounded-full "
-                    style={{
-                      border: "1px solid #3D2314",
-                      boxShadow: " 0px 0px 4px 0px #00000040",
-                    }}
-                    type="text"
-                    value={valueinput}
-                    onChange={(e) => setValueinput(e.target.value)}
-                    placeholder="Search"
-                  />
-                  <img
-                    style={{ top: "0.6rem" }}
-                    src={Searchsvg}
-                    alt="Search"
-                    className="absolute left-4"
-                  />
-                </div>
-              </div>
-        
+        </div>
+
         <div className="bg-white rounded-lg shadow-md mt-8 overflow-x-auto">
           <table className="w-full table-auto">
             <thead>
@@ -115,12 +121,15 @@ function ClientDetailsMang() {
                 <th className="py-3 px-6 text-center">Meeting Status</th>
               </tr>
             </thead>
-            <tbody className= "bg-[#FFFFFF] text-gray-600 text-sm font-light">
+            <tbody className="bg-[#FFFFFF] text-gray-600 text-sm font-light">
               {data
                 .filter((executive) => {
                   if (!executive.lastClientName) return false;
-                  const clientName = executive.lastClientName?.ClientName?.toLowerCase() || "";
-                  const projectName = executive.lastClientName?.ClientProject?.toLowerCase() || "";
+                  const clientName =
+                    executive.lastClientName?.ClientName?.toLowerCase() || "";
+                  const projectName =
+                    executive.lastClientName?.ClientProject?.toLowerCase() ||
+                    "";
                   const executiveName = executive.name?.toLowerCase() || "";
                   return (
                     clientName.includes(valueinput.toLowerCase()) ||
@@ -129,15 +138,29 @@ function ClientDetailsMang() {
                   );
                 })
                 .map((executive, index) => (
-                  <tr key={index} className="border-b border-gray-200 hover:bg-gray-100">
+                  <tr
+                    key={index}
+                    className="border-b border-gray-200 hover:bg-gray-100"
+                  >
                     <td className="py-3 px-6 text-left whitespace-nowrap">
                       {executive.lastClientName?.createdAt
                         ? DateupdatedAt(executive.lastClientName.createdAt)
                         : "Not Found"}
                     </td>
-                    <td className="py-3 px-6 text-left">
-                      {truncateText(executive.lastClientName?.ClientProject || "Not Assigned")}
+                    <td
+                      className="py-3 px-6 text-left max-w-[150px] overflow-hidden"
+                      title={
+                        executive.lastClientName?.ClientProject ||
+                        "Not Assigned"
+                      }
+                    >
+                      {truncateText(
+                        executive.lastClientName?.ClientProject ||
+                          "Not Assigned",
+                        12
+                      )}
                     </td>
+
                     <td className="py-3 px-6 text-left">
                       <Link
                         to={`/SalesManager/IDMan/${executive.lastClientName?.ClientId}`}
@@ -147,26 +170,39 @@ function ClientDetailsMang() {
                       </Link>
                     </td>
 
-                    <td className="py-3 px-6 text-left">
-                       {truncateText(executive.lastClientName?.ClientName || "No Last Client")} 
-                   
+                    <td
+                      className="py-3 px-6 text-left max-w-[150px] overflow-hidden"
+                      title={
+                        executive.lastClientName?.ClientName || "No Last Client"
+                      }
+                    >
+                      {truncateText(
+                        executive.lastClientName?.ClientName ||
+                          "No Last Client",
+                        12
+                      )}
                     </td>
 
                     <td className="py-3 px-6 text-left font-semibold">
                       {executive.lastClientName?.timeDuration || "Not Assigned"}
                     </td>
-                    <td className="py-3 px-6 text-left">
-                      {truncateText(executive.name || "Not Found")}
+
+                    <td
+                      className="py-3 px-6 text-left max-w-[150px] overflow-hidden"
+                      title={executive.name || "Not Found"}
+                    >
+                      {truncateText(executive.name || "Not Found", 12)}
                     </td>
+
                     <td className="py-3 px-6 text-center">
                       {executive.lastClientName?.completed === "completed" ? (
                         <IoCheckmarkOutline className="w-6 h-6 text-green-500 mx-auto" />
                       ) : executive.lastClientName?.completed === "progress" ? (
                         <img
-                        src="/talk.png"
-                        alt="progress"
-                        className="w-[24px] h-[24px] flex justify-center items-center mx-auto"
-                      />
+                          src="/talk.png"
+                          alt="progress"
+                          className="w-[24px] h-[24px] flex justify-center items-center mx-auto"
+                        />
                       ) : executive.lastClientName?.accepted === "rejected" ? (
                         <RxCross2 className="ml-[71px] w-[24px] h-[24px]" />
                       ) : (
@@ -182,7 +218,10 @@ function ClientDetailsMang() {
 
       {showAddNotePopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div ref={addNotePopupRef} className="bg-white rounded-lg p-8 w-full max-w-2xl">
+          <div
+            ref={addNotePopupRef}
+            className="bg-white rounded-lg p-8 w-full max-w-2xl"
+          >
             <button
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
               onClick={() => setShowAddNotePopup(false)}
@@ -216,7 +255,9 @@ function ClientDetailsMang() {
             >
               Close Note
             </button>
-            {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
+            {errorMessage && (
+              <p className="text-red-500 mt-2">{errorMessage}</p>
+            )}
           </div>
         </div>
       )}
