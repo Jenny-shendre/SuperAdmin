@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { format, isValid } from "date-fns";
 import Searchsvg from "../../assets/material-symbols_search.svg";
-
 import { RxCross2 } from "react-icons/rx";
+
 
 function ClientDetailsMang() {
   const [data, setData] = useState([]);
@@ -159,9 +159,13 @@ function ClientDetailsMang() {
                       {executive.lastClientName?.completed === "completed" ? (
                         <IoCheckmarkOutline className="w-6 h-6 text-green-500 mx-auto" />
                       ) : executive.lastClientName?.completed === "progress" ? (
-                        <RxCross2 className="ml-[71px] w-[24px] h-[24px]" />
+                        <img
+                        src="/talk.png"
+                        alt="progress"
+                        className="w-[24px] h-[24px] flex justify-center items-center mx-auto"
+                      />
                       ) : executive.lastClientName?.accepted === "rejected" ? (
-                        <RxCross2 />
+                        <RxCross2 className="ml-[71px] w-[24px] h-[24px]" />
                       ) : (
                         <span className="text-gray-500">No Action</span>
                       )}

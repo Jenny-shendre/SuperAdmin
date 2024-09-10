@@ -13,6 +13,9 @@ import { FiEye } from "react-icons/fi";
 import { TbEdit } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { RxCross2 } from "react-icons/rx";
+import { FaCheck } from "react-icons/fa6";
+import { BsThreeDots } from "react-icons/bs";
 
 function ClientHistory() {
   const [data, setData] = useState([]);
@@ -184,7 +187,7 @@ function ClientHistory() {
             <div
               style={{ textAlign: "-webkit-center" }}
               className="outer-wrapperB tableDiv">
-              <table className="w-[1060px] h-[740px] bg-white shadow-md overflow-hidden font-[Manrope] wrapperB">
+              <table className="w-[1170px] h-auto bg-white shadow-md overflow-hidden font-[Manrope] wrapperB">
                 <div className="outer-wrapper">
                   <div className="table-wrapper">
                     <thead className="font-[Manrope]">
@@ -208,7 +211,7 @@ function ClientHistory() {
                             fontWeight: "500",
                             lineHeight: "16.39px",
                             color: "#4B4B4B",
-                            width: "171px",
+                            width: "110px",
                           }}
                           className="px-4 py-2">
                           Customer ID
@@ -220,7 +223,7 @@ function ClientHistory() {
                             fontWeight: "500",
                             lineHeight: "16.39px",
                             color: "#4B4B4B",
-                            width: "109px",
+                            width: "210px",
                           }}
                           className="px-4 py-2">
                           Email
@@ -232,7 +235,7 @@ function ClientHistory() {
                             fontWeight: "500",
                             lineHeight: "16.39px",
                             color: "#4B4B4B",
-                            width: "171px",
+                            width: "136px",
                           }}
                           className="px-4 py-2">
                           Phone No
@@ -256,7 +259,7 @@ function ClientHistory() {
                             fontWeight: "500",
                             lineHeight: "16.39px",
                             color: "#4B4B4B",
-                            width: "115px",
+                            width: "187px",
                           }}
                           className="px-4 py-2">
                           Meeting Date
@@ -268,7 +271,7 @@ function ClientHistory() {
                             fontWeight: "500",
                             lineHeight: "16.39px",
                             color: "#4B4B4B",
-                            width: "135px",
+                            width: "187px",
                           }}
                           className="px-4 py-2">
                           Status
@@ -372,9 +375,35 @@ function ClientHistory() {
                               {DateupdatedAt(item.createdAt)}
                             </td>
 
-                            <td className="px-4 py-2">
-                              <div className="flex justify-center items-center">
-                                {item.accepted === "accepted" ? (
+                            <td className="py-2 px-4 text-sm flex items-center justify-start gap-1">
+                             <span 
+                             className={`py-1 px-2 rounded w-[87px] h-[24px] gap-[8px] ${
+                              item.completed === "completed" 
+                               ? "bg-[#E1F8D7] text-[#48A321] text-[12px] "
+                               : item.completed === "notCompleted" 
+                               ? "bg-[#A321211A] text-[#A32121] w-[120px] text-[12px] "
+                               : item.completed === "progress"
+                               ? "bg-[lightyellow] text-[yellowgreen]"
+                               : ""
+                              }`}>
+                               {item.completed === "notCompleted" 
+                                ? "Not Completed"
+                                  : item.completed === "completed"
+                                ? "Completed" 
+                                :  item.completed === "progress"
+                                ? "In Progress"
+                                : ""}
+                              </span>
+                                <span className="ml-2 text-nowrap">
+                                {item.completed === "completed" ? (
+                                  <FaCheck className="text-[#48A321]" />
+                                ) : item.completed === "notCompleted" ? (
+                                  <RxCross2 className="text-[#A32121]" />
+                                ) : item.completed === "progress" ? (
+                                  <BsThreeDots className="text-[yellowgreen]" />
+                                ) : null}
+                                </span>
+                                 {/* {? (
                                   <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31]" />
                                 ) : item.accepted === "pending" ? (
                                   <img
@@ -392,8 +421,8 @@ function ClientHistory() {
                                   <span className="text-[#000000]">
                                     {item.accepted}
                                   </span>
-                                )}
-                              </div>
+                                )} */}
+                          
                             </td>
                           </tr>
                         ))}
