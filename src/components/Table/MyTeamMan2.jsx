@@ -322,7 +322,7 @@ function ClientHistory() {
                                 color: "#5C5C5C",
                               }}
                               title={item.ClientName}>
-                              {truncateText(item.ClientName,20)}
+                              {truncateText(item.ClientName || "Not Found",20)}
                             </td>
                             
 
@@ -343,7 +343,9 @@ function ClientHistory() {
                                   fontFamily: "Manrope",
                                   fontWeight: "700",
                                 }}>
-                                {item.ClientId}
+
+                                {item.ClientId || "Not Found"}
+                                
                               </Link>
                             </td>
 
@@ -355,15 +357,19 @@ function ClientHistory() {
                                 lineHeight: "19px",
                                 color: "#5C5C5C",
                               }}
+                             
+            
                               title={item.ClientEmail}>
             
-                              {truncateText(item.ClientEmail,20)}
+                              {truncateText(item.ClientEmail || "Not Found", 20)}
                             </td>
+                            
 
                             <td
                               className="px-4 py-2 text-[#000000]"
                               style={{ fontWeight: "300" }}>
-                              {item.ClientMobile}
+                              {item.ClientMobile || "Not Found"}
+                              
                             </td>
                             <td
                               className="px-2 py-2 max-w-[150px] overflow-hidden"
@@ -373,7 +379,9 @@ function ClientHistory() {
                               //     : "Not found"
                               // }>
                               title={item.ClientProject}>
-                                {truncateText(item.ClientProject,20)}
+                                
+                                {truncateText(item.ClientProject || "Not Found",20)}
+                                
                             </td>
                             
                             <td className="px-4 py-2">
