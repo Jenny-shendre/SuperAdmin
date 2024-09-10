@@ -12,6 +12,7 @@ import { BsThreeDots } from "react-icons/bs";
 import axios from "axios";
 import { format } from "date-fns";
 import eyes from "../../assets/eyes.png";
+import view from "../../assets/hugeicons_view (1).png";
 import edit from "../../assets/akar-icons_edit (2).png";
 import delt from "../../assets/material-symbols_delete-outline.png";
 import edit2 from "../../assets/akar-icons_edit (3).png";
@@ -36,7 +37,7 @@ function ClientDetails() {
   const [resstart, setRes] = useState();
   const [resEndDateTime, setresEndDateTime] = useState();
   const [clientIdData, setClientIdData] = useState("CHROF77");
-
+  const MyRef = useRef([]);
   const [customerdata, setCustomerdata] = useState({
     projectName: "",
     customerName: "",
@@ -64,21 +65,16 @@ function ClientDetails() {
   const projectDropdownRef = useRef(); // ref for project dropdown
 
   const [data2, setdata2] = useState([]);
-
-  const fetchData = async () => {
-    setLoading(true);
-
-    const res2 = await axios.get(
-      `${import.meta.env.VITE_BACKEND}/api/projects`
-    );
-    setdata2(res2.data);
-
-    setLoading(false);
+  const [lastDatas, setlastDatas] = useState([]);
+  const [clientNameData, setclientNameData] = useState("");
+  const [ProjectNameData, setProjectNameData] = useState("");
+  
+  const lastData = (datas) => {
+    data.length - 1;
+    setlastDatas(data[data.length - 1]);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+
   //Mobile View
 
   const [activeSection, setActiveSection] = useState("appointments");
@@ -129,62 +125,34 @@ function ClientDetails() {
   }, [showNotePopup, showAddNotePopup, isDropdownOpen, isProjectDropdownOpen]);
 
   // Add team members popup logic
-
+  const array = [];
   const [clientName, setclientName] = useState(
     upcomings?.[0]?.ClientName || ""
   );
   const [project, setProject] = useState(upcomings?.[0]?.ClientProject || "");
+  const [ClientIdInfo, setClientIdInfo] = useState(
+    upcomings?.[0]?.ClientId || ""
+  );
   const [briefing, setBriefing] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const [createStatus, setCreateStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
   const [timeResponseStart, settimeResponseStart] = useState(""); // state for error message
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  // console.log(array);
 
-  const handleProjectChange = (projectName) => {
-    setProject(projectName);
-    setIsProjectDropdownOpen(false);
+
+  const resetCountdownTimer = () => {
+    setTimeLeft(300000); // Reset to 5 minutes
+    setTime(0);
+    setTimerActive(true); // Start the countdown timer
+    setEndCounter(0);
   };
 
-  // useEffect(() => {
-  //   const EmpId = localStorage.getItem("EmpId");
-  //   setClientID(EmpId);
-  // }, []);
 
-  const ClientDetails = async (id, employeeId) => {
-    console.log("Client", id);
-    try {
-      const client = await axios.put(
-        `${import.meta.env.VITE_BACKEND}/api/customers/NoteUpdate/${id}`,
-        {
-          notes: briefing,
-        }
-      );
-      console.log("client", client);
-    } catch (error) {
-      console.error(
-        "Error adding client:",
-        error.response ? error.response.data : error.message
-      );
-    }
-    try {
-      const dataNote = await axios.post(
-        `${import.meta.env.VITE_BACKEND}/api/notes`,
-        {
-          name: clientName,
-          note: briefing,
-          role: "Client",
-          project: project,
-          employeeId,
-        }
-      );
-      console.log("AddNote", dataNote);
-    } catch (error) {
-      console.error(
-        "Error adding note:",
-        error.response ? error.response.data : error.message
-      );
-    }
-  };
+
+
+
   const stopTime = () => {
     setShowNotePopup(false);
     setShowAddNotePopup(true);
@@ -237,8 +205,110 @@ function ClientDetails() {
       clearInterval(intervalId);
     }
 
+    // upcoming(IdEmp);
+
     return () => clearInterval(intervalId);
+
   }, [isActive]);
+
+
+
+
+  const handleProjectChange = (projectName) => {
+    setProject(projectName);
+    setIsProjectDropdownOpen(false);
+  };
+
+  // useEffect(() => {
+  //   const EmpId = localStorage.getItem("EmpId");
+  //   setClientID(EmpId);
+  // }, []);
+
+  const ClientDetails = async (id, employeeId) => {
+    console.log("Client", id);
+    try {
+      const client = await axios.put(
+        `${import.meta.env.VITE_BACKEND}/api/customers/NoteUpdate/${id}`,
+        {
+          notes: briefing,
+        }
+      );
+      console.log("client", client);
+    } catch (error) {
+      console.error(
+        "Error adding client:",
+        error.response ? error.response.data : error.message
+      );
+    }
+    try {
+      const dataNote = await axios.post(
+        `${import.meta.env.VITE_BACKEND}/api/notes`,
+        {
+          name: clientName,
+          note: briefing,
+          role: "Client",
+          project: project,
+          employeeId,
+        }
+      );
+      console.log("AddNote", dataNote);
+    } catch (error) {
+      console.error(
+        "Error adding note:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
+
+  //Delete PopUp
+  const [showDeletePopup, setDeleteShowPopup] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
+  const confirmDelete = async () => {
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND
+        }/api/clientManagement/deleteHistory/${IdEmp}/${deleteId}`
+      );
+      setdata((prevData) => prevData.filter((item) => item._id !== deleteId));
+      // historyData();
+      setDeleteShowPopup(false);
+    } catch (error) {
+      console.error("Error deleting client:", error);
+
+    }
+  };
+
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+
+      const res2 = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/projects`
+      );
+      setdata2(res2.data);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+
+    } finally {
+      setLoading(false);
+    }
+
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleDeleteClick = (ClientId) => {
+    setDeleteId(ClientId);
+    setDeleteShowPopup(true);
+  };
+
+
+
+
 
   const stopTimer = () => {
     setTimerActive(false);
@@ -265,8 +335,7 @@ function ClientDetails() {
         <p className="mb-4">{note.content}</p>
         <button
           onClick={onClose}
-          className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300"
-        >
+          className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">
           Close
         </button>
       </div>
@@ -300,8 +369,7 @@ function ClientDetails() {
   const historyData = async (employeeId) => {
     try {
       const res = await axios.get(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/clientManagement/history/${employeeId}`
       );
       setdata(res.data);
@@ -313,15 +381,18 @@ function ClientDetails() {
   const upcoming = async (employeeId) => {
     try {
       const res = await axios.get(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/clientManagement/upcoming/${employeeId}`
       );
       setupcoming(res.data);
-      console.log("setupcoming", res.data);
+      array.push(res.data);
+      // console.log("setupcoming", res.data);
       const currentDate = new Date();
       const formattedDate = format(currentDate, "mm:ss");
       setRes(formattedDate);
+      resetCountdownTimer();
+      // setIsActive(true); // Start the regular timer
+
     } catch (error) {
       console.log(error);
     }
@@ -330,8 +401,7 @@ function ClientDetails() {
   const rejectMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        ` ${
-          import.meta.env.VITE_BACKEND
+        ` ${import.meta.env.VITE_BACKEND
         }/api/clientManagement/reject/${employeeId}`
       );
       console.log("reject", res);
@@ -342,8 +412,7 @@ function ClientDetails() {
   const acceptMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/clientManagement/accept/${employeeId}`
       );
       console.log(res.data);
@@ -355,8 +424,7 @@ function ClientDetails() {
   const meetingOvers = async (employeeId) => {
     try {
       const res = await axios.put(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/clientManagement/meetingOver/${employeeId}`
       );
       console.log(res.data);
@@ -388,8 +456,7 @@ function ClientDetails() {
     const formattedDate = format(currentDate, "mm:ss");
     try {
       const res = await axios.put(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/timeSheet/timeResponse/${ClientID}`,
         {
           StartTime: resstart,
@@ -444,11 +511,111 @@ function ClientDetails() {
     timeResponse(IdEmp);
     acceptMeeting(IdEmp);
   };
+  /*
+  useEffect(() => {
+    console.log(isSubmitted);
+    if (isSubmitted === false) {
+      upcoming(IdEmp);
+      if (IdEmp) {
+        historyData(IdEmp); // Call once after submission
+        upcoming(IdEmp); // Initial call
+
+        if (upcomings.length === 0) {
+          const intervalId = setInterval(() => {
+            upcoming(IdEmp); // Call upcoming every 5 seconds
+          }, 5000);
+
+          return () => clearInterval(intervalId); // Cleanup interval on unmount or IdEmp change
+        }
+      }
+    }
+  }, [IdEmp, isSubmitted]);
+*/
 
   useEffect(() => {
-    historyData(IdEmp);
-    upcoming(IdEmp);
-  }, [IdEmp]);
+    console.log(isSubmitted);
+
+    if (!isSubmitted) {
+      if (IdEmp) {
+        // Call the initial data fetching once after submission
+        upcoming(IdEmp);
+        historyData(IdEmp);
+
+        // Only set up the interval if upcomings is empty
+        if (upcomings.length === 0) {
+          const intervalId = setInterval(() => {
+            upcoming(IdEmp); // Call upcoming every 5 seconds
+          }, 5000);
+
+          // Cleanup the interval on unmount or when dependencies change
+          return () => clearInterval(intervalId);
+        }
+      }
+    }
+  }, [IdEmp, isSubmitted, createStatus, upcomings.length]); // Keep dependencies simple, just track variables, not expressions
+  // Trigger effect when upcomings length changes
+
+  const handleSubmit = async () => {
+    console.log(
+      "clientName",
+      clientName,
+      upcomings?.[0]?.ClientProject,
+      clientNameData,
+      "&&",
+      upcomings?.[0]?.ClientProject,
+      ProjectNameData,
+      "&&",
+      briefing,
+      "&&",
+      clientConversation
+    );
+
+    console.log("projects", project);
+    console.log("clientNames", clientName);
+    if (clientName && project && briefing && clientConversation) {
+      setIsCreating(true);
+      setErrorMessage(""); // Clear any previous error messages
+      console.log("Come");
+      ClientDetails(ClientIdInfo, IdEmp);
+
+      try {
+        if (clientConversation === "Yes") {
+          const res = await axios.put(
+            `${import.meta.env.VITE_BACKEND
+            }/api/attendants/clientConversion/${IdEmp}`
+          );
+          console.log("count the client converted", res);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      const notedata = {
+        clientName: clientName,
+        project: project,
+        briefing: briefing,
+        clientConversation: clientConversation,
+      };
+
+      try {
+        setIsSubmitted(true);
+        setCreateStatus("Note Successfully Added ✓");
+        console.log("Response send", notedata);
+        historyData(IdEmp);
+        upcoming(IdEmp);
+        setIsSubmitted(false);
+      } catch (error) {
+        console.error("Error creating Note:", error);
+        setCreateStatus("Error Creating Note");
+      } finally {
+        setIsCreating(false);
+        setIsSubmitted(false);
+      }
+    } else {
+      setErrorMessage("Please fill in all fields.");
+    }
+  };
+  console.log("Please fill in all fields", showAddNotePopup);
 
   useEffect(() => {
     if (upcomings.length > 0) {
@@ -462,84 +629,9 @@ function ClientDetails() {
     setclientConversation(event.target.value);
   };
 
-  const handleSubmit = async () => {
-    console.log(
-      clientName,
-
-      upcomings?.[0]?.ClientName,
-      "&&",
-      upcomings?.[0]?.ClientProject,
-      project,
-      "&&",
-      briefing,
-      "&&",
-      clientConversation
-    );
-    if (
-      upcomings?.[0]?.ClientName &&
-      upcomings?.[0]?.ClientProject &&
-      briefing &&
-      clientConversation
-    ) {
-      setIsCreating(true);
-      setErrorMessage(""); // Clear any previous error messages
-      console.log("Come");
-      ClientDetails(upcomings[0].ClientId, IdEmp);
-
-      try {
-        if (clientConversation === "Yes") {
-          const res = await axios.put(
-            `${
-              import.meta.env.VITE_BACKEND
-            }/api/attendants/clientConversion/${IdEmp}`
-          );
-          console.log("count the client converted", res);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-
-      const notedata = {
-        clientName: upcomings?.[0]?.ClientNamentName,
-        project: upcomings?.[0]?.ClientProject,
-        briefing: briefing,
-        clientConversation: clientConversation,
-      };
-
-      try {
-        setCreateStatus("Note Successfully Added ✓");
-        console.log("Response send", notedata);
-        historyData(IdEmp);
-        upcoming(IdEmp);
-      } catch (error) {
-        console.error("Error creating Note:", error);
-        setCreateStatus("Error Creating Note");
-      } finally {
-        setIsCreating(false);
-      }
-    } else {
-      setErrorMessage("Please fill in all fields.");
-    }
-  };
-
   // console.log("clientConversation", clientConversation);
 
-  //Delete PopUp
-  const [showDeletePopup, setDeleteShowPopup] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
-  const handleDeleteClick = (ClientId) => {
-    setDeleteId(ClientId);
-    setDeleteShowPopup(true);
-  };
-  const confirmDelete = async () => {
-    await axios.delete(
-      `${
-        import.meta.env.VITE_BACKEND
-      }/api/clientManagement/deleteHistory/${IdEmp}/${deleteId}`
-    );
-    setDeleteShowPopup(false);
-    fetchData();
-  };
+
 
   //Edir Note Popup
 
@@ -565,8 +657,7 @@ function ClientDetails() {
 
     try {
       const res = await axios.put(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/customers/DataUpdate/${clientIdData}`,
         notesdata
       );
@@ -593,8 +684,7 @@ function ClientDetails() {
   const getData = async () => {
     try {
       const res = await axios.get(
-        `${
-          import.meta.env.VITE_BACKEND
+        `${import.meta.env.VITE_BACKEND
         }/api/customers/getCustomerV2/${clientIdData}`
       );
       setCustomerdata(res.data);
@@ -610,14 +700,14 @@ function ClientDetails() {
   }, [showPopupEdit]);
 
   // console.log("customer id", clientIdData)
-
-  //Bhagya-09
-  const truncateText = (text, limit = 14) => {
-    if (text && text.length > limit) {
-      return text.slice(0, limit) + "...";
+  useEffect(() => {
+    if (upcomings?.[0]) {
+      setclientName(upcomings[0].ClientName);
+      setProject(upcomings[0].ClientProject);
+      setClientIdInfo(upcomings[0].ClientId);
     }
-    return text || "";
-  };
+  }, [upcomings]);
+
 
   return (
     <div className="flex flex-col h-screen">
@@ -633,23 +723,19 @@ function ClientDetails() {
         {/* Buttons for Mobile View */}
         <div className="flex justify-center mb-6 lg:hidden">
           <button
-            className={`py-2 px-4 rounded-l-full ${
-              activeSection === "appointments"
-                ? "bg-[#3D2314] text-white"
-                : "bg-white text-[#3D2314]"
-            }`}
-            onClick={() => handleSectionChange("appointments")}
-          >
+            className={`py-2 px-4 rounded-l-full ${activeSection === "appointments"
+              ? "bg-[#3D2314] text-white"
+              : "bg-white text-[#3D2314]"
+              }`}
+            onClick={() => handleSectionChange("appointments")}>
             Appointments
           </button>
           <button
-            className={`py-2 px-4 rounded-r-full ${
-              activeSection === "history"
-                ? "bg-[#3D2314] text-white"
-                : "bg-white text-[#3D2314]"
-            }`}
-            onClick={() => handleSectionChange("history")}
-          >
+            className={`py-2 px-4 rounded-r-full ${activeSection === "history"
+              ? "bg-[#3D2314] text-white"
+              : "bg-white text-[#3D2314]"
+              }`}
+            onClick={() => handleSectionChange("history")}>
             Client History
           </button>
         </div>
@@ -724,8 +810,7 @@ function ClientDetails() {
                             className="text-green-500 mr-2"
                             onClick={() =>
                               handleCorrectClick("correct1", "cross1")
-                            }
-                          >
+                            }>
                             {iconState.correct1 ? (
                               "✓"
                             ) : (
@@ -738,8 +823,7 @@ function ClientDetails() {
                               if (iconState.correct1 === false) {
                                 handleCrossClick("correct1", "cross1");
                               }
-                            }}
-                          >
+                            }}>
                             {iconState.cross1 ? (
                               <span onClick={() => rejectMeetingfun(IdEmp)}>
                                 ✕
@@ -823,62 +907,47 @@ function ClientDetails() {
                     )
                     .map((visitor, index) => (
                       <tr key={index}>
-                        <td className="py-2 px-4 text-sm max-w-[150px] overflow-hidden"
-                          title={visitor.ClientName}>
-                          {truncateText(visitor.ClientName,15)}
+                        <td className="py-2 px-4 text-sm">
+                          {visitor.ClientName}
                         </td>
-                        
                         <td className="py-2 px-4 text-sm">
                           <Link
                             to={`/SalesExecutive/Notes/IDHistory/${visitor.ClientId}`}
-                            className="text-[#000AFF] underline font-bold"
-                          >
+                            className="text-[#000AFF] underline font-bold">
                             {visitor.ClientId}
                           </Link>
                         </td>
-                        <td className="py-2 px-4 text-sm max-w-[150px] overflow-hidden"
-                          title={visitor.ClientEmail}>
-                          {truncateText(visitor.ClientEmail,15)}
+                        <td className="py-2 px-4 text-sm">
+                          {visitor.ClientEmail}
                         </td>
-
-                        <td className="py-2 px-4 text-sm ">
+                        <td className="py-2 px-4 text-sm">
                           {visitor.ClientMobile}
                         </td>
-                       
-                        <td
-                          className="py-2 px-4 text-sm max-w-[150px] overflow-hidden"
-                          title={visitor.ClientProject}
-                        >
-                          {truncateText(visitor.ClientProject, 12)}
+                        <td className="py-2 px-4 text-sm">
+                          {visitor.ClientProject}
                         </td>
                         <td className="py-2 px-4 text-sm">
                           {DateupdatedAt(visitor.createdAt)}
                         </td>
-
-                        <td className="py-2 px-4 text-sm flex items-center justify-start gap-1">
+                        <td className="py-2 px-4 text-sm">
                           <span
-                            className={`py-1 px-2 rounded ${
-                              visitor.completed === "completed"
-                                ? "bg-[#E1F8D7] text-[#48A321]"
-                                : visitor.completed === "notCompleted"
+                            className={`py-1 px-2 rounded ${visitor.completed === "completed"
+                              ? "bg-[#E1F8D7] text-[#48A321]"
+                              : visitor.completed === "notCompleted"
                                 ? "bg-[#A321211A] text-[#A32121]"
                                 : visitor.completed === "progress"
-                                ? "bg-[lightyellow] text-[yellowgreen]"
-                                : ""
-                            }`}
-                          >
+                                  ? "bg-[lightyellow] text-[yellowgreen]"
+                                  : ""
+                              }`}>
                             {visitor.completed === "notCompleted"
                               ? "Not completed"
                               : visitor.completed === "completed"
-                              ? "Completed"
-                              : visitor.completed === "progress"
-                              ? "In Progress"
-                              : ""}
+                                ? "Completed"
+                                : visitor.completed === "progress"
+                                  ? "In Progress"
+                                  : ""}
                           </span>
-                          {/* </td> */}
-                          {/* <td className="  text-sm"> */}
-
-                          <span className="ml-2 text-nowrap ">
+                          <span className="ml-2">
                             {visitor.completed === "completed" ? (
                               <FaCheck className="text-[#48A321]" />
                             ) : visitor.completed === "notCompleted" ? (
@@ -888,10 +957,13 @@ function ClientDetails() {
                             ) : null}
                           </span>
                         </td>
-                        
                         <td className="py-2 px-4 text-sm">
                           <div className="flex space-x-2">
-                        
+                            <img
+                              src={view}
+                              alt="View"
+                              className="cursor-pointer"
+                            />
                             <img
                               src={edit}
                               alt="Edit"
@@ -925,8 +997,7 @@ function ClientDetails() {
             {/* Upcoming Appointments */}
             <div
               className="tab4 h-full"
-              style={{ textAlign: "-webkit-center" }}
-            >
+              style={{ textAlign: "-webkit-center" }}>
               <div className="mb-6  w-full h-full">
                 <div className=" rounded-[12px]">
                   <div className="">
@@ -950,14 +1021,12 @@ function ClientDetails() {
                                 className="correct1 w-[102px] h-[44px] bg-[#CFF3C9] text-[#3A972B] rounded-lg font-semibold"
                                 onClick={() =>
                                   handleCorrectClick("correct1", "cross1")
-                                }
-                              >
+                                }>
                                 ✓ Accept
                               </button>
                               <button
                                 className="cross1 w-[102px] h-[44px] text-[#ED1111] bg-[#eecfcf] rounded-lg font-semibold"
-                                onClick={stopTime}
-                              >
+                                onClick={stopTime}>
                                 ✕ Decline
                               </button>
                             </div>
@@ -1060,8 +1129,7 @@ function ClientDetails() {
                     lineHeight: "24.59px",
                     color: "#2B2B2B",
                   }}
-                  className="text-lg font-semibold mb-2 text-justify"
-                >
+                  className="text-lg font-semibold mb-2 text-justify">
                   Client's History
                 </h2>
                 <div className="wrapperT h-[460px] overflow-x-auto">
@@ -1069,8 +1137,7 @@ function ClientDetails() {
                     <thead
                       style={{
                         background: "#E8E8E8E8",
-                      }}
-                    >
+                      }}>
                       <tr>
                         <th
                           style={{
@@ -1082,8 +1149,7 @@ function ClientDetails() {
                             color: "#5C5C5C",
                             textAlign: "center",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Name
                         </th>
                         <th
@@ -1096,8 +1162,7 @@ function ClientDetails() {
                             color: "#5C5C5C",
                             textAlign: "center",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Email
                         </th>
                         <th
@@ -1109,8 +1174,7 @@ function ClientDetails() {
                             color: "#5C5C5C",
                             textAlign: "center",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Phone No.
                         </th>
                         <th
@@ -1122,8 +1186,7 @@ function ClientDetails() {
                             textAlign: "center",
                             color: "#5C5C5C",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Property Interest
                         </th>
                         <th
@@ -1135,8 +1198,7 @@ function ClientDetails() {
                             textAlign: "center",
                             color: "#5C5C5C",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Schedule Meeting
                         </th>
                         <th
@@ -1148,8 +1210,7 @@ function ClientDetails() {
                             textAlign: "center",
                             color: "#5C5C5C",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Status
                         </th>
 
@@ -1162,8 +1223,7 @@ function ClientDetails() {
                             textAlign: "center",
                             color: "#5C5C5C",
                           }}
-                          className="py-2 px-4 text-left th1"
-                        >
+                          className="py-2 px-4 text-left th1">
                           Action
                         </th>
                       </tr>
@@ -1177,8 +1237,7 @@ function ClientDetails() {
                         color: "#2B2B2B",
                         textAlign: "center",
                         padding: "10px",
-                      }}
-                    >
+                      }}>
                       {data
                         .filter(({ ClientName }) =>
                           ClientName.toLowerCase().includes(
@@ -1189,59 +1248,49 @@ function ClientDetails() {
                           <tr key={index} style={{ height: "48px" }}>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               {visitor.ClientName}
                             </td>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               {visitor.ClientEmail}
-
                             </td>
-
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               {visitor.ClientMobile}
                             </td>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               {visitor.ClientProject}
                             </td>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               {DateupdatedAt(visitor.createdAt)}
                             </td>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4 flex flex-wrap justify-between"
-                            >
+                              className="py-4 px-4 flex flex-wrap justify-between">
                               <span
                                 style={{ borderBottom: "1px solid #E4E7EC" }}
-                                className={`rounded ${
-                                  visitor.completed === "completed"
-                                    ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
-                                    : visitor.completed === "notCompleted"
+                                className={`rounded ${visitor.completed === "completed"
+                                  ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
+                                  : visitor.completed === "notCompleted"
                                     ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded"
                                     : visitor.completed === "progress"
-                                    ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
-                                    : ""
-                                }`}
-                              >
+                                      ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
+                                      : ""
+                                  }`}>
                                 {visitor.completed === "notCompleted"
                                   ? "Not completed"
                                   : visitor.completed === "completed"
-                                  ? "Completed"
-                                  : visitor.completed === "progress"
-                                  ? "In Progress"
-                                  : ""}
+                                    ? "Completed"
+                                    : visitor.completed === "progress"
+                                      ? "In Progress"
+                                      : ""}
                               </span>
                               <span style={{ alignContent: "center" }}>
                                 {visitor.completed === "completed" ? (
@@ -1260,8 +1309,7 @@ function ClientDetails() {
 
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4"
-                            >
+                              className="py-4 px-4">
                               <button className="text-green-500 mr-4 correct1">
                                 <img src={eyes} alt="View" />
                               </button>
@@ -1288,13 +1336,13 @@ function ClientDetails() {
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
           <div
             ref={addNotePopupRef}
-            className="fixed inset-0 flex items-center justify-center z-50"
-          >
+            className="fixed inset-0 flex items-center justify-center z-50">
             <div className="add-team-members w-[688px] h-auto p-6 rounded-lg bg-white shadow-lg flex flex-col items-center">
               <button
                 className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[664px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                onClick={() => setShowAddNotePopup(false)}
-              >
+                onClick={() => {
+                  setShowAddNotePopup(false);
+                }}>
                 X
               </button>
               <input
@@ -1371,8 +1419,7 @@ function ClientDetails() {
                   border: "0.8px solid rgba(0,0,0,0.44) ",
                   borderRadius: "6px",
                 }}
-                className="rounded-md border border-gray-300 font-manrope  div2 mb-4"
-              >
+                className="rounded-md border border-gray-300 font-manrope  div2 mb-4">
                 <textarea
                   type="text"
                   placeholder="Add your Briefing"
@@ -1390,8 +1437,7 @@ function ClientDetails() {
 
               <div
                 style={{ padding: "16px 24px" }}
-                className="rounded-md border mb-4 border-gray-300 font-manrope flex flex-wrap w-[640px] h-[51px] justify-between"
-              >
+                className="rounded-md border mb-4 border-gray-300 font-manrope flex flex-wrap w-[640px] h-[51px] justify-between">
                 <div
                   style={{
                     color: "rgba(0, 0, 0, 0.68)",
@@ -1399,8 +1445,7 @@ function ClientDetails() {
                     fontSize: "16px",
                     lineHeight: "19.2px",
                     fontFamily: "Manrope",
-                  }}
-                >
+                  }}>
                   Client Conversation
                 </div>
                 <div className="flex flex-wrap">
@@ -1412,8 +1457,7 @@ function ClientDetails() {
                       fontSize: "16px",
                       lineHeight: "19.2px",
                       fontFamily: "Manrope",
-                    }}
-                  >
+                    }}>
                     <input
                       className="mr-2 custom-radio"
                       type="radio"
@@ -1432,8 +1476,7 @@ function ClientDetails() {
                       fontSize: "16px",
                       lineHeight: "19.2px",
                       fontFamily: "Manrope",
-                    }}
-                  >
+                    }}>
                     <input
                       className="mr-2 custom-radio"
                       type="radio"
@@ -1452,8 +1495,7 @@ function ClientDetails() {
                       fontSize: "16px",
                       lineHeight: "19.2px",
                       fontFamily: "Manrope",
-                    }}
-                  >
+                    }}>
                     <input
                       className="mr-2 custom-radio"
                       type="radio"
@@ -1470,8 +1512,7 @@ function ClientDetails() {
               <button
                 onClick={handleSubmit}
                 className="create-team-btn h-12 p-[10px] bg-[#3D2314] rounded-[4px] text-center font-manrope text-lg font-medium text-white"
-                disabled={isCreating}
-              >
+                disabled={isCreating}>
                 {createStatus || "Add Note"}
               </button>
               {errorMessage && (
@@ -1496,14 +1537,12 @@ function ClientDetails() {
               <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
                 <button
                   className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-                  onClick={confirmDelete}
-                >
+                  onClick={confirmDelete}>
                   Delete
                 </button>
                 <button
                   className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
-                  onClick={() => setDeleteShowPopup(false)}
-                >
+                  onClick={() => setDeleteShowPopup(false)}>
                   Cancel
                 </button>
               </div>
@@ -1520,12 +1559,10 @@ function ClientDetails() {
           <div className="fixed inset-0 bg-black opacity-50"></div>
           <div
             ref={popupRef}
-            className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50"
-          >
+            className="popup-container w-[581px] h-fit p-6 gap-6 rounded-lg bg-white flex flex-col items-center z-50">
             <button
               className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[572px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-              onClick={() => setShowPopupEdit(false)}
-            >
+              onClick={() => setShowPopupEdit(false)}>
               X
             </button>
 
@@ -1562,8 +1599,7 @@ function ClientDetails() {
             <button
               onClick={handleSubmit2}
               className="`justify-between create-team-btn flex flex-wrap  h-[44px] p-[10px] bg-[#3D2314] justify-around rounded-[4px]  font-manrope text-lg font-medium text-white"
-              disabled={isCreating2}
-            >
+              disabled={isCreating2}>
               <img src={edit2} />
               {isCreating ? createStatus2 : "Edit Note"}
             </button>
