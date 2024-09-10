@@ -301,7 +301,7 @@ const IDSales = () => {
                       fontSize: "24px",
                     }}
                     className="font-medium">
-                    Direct Visitors
+                    Overview
                   </span>
                 </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
@@ -348,7 +348,7 @@ const IDSales = () => {
               <h2
                 className="text-[20px] text-center font-[Manrope] mb-4"
                 style={{ fontWeight: "700" }}>
-                Customer Details
+                Client Details
               </h2>
               <form>
                 <div className="form-compont">
