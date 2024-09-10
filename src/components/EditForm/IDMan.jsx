@@ -301,7 +301,7 @@ const IDMan = () => {
                       fontSize: "24px",
                     }}
                     className="font-medium">
-                    Direct Visitors
+                    Overview
                   </span>
                 </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
@@ -321,7 +321,7 @@ const IDMan = () => {
           <div
             className="flex mr-[50px] mt-5 mb-5"
             style={{ justifyContent: "end" }}>
-            <div
+            {/* <div
               key={FormData}
               style={{}}
               className="w-[169px] flex px-8 py-4 justify-center bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
@@ -336,7 +336,7 @@ const IDMan = () => {
               <p className="text-[16px]">
                 {editMode ? "Save" : "Edit Details"}
               </p>
-            </div>
+            </div> */}
           </div>
           <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10">
             <div
@@ -348,7 +348,7 @@ const IDMan = () => {
               <h2
                 className="text-[20px] text-center font-[Manrope] mb-4"
                 style={{ fontWeight: "700" }}>
-                Customer Details
+                Client Details
               </h2>
               <form>
                 <div className="form-compont">
@@ -648,7 +648,7 @@ const IDMan = () => {
                             fontSize: "12px",
                             fontWeight: "500",
                           }}>
-                          Sales Executive
+                          {/* Sales Executive */}
                         </span>
                       </div>
 
@@ -660,7 +660,7 @@ const IDMan = () => {
                           fontWeight: "600",
                         }}
                         className=" text-right mt-2 text-[#4A4A4A]">
-                        {ResponseAt2(FormData.updatedAt)}
+                        {ResponseAt(FormData.updatedAt)}
                       </div>
                     </div>
                   ) : (
@@ -668,7 +668,7 @@ const IDMan = () => {
                   )}
                 </div>
               </div>
-              <div className="mt-4 ">
+              <div className="mt-5 ">
                 <NoteInput />
               </div>
             </div>
