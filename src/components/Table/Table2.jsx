@@ -204,12 +204,13 @@ const Table2 = () => {
               </span>
             </h1>
 
-            <div className="flex flex-row  text-center  items-center   ">
-              <div style={{ width: "70%", textAlign: "-webkit-center", display:'flex', justifyContent:'space-between' }}>
-                <div className="flex justify-center items-center w-[70%] lg:block relative lg:w-[36rem] rounded-full">
+            <div className="flex flex-row text-center  items-center   ">
+              <div style={{ width: "70%", textAlign: "-webkit-center",  }}>
+                <div className="flex justify-center items-center w-[70%] lg:block relative lg:w-[36rem] rounded-full ">
                   <input
                     className="w-[619px] h-[48px] py-2 px-12 rounded-full "
                     style={{
+                      // marginRight:"180px",
                       border: "1px solid #3D2314",
                       boxShadow: " 0px 0px 4px 0px #00000040",
                     }}
@@ -229,8 +230,8 @@ const Table2 = () => {
               <div className="w-[30%]">
                 <button
                   onClick={() => setShowPopupAdd(true)}
-                  className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[250px]"
-                  style={{ padding: "12px 24px 12px 24px", gap: "10px" }}>
+                  className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[239px]"
+                  style={{ padding: "12px 24px 12px 24px", gap: "10px", marginRight:"200px" }}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5 mr-2"
@@ -248,10 +249,10 @@ const Table2 = () => {
             </div>
           </div>
           <div className="outer-wrapper text-center flex items-center justify-center">
-            <div className="table-wrapper" style={{ width: "999px" }}>
+            <div className="table-wrapper">
               {data.length !== 0 ? (
                 <table
-                  className="w-[950px] bg-white"
+                  className="w-[1000px] bg-white"
                   style={{ boxShadow: " 0px 0px 4px 0px #00000040" }}>
                   <thead>
                     <tr className="text-[9px] lg:text-[15px] text-left  bg-[#E8E8E8]">
@@ -283,7 +284,7 @@ const Table2 = () => {
                           //TC-197
                           textAlign: "center",
                           padding: "7px",
-                          width: "100px", //tc-3
+                          width: "180px", //tc-3
                           height: "28px",
                         }}>
                         {/* Response Time */}

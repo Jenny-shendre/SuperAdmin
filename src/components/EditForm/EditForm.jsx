@@ -609,7 +609,7 @@ const FormEdit = () => {
                     <thead className="">
                       <tr className="text-[#FFFFFF]">
                         <th
-                          className="border-b p-2 bg-[#3D2314]"
+                          className="border-b p-2 bg-[#3D2314] "
                           style={{ fontSize: "14px", fontWeight: "400" }}>
                           Serial No
                         </th>
@@ -641,7 +641,7 @@ const FormEdit = () => {
                       {FormData && FormData.log && FormData.log.length > 0
                         ? FormData.log.map((item, index) => (
                             <tr key={item.id}>
-                              <td className="border-b p-2">{index + 1}</td>
+                              <td className="border-b p-2 justify-center item-center">{index + 1}</td>
                               <td className="border-b p-2">
                                 {DateupdatedAt(item.createdAt)}
                               </td>
