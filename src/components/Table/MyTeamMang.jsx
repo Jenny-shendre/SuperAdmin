@@ -385,7 +385,7 @@ function MyTeamMang() {
                       {note.status === "assigned" ? "in meet" : "available"}
                     </div>
                   </div>
-                  <Link to={`/SalesManager/ClientHistory/${note.employeeId}`}>
+                  <Link to={`/SalesManager/ClientHistory/${note.employeeId}/${note.name}`}>
                     <button
                       className="font-[Manrope] w-full gap-2 bg-[#3D2314] text-white py-2 px-4 rounded-lg flex items-center justify-center"
                       style={{ border: "1px solid #3D2314" }}>
@@ -531,14 +531,3 @@ function debounce(func, wait) {
 }
 
 export default MyTeamMang;
-
-
-
-
-
-
-
-
-
-
-

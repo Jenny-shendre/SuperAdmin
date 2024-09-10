@@ -12,6 +12,7 @@ import Loading from "../Loding/Loding";
 import { FiEye } from "react-icons/fi";
 import { TbEdit } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function ClientHistory() {
   const [data, setData] = useState([]);
@@ -32,6 +33,7 @@ function ClientHistory() {
   const [isCreating, setIsCreating] = useState(false);
   const [createStatus, setCreateStatus] = useState("");
   const [data2, setdata2] = useState([]);
+  const params = useParams()
 
   const truncateText = (text, limit = 10) => {
     if (text && text.length > limit) {
@@ -49,7 +51,7 @@ function ClientHistory() {
   const pathSegments = pathname.split("/");
   const employeeId = decodeURIComponent(pathSegments[3]);
 
-  console.log("employeeId", employeeId);
+  console.log("decodeURI component", params);
 
   const handleOutsideClick = (event) => {
     if (
@@ -84,7 +86,7 @@ function ClientHistory() {
     callApi(employeeId);
   }, []);
 
-  console.log("data", data);
+  console.log("dataaaaaa", data);
 
   const DateupdatedAt = (date) => {
     const parsedDate = new Date(date);
@@ -146,7 +148,7 @@ function ClientHistory() {
                   fontSize: "24px",
                 }}
                 className="font-medium font-[Manrope]">
-                Shahrukh
+                {params.name}
               </span>
             </h1>
           </div>
@@ -372,7 +374,7 @@ function ClientHistory() {
 
                             <td className="px-4 py-2">
                               <div className="flex justify-center items-center">
-                                {item.accepted === "completed" ? (
+                                {item.accepted === "accepted" ? (
                                   <IoCheckmarkOutline className="w-[24px] h-[24px] text-[#49DA31]" />
                                 ) : item.accepted === "pending" ? (
                                   <img
@@ -380,7 +382,7 @@ function ClientHistory() {
                                     alt="In Progress"
                                     className="w-[24px] h-[24px]"
                                   />
-                                ) : item.accepted === "Not completed" ? (
+                                ) : item.accepted === "rejected" ? (
                                   <img
                                     src={cross}
                                     alt="Not completed"
