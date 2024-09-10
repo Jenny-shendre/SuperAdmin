@@ -90,7 +90,7 @@ function ClientDetailsMang() {
                     }}
                     type="text"
                     value={valueinput}
-                    onChange={(e) => setvalueinput(e.target.value)}
+                    onChange={(e) => setValueinput(e.target.value)}
                     placeholder="Search"
                   />
                   <img
