@@ -376,8 +376,8 @@ function ClientHistory() {
                             </td>
 
                             <td className="py-2 px-4 text-sm flex items-center justify-start gap-1">
-                             <span 
-                             className={`py-1 px-2 rounded w-[87px] h-[24px] gap-[8px] ${
+                             <span style={{fontWeight:"500",fontFamily:"Manrope"}}
+                             className={`py-1 px-2 rounded h-[24px] gap-[8px] ${
                               item.completed === "completed" 
                                ? "bg-[#E1F8D7] text-[#48A321] text-[12px] "
                                : item.completed === "notCompleted" 
