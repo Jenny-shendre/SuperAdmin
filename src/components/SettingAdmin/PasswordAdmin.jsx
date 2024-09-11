@@ -48,7 +48,7 @@ const PasswordAdmin = ({ phone }) => {
             <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
               <img src={edit} />
             </h4>
-            <p style={{ fontFamily: "Manrope" }}>Edit</p>
+            <p style={{ fontFamily: "Manrope" }}>Submit</p>
           </button>
         </div>
 
