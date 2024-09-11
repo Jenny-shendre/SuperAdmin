@@ -810,11 +810,7 @@ function ClientDetails() {
                             onClick={() =>
                               handleCorrectClick("correct1", "cross1")
                             }>
-                            {iconState.correct1 ? (
-                              "✓"
-                            ) : (
-                              ''
-                            )}
+                            {iconState.correct1 ? "✓" : ""}
                           </button>
                           <button
                             className="text-red-500"
@@ -867,9 +863,11 @@ function ClientDetails() {
         <div style={{ textAlign: " -webkit-center" }} className="headLn">
           <div className="overflow-x-auto">
             <h2 className="text-lg font-semibold mb-4">Client's History</h2>
-            <div className="wrapperT" style={{height:'200px', overflowY:'scroll'}}>
+            <div
+              className="wrapperT"
+              style={{ height: "200px", overflowY: "scroll" }}>
               <table className="w-full bg-white shadow-sm rounded-lg">
-                <thead className="bg-[#E8E8E8] w-full"  >
+                <thead className="bg-[#E8E8E8] w-full">
                   <tr>
                     <th className="py-2 px-2 text-left text-xs text-[#5C5C5C]">
                       Name
@@ -897,7 +895,7 @@ function ClientDetails() {
                     </th>
                   </tr>
                 </thead>
-                <tbody >
+                <tbody>
                   {data
                     .filter(({ ClientName }) =>
                       ClientName.toLowerCase().includes(
@@ -928,9 +926,9 @@ function ClientDetails() {
                         <td className="py-2 px-2 text-xs">
                           {DateupdatedAt(visitor.createdAt)}
                         </td>
-                        <td className="py-2 px-2 text-xs">
+                        <td className="py-2 px-2 text-xs flex items-center ">
                           <span
-                            className={`py-1 px-2 rounded ${
+                            className={`py-1 px-2 rounded  ${
                               visitor.completed === "completed"
                                 ? "bg-[#E1F8D7] text-[#48A321]"
                                 : visitor.completed === "notCompleted"
@@ -959,11 +957,6 @@ function ClientDetails() {
                         </td>
                         <td className="py-2 px-4 text-xs">
                           <div className="flex space-x-2">
-                            <img
-                              src={view}
-                              alt="View"
-                              className="cursor-pointer"
-                            />
                             <img
                               src={edit}
                               alt="Edit"
