@@ -204,8 +204,8 @@ const Table2 = () => {
               </span>
             </h1>
 
-            <div className="flex flex-row text-center  items-center   ">
-              <div style={{ width: "70%", textAlign: "-webkit-center",  }}>
+            <div className="flex flex-row text-center  items-center justify-between  ">
+              <div style={{ width: "50%", textAlign: "-webkit-center",  }}>
                 <div className="flex justify-center items-center w-[70%] lg:block relative lg:w-[36rem] rounded-full ">
                   <input
                     className="w-[619px] h-[48px] py-2 px-12 rounded-full "
@@ -231,7 +231,7 @@ const Table2 = () => {
                 <button
                   onClick={() => setShowPopupAdd(true)}
                   className="bg-[#3D2314] text-white  rounded-full flex items-center justify-center h-[48px] w-[239px]"
-                  style={{ padding: "12px 24px 12px 24px", gap: "10px", marginRight:"200px" }}>
+                  style={{ padding: "12px 24px 12px 24px", gap: "10px"}}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5 mr-2"
@@ -252,7 +252,7 @@ const Table2 = () => {
             <div className="table-wrapper">
               {data.length !== 0 ? (
                 <table
-                  className="w-[1000px] bg-white"
+                  className="w-[full] bg-white"
                   style={{ boxShadow: " 0px 0px 4px 0px #00000040" }}>
                   <thead>
                     <tr className="text-[9px] lg:text-[15px] text-left  bg-[#E8E8E8]">

@@ -419,7 +419,7 @@ function EditForm2() {
                       readOnly={true}
                       value={DateupdatedAt(FormData.createdAt)}
                       onChange={handleChange}
-                      className="lg:w-[149px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-[160px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                       style={{
                         textAlign: "center",
                         padding: "10px 18px",

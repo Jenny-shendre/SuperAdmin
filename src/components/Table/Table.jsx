@@ -96,8 +96,29 @@ const Table = () => {
                   Direct Visitors
                 </span>
               </h1>
+              <div className="flex items-center justify-center text-center w-full">
+                <div className="flex justify-start items-center w-[50%] lg:block mx-auto relative lg:w-[36rem] rounded-full">
+                  <input
+                    className="w-full py-2 px-12 rounded-full "
+                    style={{
+                      border: "1px solid #3D2314",
+                      boxShadow: " 0px 0px 4px 0px #00000040",
+                    }}
+                    type="text"
+                    value={valueinput}
+                    onChange={(e) => setvalueinput(e.target.value)}
+                    placeholder="Search"
+                  />
+                  <img
+                    style={{ top: "0.6rem" }}
+                    src={Searchsvg}
+                    alt="Search"
+                    className="absolute left-4"
+                  />
+                </div>
+              </div>
             </div>
-            <div className="w-full ">
+            {/* <div className="w-full ">
               <div className="flex justify-start items-center w-1/2 mx-auto mb-3  rounded-full">
                 <input
                   className="w-full py-2 px-12 rounded-full "
@@ -117,7 +138,7 @@ const Table = () => {
                   className="absolute  left-[520px]"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="w-full  ">

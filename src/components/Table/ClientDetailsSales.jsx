@@ -314,7 +314,7 @@ function ClientDetails() {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-4 rounded-lg shadow-lg max-w-sm">
         <h3 className="font-bold text-lg mb-2">{note.name}</h3>
-        <p className="text-sm text-gray-600 mb-2">{note.date}</p>
+        <p className="text-xs text-gray-600 mb-2">{note.date}</p>
         <p className="mb-4">{note.content}</p>
         <button
           onClick={onClose}
@@ -750,28 +750,28 @@ function ClientDetails() {
               <table className="w-full bg-white rounded-lg shadow-sm">
                 <thead className="bg-[#D7D7D7]">
                   <tr>
-                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">
+                    <th className="py-2 px-2 text-left text-xs text-[#4B4B4B]">
                       Date
                     </th>
-                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">
+                    <th className="py-2 px-2 text-center text-xs text-[#4B4B4B]">
                       Customer ID
                     </th>
-                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">
+                    <th className="py-2 px-2 text-left text-xs text-[#4B4B4B]">
                       Name
                     </th>
-                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">
+                    <th className="py-2 px-2 text-left text-xs text-[#4B4B4B]">
                       Project Name
                     </th>
-                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">
+                    <th className="py-2 px-2 text-left text-xs text-[#4B4B4B]">
                       Timer/Min
                     </th>
-                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">
+                    <th className="py-2 px-2 text-center text-xs text-[#4B4B4B]">
                       Start Time
                     </th>
-                    <th className="py-2 px-4 text-center text-sm text-[#4B4B4B]">
+                    <th className="py-2 px-2 text-center text-xs text-[#4B4B4B]">
                       End Time
                     </th>
-                    <th className="py-2 px-4 text-left text-sm text-[#4B4B4B]">
+                    <th className="py-2 px-4 text-left text-xs text-[#4B4B4B]">
                       Actions
                     </th>
                   </tr>
@@ -779,31 +779,31 @@ function ClientDetails() {
                 <tbody>
                   {upcomings.map((value, i) => (
                     <tr key={i}>
-                      <td className="py-2 px-4 text-sm">
+                      <td className="py-2 px-4 text-xs">
                         {DateupdatedAt(value.createdAt)}
                       </td>
-                      <td className="py-2 px-4 text-sm text-center text-[#000AFF] underline font-bold">
+                      <td className="py-2 px-4 text-xs text-center text-[#000AFF] underline font-bold">
                         {value.ClientId}
                       </td>
-                      <td className="py-2 px-4 text-sm">
+                      <td className="py-2 px-4 text-xs">
                         <span className="bg-green-200 text-green-800 py-1 px-2 rounded text-xs">
                           New Client
                         </span>
                         <span className="ml-2">{value.ClientName}</span>
                       </td>
-                      <td className="py-2 px-4 text-sm">
+                      <td className="py-2 px-4 text-xs">
                         {value.ClientProject}
                       </td>
-                      <td className="py-2 px-4 text-sm font-semibold">
+                      <td className="py-2 px-4 text-xs font-semibold">
                         {formatTime(timeLeft)}
                       </td>
-                      <td className="py-2 px-4 text-sm font-semibold text-center">
+                      <td className="py-2 px-4 text-xs font-semibold text-center">
                         {time === 0 ? "00 : 00" : formatTime(time)}
                       </td>
-                      <td className="py-2 px-4 text-sm font-semibold text-center">
+                      <td className="py-2 px-4 text-xs font-semibold text-center">
                         {EndCounter === 0 ? "00 : 00" : EndCounter}
                       </td>
-                      <td className="py-2 px-4 text-sm">
+                      <td className="py-2 px-4 text-xs">
                         <div className="flex justify-around">
                           <button
                             className="text-green-500 mr-2"
@@ -813,7 +813,7 @@ function ClientDetails() {
                             {iconState.correct1 ? (
                               "✓"
                             ) : (
-                              <img src={backButtton} alt="Back" />
+                              ''
                             )}
                           </button>
                           <button
@@ -827,7 +827,13 @@ function ClientDetails() {
                               <span onClick={() => rejectMeetingfun(IdEmp)}>
                                 ✕
                               </span>
-                            ) : ""}
+                            ) : (
+                              <img
+                                src={stopButton}
+                                alt="Stop"
+                                onClick={stopTime}
+                              />
+                            )}
                           </button>
                         </div>
                       </td>
@@ -861,37 +867,37 @@ function ClientDetails() {
         <div style={{ textAlign: " -webkit-center" }} className="headLn">
           <div className="overflow-x-auto">
             <h2 className="text-lg font-semibold mb-4">Client's History</h2>
-            <div className="wrapperT">
+            <div className="wrapperT" style={{height:'200px', overflowY:'scroll'}}>
               <table className="w-full bg-white shadow-sm rounded-lg">
-                <thead className="bg-[#E8E8E8]">
+                <thead className="bg-[#E8E8E8] w-full"  >
                   <tr>
-                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                    <th className="py-2 px-2 text-left text-xs text-[#5C5C5C]">
                       Name
                     </th>
-                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                    <th className="py-2 px-2 text-left text-xs text-[#5C5C5C]">
                       Customer ID
                     </th>
-                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                    <th className="py-2 px-2 text-left text-xs text-[#5C5C5C]">
                       Email
                     </th>
-                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                    <th className="py-2 px-2 text-left text-xs text-[#5C5C5C]">
                       Phone No.
                     </th>
-                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                    <th className="py-2 px-2 text-left text-xs text-[#5C5C5C]">
                       Property Interest
                     </th>
-                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                    <th className="py-2 px-2 text-left text-xs text-[#5C5C5C]">
                       Schedule Meeting
                     </th>
-                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                    <th className="py-2 px-2 text-left text-xs text-[#5C5C5C]">
                       Status
                     </th>
-                    <th className="py-2 px-4 text-left text-sm text-[#5C5C5C]">
+                    <th className="py-2 px-4 text-left text-xs text-[#5C5C5C]">
                       Action
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody >
                   {data
                     .filter(({ ClientName }) =>
                       ClientName.toLowerCase().includes(
@@ -900,29 +906,29 @@ function ClientDetails() {
                     )
                     .map((visitor, index) => (
                       <tr key={index}>
-                        <td className="py-2 px-4 text-sm">
+                        <td className="py-2 px-2 text-xs">
                           {visitor.ClientName}
                         </td>
-                        <td className="py-2 px-4 text-sm">
+                        <td className="py-2 px-2 text-xs">
                           <Link
                             to={`/SalesExecutive/Notes/IDHistory/${visitor.ClientId}`}
                             className="text-[#000AFF] underline font-bold">
                             {visitor.ClientId}
                           </Link>
                         </td>
-                        <td className="py-2 px-4 text-sm">
+                        <td className="py-2 px-2 text-xs">
                           {visitor.ClientEmail}
                         </td>
-                        <td className="py-2 px-4 text-sm">
+                        <td className="py-2 px-2 text-xs">
                           {visitor.ClientMobile}
                         </td>
-                        <td className="py-2 px-4 text-sm">
+                        <td className="py-2 px-2 text-xs">
                           {visitor.ClientProject}
                         </td>
-                        <td className="py-2 px-4 text-sm">
+                        <td className="py-2 px-2 text-xs">
                           {DateupdatedAt(visitor.createdAt)}
                         </td>
-                        <td className="py-2 px-4 text-sm">
+                        <td className="py-2 px-2 text-xs">
                           <span
                             className={`py-1 px-2 rounded ${
                               visitor.completed === "completed"
@@ -951,7 +957,7 @@ function ClientDetails() {
                             ) : null}
                           </span>
                         </td>
-                        <td className="py-2 px-4 text-sm">
+                        <td className="py-2 px-4 text-xs">
                           <div className="flex space-x-2">
                             <img
                               src={view}
@@ -1127,7 +1133,7 @@ function ClientDetails() {
                   Client's History
                 </h2>
                 <div className="wrapperT h-[460px] overflow-x-auto">
-                  <table className="w-[1323px]  bg-white shadow-sm rounded-lg">
+                  <table className="w-[1323px]  bg-white shadow-sm rounded-lg ">
                     <thead
                       style={{
                         background: "#E8E8E8E8",
@@ -1262,12 +1268,12 @@ function ClientDetails() {
                             </td>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4">
+                              className="py-4 px-2">
                               {DateupdatedAt(visitor.createdAt)}
                             </td>
                             <td
                               style={{ borderBottom: "1px solid #E4E7EC" }}
-                              className="py-4 px-4 flex flex-wrap justify-between">
+                              className="py-4 px-2 flex flex-wrap justify-between">
                               <span
                                 style={{ borderBottom: "1px solid #E4E7EC" }}
                                 className={`rounded ${
