@@ -334,7 +334,7 @@ function EditForm1() {
             </button>
           </div>
 
-          <main className="flex flex-col   ">
+          <main className="flex flex-col   " style={{ height:'490px', overflowY:'scroll', padding:'10px 10px 10px 10px'}}>
             <div
               className="w-[695px] mx-auto h-auto  bg-[#FFFFFF] p-[10px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 "
               style={{ borderRadius: "24px" }}>
@@ -564,7 +564,7 @@ function EditForm1() {
                         readOnly={true}
                         value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
-                        className="lg:w-[149px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-[160px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
                           textAlign: "center",
                           padding: "10px 18px",
