@@ -828,13 +828,7 @@ function ClientDetails() {
                               <span onClick={() => rejectMeetingfun(IdEmp)}>
                                 ✕
                               </span>
-                            ) : (
-                              <img
-                                src={stopButton}
-                                alt="Stop"
-                                onClick={stopTime}
-                              />
-                            )}
+                            ) : ""}
                           </button>
                         </div>
                       </td>
