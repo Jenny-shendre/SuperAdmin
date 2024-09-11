@@ -47,15 +47,15 @@ function LoginCred() {
     // }
     // Password validation
 
-    if (
-    
-      !/[A-Za-z]/.test(password) ||
-      !/[0-9]/.test(password)
-    ) {
-      setErrorMessage("Please enter a correct password.");
-      return;
-    }
-    setErrorMessage(""); // Clear any previous error messages
+    // if (
+
+    //   !/[A-Za-z]/.test(password) ||
+    //   !/[0-9]/.test(password)
+    // ) {
+    //   setErrorMessage("Please enter a correct password.");
+    //   return;
+    // }
+    // setErrorMessage(""); // Clear any previous error messages
 
     const loginData = {
       phone: phone,
