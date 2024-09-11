@@ -296,7 +296,7 @@ const FormEdit = () => {
                     fontSize: "24px",
                   }}
                   className="font-medium">
-                  Customer ID
+                   {FormData.customerId || "Customer ID"} 
                 </span>
               </h1>
             </div>
@@ -581,7 +581,7 @@ const FormEdit = () => {
                         Important Remarks
                       </label>
                       <textarea
-                        className="lg:w-full lg:h-[100px] border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-full lg:h-[153px] border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
                           fontFamily: "Manrope",
                           fontWeight: "600",

@@ -315,7 +315,7 @@ const IDMan = () => {
                     fontSize: "24px",
                   }}
                   className="font-medium">
-                  Customer ID
+                    {FormData.customerId || "Customer ID"} 
                 </span>
               </h1>
             </div>
