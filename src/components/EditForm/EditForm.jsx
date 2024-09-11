@@ -296,7 +296,7 @@ const FormEdit = () => {
                     fontSize: "24px",
                   }}
                   className="font-medium">
-                  Customer ID
+                {FormData?.customerId || "Not Found"}
                 </span>
               </h1>
             </div>
