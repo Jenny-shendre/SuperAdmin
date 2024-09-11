@@ -315,7 +315,7 @@ function EditForm1() {
                       fontSize: "20px",
                     }}
                     className="font-medium">
-                    Channel ID
+                   {FormData?.partnerId}
                   </span>
                 </h1>
               </div>
