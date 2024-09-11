@@ -187,7 +187,7 @@ function ClientHistory() {
             <div
               style={{ textAlign: "-webkit-center" }}
               className="outer-wrapperB tableDiv">
-              <table className="w-[1170px] h-auto bg-white shadow-md overflow-hidden font-[Manrope] wrapperB">
+              <table className="w-auto h-auto bg-white shadow-md overflow-hidden font-[Manrope] wrapperB">
                 <div className="outer-wrapper">
                   <div className="table-wrapper">
                     <thead className="font-[Manrope]">

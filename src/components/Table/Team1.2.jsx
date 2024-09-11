@@ -20,9 +20,12 @@ const Table12 = () => {
   const pathSegments = pathname.split("/");
   const teamName = decodeURIComponent(pathSegments[3]); // Assuming 'teamName' is at index 3
   const employeeId = decodeURIComponent(pathSegments[4]); // Assuming 'employeeId' is at index 4
+  const memberName = decodeURIComponent(pathSegments[5]); // 'member.name' is at index 5
 
   console.log("teamName", teamName);
   console.log("employeeId", employeeId);
+  console.log("memberName", memberName);
+
 
   const callApi = async (employeeId) => {
     try {
@@ -127,7 +130,7 @@ const Table12 = () => {
               fontWeight: "700",
               lineHeight: "21.86px",
             }}>
-            Samyak Gupta (Sales Executive)
+            {memberName} (Sales Executive)
           </p>
 
           <table className="w-[850px] ">

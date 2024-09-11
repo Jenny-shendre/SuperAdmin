@@ -516,7 +516,7 @@ const Table6 = () => {
                                   //id center
                                   style={{ fontWeight: "700" }}>
                                   <Link
-                                    to={`/SuperAdmin/teamName/${teamData?.teamName}/${member?.employeeId}`}>
+                                    to={`/SuperAdmin/teamName/${teamData?.teamName}/${member?.employeeId}/${member?.name}`}>
                                     {member.employeeId?.length > 0
                                       ? member?.employeeId
                                       : "Not found"}
