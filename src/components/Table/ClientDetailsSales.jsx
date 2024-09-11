@@ -68,12 +68,11 @@ function ClientDetails() {
   const [lastDatas, setlastDatas] = useState([]);
   const [clientNameData, setclientNameData] = useState("");
   const [ProjectNameData, setProjectNameData] = useState("");
-  
+
   const lastData = (datas) => {
     data.length - 1;
     setlastDatas(data[data.length - 1]);
   };
-
 
   //Mobile View
 
@@ -141,17 +140,12 @@ function ClientDetails() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   // console.log(array);
 
-
   const resetCountdownTimer = () => {
     setTimeLeft(300000); // Reset to 5 minutes
     setTime(0);
     setTimerActive(true); // Start the countdown timer
     setEndCounter(0);
   };
-
-
-
-
 
   const stopTime = () => {
     setShowNotePopup(false);
@@ -208,11 +202,7 @@ function ClientDetails() {
     // upcoming(IdEmp);
 
     return () => clearInterval(intervalId);
-
   }, [isActive]);
-
-
-
 
   const handleProjectChange = (projectName) => {
     setProject(projectName);
@@ -267,18 +257,17 @@ function ClientDetails() {
   const confirmDelete = async () => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/clientManagement/deleteHistory/${IdEmp}/${deleteId}`
       );
-      setdata((prevData) => prevData.filter((item) => item._id !== deleteId));
-      // historyData();
+      // setdata((prevData) => prevData.filter((item) => item._id !== deleteId));
+      historyData(IdEmp);
       setDeleteShowPopup(false);
     } catch (error) {
       console.error("Error deleting client:", error);
-
     }
   };
-
 
   const fetchData = async () => {
     try {
@@ -290,11 +279,9 @@ function ClientDetails() {
       setdata2(res2.data);
     } catch (error) {
       console.log("Error fetching data:", error);
-
     } finally {
       setLoading(false);
     }
-
   };
 
   useEffect(() => {
@@ -305,10 +292,6 @@ function ClientDetails() {
     setDeleteId(ClientId);
     setDeleteShowPopup(true);
   };
-
-
-
-
 
   const stopTimer = () => {
     setTimerActive(false);
@@ -369,7 +352,8 @@ function ClientDetails() {
   const historyData = async (employeeId) => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/clientManagement/history/${employeeId}`
       );
       setdata(res.data);
@@ -381,7 +365,8 @@ function ClientDetails() {
   const upcoming = async (employeeId) => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/clientManagement/upcoming/${employeeId}`
       );
       setupcoming(res.data);
@@ -392,7 +377,6 @@ function ClientDetails() {
       setRes(formattedDate);
       resetCountdownTimer();
       // setIsActive(true); // Start the regular timer
-
     } catch (error) {
       console.log(error);
     }
@@ -401,7 +385,8 @@ function ClientDetails() {
   const rejectMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        ` ${import.meta.env.VITE_BACKEND
+        ` ${
+          import.meta.env.VITE_BACKEND
         }/api/clientManagement/reject/${employeeId}`
       );
       console.log("reject", res);
@@ -412,7 +397,8 @@ function ClientDetails() {
   const acceptMeeting = async (employeeId) => {
     try {
       const res = await axios.put(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/clientManagement/accept/${employeeId}`
       );
       console.log(res.data);
@@ -424,7 +410,8 @@ function ClientDetails() {
   const meetingOvers = async (employeeId) => {
     try {
       const res = await axios.put(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/clientManagement/meetingOver/${employeeId}`
       );
       console.log(res.data);
@@ -456,7 +443,8 @@ function ClientDetails() {
     const formattedDate = format(currentDate, "mm:ss");
     try {
       const res = await axios.put(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/timeSheet/timeResponse/${ClientID}`,
         {
           StartTime: resstart,
@@ -531,6 +519,15 @@ function ClientDetails() {
     }
   }, [IdEmp, isSubmitted]);
 */
+  useEffect(() => {
+    console.log("Formatted Time Left:", formatTime(timeLeft).trim()); // Debug log
+
+    if (timeLeft === 0) {
+      console.log("Timer hit 00:00, calling functions"); // Debug log
+      historyData(IdEmp);
+      upcoming(IdEmp);
+    }
+  }, [timeLeft]);
 
   useEffect(() => {
     console.log(isSubmitted);
@@ -581,7 +578,8 @@ function ClientDetails() {
       try {
         if (clientConversation === "Yes") {
           const res = await axios.put(
-            `${import.meta.env.VITE_BACKEND
+            `${
+              import.meta.env.VITE_BACKEND
             }/api/attendants/clientConversion/${IdEmp}`
           );
           console.log("count the client converted", res);
@@ -631,8 +629,6 @@ function ClientDetails() {
 
   // console.log("clientConversation", clientConversation);
 
-
-
   //Edir Note Popup
 
   const [clientName2, setClientName2] = useState("");
@@ -657,7 +653,8 @@ function ClientDetails() {
 
     try {
       const res = await axios.put(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/customers/DataUpdate/${clientIdData}`,
         notesdata
       );
@@ -684,7 +681,8 @@ function ClientDetails() {
   const getData = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND
+        `${
+          import.meta.env.VITE_BACKEND
         }/api/customers/getCustomerV2/${clientIdData}`
       );
       setCustomerdata(res.data);
@@ -708,7 +706,6 @@ function ClientDetails() {
     }
   }, [upcomings]);
 
-
   return (
     <div className="flex flex-col h-screen">
       <div className="flex items-center p-4 lg:p-6 bg-custom-bg">
@@ -723,18 +720,20 @@ function ClientDetails() {
         {/* Buttons for Mobile View */}
         <div className="flex justify-center mb-6 lg:hidden">
           <button
-            className={`py-2 px-4 rounded-l-full ${activeSection === "appointments"
-              ? "bg-[#3D2314] text-white"
-              : "bg-white text-[#3D2314]"
-              }`}
+            className={`py-2 px-4 rounded-l-full ${
+              activeSection === "appointments"
+                ? "bg-[#3D2314] text-white"
+                : "bg-white text-[#3D2314]"
+            }`}
             onClick={() => handleSectionChange("appointments")}>
             Appointments
           </button>
           <button
-            className={`py-2 px-4 rounded-r-full ${activeSection === "history"
-              ? "bg-[#3D2314] text-white"
-              : "bg-white text-[#3D2314]"
-              }`}
+            className={`py-2 px-4 rounded-r-full ${
+              activeSection === "history"
+                ? "bg-[#3D2314] text-white"
+                : "bg-white text-[#3D2314]"
+            }`}
             onClick={() => handleSectionChange("history")}>
             Client History
           </button>
@@ -784,7 +783,7 @@ function ClientDetails() {
                         {DateupdatedAt(value.createdAt)}
                       </td>
                       <td className="py-2 px-4 text-sm text-center text-[#000AFF] underline font-bold">
-                        ROF001
+                        {value.ClientId}
                       </td>
                       <td className="py-2 px-4 text-sm">
                         <span className="bg-green-200 text-green-800 py-1 px-2 rounded text-xs">
@@ -931,21 +930,22 @@ function ClientDetails() {
                         </td>
                         <td className="py-2 px-4 text-sm">
                           <span
-                            className={`py-1 px-2 rounded ${visitor.completed === "completed"
-                              ? "bg-[#E1F8D7] text-[#48A321]"
-                              : visitor.completed === "notCompleted"
+                            className={`py-1 px-2 rounded ${
+                              visitor.completed === "completed"
+                                ? "bg-[#E1F8D7] text-[#48A321]"
+                                : visitor.completed === "notCompleted"
                                 ? "bg-[#A321211A] text-[#A32121]"
                                 : visitor.completed === "progress"
-                                  ? "bg-[lightyellow] text-[yellowgreen]"
-                                  : ""
-                              }`}>
+                                ? "bg-[lightyellow] text-[yellowgreen]"
+                                : ""
+                            }`}>
                             {visitor.completed === "notCompleted"
                               ? "Not completed"
                               : visitor.completed === "completed"
-                                ? "Completed"
-                                : visitor.completed === "progress"
-                                  ? "In Progress"
-                                  : ""}
+                              ? "Completed"
+                              : visitor.completed === "progress"
+                              ? "In Progress"
+                              : ""}
                           </span>
                           <span className="ml-2">
                             {visitor.completed === "completed" ? (
@@ -1276,21 +1276,22 @@ function ClientDetails() {
                               className="py-4 px-4 flex flex-wrap justify-between">
                               <span
                                 style={{ borderBottom: "1px solid #E4E7EC" }}
-                                className={`rounded ${visitor.completed === "completed"
-                                  ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
-                                  : visitor.completed === "notCompleted"
+                                className={`rounded ${
+                                  visitor.completed === "completed"
+                                    ? "bg-[#E1F8D7] text-[#48A321] py-2 px-2 rounded"
+                                    : visitor.completed === "notCompleted"
                                     ? "bg-[#A321211A] text-[#A32121] py-1 px-2 rounded"
                                     : visitor.completed === "progress"
-                                      ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
-                                      : ""
-                                  }`}>
+                                    ? "bg-[lightyellow] text-[yellowgreen] py-1 px-2 rounded"
+                                    : ""
+                                }`}>
                                 {visitor.completed === "notCompleted"
                                   ? "Not completed"
                                   : visitor.completed === "completed"
-                                    ? "Completed"
-                                    : visitor.completed === "progress"
-                                      ? "In Progress"
-                                      : ""}
+                                  ? "Completed"
+                                  : visitor.completed === "progress"
+                                  ? "In Progress"
+                                  : ""}
                               </span>
                               <span style={{ alignContent: "center" }}>
                                 {visitor.completed === "completed" ? (
