@@ -26,8 +26,6 @@ const Table3 = () => {
     }
   }, [channelID]);
 
-  console.log("channel ID", channel);
-
   //vb
   const truncateText = (text, limit) => {
     if (text && text.length > limit) {
@@ -63,7 +61,7 @@ const Table3 = () => {
       setLoading(false);
     }
   };
-console.log("data----", data)
+  console.log("data----", data);
   useEffect(() => {
     fetchData();
   }, [channel]);
@@ -193,7 +191,7 @@ console.log("data----", data)
                   fontWeight: "400",
                   fontSize: "24px",
                 }}>
-                {data[0]?.channelPartnerCompanyName || "Not found"}
+                {channelID || "Not found"}
               </span>
             </h1>
             <div className="flex flex-row justify-center">
