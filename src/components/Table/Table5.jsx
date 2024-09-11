@@ -510,18 +510,21 @@ const Table5 = () => {
       ) : (
         <div
           style={{ gap: "10px" }}
-          className="Tab3 p-4  flex flex-col bg-custom-bg h-screen items-center justify-start overflow-hidden w-full">
+          className="Tab3 p-4  flex flex-col bg-custom-bg h-screen items-center justify-start overflow-hidden w-full"
+        >
           {/* First box */}
           <div
             style={{ gap: "20px", paddingLeft: "0px" }}
-            className="p-4 overflow-x-auto flex flex-col  gap-9 bg-custom-bg  ">
+            className="p-4 overflow-x-auto flex flex-col  gap-9 bg-custom-bg  "
+          >
             <h1
               className="font-bold flex items-center gap-1"
               style={{
                 fontFamily: "Poppins",
                 fontSize: "20px",
                 fontWeight: "500",
-              }}>
+              }}
+            >
               <Link to="/SuperAdmin">
                 <span>Home</span>
               </Link>
@@ -532,7 +535,8 @@ const Table5 = () => {
                   fontWeight: "400",
                   fontSize: "20px",
                 }}
-                className="font-medium">
+                className="font-medium"
+              >
                 Team
               </span>
             </h1>
@@ -565,12 +569,14 @@ const Table5 = () => {
                   width: "100px",
                   border: "1px solid #3D2314",
                   boxShadow: "0px 0px 4px 0px #00000040",
-                }}>
+                }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 mr-2"
                   viewBox="0 0 20 20"
-                  fill="currentColor">
+                  fill="currentColor"
+                >
                   <path
                     fillRule="evenodd"
                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
@@ -590,7 +596,8 @@ const Table5 = () => {
                     fontSize: "16px",
                     fontFamily: "Manrope",
                     fontWeight: "500",
-                  }}>
+                  }}
+                >
                   <span
                     style={{
                       width: "20px",
@@ -598,7 +605,8 @@ const Table5 = () => {
                       top: "17px",
                       left: "24px",
                       gap: "12px",
-                    }}>
+                    }}
+                  >
                     <LuEye />
                   </span>
                   View Members
@@ -610,14 +618,16 @@ const Table5 = () => {
                   <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
                   <div
                     ref={teamPopupRef}
-                    className="ml-[594px] mt-[190px] team-creation-popup w-[125px] h-[147px] rounded-[4px] bg-white absolute z-50 flex flex-col justify-between">
+                    className="ml-[594px] mt-[190px] team-creation-popup w-[125px] h-[147px] rounded-[4px] bg-white absolute z-50 flex flex-col justify-between"
+                  >
                     <button
                       className="w-[125px] button-hover h-[39px] p-[10px] text-left flex items-center font-manrope text-[16px] font-[400]"
                       onClick={() => {
                         setShowTeamPopup(false);
                         setShowAddTeamMemberPopup(true);
                         resetTeamForm();
-                      }}>
+                      }}
+                    >
                       Add Team
                     </button>
                     <button
@@ -626,7 +636,8 @@ const Table5 = () => {
                         setShowTeamPopup(false);
                         setShowAddManagerPopup(true);
                         resetManagerForm();
-                      }}>
+                      }}
+                    >
                       Add Manager
                     </button>
                     <button
@@ -635,7 +646,8 @@ const Table5 = () => {
                         setShowTeamPopup(false);
                         setShowAddExecutivePopup(true);
                         resetExecutiveForm();
-                      }}>
+                      }}
+                    >
                       Add Executive
                     </button>
                   </div>
@@ -651,7 +663,8 @@ const Table5 = () => {
                 style={{
                   boxShadow: " 0px 0px 4px 0px #00000040",
                   borderCollapse: "collapse",
-                }}>
+                }}
+              >
                 <thead>
                   <tr className="text-[9px] lg:text-[15px] text-left bg-[#E8E8E8]">
                     <th
@@ -667,7 +680,8 @@ const Table5 = () => {
                         padding: "10px",
                         border: "1px solid #ddd",
                         justifyContent: "center",
-                      }}>
+                      }}
+                    >
                       Teams
                     </th>
                     <th
@@ -681,7 +695,8 @@ const Table5 = () => {
                         padding: "5px",
                         width: "178px",
                         border: "1px solid #ddd",
-                      }}>
+                      }}
+                    >
                       Manager Name
                     </th>
                     <th
@@ -695,7 +710,8 @@ const Table5 = () => {
                         padding: "5px",
                         width: "224px",
                         border: "1px solid #ddd",
-                      }}>
+                      }}
+                    >
                       Manager Email ID
                     </th>
                     <th
@@ -708,7 +724,8 @@ const Table5 = () => {
                         textAlign: "center",
                         width: "174px",
                         border: "1px solid #ddd",
-                      }}>
+                      }}
+                    >
                       Current Project
                     </th>
                     <th
@@ -725,7 +742,8 @@ const Table5 = () => {
                         justifyItems: "center",
                         alignItems: "center",
                         border: "1px solid #ddd",
-                      }}>
+                      }}
+                    >
                       Actions
                     </th>
                   </tr>
@@ -759,7 +777,8 @@ const Table5 = () => {
                             border: "1px solid #ddd",
                             width: "188px",
                             height: "54px",
-                          }}>
+                          }}
+                        >
                           <div
                             className="py-3 text-center flex items-center "
                             style={{
@@ -770,7 +789,8 @@ const Table5 = () => {
                               fontWeight: "500",
                               fontFamily: "Manrope",
                               lineHeight: "21.86px",
-                            }}>
+                            }}
+                          >
                             {visitor.teamName}
                           </div>
                         </td>
@@ -788,7 +808,8 @@ const Table5 = () => {
                             fontFamily: "Manrope",
                             lineHeight: "21.86px",
                           }}
-                          title={visitor.managerName}>
+                          title={visitor.managerName}
+                        >
                           {truncateText(visitor.managerName, 14)}
                         </td>
 
@@ -804,7 +825,8 @@ const Table5 = () => {
                             fontFamily: "Manrope",
                             lineHeight: "21.86px",
                           }}
-                          title={visitor.managerEmail}>
+                          title={visitor.managerEmail}
+                        >
                           {truncateText(visitor.managerEmail, 18)}
                         </td>
 
@@ -820,7 +842,8 @@ const Table5 = () => {
                             fontFamily: "Manrope",
                             lineHeight: "21.86px",
                           }}
-                          title={visitor.projectName}>
+                          title={visitor.projectName}
+                        >
                           {truncateText(visitor.projectName, 13)}
                         </td>
 
@@ -832,14 +855,16 @@ const Table5 = () => {
                             width: "118px",
                             height: "54px",
                             justifyItems: "center",
-                          }}>
+                          }}
+                        >
                           <div
                             className="py-3  flex gap-5 "
                             style={{
                               justifyContent: "center",
                               alignItems: "center",
                               display: "flex",
-                            }}>
+                            }}
+                          >
                             <Link to={`/SuperAdmin/Team/${visitor.teamName}`}>
                               <IoOpenOutline
                                 style={{
@@ -888,12 +913,14 @@ const Table5 = () => {
                   <div className="delete-cont ml-1 flex justify-center items-center w-[197px] h-[33px] gap-6 mt-4">
                     <button
                       className="w-[85px] h-[33px] p-2.5 bg-[#FFD9D9] rounded-md text-[#C71212] flex items-center justify-center"
-                      onClick={handleDeleteConfirm}>
+                      onClick={handleDeleteConfirm}
+                    >
                       Delete
                     </button>
                     <button
                       className="w-[85px] h-[33px] p-2.5 rounded-md border border-black flex items-center justify-center"
-                      onClick={handleCancel}>
+                      onClick={handleCancel}
+                    >
                       Cancel
                     </button>
                   </div>
@@ -911,11 +938,13 @@ const Table5 = () => {
               <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
               <div
                 ref={addTeamMemberPopupRef}
-                className="fixed inset-0 flex items-center justify-center z-50">
+                className="fixed inset-0 flex items-center justify-center z-50"
+              >
                 <div className="add-team-members w-[488px] h-auto p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
                   <button
                     className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                    onClick={() => setShowAddTeamMemberPopup(false)}>
+                    onClick={() => setShowAddTeamMemberPopup(false)}
+                  >
                     X
                   </button>
                   <div style={{ width: "440px", height: "319px" }}>
@@ -931,7 +960,8 @@ const Table5 = () => {
                       onClick={() =>
                         setIsProjectDropdownOpen(!isProjectDropdownOpen)
                       }
-                      ref={projectDropdownRef}>
+                      ref={projectDropdownRef}
+                    >
                       <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
                         {project || "Assign Project"}
                         <img
@@ -946,9 +976,8 @@ const Table5 = () => {
                             <div
                               key={projects.name}
                               className="p-2 cursor-pointer hover:bg-gray-200"
-                              onClick={() =>
-                                handleProjectChange(projects.name)
-                              }>
+                              onClick={() => handleProjectChange(projects.name)}
+                            >
                               {projects.name}
                             </div>
                           ))}
@@ -957,7 +986,8 @@ const Table5 = () => {
                     </div>
                     <div
                       className="relative w-[440px] h-12 rounded-md border border-gray-300 font-manrope text-lg font-normal mb-4 block shadow-sm focus:border-brown-500 focus:ring focus:ring-brown-500 focus:ring-opacity-50"
-                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    >
                       <div className="cursor-pointer w-full h-full p-4 flex justify-between items-center">
                         {manager || "Assign Manager"}
                         <img
@@ -972,7 +1002,8 @@ const Table5 = () => {
                             <div
                               key={sales.name}
                               className="p-2 cursor-pointer hover:bg-gray-200"
-                              onClick={() => handleManagerChange(sales.name)}>
+                              onClick={() => handleManagerChange(sales.name)}
+                            >
                               {sales.name}
                             </div>
                           ))}
@@ -985,10 +1016,12 @@ const Table5 = () => {
                         {members.map((member, index) => (
                           <div
                             key={index}
-                            className="flex items-center bg-white px-2 py-1 rounded-md border border-gray-300">
+                            className="flex items-center bg-white px-2 py-1 rounded-md border border-gray-300"
+                          >
                             <button
                               onClick={() => handleRemoveMember(member)}
-                              className="text-black text-[22px]">
+                              className="text-black text-[22px]"
+                            >
                               &times;
                             </button>
                             <span className="ml-2 ">{member}</span>
@@ -1013,7 +1046,8 @@ const Table5 = () => {
                               className="suggestion-item"
                               onClick={() =>
                                 handleSuggestionClick(suggestion.name)
-                              }>
+                              }
+                            >
                               {suggestion.name}
                             </div>
                           ))}
@@ -1022,17 +1056,28 @@ const Table5 = () => {
                     </div>
                   </div>
                   <br />
+
                   <button
                     onClick={handleSubmit}
-                    className="w-[192px] h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope  text-white"
+                    className="w-auto h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope  text-white"
                     style={{
                       fontWeight: "400",
                       fontSize: "16px",
                       lineHeight: "19.2px",
                     }}
+                    //  disabled={isCreating}>
+                    // {isCreating
+                    //  || "Create Team "}
+
                     disabled={isCreating}>
-                    {createStatus || "Create Team"}
+                    {isCreating
+                      ? "Team Created Successfully"
+                      : isCreating
+                      ? "creating....."
+                      : "Create Team"}
                   </button>
+
+
                   {errorMessage && (
                     <p className="text-red-500 mt-2">{errorMessage}</p>
                   )}
@@ -1047,11 +1092,13 @@ const Table5 = () => {
               <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
               <div
                 ref={addManagerPopupRef}
-                className="fixed inset-0 flex items-center justify-center z-50">
+                className="fixed inset-0 flex items-center justify-center z-50"
+              >
                 <div className="add-manager w-[488px] h-auto p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
                   <button
                     className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                    onClick={() => setShowAddManagerPopup(false)}>
+                    onClick={() => setShowAddManagerPopup(false)}
+                  >
                     X
                   </button>
                   <div className="relative w-[440px] h-12 mb-4">
@@ -1127,7 +1174,8 @@ const Table5 = () => {
                   <button
                     onClick={handleManagerSubmit}
                     className="w-fit create-manager-btn h-[44px] p-[10px] bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
-                    disabled={isManagerCreating}>
+                    disabled={isManagerCreating}
+                  >
                     {managerCreateStatus || "Add"}
                   </button>
                   {managerErrorMessage && (
@@ -1144,11 +1192,13 @@ const Table5 = () => {
               <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
               <div
                 ref={addExecutivePopupRef}
-                className="fixed inset-0 flex items-center justify-center z-50">
+                className="fixed inset-0 flex items-center justify-center z-50"
+              >
                 <div className="add-executive w-[488px] h-auto p-[24px] rounded-lg bg-white shadow-lg flex flex-col items-center">
                   <button
                     className="closing-button absolute w-8 h-8 bg-white border border-gray-300 font-bold -mr-[485px] -mt-[35px] flex justify-center items-center p-2 rounded-full"
-                    onClick={() => setShowAddExecutivePopup(false)}>
+                    onClick={() => setShowAddExecutivePopup(false)}
+                  >
                     X
                   </button>
                   <div className="relative w-[440px] h-12 mb-4">
@@ -1225,7 +1275,8 @@ const Table5 = () => {
                   <button
                     onClick={handleExecutiveSubmit}
                     className="w-fit create-executive-btn h-12 py-3 px-6 bg-[#3D2314] rounded-md text-center font-manrope text-lg font-medium text-white"
-                    disabled={isExecutiveCreating}>
+                    disabled={isExecutiveCreating}
+                  >
                     {executiveCreateStatus || "Add"}
                   </button>
                   {executiveErrorMessage && (
