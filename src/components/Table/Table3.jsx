@@ -225,7 +225,7 @@ const Table3 = () => {
                   <thead>
                     <tr className="text-[9px] lg:text-[15px] text-left bg-[#E8E8E8]">
                       <th
-                        className="font-medium"
+                        className="font-medium border-b"
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "9px",
@@ -237,7 +237,7 @@ const Table3 = () => {
                         Serial No
                       </th>
                       <th
-                        className="font-medium"
+                        className="font-medium border-b"
                         style={{
                           fontFamily: "Manrope",
                           fontSize: "9px",

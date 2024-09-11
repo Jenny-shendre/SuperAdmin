@@ -312,24 +312,24 @@ const Table6 = () => {
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: "24px", justifyContent: "center" }}>
+      <div style={{ display: "flex", gap: "24px", justifyContent: "center",marginTop:"16px" }}>
         <div style={{ display: "flex" }} >
           <input
             style={{
               fontFamily: "Manrope",
               lineHeight: "21.86px",
               fontWeight: "500",
-              width:'400px'
+              width:'600px'
             }}
             type="text"
             value={valueinput}
             onChange={(e) => setvalueinput(e.target.value)}
             placeholder="Search"
-            className="w-[619px] h-[48px] pl-16 pr-4 py-2 rounded-full border border-[#3D2314] focus:outline-none focus:ring-2 focus:ring-brown-500"
+            className="w-[600px] h-[48px] pl-16 pr-4 py-2 rounded-full border border-[#3D2314] focus:outline-none focus:ring-2 focus:ring-brown-500"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-[#3D2314] relative  left-[-370px] top-[14px] placeholder-[#3D2314]"
+            className="h-5 w-5 text-[#3D2314] relative  left-[-570px] top-[14px] placeholder-[#3D2314]"
             viewBox="0 0 20 20"
             fill="currentColor">
             <path
@@ -373,7 +373,7 @@ const Table6 = () => {
       </div>
       <br />
 
-      <div style={{ textAlign: "" }}>
+      <div style={{marginTop:"50px", marginLeft:"150px" }}>
         <div className="w-[900px] h-[591px]">
           <div className="bg-[#D7D7D7] w-[900px]">
             <div
@@ -404,8 +404,8 @@ const Table6 = () => {
                 {teamData.managerName} (Team Lead)
               </p>
             </div>
-            <div className="outer-wrapperT text-center flex items-center justify-center">
-              <div className="table-wrapperT" style={{ width: "999px" }}>
+            <div className="outer-wrapperT text-center flex items-center justify-center ">
+              <div className="table-wrapperT" >
                 <table className="w-full wrapperT">
                   <thead className="team1">
                     <tr

@@ -174,8 +174,13 @@ const IDMan = () => {
     const toggleEmojiPicker = () => setShowEmojiPicker(!showEmojiPicker);
 
     const addEmoji = (emoji) => {
-      setNote(note + emoji);
+
+     
+     
+      setNote((note) + (emoji));
+      
       setShowEmojiPicker(false);
+     
     };
 
     console.log("filterdata", filterdata.name);
@@ -218,10 +223,12 @@ const IDMan = () => {
               onKeyDown={handleKeyDown}
               className={` bg-transparent outline-none text-[] placeholder-gray-400  ${
                 isBold ? "font-extrabold" : ""
-              } ${isItalic ? "italic" : ""}`}
+              } ${isItalic ? "italic" : "normal"}
+              ${emojis === isItalic ? "isItalic" : 'normal'}
+              `}
             />
 
-            <button className="bg-gray-200 ml-[360px] rounded-full p-1">
+            <button className="bg-gray-200 rounded-full p-1">
               <svg
                 width="20"
                 height="20"
@@ -289,11 +296,8 @@ const IDMan = () => {
                   fontSize: "24px",
                   fontWeight: "500",
                 }}>
-                <Link to="/SuperAdmin">
                   <span>Home</span>
-                </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-                <Link to="/SuperAdmin/Direct_Visitors">
                   <span
                     style={{
                       fontFamily: "Poppins",
@@ -303,7 +307,6 @@ const IDMan = () => {
                     className="font-medium">
                     Overview
                   </span>
-                </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
                 <span
                   style={{
@@ -321,24 +324,9 @@ const IDMan = () => {
           <div
             className="flex mr-[50px] mt-5 mb-5"
             style={{ justifyContent: "end" }}>
-            {/* <div
-              key={FormData}
-              style={{}}
-              className="w-[169px] flex px-8 py-4 justify-center bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
-              onClick={() =>
-                toggleEditMode(FormData?.customerId || FormData?.partnerId)
-              }>
-              <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
-                <div className="pt-1 pr-4">
-                  <FaRegEdit />
-                </div>
-              </h4>
-              <p className="text-[16px]">
-                {editMode ? "Save" : "Edit Details"}
-              </p>
-            </div> */}
+             
           </div>
-          <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10">
+          <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10" style={{height:'380px', overflowY:'scroll'}}>
             <div
               className="lg:w-[695px] lg:h-[683px] bg-[#FFFFFF] p-[24px] rounded-2xl mb-6 lg:mb-0 lg:mr-4"
               style={{
@@ -351,7 +339,7 @@ const IDMan = () => {
                 Client Details
               </h2>
               <form>
-                <div className="form-compont">
+                <div className="form-compont" >
                   <div>
                     <div className="flex flex-wrap gap-[40px]">
                       <div>
