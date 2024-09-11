@@ -533,7 +533,7 @@ const IDSales = () => {
                       </label>
                       <input
                         type="text"
-                        className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-[160px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
                           textAlign: "center",
                           fontFamily: "Manrope",
