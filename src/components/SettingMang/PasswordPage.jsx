@@ -47,7 +47,7 @@ const PasswordPage = ({ email }) => {
             {/* <div className="w-4 h-4 lg:w-5 lg:h-5 mr-2">
               <img src={edit} alt="Edit Icon" />
             </div> */}
-            <p className="text-sm lg:text-base">Save</p>
+            <p className="text-sm lg:text-base">Submit</p>
           </button>
         </div>
 
