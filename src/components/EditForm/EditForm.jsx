@@ -289,6 +289,7 @@ const FormEdit = () => {
                   </span>
                 </Link>
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
+                
                 <span
                   style={{
                     fontFamily: "Poppins",
@@ -296,7 +297,7 @@ const FormEdit = () => {
                     fontSize: "24px",
                   }}
                   className="font-medium">
-                  Customer ID
+                 {FormData.customerId || "Customer ID"} 
                 </span>
               </h1>
             </div>
@@ -494,7 +495,9 @@ const FormEdit = () => {
                       />
                     </div>
                   </div>
-
+                 
+                 <div className="w-full">
+                  
                   <div className="lg:flex lg:flex-wrap gap-[24px] lg:mt-1">
                     <div>
                       <label
@@ -565,6 +568,7 @@ const FormEdit = () => {
                         readOnly={true}
                       />
                     </div>
+                  </div>
                   </div>
 
                   <div className="textarear-comp">

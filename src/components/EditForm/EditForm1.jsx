@@ -309,14 +309,14 @@ function EditForm1() {
                   </Link>
                   <IoIosArrowForward style={{ color: "#1C1B1F" }} />
                   <span
-                    style={{
-                      fontFamily: "Poppins",
-                      fontWeight: "400",
-                      fontSize: "20px",
-                    }}
-                    className="font-medium">
-                    Channel ID
-                  </span>
+  style={{
+    fontFamily: "Poppins",
+    fontWeight: "400",
+    fontSize: "20px",
+  }}
+  className="font-medium">
+  {id ? id : "Loading..."}
+</span>
                 </h1>
               </div>
             </div>
