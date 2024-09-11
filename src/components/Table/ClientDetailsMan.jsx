@@ -204,7 +204,7 @@ function ClientDetailsMang() {
                           className="w-[24px] h-[24px] flex justify-center items-center mx-auto"
                         />
                       ) : executive.lastClientName?.accepted === "rejected" ? (
-                        <RxCross2 className="ml-[71px] w-[24px] h-[24px]" />
+                        <RxCross2 className="[71px] w-[24px] h-[24px] mx-auto" />
                       ) : (
                         <span className="text-gray-500">No Action</span>
                       )}
