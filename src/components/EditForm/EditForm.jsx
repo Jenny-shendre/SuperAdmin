@@ -302,7 +302,7 @@ const FormEdit = () => {
             </div>
           </div>
 
-          <div className="flex mr-[50px]" style={{ justifyContent: "end", }}>
+          <div className="flex mr-[50px]" style={{ justifyContent: "end" }}>
             <button
               key={FormData._id}
               className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
@@ -315,7 +315,13 @@ const FormEdit = () => {
               </p>
             </button>
           </div>
-          <main className="flex flex-wrap gap-5 lg:ml-8" style={{ height:'360px', overflowY:'scroll', padding:'10px 10px 10px 10px'}}>
+          <main
+            className="flex flex-wrap gap-5 lg:ml-8"
+            style={{
+              height: "360px",
+              overflowY: "scroll",
+              padding: "10px 10px 10px 10px",
+            }}>
             <div
               className="lg:w-[695px] lg:h-[683px] bg-[#FFFFFF] p-[24px] rounded-2xl mb-6 lg:mb-0 lg:mr-4"
               style={{
@@ -495,8 +501,8 @@ const FormEdit = () => {
                     </div>
                   </div>
 
-                  <div className="lg:flex lg:flex-wrap gap-[24px] lg:mt-1">
-                    <div>
+                  <div className="lg:flex lg:flex-wrap items-center justify-center gap-[24px] lg:mt-1">
+                    <div className="flex-1">
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
                         style={{ fontWeight: "500", fontFamily: "Manrope" }}>
@@ -504,9 +510,9 @@ const FormEdit = () => {
                       </label>
                       <input
                         type="text"
-                        className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-full lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
-                          textAlign: "center",
+                          textAlign: "left",
                           fontFamily: "Manrope",
                           fontWeight: "600",
                           fontSize: "20px",
@@ -519,7 +525,7 @@ const FormEdit = () => {
                         readOnly={true}
                       />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
                         style={{ fontWeight: "500", fontFamily: "Manrope" }}>
@@ -527,9 +533,9 @@ const FormEdit = () => {
                       </label>
                       <input
                         type="text"
-                        className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-full lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
-                          textAlign: "center",
+                          textAlign: "left",
                           fontFamily: "Manrope",
                           fontWeight: "600",
                           fontSize: "20px",
@@ -542,7 +548,7 @@ const FormEdit = () => {
                         readOnly={true}
                       />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
                         style={{ fontWeight: "500", fontFamily: "Manrope" }}>
@@ -550,9 +556,9 @@ const FormEdit = () => {
                       </label>
                       <input
                         type="text"
-                        className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-full lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
-                          textAlign: "center",
+                          textAlign: "left",
                           fontFamily: "Manrope",
                           fontWeight: "600",
                           fontSize: "20px",
@@ -575,7 +581,7 @@ const FormEdit = () => {
                         Important Remarks
                       </label>
                       <textarea
-                        className="lg:w-[647px] lg:h-[100px] border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-full lg:h-[100px] border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
                           fontFamily: "Manrope",
                           fontWeight: "600",
@@ -679,10 +685,10 @@ const FormEdit = () => {
                   className="mb-4 text-center">
                   Notes Activity Log
                 </h2>
-                <div style={{ height: "300px", overflowY: "scroll" }}>
+                <div style={{ height: "300px", overflowY: "auto" }}>
                   <div className="space-y-4">
                     {FormData.notes && FormData.notes.length > 0 ? (
-                      <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
+                      <div className="bg-[#E9E9E9] p-3 rounded w-[90%] mx-auto h-[113px]">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
                           <span
