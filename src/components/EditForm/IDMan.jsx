@@ -223,7 +223,9 @@ const IDMan = () => {
               onKeyDown={handleKeyDown}
               className={` bg-transparent outline-none text-[] placeholder-gray-400  ${
                 isBold ? "font-extrabold" : ""
-              } ${isItalic ? "italic" : "normal"} ${isItalic === emojis  ? "normal" : "normal"}`}
+              } ${isItalic ? "italic" : "normal"}
+              ${emojis === isItalic ? "isItalic" : 'normal'}
+              `}
             />
 
             <button className="bg-gray-200 rounded-full p-1">
