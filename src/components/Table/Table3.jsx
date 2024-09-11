@@ -63,7 +63,7 @@ const Table3 = () => {
       setLoading(false);
     }
   };
-
+console.log("data----", data)
   useEffect(() => {
     fetchData();
   }, [channel]);
@@ -193,7 +193,7 @@ const Table3 = () => {
                   fontWeight: "400",
                   fontSize: "24px",
                 }}>
-                Rainbow Overseas
+                {data[0]?.channelPartnerCompanyName || "Not found"}
               </span>
             </h1>
             <div className="flex flex-row justify-center">

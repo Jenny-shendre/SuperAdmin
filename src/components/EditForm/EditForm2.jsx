@@ -163,7 +163,7 @@ function EditForm2() {
                   fontSize: "24px",
                 }}
                 className="font-medium">
-                Rainbow Overseas
+                 {FormData?.channelPartnerCompanyName || "Not found"}
               </div>
               <IoIosArrowForward style={{ color: "#1C1B1F" }} />
               <span
