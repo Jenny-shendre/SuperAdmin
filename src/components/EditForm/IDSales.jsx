@@ -312,7 +312,7 @@ const IDSales = () => {
                     fontSize: "24px",
                   }}
                   className="font-medium">
-                  Customer ID
+                   {FormData?.customerId}
                 </span>
               </h1>
             </div>
