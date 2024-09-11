@@ -406,8 +406,8 @@ function EditForm2() {
                   </div>
                 </div>
 
-                <div className="lg:flex lg:flex-wrap gap-[24px] lg:mt-1">
-                  <div>
+                <div className="lg:flex lg:flex-wrap items-center justify-center gap-[24px] lg:mt-1">
+                  <div className="flex-1">
                     <label
                       className="block text-[#000000] text-[16px] font-[Manrope]"
                       style={{ fontWeight: "500", fontFamily: "Manrope" }}>
@@ -421,7 +421,7 @@ function EditForm2() {
                       onChange={handleChange}
                       className="lg:w-[160px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                       style={{
-                        textAlign: "center",
+                        textAlign: "left",
                         padding: "10px 18px",
                         fontFamily: "Manrope",
                         fontWeight: "600",
@@ -431,7 +431,7 @@ function EditForm2() {
                       }}
                     />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <label
                       className="block text-[#000000] text-[16px] font-[Manrope]"
                       style={{ fontWeight: "500", fontFamily: "Manrope" }}>
@@ -443,9 +443,9 @@ function EditForm2() {
                       value={FormData.timeResponse}
                       onChange={handleChange}
                       name="responseTime"
-                      className="lg:w-[149px] lg:h-[47px] border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-full lg:h-[47px] border-[2px] border-[#3D2314] rounded-lg mt-1"
                       style={{
-                        textAlign: "center",
+                        textAlign: "left",
                         padding: "10px 18px",
                         fontFamily: "Manrope",
                         fontWeight: "600",
@@ -455,7 +455,7 @@ function EditForm2() {
                       }}
                     />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <label
                       className="block text-[#000000] text-[16px] font-[Manrope]"
                       style={{ fontWeight: "500", fontFamily: "Manrope" }}>
@@ -467,9 +467,9 @@ function EditForm2() {
                       name="timeDuration"
                       value={FormData.timeDuration}
                       onChange={handleChange}
-                      className="lg:w-[149px] lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
+                      className="lg:w-full lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                       style={{
-                        textAlign: "center",
+                        textAlign: "left",
                         padding: "10px 18px",
                         fontFamily: "Manrope",
                         fontWeight: "600",
@@ -489,7 +489,7 @@ function EditForm2() {
                       Important Remarks
                     </label>
                     <textarea
-                      className="lg:w-[641px] lg:h-[153px] border-[2px] border-[#3D2314] rounded-lg mt-1 "
+                      className="lg:w-full lg:h-[153px] border-[2px] border-[#3D2314] rounded-lg mt-1 "
                       style={{
                         fontFamily: "Manrope",
                         fontWeight: "600",
