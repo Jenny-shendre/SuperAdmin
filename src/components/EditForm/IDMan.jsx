@@ -3,7 +3,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import { format } from "date-fns";
 import "../Home.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import Loding from "../Loding/Loding";
 import {
@@ -39,6 +39,8 @@ const IDMan = () => {
     projectLocation: "",
     customerMobileLastFour: "",
   });
+
+  const {clientid} = useParams()
 
   const toggleEdit = () => {
     setEdit((prevEdit) => !prevEdit);
@@ -315,7 +317,7 @@ const IDMan = () => {
                     fontSize: "24px",
                   }}
                   className="font-medium">
-                  {FormData?.partnerId || "Not Found"}
+                  {clientid || "Not Found"}
                 </span>
               </h1>
             </div>
