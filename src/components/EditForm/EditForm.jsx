@@ -692,7 +692,7 @@ const FormEdit = () => {
                 <div style={{ height: "300px", overflowY: "auto" }}>
                   <div className="space-y-4">
                     {FormData.notes && FormData.notes.length > 0 ? (
-                      <div className="bg-[#E9E9E9] p-3 rounded w-[90%] mx-auto h-[113px]">
+                      <div className="bg-[#E9E9E9] p-3 rounded w-[100%] mx-auto h-[113px]">
                         <div className="flex items-center space-x-2 mb-2">
                           <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
                           <span

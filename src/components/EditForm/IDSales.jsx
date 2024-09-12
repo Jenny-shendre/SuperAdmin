@@ -184,7 +184,8 @@ const IDSales = () => {
 
     
     return (
-      <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col justify-between relative">
+      <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col relative"
+      style={{ alignSelf: "self-end" }}>
         <div style={{ marginTop: "-8px" }} className="flex space-x-2">
           <button
             onClick={handleBold}
@@ -205,10 +206,10 @@ const IDSales = () => {
         </div>
 
         <div className="">
-          <div className="w-full flex justify-between h-[30px]">
+        <div className=" flex justify-between ">
             <textarea
               style={{
-                flex: "0 0 80%",
+                height:"30px",
                 padding: "4px",
                 fontFamily: "Manrope",
                 fontSize: "14px",
@@ -220,12 +221,12 @@ const IDSales = () => {
               value={note}
               onChange={(e) => setNote(e.target.value)}
               onKeyDown={handleKeyDown}
-              className={` bg-transparent outline-none text-[] placeholder-gray-400  ${
+              className={` bg-transparent outline-none text-[] placeholder-gray-400 resize-none${
                 isBold ? "font-extrabold" : ""
               } ${isItalic ? "italic" : ""}`}
             />
 
-            <button className="bg-gray-200 ml-[360px] rounded-full p-1">
+<button className="bg-gray-200 rounded-full p-1 flex">
               <svg
                 width="20"
                 height="20"
@@ -292,12 +293,9 @@ const IDSales = () => {
                   fontFamily: "Poppins",
                   fontSize: "24px",
                   fontWeight: "500",
-                }}>
-                <Link to="/SuperAdmin">
-                  <span>Home</span>
-                </Link>
-                <IoIosArrowForward style={{ color: "#1C1B1F" }} />
-                <Link to="/SuperAdmin/Direct_Visitors">
+                }}>             
+                  <span>Home</span>            
+                <IoIosArrowForward style={{ color: "#1C1B1F" }} />              
                   <span
                     style={{
                       fontFamily: "Poppins",
@@ -307,7 +305,7 @@ const IDSales = () => {
                     className="font-medium">
                     Overview
                   </span>
-                </Link>
+              
                 <IoIosArrowForward style={{ color: "#1C1B1F" }} />
                 <span
                   style={{
@@ -342,14 +340,7 @@ const IDSales = () => {
               </p>
             </div>
           </div> */}
-          <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10" 
-          style={{height:'380px', overflowY:'scroll',    
-           scrollbarWidth: 'none',  
-            msOverflowStyle: 'none',  
-            '&::-webkit-scrollbar': { 
-              width: '0',
-              height: '0',
-            }}}>
+           <main className="flex flex-wrap gap-5 lg:ml-8" style={{height:'360px', overflowY:'scroll', padding: "10px 10px 10px 10px",}}>       
             <div
               className="lg:w-[695px] lg:h-[683px] bg-[#FFFFFF] p-[24px] rounded-2xl mb-6 lg:mb-0 lg:mr-4"
               style={{
@@ -537,7 +528,7 @@ const IDSales = () => {
                   </div>
 
                   <div className="lg:flex lg:flex-wrap gap-[24px] lg:mt-1">
-                    <div>
+                    <div className="flex-1">
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
                         style={{ fontWeight: "500", fontFamily: "Manrope" }}>
@@ -545,7 +536,7 @@ const IDSales = () => {
                       </label>
                       <input
                         type="text"
-                        className="lg:w-[160px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-full lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
                           textAlign: "center",
                           fontFamily: "Manrope",
@@ -560,7 +551,7 @@ const IDSales = () => {
                         readOnly={true}
                       />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
                         style={{ fontWeight: "500", fontFamily: "Manrope" }}>
@@ -568,7 +559,7 @@ const IDSales = () => {
                       </label>
                       <input
                         type="text"
-                        className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-full lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
                           textAlign: "center",
                           fontFamily: "Manrope",
@@ -583,7 +574,7 @@ const IDSales = () => {
                         readOnly={true}
                       />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <label
                         className="block text-[#000000] text-[16px] font-[Manrope]"
                         style={{ fontWeight: "500", fontFamily: "Manrope" }}>
@@ -591,7 +582,7 @@ const IDSales = () => {
                       </label>
                       <input
                         type="text"
-                        className="lg:w-[149px] lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-full lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
                           textAlign: "center",
                           fontFamily: "Manrope",
@@ -616,7 +607,7 @@ const IDSales = () => {
                         Executive Notes
                       </label>
                       <textarea
-                        className="lg:w-[647px] lg:h-[100px] border-[2px] border-[#3D2314] rounded-lg mt-1"
+                        className="lg:w-[647px] lg:h-[153px] border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
                           fontFamily: "Manrope",
                           fontWeight: "600",
@@ -644,14 +635,15 @@ const IDSales = () => {
                   fontFamily: "Manrope",
                   fontSize: "20px",
                   fontWeight: "700",
+                  borderBottom: "1px solid black",
                 }}
                 className="mb-4 text-center">
                 Notes Activity Log
               </h2>
-              <div style={{ height: "300px", overflowY: "scroll"  }}>
+              <div style={{ height: "300px", overflowY: "auto"  }}>
                 <div className="space-y-4">
                   {FormData.notes && FormData.notes.length > 0 ? (
-                    <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">
+                    <div className="bg-[#E9E9E9] p-3 rounded w-[100%] max-auto h-[113px]">
                       <div className="flex items-center space-x-2 mb-2">
                         <div className="w-[20px] h-[20px] bg-gray-500 rounded-full"></div>
                         <span
@@ -659,6 +651,7 @@ const IDSales = () => {
                             fontFamily: "Manrope",
                             fontSize: "12px",
                             fontWeight: "500",
+                            
                           }}>
                           Sales Executive
                         </span>
@@ -680,7 +673,7 @@ const IDSales = () => {
                   )}
                 </div>
               </div>
-              <div className="mt-4 ">
+              <div style={{ display: "flex" }}>
                 <NoteInput />
               </div>
             </div>
