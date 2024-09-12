@@ -179,6 +179,10 @@ const IDSales = () => {
     };
 
     console.log("filterdata", filterdata.name);
+
+    
+
+    
     return (
       <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col justify-between relative">
         <div style={{ marginTop: "-8px" }} className="flex space-x-2">
@@ -338,12 +342,20 @@ const IDSales = () => {
               </p>
             </div>
           </div> */}
-          <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10">
+          <main className="flex flex-wrap gap-5 lg:ml-8 lg:mt-10" 
+          style={{height:'380px', overflowY:'scroll',    
+           scrollbarWidth: 'none',  
+            msOverflowStyle: 'none',  
+            '&::-webkit-scrollbar': { 
+              width: '0',
+              height: '0',
+            }}}>
             <div
               className="lg:w-[695px] lg:h-[683px] bg-[#FFFFFF] p-[24px] rounded-2xl mb-6 lg:mb-0 lg:mr-4"
               style={{
                 borderRadius: "24px",
                 boxShadow: "0px 0px 6.7px 0px #632E04",
+               
               }}>
               <h2
                 className="text-[20px] text-center font-[Manrope] mb-4"
@@ -636,7 +648,7 @@ const IDSales = () => {
                 className="mb-4 text-center">
                 Notes Activity Log
               </h2>
-              <div style={{ height: "300px", overflowY: "scroll" }}>
+              <div style={{ height: "300px", overflowY: "scroll"  }}>
                 <div className="space-y-4">
                   {FormData.notes && FormData.notes.length > 0 ? (
                     <div className="bg-[#E9E9E9] p-3 rounded w-[507px] h-[113px]">

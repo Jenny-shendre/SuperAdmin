@@ -656,16 +656,16 @@ const Table5 = () => {
             </div>
           </div>
           {/* Second box */}
-          <div className="text-center w-full mb-5 h-[62%] overflow-y-scroll">
+          <div className="text-center w-full mb-5 h-[62%] overflow-y-auto">
             {data.length !== 0 ? (
               <table
-                className="w-full bg-white overflow-hidden"
+                className="w-full bg-white"
                 style={{
                   boxShadow: " 0px 0px 4px 0px #00000040",
                   borderCollapse: "collapse",
                 }}
               >
-                <thead>
+                <thead className="sticky top-0 bg-[#E8E8E8] z-10">
                   <tr className="text-[9px] lg:text-[15px] text-left bg-[#E8E8E8]">
                     <th
                       style={{
@@ -676,8 +676,7 @@ const Table5 = () => {
                         textAlign: "center",
                         paddingLeft: "10px",
                         width: "188px",
-
-                        padding: "10px",
+                        padding: "11px",
                         border: "1px solid #ddd",
                         justifyContent: "center",
                       }}
