@@ -285,7 +285,7 @@ const Table6 = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 max-w-7xl mx-auto">
       <div style={{ marginLeft: "10px", display: "flex" }}>
         <div
           className="flex items-center [#000000]"
@@ -312,24 +312,24 @@ const Table6 = () => {
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: "24px", justifyContent: "center",marginTop:"16px" }}>
-        <div style={{ display: "flex" }} >
+      <div style={{ display: "flex", gap: "8px", justifyContent: "center",marginTop:"16px", width:"full" }}>
+        <div className="relative w-full max-w-xl"  >
           <input
             style={{
               fontFamily: "Manrope",
               lineHeight: "21.86px",
               fontWeight: "500",
-              width:'600px'
+             
             }}
             type="text"
             value={valueinput}
             onChange={(e) => setvalueinput(e.target.value)}
             placeholder="Search"
-            className="w-[600px] h-[48px] pl-16 pr-4 py-2 rounded-full border border-[#3D2314] focus:outline-none focus:ring-2 focus:ring-brown-500"
+            className="w-full h-[48px] pl-12 pr-4 py-2 rounded-full border border-[#3D2314] focus:outline-none focus:ring-2 focus:ring-brown-500"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-[#3D2314] relative  left-[-570px] top-[14px] placeholder-[#3D2314]"
+            className="h-5 w-5 text-[#3D2314] absolute left-4 top-[14px] placeholder-[#3D2314]"
             viewBox="0 0 20 20"
             fill="currentColor">
             <path
@@ -339,7 +339,7 @@ const Table6 = () => {
             />
           </svg>
         </div>
-        <div style={{ display: "flex", gap: "24px" }}>
+        <div style={{ display: "flex", gap: "8px" }}>
           <div>
             <button
               style={{
@@ -348,7 +348,7 @@ const Table6 = () => {
                 lineHeight: "21.86px",
                 fontSize: "16px",
               }}
-              className="bg-[#3D2314] text-white px-[24px] py-[12px] rounded-full w-[191px] h-[48px] flex justify-between "
+              className="bg-[#3D2314] text-sm text-white px-[23px] py-[9px] rounded-full w-full h-[50px] flex "
               onClick={() => setShowAddExecutivePopup2(true)}>
               <MdAdd className=" text-[24px]" />
               Add Executive
@@ -363,7 +363,7 @@ const Table6 = () => {
                 lineHeight: "21.86px",
                 fontSize: "16px",
               }}
-              className="border-2 border-[#3D2314] px-[24px] py-[12px] rounded-full w-[208px] h-[48px] flex justify-between"
+              className="border-2 border-[#3D2314] px-[24px] py-[7px] text-sm sm:text-2xl rounded-full w-[208px] w-full h-[50px] flex"
               onClick={() => setShowAssignManagerPopup2(true)}>
               <TbReload className="color-[#3D2314]  text-[24px]" />
               Assign Manager
@@ -373,12 +373,12 @@ const Table6 = () => {
       </div>
       <br />
 
-      <div style={{marginTop:"50px", marginLeft:"150px" }}>
-        <div className="w-[900px] h-[591px]">
-          <div className="bg-[#D7D7D7] w-[900px]">
+      <div >
+      <div className="w-full overflow-x-auto">
+      <div className="bg-[#D7D7D7] w-full">
             <div
               style={{
-                width: "900px",
+                text:"center",
                 height: "77px",
                 padding: "8px 0px",
                 background: "#D7D7D7",
@@ -404,12 +404,12 @@ const Table6 = () => {
                 {teamData.managerName} (Team Lead)
               </p>
             </div>
-            <div className="outer-wrapperT text-center flex items-center justify-center ">
-              <div className="table-wrapperT" >
-                <table className="w-full wrapperT">
+            <div className="outer-wrapperT overflow-x-auto text-center flex items-center justify-center ">
+              <div className="table-wrapperT w-full" >
+                <table className="w-full">
                   <thead className="team1">
                     <tr
-                      className="text-center text-sm font-medium [#000000] bg-[#E8E8E8] w-[188px] h-[28px]"
+                      className="text-center text-sm font-medium [#000000] bg-[#E8E8E8] h-[28px]"
                       style={{
                         fontFamily: "Manrope",
                         fontSize: "12px",
@@ -417,7 +417,7 @@ const Table6 = () => {
                         lineHeight: "16.39px",
                       }}>
                       <th
-                        className="px[10px] py-[6px] w-[188px] h-[28px]"
+                        className="px[10px] py-[6px] h-[28px]"
                         style={{
                           fontWeight: "500",
                           borderRight: "1px solid #E4E7EC",
@@ -425,7 +425,7 @@ const Table6 = () => {
                         Employee ID
                       </th>
                       <th
-                        className="px[10px] py-[6px] w-[188px] h-[28px]"
+                        className="px[10px] py-[6px]  h-[28px]"
                         style={{
                           fontWeight: "500",
                           borderRight: "1px solid #E4E7EC",
@@ -433,7 +433,7 @@ const Table6 = () => {
                         Sales Executive
                       </th>
                       <th
-                        className="px[10px] py-[6px] w-[203px] h-[28px]"
+                        className="px[10px] py-[6px]  h-[28px]"
                         style={{
                           fontWeight: "500",
                           borderRight: "1px solid #E4E7EC",
@@ -441,7 +441,7 @@ const Table6 = () => {
                         Email ID
                       </th>
                       <th
-                        className="px[10px] py-[6px] w-[174px] h-[28px]"
+                        className="px[10px] py-[6px]  h-[28px]"
                         style={{
                           fontWeight: "500",
                           borderRight: "1px solid #E4E7EC",
@@ -449,7 +449,7 @@ const Table6 = () => {
                         Client Name
                       </th>
                       <th
-                        className="px[10px] py-[6px] w-[174px] h-[28px]"
+                        className="px[10px] py-[6px] h-[28px]"
                         style={{
                           fontWeight: "500",
                           borderRight: "1px solid #E4E7EC",
@@ -457,7 +457,7 @@ const Table6 = () => {
                         Project Name
                       </th>
                       <th
-                        className="px[10px] py-[6px] w-[58px] h-[28px]"
+                        className="px[10px] py-[6px] h-[28px]"
                         style={{
                           fontWeight: "500",
                           borderRight: "1px solid #E4E7EC",

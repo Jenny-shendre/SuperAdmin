@@ -559,14 +559,14 @@ function EditForm1() {
                         Date
                       </label>
                       <input
-                        type="text"
+                        type="center"
                         name="createdAt"
                         readOnly={true}
                         value={DateupdatedAt(FormData.createdAt)}
                         onChange={handleChange}
                         className="lg:w-full lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
-                          textAlign: "left",
+                          textAlign: "center",
                           padding: "10px 18px",
                           fontFamily: "Manrope",
                           fontWeight: "600",
@@ -583,14 +583,14 @@ function EditForm1() {
                         Response Time
                       </label>
                       <input
-                        type="text"
+                        type="center"
                         readOnly={true}
                         value={FormData.timeResponse}
                         onChange={handleChange}
                         name="responseTime"
                         className="lg:w-full lg:h-[47px] border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
-                          textAlign: "left",
+                          textAlign: "center",
                           padding: "10px 18px",
                           fontFamily: "Manrope",
                           fontWeight: "600",
@@ -607,14 +607,14 @@ function EditForm1() {
                         Meeting Duration
                       </label>
                       <input
-                        type="text"
+                        type="center"
                         readOnly={true}
                         name="timeDuration"
                         value={FormData.timeDuration}
                         onChange={handleChange}
                         className="lg:w-full lg:h-[47px]  border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
-                          textAlign: "left",
+                          textAlign: "center",
                           padding: "10px 18px",
                           fontFamily: "Manrope",
                           fontWeight: "600",
