@@ -512,7 +512,7 @@ const FormEdit = () => {
                         type="text"
                         className="lg:w-full lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
-                          textAlign: "left",
+                          textAlign: "center",
                           fontFamily: "Manrope",
                           fontWeight: "600",
                           fontSize: "20px",
@@ -535,7 +535,7 @@ const FormEdit = () => {
                         type="text"
                         className="lg:w-full lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
-                          textAlign: "left",
+                          textAlign: "center",
                           fontFamily: "Manrope",
                           fontWeight: "600",
                           fontSize: "20px",
@@ -558,7 +558,7 @@ const FormEdit = () => {
                         type="text"
                         className="lg:w-full lg:h-[47px] p-2 border-[2px] border-[#3D2314] rounded-lg mt-1"
                         style={{
-                          textAlign: "left",
+                          textAlign: "center",
                           fontFamily: "Manrope",
                           fontWeight: "600",
                           fontSize: "20px",
