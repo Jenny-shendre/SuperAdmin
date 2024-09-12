@@ -184,7 +184,8 @@ function EditForm1() {
     };
     console.log("datatime", FormData.updatedAt);
     return (
-      <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col justify-between relative">
+      <div className="w-[507px] h-[87px] border border-gray-300 rounded-lg p-4 flex flex-col justify-between relative"
+       style={{ alignSelf: "self-end" }}>
         <div style={{ marginTop: "-8px" }} className="flex space-x-2">
           <button
             onClick={handleBold}
@@ -281,10 +282,9 @@ function EditForm1() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="w-full h-screen overflow-auto flex flex-col items-start justify-start">
-          <div className="w-full flex justify-between items-center p-2 h-[15%]">
-            <div className="w-full h-auto flex flex-col items-start justify-start">
-              <div className="ml-8 ">
+        <div key={FormData.mobile}>
+          <div className="flex flex-wrap ">
+              <div className="ml-8 mt-8 ">
                 <h1
                   className="font-bold flex items-center gap-1"
                   style={{
@@ -320,33 +320,40 @@ function EditForm1() {
                 </h1>
               </div>
             </div>
-
+       
+       <div className="flex mr-[50px]" style={{ justifyContent: "end" }}>
             <button
-              className="flex py-3  px-6 editbutton bg-[#3D2314] text-white rounded-full"
+              className="flex lg:px-8 lg:py-4 bg-[#3D2314] lg:relative lg:top-0 text-white rounded-full"
               key={FormData._id}
               onClick={() => toggleEditMode(FormData._id)}>
               <h4 className="w-[17px] h-[17px] lg:mt-1 lg:relative lg:right-2 gap-2">
                 <FaRegEdit />
               </h4>
-              <p className="text-[16px] text-nowrap">
+              <p className="text-[16px] ">
                 {editMode ? "Save" : "Edit Details"}
               </p>
             </button>
           </div>
 
-          <main className="flex flex-col   " style={{ height:'490px', overflowY:'scroll', padding:'10px 10px 10px 10px'}}>
+          <main           
+            className="flex flex-wrap gap-5 lg:ml-8"
+            style={{
+              height: "360px",
+              overflowY: "scroll",
+              padding: "10px 10px 10px 10px",
+            }}>
             <div
-              className="w-[695px] mx-auto h-auto  bg-[#FFFFFF] p-[10px] rounded-2xl shadow-lg shadow-[#632E04] mb-6 lg:mb-0 "
-              style={{ borderRadius: "24px" }}>
+              className="lg:w-[695px] lg:h-[683px] bg-[#FFFFFF] p-[24px] rounded-2xl mb-6 lg:mb-0 lg:mr-4 "
+              style={{ borderRadius: "24px",boxShadow: "0px 0px 6.7px 0px #632E04" }}>
               <h2
                 className="text-[20px] text-center font-[Manrope] mb-4"
                 style={{ fontWeight: "700" }}>
                 Customer and Channel Partner Detail
               </h2>
               <form>
-                <div>
+                <div className="form-compont">
                   <div>
-                    <div className="flex flex-wrap gap-[20px]">
+                    <div className="flex flex-wrap gap-[40px]">
                       <div>
                         <label
                           htmlFor="first_name"
@@ -634,7 +641,7 @@ function EditForm1() {
                         Important Remarks
                       </label>
                       <textarea
-                        className="lg:w-full lg:h-[153px] border-[2px] border-[#3D2314] rounded-lg mt-1 "
+                        className="lg:w-full lg:h-[100px] border-[2px] border-[#3D2314] rounded-lg mt-1 "
                         style={{
                           fontFamily: "Manrope",
                           fontWeight: "600",
@@ -652,8 +659,12 @@ function EditForm1() {
                 </div>
               </form>
             </div>
-            <div className="w-full flex items-center justify-around mb-20 ">
-              <div className="w-[48%] lg:h-[529px] bg-[#FFFFFF] p-[8px] rounded-2xl shadow-lg shadow-[#632E04]">
+            <div className="">
+              <div
+              style={{
+                boxShadow: " 0px 0px 6.7px 0px #632E04",
+              }}
+               className="lg:w-[555px] lg:h-[233px] bg-[#FFFFFF] p-[8px] rounded-2xl ">
                 <div className="mt-4">
                   <h2
                     className="text-center mb-4 text-[#000000] text-[20px] font-[Manrope]"
@@ -661,9 +672,9 @@ function EditForm1() {
                     Channel Partner Activity Log
                   </h2>
                 </div>
-                <div className="w-full h-auto overflow-x-auto">
-                  <div className="w-full h-[400px] overflow-y-auto hide-scrollbar">
-                    <table className="w-full text-left ">
+                <div className="w-full overflow-x-auto">
+                  <div className="w-full h-[123px] overflow-y-auto ">
+                    <table className="w-full h-[123px] text-left ">
                       <thead className="">
                         <tr className="text-[#FFFFFF]">
                           <th
@@ -671,7 +682,7 @@ function EditForm1() {
                             style={{
                               fontSize: "14px",
                               fontWeight: "400",
-                              width: "75px",
+                             
                             }}>
                             Serial No
                           </th>
@@ -743,7 +754,7 @@ function EditForm1() {
                 <br /> <br />
               </div>
               <div
-                className="mt-4 w-[48%] lg:h-[529px] bg-[#FFFFFF] p-[24px] rounded-2xl"
+                className="mt-4 w-[555px] lg:h-[529px] bg-[#FFFFFF] p-[24px] rounded-2xl"
                 style={{
                   borderRadius: "24px",
                   boxShadow: "0px 0px 6.7px 0px #632E04",
@@ -758,7 +769,7 @@ function EditForm1() {
                   className="mb-4 text-center">
                   Notes Activity Log
                 </h2>
-                <div style={{ height: "300px", overflowY: "scroll" }}>
+                <div style={{ height: "300px", overflowY: "auto" }}>
                   <div className="space-y-4">
                     {FormData.notes && FormData.notes.length > 0 ? (
                       <div className="bg-[#E9E9E9] p-3 rounded w-full h-[113px]">
