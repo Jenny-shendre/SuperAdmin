@@ -9,7 +9,7 @@ import DropIcon from "../../assets/DropIcon.png";
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
 import { BsThreeDots } from "react-icons/bs";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import { format } from "date-fns";
 import eyes from "../../assets/eyes.png";
 import view from "../../assets/hugeicons_view (1).png";
@@ -68,7 +68,12 @@ function ClientDetails() {
   const [lastDatas, setlastDatas] = useState([]);
   const [clientNameData, setclientNameData] = useState("");
   const [ProjectNameData, setProjectNameData] = useState("");
+  const [Timerget, setTimer] = useState('');
+  const [Timing, setTiming] = useState([ ]);
 
+  const [attendTime, setattendTime] = useState(false);
+
+  const [callCloseTimeRemaining, setcallCloseTimeRemaining] = useState();
   const lastData = (datas) => {
     data.length - 1;
     setlastDatas(data[data.length - 1]);
@@ -138,6 +143,7 @@ function ClientDetails() {
   const [errorMessage, setErrorMessage] = useState(""); // state for error message
   const [timeResponseStart, settimeResponseStart] = useState(""); // state for error message
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [DataEmp, setDataEmp] = useState("");
   // console.log(array);
 
   const resetCountdownTimer = () => {
@@ -213,6 +219,19 @@ function ClientDetails() {
   //   const EmpId = localStorage.getItem("EmpId");
   //   setClientID(EmpId);
   // }, []);
+
+  const EmpData = async () => {
+    const res = await axios.get(
+      `${import.meta.env.VITE_BACKEND}/api/settingsExecutive/${IdEmp}`
+    );
+    // setDataEmp(res.data);
+    console.log(res.data);
+    setDataEmp(res.data._id);
+    console.log("EMP", res.data._id);
+  };
+  useEffect(() => {
+    EmpData();
+  }, [IdEmp]);
 
   const ClientDetails = async (id, employeeId) => {
     console.log("Client", id);
@@ -519,15 +538,15 @@ function ClientDetails() {
     }
   }, [IdEmp, isSubmitted]);
 */
-  useEffect(() => {
-    console.log("Formatted Time Left:", formatTime(timeLeft).trim()); // Debug log
+  // useEffect(() => {
+  //   console.log("Formatted Time Left:", formatTime(timeLeft).trim()); // Debug log
 
-    if (timeLeft === 0) {
-      console.log("Timer hit 00:00, calling functions"); // Debug log
-      historyData(IdEmp);
-      upcoming(IdEmp);
-    }
-  }, [timeLeft]);
+  //   if (timeLeft === 0) {
+  //     console.log("Timer hit 00:00, calling functions"); // Debug log
+  //     historyData(IdEmp);
+  //     upcoming(IdEmp);
+  //   }
+  // }, [timeLeft]);
 
   useEffect(() => {
     console.log(isSubmitted);
@@ -678,6 +697,312 @@ function ClientDetails() {
     }
   };
 
+  // const updateCreatelogTimes = async (data) => {
+  //   console.log(upcomings);
+  //   console.log(DataEmp);
+  //   try {
+  //     const res = await axios.put(
+  //       `${
+  //         import.meta.env.VITE_BACKEND
+  //       }/api/attendants/update-createlog-times/${DataEmp._id}/${
+  //         upcomings[0]._id
+  //       }`,
+  //       {
+  //         attendTime: false,
+  //         callCloseTime: true,
+  //       }
+  //     );
+  //     setTimer(res.data);
+  //     console.log(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // console.log(upcomings);
+  // const logTimes = async () => {
+  //   console.log(DataEmp);
+  //   try {
+  //     const res = await axios.get(
+  //       `${import.meta.env.VITE_BACKEND}/api/attendants/check-timeout/${
+  //         DataEmp._id
+  //       }`
+  //     );
+  //     setTiming(res.data[0]);
+  //     console.log(res.data[0]);
+  //     console.log("check-timeout", res.data[0].callCloseTimeStatus);
+
+  //     // Add a check for res.data and res.data[0]
+  //     if (
+  //       res.data &&
+  //       res.data[0] &&
+  //       res.data[0].callCloseTimeRemaining !== undefined
+  //     ) {
+  //       console.log("check-timeout", res.data[0].callCloseTimeRemaining);
+  //     } else {
+  //       console.log("No valid callCloseTimeRemaining found");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // setInterval(() => {
+  //   logTimes();
+  // }, 10000);
+
+  // Helper function to check if a month has passed since the last update
+  const hasMonthPassed = (lastUpdateDate) => {
+    const oneMonthInMillis = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+    const currentDate = new Date().getTime();
+    return currentDate - new Date(lastUpdateDate).getTime() >= oneMonthInMillis;
+  };
+
+  
+
+  let timer; // Define the timer outside the function to maintain its reference globally
+
+  function AutostartTimer(createdAtRemaining, stopImmediately = false) {
+    // Split the "createdAtRemaining" string into minutes and seconds
+    const [minutes, seconds] = createdAtRemaining.split(':').map(Number); // Convert to numbers
+  
+    let totalTime = minutes * 60 + seconds; // Convert total time to seconds
+    let elapsedTime = 0;
+    const timerDisplay = document.getElementById("timer-display"); // Get the timer display element
+  
+    // Function to update the timer display
+    function updateDisplay(remainingMinutes, remainingSeconds) {
+      remainingMinutes = remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
+      remainingSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
+  
+      timerDisplay.innerText = `${remainingMinutes}:${remainingSeconds}`;
+    }
+  
+    // Function to stop the timer
+    function stopTimer() {
+      clearInterval(timer);
+      console.log("Timer stopped.");
+    }
+  
+    // If stopImmediately is true, stop the timer and return the remaining time
+    if (stopImmediately) {
+      stopTimer(); // Stop the timer
+  
+      // Return the remaining time formatted as mm:ss
+      let remainingMinutes = Math.floor(totalTime / 60);
+      let remainingSeconds = totalTime % 60;
+      updateDisplay(remainingMinutes, remainingSeconds);
+  
+      return `${remainingMinutes}:${remainingSeconds}`;
+    }
+  
+    // Function to start the timer and update the display
+    function start() {
+      elapsedTime++;
+      let remainingTime = totalTime - elapsedTime;
+  
+      if (remainingTime <= 0) {
+        stopTimer();
+        updateDisplay(0, 0); // Set timer to 00:00 when it reaches zero
+      } else {
+        let remainingMinutes = Math.floor(remainingTime / 60);
+        let remainingSeconds = remainingTime % 60;
+        // updateDisplay(remainingMinutes, remainingSeconds);
+
+        remainingMinutes = remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
+        remainingSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
+    
+      if(!stopImmediately)  timerDisplay.innerText = `${remainingMinutes}:${remainingSeconds}`;
+
+      }
+    }
+  
+    // Start the timer and update the display every second
+    timer = setInterval(start, 1000); // Call start every second (1000ms)
+  }
+
+
+  let timer2; // Define the timer2 outside the function to maintain its reference globally
+
+  function AutostartTimer2(createdAtRemaining, stopImmediately = false) {
+    // Split the "createdAtRemaining" string into minutes and seconds
+    const [minutes, seconds] = createdAtRemaining.split(':').map(Number); // Convert to numbers
+  
+    let totalTime = minutes * 60 + seconds; // Convert total time to seconds
+    let elapsedTime = 0;
+    const timerDisplay = document.getElementById("timer2-display"); // Get the timer2 display element
+  
+    // Function to update the timer2 display
+    function updateDisplay(remainingMinutes, remainingSeconds) {
+      remainingMinutes = remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
+      remainingSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
+  
+      timerDisplay.innerText = `${remainingMinutes}:${remainingSeconds}`;
+    }
+  
+    // Function to stop the timer2
+    function stopTimer() {
+      clearInterval(timer2);
+      console.log("Timer stopped.");
+    }
+  
+    // If stopImmediately is true, stop the timer2 and return the remaining time
+    if (stopImmediately) {
+      stopTimer(); // Stop the timer2
+  
+      // Return the remaining time formatted as mm:ss
+      let remainingMinutes = Math.floor(totalTime / 60);
+      let remainingSeconds = totalTime % 60;
+      updateDisplay(remainingMinutes, remainingSeconds);
+  
+      return `${remainingMinutes}:${remainingSeconds}`;
+    }
+  
+    // Function to start the timer2 and update the display
+    function start() {
+      elapsedTime++;
+      let remainingTime = totalTime + elapsedTime;
+  
+      if (remainingTime <= 0) {
+        stopTimer();
+        updateDisplay(0, 0); // Set timer2 to 00:00 when it reaches zero
+      } else {
+        let remainingMinutes = Math.floor(remainingTime / 60);
+        let remainingSeconds = remainingTime % 60;
+        updateDisplay(remainingMinutes, remainingSeconds);
+      }
+    }
+  
+    // Start the timer2 and update the display every second
+    timer2 = setInterval(start, 1000); // Call start every second (1000ms)
+  }
+
+
+
+
+
+
+const [meetStart,setMeetStart] = useState(false)
+
+  const logTimes = async (ID) => {
+    console.log("DataEmp", ID);
+    try {
+      // Fetch the last update date from local storage (or API if needed)
+      // let lastUpdateDate = localStorage.getItem("lastUpdateDate");
+
+      // Call the API to get the latest log times
+      const res = await axios.get(
+        `${import.meta.env.VITE_BACKEND}/api/attendants/check-timeout/${ID}`
+      );
+
+      if (res.data && res.data[0]) {
+        const logData = res.data[0];
+        setTiming(logData); // Update the timing state with the data
+        console.log("check-timeout", logData);
+
+        // Check if a month has passed and update data if needed
+        // if (!lastUpdateDate || hasMonthPassed(lastUpdateDate)) {
+        //   console.log("A month has passed. Updating the log times...");
+        //   await updateCreatelogTimes(logData); // Call the update function
+
+        //   // Update the last update date
+        //   localStorage.setItem("lastUpdateDate", new Date().toISOString());
+        // }
+
+        // Handle call timeout logic
+
+        
+
+        const {
+          callCloseTimeStatus,
+          callCloseTimeRemaining,
+          createdAtRemaining,
+          attendTimeStatus,
+          createdAtStatus,
+          timeFromCreatedToAttend,
+          attendTimeRemaining
+        } = logData;
+        console.log("createdAtRemaining", createdAtRemaining);
+        console.log("callCloseTimeStatus", callCloseTimeStatus);
+
+        if (
+          createdAtStatus !== "timeout" &&
+          attendTimeStatus === "not set"
+        ) {
+          setcallCloseTimeRemaining(createdAtRemaining);
+
+         
+          AutostartTimer(createdAtRemaining);
+        } 
+         if (attendTimeStatus === "remaining" && attendTimeRemaining) {
+          console.log(123);
+          handleCorrectClick("correct1", "cross1");
+          setcallCloseTimeRemaining(timeFromCreatedToAttend);
+          AutostartTimer(timeFromCreatedToAttend,true);
+          AutostartTimer2(attendTimeRemaining)
+          setTimer(attendTimeRemaining); 
+        } 
+        if (
+          createdAtStatus === "timeout" &&
+          attendTimeStatus === "not set"
+        ) {
+          AutostartTimer("00:00",true);
+        }
+        console.log("callCloseTimeRemaining:", createdAtRemaining);
+        console.log("callCloseTimeStatus:", callCloseTimeStatus);
+
+        // Handle timer update
+        if (callCloseTimeRemaining !== undefined) {
+          setcallCloseTimeRemaining(createdAtRemaining);
+          // setTimer(callCloseTimeRemaining); // Update timer based on the response
+        } else {
+          console.log("No valid callCloseTimeRemaining found");
+          // setTimer("00:00"); // Default value if no remaining time found
+        }
+      } else {
+        console.log("No data found in response");
+      }
+    } catch (error) {
+      console.error("Error fetching log times:", error); // Improve error logging
+    }
+  };
+
+  const updateCreatelogTimes = async (data) => {
+    try {
+      const res = await axios.put(
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/attendants/update-createlog-times/${DataEmp}/${
+          upcomings[0]._id
+        }`,
+       data
+      );
+      setTimer(res.data);
+      
+     await logTimes(DataEmp);
+      console.log(res.data);
+    } catch (error) {
+      console.log("Error updating create log times:", error);
+    }
+  };
+
+
+
+  useEffect(() => {
+    // Set up the interval to call logTimes every 10 seconds
+    const intervalId = setInterval(() => {
+      logTimes(DataEmp);
+    }, 10000); // 10,000 milliseconds = 10 seconds
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [DataEmp]); // 10,000 milliseconds = 10 seconds
+
+  // Watch for changes in Timing only, not Timing[0].callCloseTimeRemaining
+
+  // useEffect(() => {
+  //   updateCreatelogTimes();
+  // }, []);
   const getData = async () => {
     try {
       const res = await axios.get(
@@ -705,7 +1030,13 @@ function ClientDetails() {
       setClientIdInfo(upcomings[0].ClientId);
     }
   }, [upcomings]);
+  console.log("done", callCloseTimeRemaining);
 
+
+
+
+
+  
   return (
     <div className="flex flex-col h-screen">
       <div className="flex items-center p-4 lg:p-6 bg-custom-bg">
@@ -794,11 +1125,13 @@ function ClientDetails() {
                       <td className="py-2 px-4 text-xs">
                         {value.ClientProject}
                       </td>
-                      <td className="py-2 px-4 text-xs font-semibold">
-                        {formatTime(timeLeft)}
+                      <td className="py-2 px-4 text-xs font-semibold" id="timer-display">
+                      {/* 00:00 */}
                       </td>
-                      <td className="py-2 px-4 text-xs font-semibold text-center">
-                        {time === 0 ? "00 : 00" : formatTime(time)}
+                      <td className="py-2 px-4 text-xs font-semibold text-center" id="timer2-display">
+                        {/* {time === 0 ? "00 : 00" : formatTime(time)} */}
+                        
+
                       </td>
                       <td className="py-2 px-4 text-xs font-semibold text-center">
                         {EndCounter === 0 ? "00 : 00" : EndCounter}
@@ -807,9 +1140,13 @@ function ClientDetails() {
                         <div className="flex justify-around">
                           <button
                             className="text-green-500 mr-2"
-                            onClick={() =>
-                              handleCorrectClick("correct1", "cross1")
-                            }>
+                            onClick={() => {
+                              handleCorrectClick("correct1", "cross1");
+                              updateCreatelogTimes({
+                                attendTime: true,
+                                callCloseTime: false,
+                              });
+                            }}>
                             {iconState.correct1 ? "✓" : ""}
                           </button>
                           <button
@@ -819,8 +1156,16 @@ function ClientDetails() {
                                 handleCrossClick("correct1", "cross1");
                               }
                             }}>
-                            {iconState.cross1 ? (
-                              <span onClick={() => rejectMeetingfun(IdEmp)}>
+                            {iconState.cross1  ? (
+                              <span onClick={() =>{
+                              
+                              rejectMeetingfun(IdEmp);
+                              updateCreatelogTimes({
+                                attendTime: false,
+                                callCloseTime: true,
+                              });
+                              }
+                              }>
                                 ✕
                               </span>
                             ) : (
@@ -1608,3 +1953,4 @@ function ClientDetails() {
 }
 
 export default ClientDetails;
+
