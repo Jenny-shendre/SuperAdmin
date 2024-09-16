@@ -238,7 +238,7 @@ function MyTeamMang() {
     <div className="p-4 pt-0">
       <div
         style={{ gap: "20px", paddingTop: "30px", fontFamily: "Manrope" }}
-        className="headLn p-4 overflow-x-auto flex flex-col gap-9 bg-custom-bg;
+        className="headLn p-4  overflow-x-auto flex flex-col gap-9 bg-custom-bg;
         ">
         <h1
           className=" font-bold flex items-center gap-1 font-[Manrope]"
@@ -286,12 +286,29 @@ function MyTeamMang() {
         <TabBar activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
       <br />
+
+      
       {loading ? (
         <div className="flex justify-center items-center">
           <p>Loading...</p>
         </div>
       ) : (
-        <div className="Cards gap-8">
+        <div
+        className={`CardsContainer gap-8 ${
+          dataNote.length > 2? 'overflow-y-auto' : ''
+        }`}
+        style={{
+          maxHeight: dataNote.length > 2? 'calc(2 * 272px + 20px)' : 'auto', // Limit height if more than 4 cards
+          overflowY: dataNote.length > 2? 'auto' : 'unset',
+          paddingBottom:'70px',
+          scrollbarWidth: 'none', 
+          msOverflowStyle: 'none',
+        }} >
+        {/* // <div className="Cards gap-8 "> */}
+        {/* //  style={ */}
+        {/* //  {maxHeight: '500px', overflowY: 'auto', } 
+        //  }>  */}
+
           <div className="flex flex-wrap gap-8 mb-[30px]">
             {dataNote.length > 0 ? (
               dataNote.map((note) => (
