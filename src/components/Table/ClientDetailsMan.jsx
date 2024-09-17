@@ -108,7 +108,7 @@ function ClientDetailsMang() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md mt-8 overflow-x-auto">
+        <div className="bg-white rounded-lg shadow-md mt-8 overflow-x-auto" style={{maxHeight:'300px', overflowY:'scroll'}}>
           <table className="w-full table-auto">
             <thead>
               <tr className="bg-[#D7D7D7] text-[#4B4B4B] text-[Manrope] text-sm leading-normal">

@@ -348,7 +348,7 @@ const Table6 = () => {
                 lineHeight: "21.86px",
                 fontSize: "16px",
               }}
-              className="bg-[#3D2314] text-sm text-white px-[23px] py-[9px] rounded-full w-full h-[50px] flex "
+              className="bg-[#3D2314] text-xs text-white px-[9px] py-[14px] rounded-full w-full h-[50px] flex "
               onClick={() => setShowAddExecutivePopup2(true)}>
               <MdAdd className=" text-[24px]" />
               Add Executive
@@ -363,7 +363,7 @@ const Table6 = () => {
                 lineHeight: "21.86px",
                 fontSize: "16px",
               }}
-              className="border-2 border-[#3D2314] px-[24px] py-[7px] text-sm sm:text-2xl rounded-full w-[208px] w-full h-[50px] flex"
+              className="border-2 border-[#3D2314] px-[7px] py-[14px] text-xs xs:text-2xl rounded-full w-[208px] w-full h-[50px] flex justify-center item-center"
               onClick={() => setShowAssignManagerPopup2(true)}>
               <TbReload className="color-[#3D2314]  text-[24px]" />
               Assign Manager
@@ -391,7 +391,7 @@ const Table6 = () => {
                   lineHeight: "32.78px",
                   color: "#323232",
                 }}>
-                {teamData.teamName}
+                {teamData.teamName} 
               </h2>
               <p
                 className="text-sm text-center [#313131] teamName"
@@ -405,7 +405,7 @@ const Table6 = () => {
               </p>
             </div>
             <div className="outer-wrapperT overflow-x-auto text-center flex items-center justify-center ">
-              <div className="table-wrapperT w-full" >
+              <div className=" w-full" style={{height:'230px', overflowY:'scroll', overflowX:'hidden'}}>
                 <table className="w-full">
                   <thead className="team1">
                     <tr
