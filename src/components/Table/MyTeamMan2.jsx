@@ -189,7 +189,7 @@ function ClientHistory() {
               className="outer-wrapperB tableDiv">
               <table className="w-auto h-auto bg-white shadow-md overflow-hidden font-[Manrope] wrapperB">
                 <div className="outer-wrapper">
-                  <div className="table-wrapper">
+                  <div style={{maxHeight:'300px', overflowY:'scroll'}}>
                     <thead className="font-[Manrope]">
                       <tr className="text-center text-[#4B4B4B] h-[36px] font-[Manrope]">
                         <th

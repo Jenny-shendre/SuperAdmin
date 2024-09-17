@@ -261,7 +261,7 @@ function MyTeamMang() {
         </h1>
       </div>
       <br />
-      <div className="flex flex-row items-center justify-center">
+      <div className="flex flex-row items-center justify-center" >
         <div className="flex justify-start items-center  lg:block relative lg:w-[36rem] rounded-full">
           <input
             className="searchBox w-full py-2 px-12 rounded-full"
@@ -309,7 +309,7 @@ function MyTeamMang() {
         {/* //  {maxHeight: '500px', overflowY: 'auto', } 
         //  }>  */}
 
-          <div className="flex flex-wrap gap-8 mb-[30px]">
+          <div className="flex flex-wrap gap-8 mb-[30px]" style={{maxHeight:'230px', overflowY:'scroll'}}>
             {dataNote.length > 0 ? (
               dataNote.map((note) => (
                 <div

@@ -90,7 +90,7 @@ const Table12 = () => {
             fontSize: "24px",
             fontWeight: "500",
           }}>
-          {employeeId}
+          {employeeId} 
         </span>
       </div>
 
@@ -135,7 +135,7 @@ const Table12 = () => {
 
           <table className="w-[850px] ">
             <div className="outer-wrapperK">
-              <div className="table-wrapperK">
+              <div style={{maxHeight:'300px', overflowY:'scroll'}}>
                 <thead className="team1">
                   <tr
                     className="text-center text-sm font-medium [#5C5C5C] bg-[#E8E8E8] h-[28px]"
