@@ -1077,7 +1077,7 @@ const [meetStart,setMeetStart] = useState(false)
             <h2 className="text-lg font-semibold mb-4">
               Upcoming Appointments
             </h2>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto" >
               <table className="w-full bg-white rounded-lg shadow-sm">
                 <thead className="bg-[#D7D7D7]">
                   <tr>
@@ -1127,9 +1127,10 @@ const [meetStart,setMeetStart] = useState(false)
                       </td>
                       <td className="py-2 px-4 text-xs font-semibold" id="timer-display">
                       {/* 00:00 */}
+
                       </td>
                       <td className="py-2 px-4 text-xs font-semibold text-center" id="timer2-display">
-                        {/* {time === 0 ? "00 : 00" : formatTime(time)} */}
+                        {time === 0 ? "00 : 00" : formatTime(time)}
                         
 
                       </td>
@@ -1144,7 +1145,7 @@ const [meetStart,setMeetStart] = useState(false)
                               handleCorrectClick("correct1", "cross1");
                               updateCreatelogTimes({
                                 attendTime: true,
-                                callCloseTime: false,
+                                callCloseTime: true,
                               });
                             }}>
                             {iconState.correct1 ? "✓" : ""}
@@ -1187,7 +1188,7 @@ const [meetStart,setMeetStart] = useState(false)
         </div>
 
         {/* Search Bar */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-6 headLn">
           <div className="relative w-full max-w-2xl">
             <input
               className="w-full py-2 px-12 rounded-full shadow-md"
@@ -1210,7 +1211,7 @@ const [meetStart,setMeetStart] = useState(false)
             <h2 className="text-lg font-semibold mb-4">Client's History</h2>
             <div
               className="wrapperT"
-              style={{ height: "200px", overflowY: "scroll" }}>
+              style={{ height: "120px", overflowY: "scroll" }}>
               <table className="w-full bg-white shadow-sm rounded-lg">
                 <thead className="bg-[#E8E8E8] w-full">
                   <tr>

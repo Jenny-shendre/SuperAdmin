@@ -7,6 +7,15 @@
   animation: scaler 2s linear infinite;
 }
 
+
+@media screen and (max-width: 430px) {
+  .mobileClient{
+     display: none !important;
+  }
+  
+}
+
+
 @keyframes scaler {
   50% {
     transform: scale(1.2);
