@@ -19,14 +19,23 @@ import edit2 from "../../assets/akar-icons_edit (3).png";
 import { Link } from "react-router-dom";
 
 function ClientDetails() {
+  const getStoredTime = () => {
+    const storedTime = localStorage.getItem("timeLeft");
+    return storedTime ? parseInt(storedTime, 10) : 300000;
+  };
+  const getStartTime = () => {
+    const storedTime = localStorage.getItem("start_time");
+    return storedTime ? parseInt(storedTime, 10) : 0;
+  };
+
   const [showPopup, setShowPopup] = useState(false);
   const [currentNote, setCurrentNote] = useState(null);
   const [data, setdata] = useState([]);
   const [upcomings, setupcoming] = useState([]);
   const [valueinput, setvalueinput] = useState("");
-  const [timeLeft, setTimeLeft] = useState(300000);
+  const [timeLeft, setTimeLeft] = useState(getStoredTime());
   const [timerActive, setTimerActive] = useState(true);
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(getStartTime());
   const [isActive, setIsActive] = useState(false); // Timer status
   const [intervalId, setIntervalId] = useState(null); // To keep track of the interval ID
   const [EndCounter, setEndCounter] = useState(0);
@@ -68,8 +77,8 @@ function ClientDetails() {
   const [lastDatas, setlastDatas] = useState([]);
   const [clientNameData, setclientNameData] = useState("");
   const [ProjectNameData, setProjectNameData] = useState("");
-  const [Timerget, setTimer] = useState('');
-  const [Timing, setTiming] = useState([ ]);
+  const [Timerget, setTimer] = useState("");
+  const [Timing, setTiming] = useState([]);
 
   const [attendTime, setattendTime] = useState(false);
 
@@ -144,6 +153,10 @@ function ClientDetails() {
   const [timeResponseStart, settimeResponseStart] = useState(""); // state for error message
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [DataEmp, setDataEmp] = useState("");
+  const [checktimer, setchecktimer] = useState(
+    localStorage.getItem("acceptMeeting")
+  );
+  const [setreject, setsetreject] = useState(false);
   // console.log(array);
 
   const resetCountdownTimer = () => {
@@ -180,7 +193,11 @@ function ClientDetails() {
     if (timerActive && timeLeft > 0) {
       // Update the countdown every second
       const interval = setInterval(() => {
-        setTimeLeft((prevTime) => Math.max(prevTime - 1000, 0));
+        setTimeLeft((prevTime) => {
+          const newTime = Math.max(prevTime - 1000, 0);
+          localStorage.setItem("timeLeft", newTime); // Store the updated time in localStorage
+          return newTime;
+        });
       }, 1000);
 
       // Cleanup function to clear the interval
@@ -190,25 +207,38 @@ function ClientDetails() {
       console.log("Rejecting");
       console.log(Date.now());
       setTimerActive(false);
+      localStorage.removeItem("timeLeft"); // Clear the stored time when the timer expires
     }
   }, [timerActive, timeLeft]);
 
   useEffect(() => {
     if (isActive) {
-      // Start the timer
-      const id = setInterval(() => {
-        setTime((prevTime) => prevTime + 1000);
-      }, 1000);
-      setIntervalId(id);
+      // Agar interval pehle se nahi hai to start karo
+      if (!intervalId) {
+        const id = setInterval(() => {
+          setTime((prevTime) => {
+            const newTime = prevTime + 1000;
+            localStorage.setItem("start_time", newTime); // Local storage mein time update karo
+            return newTime;
+          });
+        }, 1000);
+        setIntervalId(id); // IntervalId ko set karo
+      }
     } else {
-      // Stop the timer
-      clearInterval(intervalId);
+      // Timer stop karo
+      if (intervalId) {
+        clearInterval(intervalId);
+        setIntervalId(null); // Interval ID ko reset karo
+      }
     }
 
-    // upcoming(IdEmp);
-
-    return () => clearInterval(intervalId);
-  }, [isActive]);
+    return () => {
+      // Cleanup for unmounting
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [isActive, intervalId]);
 
   const handleProjectChange = (projectName) => {
     setProject(projectName);
@@ -368,6 +398,34 @@ function ClientDetails() {
     }));
   };
 
+  const timeResponse = async () => {
+    const currentDate = new Date();
+    const formattedDate = format(currentDate, "mm:ss");
+    let timeResponses = localStorage.getItem("StartTimeBackup");
+
+    console.log("StartDateTime.......", timeResponses);
+    console.log("EndDateTime.......", formattedDate);
+    console.log("ClientID.......", ClientID);
+
+    try {
+      const res = await axios.put(
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/timeSheet/timeResponse/${ClientID}`,
+        {
+          StartTime: timeResponses,
+          EndTime: formattedDate,
+        }
+      );
+      setCalRes("response", res);
+      console.log("response", res);
+      console.log("response", ClientID);
+      localStorage.removeItem("StartTimeBackup");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const historyData = async (employeeId) => {
     try {
       const res = await axios.get(
@@ -390,11 +448,26 @@ function ClientDetails() {
       );
       setupcoming(res.data);
       array.push(res.data);
+      console.log(res);
       // console.log("setupcoming", res.data);
-      const currentDate = new Date();
-      const formattedDate = format(currentDate, "mm:ss");
-      setRes(formattedDate);
-      resetCountdownTimer();
+      // this if statement is using the Date length is > 0
+      if (res.data.length > 0) {
+        // this timer code is using the calculated the Response time
+        const currentDate = new Date();
+        const formattedDate = format(currentDate, "mm:ss");
+        let localData = localStorage.getItem("StartTimeBackup");
+        console.log("StartTimeBackup", localData);
+        if (!localData) {
+          localStorage.setItem("StartTimeBackup", formattedDate);
+        }
+        setRes(formattedDate);
+        console.log("res=====", res);
+      } else {
+        localStorage.removeItem("StartTimeBackup");
+      }
+      if (res.data.length === 0) {
+        resetCountdownTimer();
+      }
       // setIsActive(true); // Start the regular timer
     } catch (error) {
       console.log(error);
@@ -409,6 +482,10 @@ function ClientDetails() {
         }/api/clientManagement/reject/${employeeId}`
       );
       console.log("reject", res);
+      // localStorage.setItem("StartTimeBackup", formattedDate);
+      setsetreject(true);
+      localStorage.removeItem("StartTimeBackup");
+      localStorage.removeItem("start_time");
     } catch (error) {
       console.log(error);
     }
@@ -421,11 +498,68 @@ function ClientDetails() {
         }/api/clientManagement/accept/${employeeId}`
       );
       console.log(res.data);
+      // this timer code is using the calculated the meeting time
+      const currentDate = new Date();
+      const formattedDate = format(currentDate, "dd MMM | hh:mm a");
+      let localData = localStorage.getItem("acceptMeeting");
+      console.log("acceptMeeting", localData);
+      if (!localData) {
+        localStorage.setItem("acceptMeeting", formattedDate);
+        timeResponse();
+      }
     } catch (error) {
       console.log(error);
     }
   };
+  const TimeCal = async (ClientID) => {
+    console.log("TimeCal starting");
 
+    // Fetch start date time from localStorage
+    const StartDateTime = localStorage.getItem("acceptMeeting");
+    if (!StartDateTime) {
+      console.log("StartDateTime not found in localStorage.");
+      return;
+    }
+
+    // Ensure ClientID is passed or fetched from localStorage
+    if (!ClientIdInfo) {
+      console.error("ClientID is missing!");
+      return;
+    }
+
+    // Current Date and Time formatting
+    const currentDate = new Date();
+    const EndDateTime = format(currentDate, "dd MMM | hh:mm a");
+
+    // Log Start and End Times
+    console.log("StartDateTime:", StartDateTime);
+    console.log("EndDateTime:", EndDateTime);
+    console.log("ClientID:", ClientIdInfo);
+
+    try {
+      // Making the API call to update the timeline
+      const res = await axios.put(
+        `${
+          import.meta.env.VITE_BACKEND
+        }/api/timeSheet/timeline/${ClientIdInfo}`,
+        {
+          StartTime: StartDateTime,
+          EndTime: EndDateTime,
+        }
+      );
+      console.log("API Response:", res);
+
+      // Handle the response accordingly
+      setCalRes("response", res);
+
+      // Clear localStorage values
+      localStorage.removeItem("acceptMeeting");
+      localStorage.removeItem("start_time");
+    } catch (error) {
+      // Handle API call failure
+      console.error("API call failed:", error);
+    }
+  };
   const meetingOvers = async (employeeId) => {
     try {
       const res = await axios.put(
@@ -434,44 +568,6 @@ function ClientDetails() {
         }/api/clientManagement/meetingOver/${employeeId}`
       );
       console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const TimeCal = async (StartDateTime, EndDateTime) => {
-    console.log("StartDateTime.......", StartDateTime);
-    console.log("EndDateTime.......", EndDateTime);
-    try {
-      const res = await axios.put(
-        `${import.meta.env.VITE_BACKEND}/api/timeSheet/timeline/${ClientID}`,
-        {
-          StartTime: StartDateTime,
-          EndTime: EndDateTime,
-        }
-      );
-      setCalRes("response", res);
-      console.log("response", ClientID);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const timeResponse = async () => {
-    const currentDate = new Date();
-    const formattedDate = format(currentDate, "mm:ss");
-    try {
-      const res = await axios.put(
-        `${
-          import.meta.env.VITE_BACKEND
-        }/api/timeSheet/timeResponse/${ClientID}`,
-        {
-          StartTime: resstart,
-          EndTime: formattedDate,
-        }
-      );
-      setCalRes("response", res);
-      console.log("response", ClientID);
     } catch (error) {
       console.log(error);
     }
@@ -508,6 +604,15 @@ function ClientDetails() {
     console.log("rejectMeeting");
   };
 
+  useEffect(() => {
+    if (checktimer) {
+      stopTimer();
+      startTimer();
+      setIconState({ correct1: false, cross1: false });
+      console.log("pls started");
+    }
+  }, []);
+
   const handleClick = () => {
     stopTimer();
     startTimer();
@@ -538,15 +643,18 @@ function ClientDetails() {
     }
   }, [IdEmp, isSubmitted]);
 */
-  // useEffect(() => {
-  //   console.log("Formatted Time Left:", formatTime(timeLeft).trim()); // Debug log
+  useEffect(() => {
+    console.log("Formatted Time Left:", formatTime(timeLeft).trim()); // Debug log
 
-  //   if (timeLeft === 0) {
-  //     console.log("Timer hit 00:00, calling functions"); // Debug log
-  //     historyData(IdEmp);
-  //     upcoming(IdEmp);
-  //   }
-  // }, [timeLeft]);
+    if (timeLeft === 0) {
+      if (timeLeft === 0) {
+        console.log("Timer hit 00:00, calling functions"); // Debug log
+        rejectMeeting(IdEmp);
+      }
+      historyData(IdEmp);
+      upcoming(IdEmp);
+    }
+  }, [timeLeft]);
 
   useEffect(() => {
     console.log(isSubmitted);
@@ -568,24 +676,17 @@ function ClientDetails() {
         }
       }
     }
-  }, [IdEmp, isSubmitted, createStatus, upcomings.length]); // Keep dependencies simple, just track variables, not expressions
+  }, [
+    IdEmp,
+    isSubmitted,
+    createStatus,
+    upcomings.length,
+    checktimer,
+    setreject,
+  ]); // Keep dependencies simple, just track variables, not expressions
   // Trigger effect when upcomings length changes
 
   const handleSubmit = async () => {
-    console.log(
-      "clientName",
-      clientName,
-      upcomings?.[0]?.ClientProject,
-      clientNameData,
-      "&&",
-      upcomings?.[0]?.ClientProject,
-      ProjectNameData,
-      "&&",
-      briefing,
-      "&&",
-      clientConversation
-    );
-
     console.log("projects", project);
     console.log("clientNames", clientName);
     if (clientName && project && briefing && clientConversation) {
@@ -621,6 +722,7 @@ function ClientDetails() {
         historyData(IdEmp);
         upcoming(IdEmp);
         setIsSubmitted(false);
+        TimeCal();
       } catch (error) {
         console.error("Error creating Note:", error);
         setCreateStatus("Error Creating Note");
@@ -632,7 +734,8 @@ function ClientDetails() {
       setErrorMessage("Please fill in all fields.");
     }
   };
-  console.log("Please fill in all fields", showAddNotePopup);
+
+  // console.log("Please fill in all fields", showAddNotePopup);
 
   useEffect(() => {
     if (upcomings.length > 0) {
@@ -757,50 +860,50 @@ function ClientDetails() {
     const currentDate = new Date().getTime();
     return currentDate - new Date(lastUpdateDate).getTime() >= oneMonthInMillis;
   };
-
-  
-
+  /*
   let timer; // Define the timer outside the function to maintain its reference globally
 
   function AutostartTimer(createdAtRemaining, stopImmediately = false) {
     // Split the "createdAtRemaining" string into minutes and seconds
-    const [minutes, seconds] = createdAtRemaining.split(':').map(Number); // Convert to numbers
-  
+    const [minutes, seconds] = createdAtRemaining.split(":").map(Number); // Convert to numbers
+
     let totalTime = minutes * 60 + seconds; // Convert total time to seconds
     let elapsedTime = 0;
     const timerDisplay = document.getElementById("timer-display"); // Get the timer display element
-  
+
     // Function to update the timer display
     function updateDisplay(remainingMinutes, remainingSeconds) {
-      remainingMinutes = remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
-      remainingSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
-  
+      remainingMinutes =
+        remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
+      remainingSeconds =
+        remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
+
       timerDisplay.innerText = `${remainingMinutes}:${remainingSeconds}`;
     }
-  
+
     // Function to stop the timer
     function stopTimer() {
       clearInterval(timer);
       console.log("Timer stopped.");
     }
-  
+
     // If stopImmediately is true, stop the timer and return the remaining time
     if (stopImmediately) {
       stopTimer(); // Stop the timer
-  
+
       // Return the remaining time formatted as mm:ss
       let remainingMinutes = Math.floor(totalTime / 60);
       let remainingSeconds = totalTime % 60;
       updateDisplay(remainingMinutes, remainingSeconds);
-  
+
       return `${remainingMinutes}:${remainingSeconds}`;
     }
-  
+
     // Function to start the timer and update the display
     function start() {
       elapsedTime++;
       let remainingTime = totalTime - elapsedTime;
-  
+
       if (remainingTime <= 0) {
         stopTimer();
         updateDisplay(0, 0); // Set timer to 00:00 when it reaches zero
@@ -809,60 +912,63 @@ function ClientDetails() {
         let remainingSeconds = remainingTime % 60;
         // updateDisplay(remainingMinutes, remainingSeconds);
 
-        remainingMinutes = remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
-        remainingSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
-    
-      if(!stopImmediately)  timerDisplay.innerText = `${remainingMinutes}:${remainingSeconds}`;
+        remainingMinutes =
+          remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
+        remainingSeconds =
+          remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
 
+        if (!stopImmediately)
+          timerDisplay.innerText = `${remainingMinutes}:${remainingSeconds}`;
       }
     }
-  
+
     // Start the timer and update the display every second
     timer = setInterval(start, 1000); // Call start every second (1000ms)
   }
-
 
   let timer2; // Define the timer2 outside the function to maintain its reference globally
 
   function AutostartTimer2(createdAtRemaining, stopImmediately = false) {
     // Split the "createdAtRemaining" string into minutes and seconds
-    const [minutes, seconds] = createdAtRemaining.split(':').map(Number); // Convert to numbers
-  
+    const [minutes, seconds] = createdAtRemaining.split(":").map(Number); // Convert to numbers
+
     let totalTime = minutes * 60 + seconds; // Convert total time to seconds
     let elapsedTime = 0;
     const timerDisplay = document.getElementById("timer2-display"); // Get the timer2 display element
-  
+
     // Function to update the timer2 display
     function updateDisplay(remainingMinutes, remainingSeconds) {
-      remainingMinutes = remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
-      remainingSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
-  
+      remainingMinutes =
+        remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes;
+      remainingSeconds =
+        remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
+
       timerDisplay.innerText = `${remainingMinutes}:${remainingSeconds}`;
     }
-  
+
     // Function to stop the timer2
     function stopTimer() {
       clearInterval(timer2);
       console.log("Timer stopped.");
     }
-  
+
     // If stopImmediately is true, stop the timer2 and return the remaining time
     if (stopImmediately) {
       stopTimer(); // Stop the timer2
-  
+
       // Return the remaining time formatted as mm:ss
       let remainingMinutes = Math.floor(totalTime / 60);
       let remainingSeconds = totalTime % 60;
       updateDisplay(remainingMinutes, remainingSeconds);
-  
+
       return `${remainingMinutes}:${remainingSeconds}`;
     }
-  
+
     // Function to start the timer2 and update the display
     function start() {
       elapsedTime++;
       let remainingTime = totalTime + elapsedTime;
-  
+
       if (remainingTime <= 0) {
         stopTimer();
         updateDisplay(0, 0); // Set timer2 to 00:00 when it reaches zero
@@ -872,18 +978,13 @@ function ClientDetails() {
         updateDisplay(remainingMinutes, remainingSeconds);
       }
     }
-  
+
     // Start the timer2 and update the display every second
     timer2 = setInterval(start, 1000); // Call start every second (1000ms)
   }
-
-
-
-
-
-
-const [meetStart,setMeetStart] = useState(false)
-
+*/
+  const [meetStart, setMeetStart] = useState(false);
+  /*
   const logTimes = async (ID) => {
     console.log("DataEmp", ID);
     try {
@@ -911,8 +1012,6 @@ const [meetStart,setMeetStart] = useState(false)
 
         // Handle call timeout logic
 
-        
-
         const {
           callCloseTimeStatus,
           callCloseTimeRemaining,
@@ -920,33 +1019,26 @@ const [meetStart,setMeetStart] = useState(false)
           attendTimeStatus,
           createdAtStatus,
           timeFromCreatedToAttend,
-          attendTimeRemaining
+          attendTimeRemaining,
         } = logData;
         console.log("createdAtRemaining", createdAtRemaining);
         console.log("callCloseTimeStatus", callCloseTimeStatus);
 
-        if (
-          createdAtStatus !== "timeout" &&
-          attendTimeStatus === "not set"
-        ) {
+        if (createdAtStatus !== "timeout" && attendTimeStatus === "not set") {
           setcallCloseTimeRemaining(createdAtRemaining);
 
-         
           AutostartTimer(createdAtRemaining);
-        } 
-         if (attendTimeStatus === "remaining" && attendTimeRemaining) {
+        }
+        if (attendTimeStatus === "remaining" && attendTimeRemaining) {
           console.log(123);
           handleCorrectClick("correct1", "cross1");
           setcallCloseTimeRemaining(timeFromCreatedToAttend);
-          AutostartTimer(timeFromCreatedToAttend,true);
-          AutostartTimer2(attendTimeRemaining)
-          setTimer(attendTimeRemaining); 
-        } 
-        if (
-          createdAtStatus === "timeout" &&
-          attendTimeStatus === "not set"
-        ) {
-          AutostartTimer("00:00",true);
+          AutostartTimer(timeFromCreatedToAttend, true);
+          AutostartTimer2(attendTimeRemaining);
+          setTimer(attendTimeRemaining);
+        }
+        if (createdAtStatus === "timeout" && attendTimeStatus === "not set") {
+          AutostartTimer("00:00", true);
         }
         console.log("callCloseTimeRemaining:", createdAtRemaining);
         console.log("callCloseTimeStatus:", callCloseTimeStatus);
@@ -966,27 +1058,23 @@ const [meetStart,setMeetStart] = useState(false)
       console.error("Error fetching log times:", error); // Improve error logging
     }
   };
-
+*/
   const updateCreatelogTimes = async (data) => {
     try {
       const res = await axios.put(
         `${
           import.meta.env.VITE_BACKEND
-        }/api/attendants/update-createlog-times/${DataEmp}/${
-          upcomings[0]._id
-        }`,
-       data
+        }/api/attendants/update-createlog-times/${DataEmp}/${upcomings[0]._id}`,
+        data
       );
       setTimer(res.data);
-      
-     await logTimes(DataEmp);
+
+      await logTimes(DataEmp);
       console.log(res.data);
     } catch (error) {
       console.log("Error updating create log times:", error);
     }
   };
-
-
 
   useEffect(() => {
     // Set up the interval to call logTimes every 10 seconds
@@ -1030,13 +1118,8 @@ const [meetStart,setMeetStart] = useState(false)
       setClientIdInfo(upcomings[0].ClientId);
     }
   }, [upcomings]);
-  console.log("done", callCloseTimeRemaining);
+  // console.log("done", callCloseTimeRemaining);
 
-
-
-
-
-  
   return (
     <div className="flex flex-col h-screen">
       <div className="flex items-center p-4 lg:p-6 bg-custom-bg">
@@ -1077,7 +1160,7 @@ const [meetStart,setMeetStart] = useState(false)
             <h2 className="text-lg font-semibold mb-4">
               Upcoming Appointments
             </h2>
-            <div className="overflow-x-auto" >
+            <div className="overflow-x-auto">
               <table className="w-full bg-white rounded-lg shadow-sm">
                 <thead className="bg-[#D7D7D7]">
                   <tr>
@@ -1125,14 +1208,16 @@ const [meetStart,setMeetStart] = useState(false)
                       <td className="py-2 px-4 text-xs">
                         {value.ClientProject}
                       </td>
-                      <td className="py-2 px-4 text-xs font-semibold" id="timer-display">
-                      {/* 00:00 */}
-
+                      <td
+                        className="py-2 px-4 text-xs font-semibold"
+                        id="timer-display">
+                        {/* 00:00 */}
+                        {formatTime(timeLeft)}
                       </td>
-                      <td className="py-2 px-4 text-xs font-semibold text-center" id="timer2-display">
+                      <td
+                        className="py-2 px-4 text-xs font-semibold text-center"
+                        id="timer2-display">
                         {time === 0 ? "00 : 00" : formatTime(time)}
-                        
-
                       </td>
                       <td className="py-2 px-4 text-xs font-semibold text-center">
                         {EndCounter === 0 ? "00 : 00" : EndCounter}
@@ -1157,16 +1242,15 @@ const [meetStart,setMeetStart] = useState(false)
                                 handleCrossClick("correct1", "cross1");
                               }
                             }}>
-                            {iconState.cross1  ? (
-                              <span onClick={() =>{
-                              
-                              rejectMeetingfun(IdEmp);
-                              updateCreatelogTimes({
-                                attendTime: false,
-                                callCloseTime: true,
-                              });
-                              }
-                              }>
+                            {iconState.cross1 ? (
+                              <span
+                                onClick={() => {
+                                  rejectMeetingfun(IdEmp);
+                                  updateCreatelogTimes({
+                                    attendTime: false,
+                                    callCloseTime: true,
+                                  });
+                                }}>
                                 ✕
                               </span>
                             ) : (
@@ -1954,4 +2038,5 @@ const [meetStart,setMeetStart] = useState(false)
 }
 
 export default ClientDetails;
+
 
