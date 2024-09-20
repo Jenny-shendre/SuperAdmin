@@ -213,7 +213,7 @@ function ClientDetails() {
 
   useEffect(() => {
     if (isActive) {
-      // Agar interval pehle se nahi hai to start karo
+      // if interval is not there then start this 
       if (!intervalId) {
         const id = setInterval(() => {
           setTime((prevTime) => {
@@ -222,13 +222,13 @@ function ClientDetails() {
             return newTime;
           });
         }, 1000);
-        setIntervalId(id); // IntervalId ko set karo
+        setIntervalId(id); // Set IntervalId 
       }
     } else {
       // Timer stop karo
       if (intervalId) {
         clearInterval(intervalId);
-        setIntervalId(null); // Interval ID ko reset karo
+        setIntervalId(null); // Reset Interval ID 
       }
     }
 
