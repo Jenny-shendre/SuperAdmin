@@ -644,7 +644,7 @@ function ClientDetails() {
   }, [IdEmp, isSubmitted]);
 */
   useEffect(() => {
-    console.log("Formatted Time Left:", formatTime(timeLeft).trim()); // Debug log
+    // console.log("Formatted Time Left:", formatTime(timeLeft).trim()); // Debug log
 
     if (timeLeft === 0) {
       if (timeLeft === 0) {
@@ -1099,7 +1099,7 @@ function ClientDetails() {
         }/api/customers/getCustomerV2/${clientIdData}`
       );
       setCustomerdata(res.data);
-      console.log("customer data", customerdata);
+      // console.log("customer data", customerdata);
     } catch (error) {
       console.log(error);
     }
@@ -1107,7 +1107,7 @@ function ClientDetails() {
 
   useEffect(() => {
     getData();
-    console.log("customer data2", customerdata);
+    // console.log("customer data2", customerdata);
   }, [showPopupEdit]);
 
   // console.log("customer id", clientIdData)

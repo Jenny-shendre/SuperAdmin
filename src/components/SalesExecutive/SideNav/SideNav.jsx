@@ -10,6 +10,7 @@ import Settings2 from "../../../assets/Settings.svg";
 import Logout2 from "../../../assets/logout.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../../utils/TokenUtils";
+import axios from "axios";
 
 const SideNav = () => {
   const location = useLocation();
@@ -22,11 +23,30 @@ const SideNav = () => {
     setActiveItem(item);
   };
 
-  const handleLogOut = () => {
-    logout();
-    window.location.reload();
-    navigate("/");
-    window.location.reload();
+  const handleLogOut = async () => {
+    try {
+
+      const token = localStorage.getItem('token'); // Replace 'token' with your actual token key
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND}/api/admin/logout`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the headers
+          },
+        }
+      );
+      console.log(res.data.message); // Optionally log the success message
+
+      logout();
+      window.location.reload();
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.log('Logout error:', error.response ? error.response.data : error.message);
+
+    }
   };
 
   useEffect(() => {
@@ -35,16 +55,16 @@ const SideNav = () => {
       navigate("/SalesExecutive/Client");
       setInitialLoad(false); // Disable initial load after the first load
     } else {
-      if(locationPath.startsWith("/SalesExecutive/Client")){
+      if (locationPath.startsWith("/SalesExecutive/Client")) {
         setActiveItem("Client");
       }
-      else if(locationPath.startsWith("/SalesExecutive/Notes")){
+      else if (locationPath.startsWith("/SalesExecutive/Notes")) {
         setActiveItem("Notes");
       }
-      else if(locationPath.startsWith("/SalesExecutive/Notes/IDHistory")){
+      else if (locationPath.startsWith("/SalesExecutive/Notes/IDHistory")) {
         setActiveItem("IDSales");
       }
-      else if(locationPath.startsWith("/SalesExecutive/SettingEx")){
+      else if (locationPath.startsWith("/SalesExecutive/SettingEx")) {
         setActiveItem("SettingEx");
 
       }
@@ -153,9 +173,9 @@ const SideNav = () => {
               className={`text-[#3D2314] font-medium flex flex-row gap-3  cursor-pointer w-auto  lg:w-52 p-2 lg:text-lg font-[Manrope]`}
               onClick={() => handleItemClick("SettingEx")}
             >
-             
-                <img src={Settings2} alt="" className="w-4 lg:w-auto" />
-             
+
+              <img src={Settings2} alt="" className="w-4 lg:w-auto" />
+
               Settings
             </li>
           </Link>
