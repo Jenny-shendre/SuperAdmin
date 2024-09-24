@@ -12,6 +12,7 @@ import Settings2 from "../../../assets/Settings.svg";
 import Logout2 from "../../../assets/logout.svg";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../../utils/TokenUtils";
+import axios from "axios";
 
 const SideNavM = () => {
   const location = useLocation();
@@ -24,11 +25,30 @@ const SideNavM = () => {
     setActiveItem(item);
   };
 
-  const handleLogOut = () => {
-    logout();
-    window.location.reload();
-    navigate("/");
-    window.location.reload();
+  const handleLogOut = async() => {
+    try {
+
+      const token = localStorage.getItem('token'); // Replace 'token' with your actual token key
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND}/api/admin/logout`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the headers
+          },
+        }
+      );
+      console.log(res.data.message); // Optionally log the success message
+
+      logout();
+      window.location.reload();
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.log('Logout error:', error.response ? error.response.data : error.message);
+
+    }
   };
 
   useEffect(() => {

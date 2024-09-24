@@ -236,7 +236,7 @@ const OverViewAdmin = () => {
       setChannelVisitors(channelData.numberOfChannelVisitors || 0);
       setTotalMeetings(meetingsData.totalMeetings || 0);
       setDealClosed(dealsClosed.totalClientConversion || 0);
-      setStaffOnline(stafOnline.totalStatus || 0);
+      setStaffOnline(stafOnline.totalOnline || 0);
       setBarData(graphData.data || []);
       setExecutiveData(topExecutive || []);
       setTeamData(topTeam || []);

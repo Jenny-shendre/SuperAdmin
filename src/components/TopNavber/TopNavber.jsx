@@ -14,11 +14,30 @@ const TopNav = () => {
     setclick((prev) => !prev);
   };
 
-  const handleLogOut = () => {
-    logout();
-    window.location.reload();
-    navigate("/");
-    window.location.reload();
+  const handleLogOut = async() => {
+    try {
+
+      const token = localStorage.getItem('token'); // Replace 'token' with your actual token key
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND}/api/admin/logout`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the headers
+          },
+        }
+      );
+      console.log(res.data.message); // Optionally log the success message
+
+      logout();
+      window.location.reload();
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.log('Logout error:', error.response ? error.response.data : error.message);
+
+    }
   };
 
   const [IdEmp, setIdEmp] = useState(
